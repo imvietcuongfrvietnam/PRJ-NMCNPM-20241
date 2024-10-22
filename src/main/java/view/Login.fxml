@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -16,57 +17,94 @@
             <Image url="@../../resources/Image/Background(1).png" />
          </image>
       </ImageView>
-      <Label layoutX="1040.0" layoutY="190.0" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.75);" textFill="WHITE" />
-      <Label layoutX="1310.0" layoutY="290.0" prefHeight="75.0" prefWidth="260.0" text="Đăng nhập" textAlignment="CENTER" textFill="#002060">
+      <Label layoutX="1040.0" layoutY="200.0" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.75);" textFill="WHITE" />
+      <Label layoutX="1310.0" layoutY="280.0" prefHeight="75.0" prefWidth="260.0" text="Đăng nhập" textAlignment="CENTER" textFill="#002060">
          <font>
             <Font name="System Bold" size="50.0" />
          </font>
       </Label>
-      <Label accessibleRole="IMAGE_VIEW" layoutX="1120.0" layoutY="415.0" prefHeight="75.0" prefWidth="75.0">
-         <cursor>
-            <Cursor fx:constant="CLOSED_HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1140.0" pickOnBounds="true" preserveRatio="true">
+      <StackPane layoutX="1120.0" layoutY="445.0">
+         <children>
+            <TextField prefHeight="75.0" prefWidth="640.0" promptText="Tên đăng nhập">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="75.0" />
+               </padding>
+            </TextField>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../../resources/Image/Username.png" />
                </image>
+               <StackPane.margin>
+                  <Insets left="12.5" />
+               </StackPane.margin>
             </ImageView>
-         </graphic>
-      </Label>
-      <TextField layoutX="1220.0" layoutY="415.0" prefHeight="75.0" prefWidth="540.0" promptText="Tên đăng nhập">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
-      <Label layoutX="1120.0" layoutY="515.0" prefHeight="75.0" prefWidth="75.0">
-         <graphic>
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1140.0" pickOnBounds="true" preserveRatio="true">
+         </children>
+      </StackPane>
+      <StackPane layoutX="1120.0" layoutY="545.0">
+         <children>
+            <TextField prefHeight="75.0" prefWidth="640.0" promptText="Mật khẩu">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="75.0" />
+               </padding>
+            </TextField>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../../resources/Image/Password.png" />
                </image>
+               <StackPane.margin>
+                  <Insets left="12.5" />
+               </StackPane.margin>
             </ImageView>
-         </graphic>
-      </Label>
-      <TextField layoutX="1220.0" layoutY="515.0" prefHeight="75.0" prefWidth="540.0" promptText="Mật khẩu">
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/Image/Visibility.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="587.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/Image/Visibility_off.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="1205.0" layoutY="380.0" prefHeight="40.0" prefWidth="450.0" text="Tài khoản hoặc mật khẩu không hợp lệ" textAlignment="CENTER" textFill="RED">
          <font>
-            <Font size="30.0" />
+            <Font size="25.0" />
          </font>
-      </TextField>
-      <Button layoutX="1120.0" layoutY="640.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="640.0" style="-fx-background-color: #002060;" text="Đăng nhập" textFill="WHITE">
+      </Label>
+      <Button layoutX="1120.0" layoutY="645.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="640.0" style="-fx-background-color: #002060;" text="Đăng nhập" textFill="WHITE">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Button>
-      <Label layoutX="1190.0" layoutY="777.5" prefWidth="260.0" text="Chưa có tài khoản?" textAlignment="CENTER">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Button layoutX="1460.0" layoutY="765.0" lineSpacing="1.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="230.0" style="-fx-background-color: #00000000;" text="Đăng ký ngay" textFill="BLUE" underline="true">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Button>
+      <StackPane layoutX="1240.0" layoutY="770.0" prefHeight="55.0" prefWidth="400.0">
+         <children>
+            <Label prefWidth="214.0" text="Chưa có tài khoản?" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </Label>
+            <Button lineSpacing="1.0" mnemonicParsing="false" style="-fx-background-color: #00000000;" text="Đăng ký ngay" textFill="BLUE" underline="true" StackPane.alignment="CENTER_RIGHT">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Button>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>
