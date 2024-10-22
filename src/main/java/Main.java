@@ -19,10 +19,10 @@ public class Main extends Application {
             // prevent resizing
             primaryStage.setResizable(false);
             // set the title
-            primaryStage.setTitle("Blockchain Search App");
+            primaryStage.setTitle("Blue Moon Management Fee System");
 
             // set the icon
-            primaryStage.getIcons().add(new javafx.scene.image.Image("/image/icon.png"));
+            primaryStage.getIcons().add(new javafx.scene.image.Image("/image/Logo.png"));
 
             // show the GUI
             primaryStage.show();

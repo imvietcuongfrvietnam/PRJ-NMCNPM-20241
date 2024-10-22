@@ -1,0 +1,11 @@
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="your.package.Controller">
+    <ImageView fx:id="avatarImageView" fitHeight="100" fitWidth="100" />
+    <Label fx:id="userNameLabel" text="Tên người dùng" />
+    <Label fx:id="emailLabel" text="Email người dùng" />
+    
+    <Button fx:id="returnMainScreenButton" text="Trở về màn hình chính" onAction="#handleReturnMainScreen" />
+</AnchorPane>

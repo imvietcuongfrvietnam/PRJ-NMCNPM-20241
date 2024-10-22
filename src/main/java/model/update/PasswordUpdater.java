@@ -1,46 +1,47 @@
-package model.insert;
+package model.update;
 
 import model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
-public class HoGiaDinhInserter {
-    public void insert(String maHoGiaDinh, String maPhongThue, Date ngayChuyenVao, String soCMNDChuHo, String trangThai) {
+public class PasswordUpdater implements Updater{
+    public void update(String userName, String newPassword) {
+        // Câu lệnh SQL để cập nhật mật khẩu
+        String sql = "UPDATE taikhoannguoidung SET MatKhau = ? WHERE MaTaiKhoan = ?";
+
+        // Kết nối và PreparedStatement
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
-        String sql = "INSERT INTO hogiadinh (maHoGiaDinh, maPhongThue, ngayChuyenVao, soCMNDChuHo, trangThai) VALUES (?, ?, ?, ?, ?)";
-
         try {
-            // Kết nối tới CSDL
+            // Kết nối tới cơ sở dữ liệu
             connection = connector.getConnection();
 
             // Tạo PreparedStatement từ câu lệnh SQL
             preparedStatement = connection.prepareStatement(sql);
 
             // Gán giá trị cho các tham số trong câu lệnh SQL
-            preparedStatement.setString(1, maHoGiaDinh);
-            preparedStatement.setString(2, maPhongThue);
-            preparedStatement.setDate(3, new java.sql.Date(ngayChuyenVao.getTime())); // Chuyển đổi Date sang java.sql.Date
-            preparedStatement.setString(4, soCMNDChuHo);
-            preparedStatement.setString(5, trangThai);
+            preparedStatement.setString(1, newPassword); // Thay thế ? đầu tiên bằng newPassword
+            preparedStatement.setString(2, userName);    // Thay thế ? thứ hai bằng userName
 
-            // Thực thi câu lệnh INSERT
+            // Thực thi câu lệnh UPDATE
             int rowsAffected = preparedStatement.executeUpdate();
+            System.out.println("Số bản ghi đã cập nhật: " + rowsAffected);
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            // Đóng PreparedStatement và kết nối
+            // Đảm bảo đóng PreparedStatement và kết nối trong khối finally
             try {
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
-                connector.closeDB();
+                if (connection != null) {
+                    connector.closeDB();
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
