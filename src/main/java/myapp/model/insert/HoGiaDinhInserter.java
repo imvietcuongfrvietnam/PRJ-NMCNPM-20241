@@ -1,6 +1,6 @@
-package model.insert;
+package myapp.model.insert;
 
-import model.connectdb.SQLConnector;
+import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

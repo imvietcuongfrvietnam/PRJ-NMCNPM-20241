@@ -1,39 +1,30 @@
-package model.select;
+package myapp.model.delete;
 
-import model.connectdb.SQLConnector;
+import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PasswordSelector {
-    public String select(String userName) {
-        String sql = "SELECT MatKhau FROM taikhoannguoidung WHERE TenDangNhap = ?";
+public class TaiKhoanNguoiDungDeleter {
+    public void delete(String tenDangNhap) {
+        String sql = "DELETE FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        String password = null;
 
         try {
             connection = connector.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, userName);
-            resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(1, tenDangNhap);
 
-            if (resultSet.next()) {
-                password = resultSet.getString("MatKhau");
-            }
+            int rowsAffected = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -44,6 +35,5 @@ public class PasswordSelector {
                 e.printStackTrace();
             }
         }
-        return password;
     }
 }

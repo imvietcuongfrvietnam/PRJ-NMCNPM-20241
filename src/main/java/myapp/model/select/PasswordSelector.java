@@ -1,30 +1,39 @@
-package model.delete;
+package myapp.model.select;
 
-import model.connectdb.SQLConnector;
+import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TaiKhoanNguoiDungDeleter {
-    public void delete(String tenDangNhap) {
-        String sql = "DELETE FROM taikhoannguoidung WHERE TenDangNhap = ?";
+public class PasswordSelector {
+    public String select(String userName) {
+        String sql = "SELECT MatKhau FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String password = null;
 
         try {
             connection = connector.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, tenDangNhap);
+            preparedStatement.setString(1, userName);
+            resultSet = preparedStatement.executeQuery();
 
-            int rowsAffected = preparedStatement.executeUpdate();
+            if (resultSet.next()) {
+                password = resultSet.getString("MatKhau");
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -35,5 +44,6 @@ public class TaiKhoanNguoiDungDeleter {
                 e.printStackTrace();
             }
         }
+        return password;
     }
 }
