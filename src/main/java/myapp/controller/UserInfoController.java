@@ -4,35 +4,33 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.event.ActionEvent;
 
 public class UserInfoController {
 
     @FXML
-    private ImageView imgView;          // Biến cho ImageView
+    private ImageView avatarImageView;
     @FXML
-    private Label lblTen;               // Biến cho Label họ tên
+    private Label nameLabel;
     @FXML
-    private Label lblSoCMND;            // Biến cho Label số CMND
+    private Label idLabel;
     @FXML
-    private Label lblEmail;              // Biến cho Label email
+    private Label emailLabel;
     @FXML
-    private Label lblQueQuan;            // Biến cho Label quê quán
+    private Label addressLabel;
     @FXML
-    private Label lblDienThoai;         // Biến cho Label điện thoại
+    private Label phoneLabel;
     @FXML
-    private Button btnReturn;            // Biến cho Button
+    private Button returnButton;
 
     @FXML
     public void initialize() {
-        // Thiết lập hành động cho nút Trở Về
-        btnReturn.setOnAction(this::handleReturnButton);
+        // Cài đặt hành động cho nút Trở Về
+        returnButton.setOnAction(this::handleReturnButton);
     }
 
-    // Phương thức xử lý sự kiện khi nhấn nút Trở Về
     private void handleReturnButton(ActionEvent event) {
         System.out.println("Trở về màn hình chính!");
-        // Thêm logic ở đây nếu cần để quay lại màn hình chính
+        // Thêm logic chuyển cảnh nếu cần
     }
 }

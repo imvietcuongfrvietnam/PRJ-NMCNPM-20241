@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PasswordUpdater implements model.update.Updater {
+public class PasswordUpdater implements myapp.model.update.Updater {
     public void update(String userName, String newPassword) {
         // Câu lệnh SQL để cập nhật mật khẩu
         String sql = "UPDATE taikhoannguoidung SET MatKhau = ? WHERE MaTaiKhoan = ?";
