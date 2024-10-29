@@ -13,7 +13,7 @@
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../resources/image/Background(1).png" />
+                <Image url="@../../resources/Image/Background(1).png" />
             </image>
         </ImageView>
       <Label layoutX="1040.0" layoutY="200.0" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.75);" />
@@ -36,7 +36,7 @@
             <graphic>
                 <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1140.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../resources/image/Password.png" />
+                        <Image url="@../../resources/Image/Password.png" />
                     </image>
                 </ImageView>
             </graphic>

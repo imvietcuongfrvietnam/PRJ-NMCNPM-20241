@@ -22,7 +22,7 @@ public class Main extends Application {
             primaryStage.setTitle("Blue Moon Management Fee System");
 
             // set the icon
-            primaryStage.getIcons().add(new javafx.scene.image.Image("/image/Logo.png"));
+            primaryStage.getIcons().add(new javafx.scene.image.Image("/Image/Logo.png"));
 
             // show the GUI
             primaryStage.show();

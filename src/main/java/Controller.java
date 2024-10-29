@@ -22,7 +22,7 @@ public class Controller {
         userNameLabel.setText("Nguyen Van A");
         emailLabel.setText("nva@gmail.com");
         // Thiết lập ảnh đại diện
-        avatarImageView.setImage(new javafx.scene.image.Image("/image/avatar.png"));
+        avatarImageView.setImage(new javafx.scene.image.Image("/Image/avatar.png"));
     }
 
     @FXML
