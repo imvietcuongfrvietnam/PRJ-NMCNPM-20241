@@ -1,4 +1,4 @@
-package model;
+package myapp.model.object;
 
 public class User {
     private String userId;

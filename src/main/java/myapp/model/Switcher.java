@@ -1,4 +1,4 @@
-package model;
+package myapp.model;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
