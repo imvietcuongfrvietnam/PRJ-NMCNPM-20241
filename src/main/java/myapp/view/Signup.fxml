@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
@@ -16,41 +17,104 @@
                 <Image url="@../../../resources/image/Background(1).png" />
             </image>
         </ImageView>
-      <Label layoutX="1040.0" layoutY="200.0" prefHeight="800.0" prefWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.75);" />
-        <Label layoutX="1040.0" layoutY="250.0" prefHeight="75.0" text="Tạo tài khoản mới" textAlignment="CENTER" textFill="#002060">
+        <Label layoutX="85.0" layoutY="280.0" prefHeight="75.0" text="Tạo tài khoản mới" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="50.0" />
             </font>
         </Label>
-        <Label accessibleRole="IMAGE_VIEW" layoutX="1120.0" layoutY="415.0" prefHeight="75.0" prefWidth="75.0">
-            <cursor>
-                <Cursor fx:constant="CLOSED_HAND" />
-            </cursor>
-        </Label>
-        <TextField layoutX="1040.0" layoutY="625.0" prefHeight="75.0" prefWidth="650.0" promptText="Tên đăng nhập">
+      <StackPane layoutX="85.0" layoutY="425.0">
+         <children>
+            <TextField prefHeight="75.0" prefWidth="312.5" promptText="Họ" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255);">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <ImageView fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/image/Badge.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="422.5" layoutY="425.0">
+         <children>
+            <TextField prefHeight="75.0" prefWidth="312.5" promptText="Tên" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/Image/Badge.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="85.0" layoutY="525.0">
+         <children>
+            <TextField prefHeight="75.0" prefWidth="650.0" promptText="Email" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </TextField>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/image/Mail.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="85.0" layoutY="625.0">
+         <children>
+              <TextField prefHeight="75.0" prefWidth="650.0" promptText="Tên đăng nhập" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+                  <font>
+                      <Font size="30.0" />
+                  </font>
+              </TextField>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/image/Username(1).png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="85.0" layoutY="725.0">
+         <children>
+              <TextField prefHeight="75.0" prefWidth="650.0" promptText="Mật khẩu" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+                  <font>
+                      <Font size="30.0" />
+                  </font>
+              </TextField>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../../resources/image/Password(1).png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+        <Button layoutX="85.0" layoutY="835.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="650.0" style="-fx-background-radius: 37,5; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng ký" textFill="#002060">
             <font>
-                <Font size="30.0" />
-            </font>
-        </TextField>
-        <Label layoutX="1120.0" layoutY="515.0" prefHeight="75.0" prefWidth="75.0">
-            <graphic>
-                <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1140.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../../../resources/image/Password.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Label>
-        <TextField layoutX="1040.0" layoutY="725.0" prefHeight="75.0" prefWidth="650.0" promptText="Mật khẩu">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </TextField>
-        <Button layoutX="1040.0" layoutY="915.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="650.0" style="-fx-background-color: #002060;" text="Đăng ký" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="30.0" />
+
+                <Font name="System Bold" size="35.0" />
+
             </font>
         </Button>
+      <Label layoutX="821.0" layoutY="425.0" prefHeight="485.0" prefWidth="1015.0" style="-fx-background-color: rgba(255, 255, 255, 0.75); -fx-background-radius: 15;" />
         <Label layoutX="1190.0" layoutY="825.0" text="Đã có tài khoản?" textAlignment="CENTER">
             <font>
                 <Font size="30.0" />
@@ -61,25 +125,5 @@
                 <Font size="30.0" />
             </font>
         </Button>
-      <TextField layoutX="1040.0" layoutY="325.0" prefHeight="75.0" prefWidth="300.0" promptText="Họ">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="1390.0" layoutY="325.0" prefHeight="75.0" prefWidth="300.0" promptText="Tên">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="1040.0" layoutY="425.0" prefHeight="75.0" prefWidth="650.0" promptText="Email">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
-      <TextField layoutX="1040.0" layoutY="525.0" prefHeight="75.0" prefWidth="650.0" promptText="Số điện thoại">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </TextField>
     </children>
 </AnchorPane>
