@@ -6,7 +6,7 @@ import myapp.model.entities.GiaDichVu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class BangGiaDichVuUpdate implements Updater<GiaDichVu> {
+public class GiaDichVuUpdate implements Updater<GiaDichVu> {
     @Override
     public void update(GiaDichVu entity) {
         SQLConnector connector = SQLConnector.getInstance();

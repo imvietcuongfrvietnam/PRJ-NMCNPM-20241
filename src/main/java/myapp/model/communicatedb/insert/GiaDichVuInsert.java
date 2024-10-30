@@ -5,7 +5,7 @@ import myapp.model.connectdb.SQLConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class BangGiaDichVuInsert {
+public class GiaDichVuInsert {
     public void insert(String tenDichVu, int id, double donGia, String thongTinBoSung) {
         SQLConnector connector = SQLConnector.getInstance();
         String query = "INSERT INTO banggiadichvu (TenDichVu, ID, DonGia, ThongTinBoSung) VALUES (?, ?, ?, ?)";

@@ -9,7 +9,7 @@ module myapp {
     opens myapp.controller to javafx.fxml;  // Mở package controller để FXML có thể truy cập
     opens myapp.model to javafx.fxml;       // Nếu cần, mở package model (không bắt buộc)
 
-    exports myapp;                        // Xuất package myapp để JavaFX có thể truy cập
+  exports myapp;                        // Xuất package myapp để JavaFX có thể truy cập
     exports myapp.model;
     exports myapp.model.entities;
     opens myapp.model.entities to javafx.fxml;

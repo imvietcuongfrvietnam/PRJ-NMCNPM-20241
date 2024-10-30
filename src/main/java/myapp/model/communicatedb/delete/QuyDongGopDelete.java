@@ -1,21 +1,19 @@
-package myapp.model.communicatedb.insert;
+package myapp.model.communicatedb.delete;
 
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class BangQuyDongGopInsert {
-    public void insert(int id, String tenQuy, String moTa) {
+public class QuyDongGopDelete {
+    public void delete(int ID) {
         SQLConnector connector = SQLConnector.getInstance();
-        String query = "INSERT INTO bangquydonggop (ID, TenQuy, MoTa) VALUES (?, ?, ?)";
+        String query = "DELETE FROM bangquydonggop WHERE ID = ?";
 
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, tenQuy);
-            preparedStatement.setString(3, moTa);
+            preparedStatement.setInt(1, ID);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

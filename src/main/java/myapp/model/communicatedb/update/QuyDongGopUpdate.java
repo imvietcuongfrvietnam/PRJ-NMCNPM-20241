@@ -6,7 +6,7 @@ import myapp.model.entities.QuyDongGop;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class BangQuyDongGopUpdate implements Updater<QuyDongGop> {
+public class QuyDongGopUpdate implements Updater<QuyDongGop> {
     @Override
     public void update(QuyDongGop entity) {
         SQLConnector connector = SQLConnector.getInstance();

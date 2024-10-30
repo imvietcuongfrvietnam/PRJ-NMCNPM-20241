@@ -5,10 +5,10 @@ import myapp.model.connectdb.SQLConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class BangQuyDongGopDelete {
+public class GiaDichVuDelete {
     public void delete(int ID) {
         SQLConnector connector = SQLConnector.getInstance();
-        String query = "DELETE FROM bangquydonggop WHERE ID = ?";
+        String query = "DELETE FROM banggiadichvu WHERE ID = ?";
 
         try (Connection connection = connector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
