@@ -1,4 +1,4 @@
-package model;
+package myapp.model.manager;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
