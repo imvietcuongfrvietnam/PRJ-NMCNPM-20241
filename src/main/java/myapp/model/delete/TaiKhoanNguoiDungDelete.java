@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class TaiKhoanNguoiDungDeleter {
+public class TaiKhoanNguoiDungDelete {
     public void delete(String tenDangNhap) {
         String sql = "DELETE FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
@@ -34,6 +34,19 @@ public class TaiKhoanNguoiDungDeleter {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void delete(int maTaiKhoan) {
+        SQLConnector connector = SQLConnector.getInstance();
+        String query = "DELETE FROM taikhoannguoidung WHERE MaTaiKhoan = ?";
+
+        try (Connection connection = connector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, maTaiKhoan);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
