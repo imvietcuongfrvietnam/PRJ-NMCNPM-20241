@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.event.ActionEvent;
-
+import myapp.model.manager.Switcher;
 public class UserInfoController {
 
     @FXML
