@@ -2,7 +2,6 @@ package myapp.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import myapp.model.Switcher;
 
 public class HomePageController {
 

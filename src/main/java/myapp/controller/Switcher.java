@@ -1,4 +1,4 @@
-package myapp.model;
+package myapp.controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,4 +23,11 @@ public class Switcher {
             e.printStackTrace(); // In ra lỗi nếu có
         }
     }
+
+    // Hàm chuyển đến trang HomePage
+    public static void goHomePage() {
+        switchTo("HomePage.fxml"); // Gọi hàm switchTo với tên file FXML trang chính
+    }
+
+    // Có thể thêm các hàm chuyển đổi khác nếu cần
 }
