@@ -11,6 +11,6 @@ module myapp {
 
     exports myapp;                        // Xuất package myapp để JavaFX có thể truy cập
     exports myapp.model;
-    exports myapp.model.object;
-    opens myapp.model.object to javafx.fxml;                  // Xuất package model nếu cần truy cập bên ngoài module
+    exports myapp.model.entities;
+    opens myapp.model.entities to javafx.fxml;                  // Xuất package model nếu cần truy cập bên ngoài module
 }

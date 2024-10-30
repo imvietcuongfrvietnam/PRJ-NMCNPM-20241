@@ -1,8 +1,8 @@
 package testing;
 
-import myapp.model.object.Resident;
+import myapp.model.entities.Resident;
 import org.junit.Test;
-import myapp.model.object.Household;
+import myapp.model.entities.Household;
 
 import static org.junit.Assert.assertTrue;
 
