@@ -1,4 +1,4 @@
-package myapp.model.entities;
+package myapp.model.entities.nguoidung;
 
 public class TaiKhoanNguoiDung {
     private int maTaiKhoan;
