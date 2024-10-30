@@ -1,14 +1,15 @@
 package testing;
 
+import myapp.model.entities.QuyDongGop;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
 public class ContributionTest {
-    private final TableContributionFund contribution = new TableContributionFund();
+    private final QuyDongGop contribution = new QuyDongGop();
     @Test
     public void containsAddedFund(){
-        ContributionFund contributionFund = new ContributionFund();
+        Do contributionFund = new Co();
         contribution.add(contributionFund);
         assertTrue(contribution.contains(contributionFund));
     }

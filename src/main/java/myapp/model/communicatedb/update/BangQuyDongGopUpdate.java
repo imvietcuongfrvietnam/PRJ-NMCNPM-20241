@@ -1,14 +1,14 @@
 package myapp.model.communicatedb.update;
 
 import myapp.model.connectdb.SQLConnector;
-import myapp.model.entities.BangQuyDongGop;
+import myapp.model.entities.QuyDongGop;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class BangQuyDongGopUpdate implements Updater<BangQuyDongGop> {
+public class BangQuyDongGopUpdate implements Updater<QuyDongGop> {
     @Override
-    public void update(BangQuyDongGop entity) {
+    public void update(QuyDongGop entity) {
         SQLConnector connector = SQLConnector.getInstance();
         String query = "UPDATE bangquydonggop SET TenQuy = ?, MoTa = ? WHERE ID = ?";
 

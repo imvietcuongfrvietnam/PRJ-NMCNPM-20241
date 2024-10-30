@@ -2,14 +2,14 @@ package myapp.model.entities;
 
 import java.math.BigDecimal;
 
-public class BangGiaDichVu {
+public class GiaDichVu {
     private int id;
     private String tenDichVu;
     private BigDecimal donGia;
     private String thongTinBoSung;
 
     // Constructor
-    public BangGiaDichVu(int id, String tenDichVu, BigDecimal donGia, String thongTinBoSung) {
+    public GiaDichVu(int id, String tenDichVu, BigDecimal donGia, String thongTinBoSung) {
         this.id = id;
         this.tenDichVu = tenDichVu;
         this.donGia = donGia;

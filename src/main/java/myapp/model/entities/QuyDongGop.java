@@ -1,12 +1,12 @@
 package myapp.model.entities;
 
-public class BangQuyDongGop {
+public class QuyDongGop {
     private int id;
     private String tenQuy;
     private String moTa;
 
     // Constructor
-    public BangQuyDongGop(int id, String tenQuy, String moTa) {
+    public QuyDongGop(int id, String tenQuy, String moTa) {
         this.id = id;
         this.tenQuy = tenQuy;
         this.moTa = moTa;
