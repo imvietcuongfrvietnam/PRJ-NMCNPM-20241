@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -103,11 +102,23 @@
             </ImageView>
          </children>
       </StackPane>
-      <Button layoutX="25.0" layoutY="275.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Button>
+      <StackPane layoutX="25.0" layoutY="275.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Danh sách cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../../resources/Image/List.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
       <Button layoutX="25.0" layoutY="350.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
          <font>
             <Font name="System Bold" size="20.0" />
@@ -119,13 +130,7 @@
          </font>
       </Button>
       <Line endX="325.0" layoutY="525.0" startX="25.0" stroke="WHITE" />
-      <Label layoutX="493.0" layoutY="769.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;" />
-      <Label layoutX="400.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets></Label>
-      <ButtonBar layoutX="1585.0" layoutY="101.0" prefHeight="40.0" prefWidth="200.0" />
-      <StackPane layoutX="25.0" layoutY="980.0">
+      <StackPane layoutX="25.0" layoutY="905.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
                <font>
@@ -142,6 +147,27 @@
             </ImageView>
          </children>
       </StackPane>
+      <StackPane layoutX="25.0" layoutY="980.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../../resources/Image/Logout.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Label layoutX="400.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets></Label>
       <Label layoutX="1160.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
          <opaqueInsets>
             <Insets />
@@ -157,6 +183,6 @@
             <Insets />
          </opaqueInsets>
       </Label>
-      <Label layoutX="410.0" layoutY="210.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;" />
+      <Label layoutX="400.0" layoutY="200.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;" />
    </children>
 </AnchorPane>
