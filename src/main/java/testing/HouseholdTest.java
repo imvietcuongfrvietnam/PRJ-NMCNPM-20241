@@ -1,4 +1,4 @@
-package test;
+package testing;
 
 import myapp.model.object.Resident;
 import org.junit.Test;

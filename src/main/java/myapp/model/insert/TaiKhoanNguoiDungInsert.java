@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class TaiKhoanNguoiDungInserter {
+public class TaiKhoanNguoiDungInsert {
     public void insert(String VaiTro, String TenDangNhap, String MatKhau, Date NgayTaoTaiKhoan) {
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;

@@ -7,8 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Date;
 
-public class HoGiaDinhInserter {
-    public void insert(String maHoGiaDinh, String maPhongThue, Date ngayChuyenVao, String soCMNDChuHo, String trangThai) {
+public class HoGiaDinhInsert {
+    public void insert(String maHoGiaDinh, String maPhongThue, Date ngayChuyenVao, String soCMNDChuHo, String trangThai) throws SQLException {
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
