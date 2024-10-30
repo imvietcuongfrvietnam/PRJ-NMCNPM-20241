@@ -19,8 +19,9 @@ public class Main extends Application {
         try {
             Switcher.setStage(primaryStage);
             // load the FXML resource
-            File fxmlFile = new File("D:\\IT1\\2024.1\\IT3180\\PRJ-NMCNPM-20241\\src\\main\\java\\myapp\\view\\Login.fxml");
+            File fxmlFile = new File("src/main/java/view/Login.fxml");
             Parent root = FXMLLoader.load(fxmlFile.toURI().toURL());
+
 
             // create a scene with specific size
             Scene scene = new Scene(root, 1920, 1080);
