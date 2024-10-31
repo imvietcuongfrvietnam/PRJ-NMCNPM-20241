@@ -166,18 +166,72 @@
             </ImageView>
          </children>
       </StackPane>
-      <Label layoutX="400.0" layoutY="400.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;" />
       <Label layoutX="400.0" layoutY="200.0" text="Danh sách cư dân" textFill="#002060">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="416.0" layoutY="356.0" prefHeight="200.0" prefWidth="1155.0">
+      <TableView fixedCellSize="1.0" layoutX="400.0" layoutY="300.0" prefHeight="655.0" prefWidth="1470.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="75.0" text="STT" />
+          <TableColumn prefWidth="75.0" text="Họ và tên" />
             <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
+      <Button fx:id="addButton" layoutX="1542.0" layoutY="233.0" mnemonicParsing="false" text="Thêm mới" />
+      <StackPane layoutX="1370.0" layoutY="980.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10;" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/Image/Back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Button layoutX="1445.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10;" text="1" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="1520.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10;" text="2" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="1595.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10;" text="3" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label alignment="BOTTOM_CENTER" layoutX="1670.0" layoutY="980.0" prefHeight="50.0" prefWidth="50.0" text=". . ." textAlignment="CENTER" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="1745.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10;" text="15" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <StackPane layoutX="1820.0" layoutY="980.0">
+         <children>
+            <Button layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10;" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="980.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../resources/Image/Next.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

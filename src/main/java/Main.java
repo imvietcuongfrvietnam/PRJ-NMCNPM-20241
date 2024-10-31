@@ -15,7 +15,7 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Main.fxml")));
 
             // create a scene
-            primaryStage.setScene(new Scene(root, 800, 600));
+            primaryStage.setScene(new Scene(root, 1920, 1080));
             // prevent resizing
             primaryStage.setResizable(false);
             // set the title
