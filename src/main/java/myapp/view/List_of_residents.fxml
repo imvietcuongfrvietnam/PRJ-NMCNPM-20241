@@ -6,10 +6,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -18,7 +20,7 @@
       <Label prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/image/Logo.png" />
+            <Image url="@../../../resources/image/Logo.png" />
          </image>
       </ImageView>
       <StackPane layoutX="400.0" layoutY="50.0" prefHeight="50.0" prefWidth="960.0">
@@ -33,7 +35,7 @@
             </TextField>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/image/Search.png" />
+                  <Image url="@../../../resources/image/Search.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -46,7 +48,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resources/image/Notification.png" />
+                  <Image url="@../../../resources/image/Notification.png" />
                </image>
             </ImageView>
          </graphic>
@@ -55,7 +57,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../resources/image/Message.png" />
+                  <Image url="@../../../resources/image/Message.png" />
                </image>
             </ImageView>
          </graphic>
@@ -63,7 +65,7 @@
       <Line endY="50.0" layoutX="1560.0" layoutY="50.0" stroke="#7f7f7f" />
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/image/Avatar.png" />
+            <Image url="@../../../resources/image/Avatar.png" />
          </image>
       </ImageView>
       <StackPane layoutX="1660.0" layoutY="50.0" prefHeight="50.0" prefWidth="210.0">
@@ -78,7 +80,7 @@
             </Button>
             <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/image/Menu.png" />
+                  <Image url="@../../../resources/image/Menu.png" />
                </image>
                <StackPane.margin>
                   <Insets right="7.5" />
@@ -96,7 +98,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/image/Home.png" />
+                  <Image url="@../../../resources/image/Home.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -113,7 +115,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/image/List.png" />
+                  <Image url="@../../../resources/image/List.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -131,7 +133,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Line endX="325.0" layoutY="525.0" startX="25.0" stroke="WHITE" />
+      <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
       <StackPane layoutX="25.0" layoutY="905.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
@@ -141,7 +143,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/image/Setting.png" />
+                  <Image url="@../../../resources/image/Setting.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -158,7 +160,8 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/image/Logout.png" />
+
+                  <Image url="@../../../resources/image/Logout.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -166,18 +169,105 @@
             </ImageView>
          </children>
       </StackPane>
-      <Label layoutX="400.0" layoutY="400.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;" />
       <Label layoutX="400.0" layoutY="200.0" text="Danh sách cư dân" textFill="#002060">
          <font>
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TableView layoutX="416.0" layoutY="356.0" prefHeight="200.0" prefWidth="1155.0">
+      <Button fx:id="addButton" layoutX="1295.0" layoutY="200.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #0070C0;" text="Thêm mới" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect></Button>
+      <StackPane layoutX="1470.0" layoutY="200.0">
+         <children>
+            <TextField prefHeight="45.0" prefWidth="400.0" promptText="Tra cứu thông tin" style="-fx-background-radius: 22.5;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+            </TextField>
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../../../resources/image/Search.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="7.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <TableView fixedCellSize="1.0" layoutX="400.0" layoutY="300.0" prefHeight="655.0" prefWidth="1470.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="75.0" text="STT" />
+          <TableColumn prefWidth="75.0" text="Họ và tên" />
             <TableColumn prefWidth="75.0" text="C1" />
+            <TableColumn prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
+      <StackPane layoutX="1370.0" layoutY="980.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../resources/image/Back.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Button layoutX="1445.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="1" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="1520.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="2" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button layoutX="1595.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="3" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label alignment="BOTTOM_CENTER" layoutX="1670.0" layoutY="980.0" prefHeight="50.0" prefWidth="50.0" text=". . ." textAlignment="CENTER" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button layoutX="1745.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="9" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <StackPane layoutX="1820.0" layoutY="980.0">
+         <children>
+            <Button layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="980.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../resources/image/Next.png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
    </children>
 </AnchorPane>

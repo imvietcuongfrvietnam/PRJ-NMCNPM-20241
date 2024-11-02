@@ -29,7 +29,7 @@
       </ImageView>
       <ImageView fitHeight="62.0" fitWidth="500.0" layoutX="230.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/dia_chi.png" />
+            <Image url="@../../../resources/image/Ảnh3.png" />
          </image>
       </ImageView>
       <Label layoutX="1040.0" layoutY="200.0" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.75);" textFill="WHITE" />

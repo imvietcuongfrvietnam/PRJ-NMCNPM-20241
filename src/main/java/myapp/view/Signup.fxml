@@ -31,7 +31,7 @@
             </TextField>
             <ImageView fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/image/Badge.png" />
+                  <Image url="@../../../resources/image/Badge.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -48,7 +48,7 @@
             </TextField>
             <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/Image/Badge.png" />
+                  <Image url="@../../../resources/image/Badge.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -65,7 +65,11 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
+<<<<<<< HEAD:src/main/java/view/Signup.fxml
                   <Image url="@../../resources/image/Mail.png" />
+=======
+                  <Image url="@../../../resources/image/Mail.png" />
+>>>>>>> Hieu:src/main/java/myapp/view/Signup.fxml
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -82,7 +86,11 @@
               </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
+<<<<<<< HEAD:src/main/java/view/Signup.fxml
                   <Image url="@../../resources/image/Username(1).png" />
+=======
+                  <Image url="@../../../resources/image/Username(1).png" />
+>>>>>>> Hieu:src/main/java/myapp/view/Signup.fxml
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -99,7 +107,11 @@
               </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
+<<<<<<< HEAD:src/main/java/view/Signup.fxml
                   <Image url="@../../resources/image/Password(1).png" />
+=======
+                  <Image url="@../../../resources/image/Password(1).png" />
+>>>>>>> Hieu:src/main/java/myapp/view/Signup.fxml
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -109,9 +121,13 @@
       </StackPane>
         <Button layoutX="85.0" layoutY="835.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="650.0" style="-fx-background-radius: 37,5; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng ký" textFill="#002060">
             <font>
+<<<<<<< HEAD:src/main/java/view/Signup.fxml
 
                 <Font name="System Bold" size="35.0" />
 
+=======
+                <Font name="System Bold" size="35.0" />
+>>>>>>> Hieu:src/main/java/myapp/view/Signup.fxml
             </font>
         </Button>
       <Label layoutX="821.0" layoutY="425.0" prefHeight="485.0" prefWidth="1015.0" style="-fx-background-color: rgba(255, 255, 255, 0.75); -fx-background-radius: 15;" />
