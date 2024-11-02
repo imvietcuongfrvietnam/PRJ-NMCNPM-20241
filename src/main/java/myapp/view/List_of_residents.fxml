@@ -20,7 +20,7 @@
       <Label prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/Image/Logo.png" />
+            <Image url="@../../../resources/image/Logo.png" />
          </image>
       </ImageView>
       <StackPane layoutX="400.0" layoutY="50.0" prefHeight="50.0" prefWidth="960.0">
@@ -35,7 +35,7 @@
             </TextField>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/Image/Search.png" />
+                  <Image url="@../../../resources/image/Search.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -48,7 +48,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/Image/Notification.png" />
+                  <Image url="@../../../resources/image/Notification.png" />
                </image>
             </ImageView>
          </graphic>
@@ -57,7 +57,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/Image/Message.png" />
+                  <Image url="@../../../resources/image/Message.png" />
                </image>
             </ImageView>
          </graphic>
@@ -65,7 +65,7 @@
       <Line endY="50.0" layoutX="1560.0" layoutY="50.0" stroke="#7f7f7f" />
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/Image/Avatar.png" />
+            <Image url="@../../../resources/image/Avatar.png" />
          </image>
       </ImageView>
       <StackPane layoutX="1660.0" layoutY="50.0" prefHeight="50.0" prefWidth="210.0">
@@ -80,7 +80,7 @@
             </Button>
             <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/Image/Menu.png" />
+                  <Image url="@../../../resources/image/Menu.png" />
                </image>
                <StackPane.margin>
                   <Insets right="7.5" />
@@ -98,7 +98,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/Image/Home.png" />
+                  <Image url="@../../../resources/image/Home.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -115,7 +115,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/Image/List.png" />
+                  <Image url="@../../../resources/image/List.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -143,7 +143,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/Image/Setting.png" />
+                  <Image url="@../../../resources/image/Setting.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -160,7 +160,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/Image/Logout.png" />
+                  <Image url="@../../../resources/image/Logout.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -199,7 +199,7 @@
             </TextField>
             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/Image/Search.png" />
+                  <Image url="@../../../resources/image/Search.png" />
                </image>
                <StackPane.margin>
                   <Insets left="7.5" />
@@ -224,7 +224,7 @@
             </Button>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/Image/Back.png" />
+                  <Image url="@../../../resources/image/Back.png" />
                </image>
             </ImageView>
          </children>
@@ -263,7 +263,7 @@
             </Button>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="980.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/Image/Next.png" />
+                  <Image url="@../../../resources/image/Next.png" />
                </image>
             </ImageView>
          </children>
