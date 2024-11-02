@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -15,7 +18,7 @@
       <Label prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Logo.png" />
+            <Image url="@../../../resources/Image/Logo.png" />
          </image>
       </ImageView>
       <StackPane layoutX="400.0" layoutY="50.0" prefHeight="50.0" prefWidth="960.0">
@@ -30,7 +33,7 @@
             </TextField>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Search.png" />
+                  <Image url="@../../../resources/Image/Search.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -43,7 +46,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/image/Notification.png" />
+                  <Image url="@../../../resources/Image/Notification.png" />
                </image>
             </ImageView>
          </graphic>
@@ -52,7 +55,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/image/Message.png" />
+                  <Image url="@../../../resources/Image/Message.png" />
                </image>
             </ImageView>
          </graphic>
@@ -60,7 +63,7 @@
       <Line endY="50.0" layoutX="1560.0" layoutY="50.0" stroke="#7f7f7f" />
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Avatar.png" />
+            <Image url="@../../../resources/Image/Avatar.png" />
          </image>
       </ImageView>
       <StackPane layoutX="1660.0" layoutY="50.0" prefHeight="50.0" prefWidth="210.0">
@@ -75,7 +78,7 @@
             </Button>
             <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Menu.png" />
+                  <Image url="@../../../resources/Image/Menu.png" />
                </image>
                <StackPane.margin>
                   <Insets right="7.5" />
@@ -93,7 +96,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Home.png" />
+                  <Image url="@../../../resources/Image/Home.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -110,7 +113,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/Image/List.png" />
+                  <Image url="@../../../resources/Image/List.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -128,7 +131,7 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Line endX="325.0" layoutY="525.0" startX="25.0" stroke="WHITE" />
+      <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
       <StackPane layoutX="25.0" layoutY="905.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
@@ -138,7 +141,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Setting.png" />
+                  <Image url="@../../../resources/Image/Setting.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -155,7 +158,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../resources/Image/Logout.png" />
+                  <Image url="@../../../resources/Image/Logout.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -163,25 +166,60 @@
             </ImageView>
          </children>
       </StackPane>
+      <Label layoutX="400.0" layoutY="200.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;">
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect></Label>
       <Label layoutX="400.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
          <opaqueInsets>
             <Insets />
-         </opaqueInsets></Label>
-      <Label layoutX="1160.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
-         <opaqueInsets>
-            <Insets />
          </opaqueInsets>
-      </Label>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect></Label>
       <Label layoutX="780.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Label>
+      <Label layoutX="1160.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect>
       </Label>
       <Label layoutX="1540.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect>
       </Label>
-      <Label layoutX="400.0" layoutY="200.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;" />
    </children>
 </AnchorPane>
