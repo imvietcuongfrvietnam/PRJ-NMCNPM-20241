@@ -18,9 +18,10 @@
       <Label prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../resources/Image/Logo.png" />
+            <Image url="/resources/Image/Logo" />
          </image>
       </ImageView>
+
       <StackPane layoutX="400.0" layoutY="50.0" prefHeight="50.0" prefWidth="960.0">
          <children>
             <TextField prefHeight="50.0" prefWidth="960.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
