@@ -2,10 +2,13 @@ package myapp;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import myapp.model.manager.Switcher;
@@ -19,20 +22,21 @@ public class Main extends Application {
         try {
             Switcher.setStage(primaryStage);
             // load the FXML resource
-            File fxmlFile = new File("src/main/java/view/Login.fxml");
-            Parent root = FXMLLoader.load(fxmlFile.toURI().toURL());
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+
 
 
             // create a scene with specific size
-            Scene scene = new Scene(root, 1920, 1080);
+            Scene scene = new Scene(root, 1000, 800);
             primaryStage.setScene(scene);
 
             // prevent resizing
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
             primaryStage.setTitle("Blue Moon Management Fee System");
 
             // set the icon
-            primaryStage.getIcons().add(new javafx.scene.image.Image("file:D:\\IT1\\2024.1\\IT3180\\PRJ-NMCNPM-20241\\resources\\image\\Logo.png"));
+            // Set the icon using getResourceAsStream
+            primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/Logo.png"))));
 
             // show the GUI
             primaryStage.show();

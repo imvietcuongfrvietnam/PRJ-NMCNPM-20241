@@ -14,7 +14,7 @@
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../resources/image/Background(1).png" />
+                <Image url="@../image/Background(1).png" />
             </image>
         </ImageView>
         <Label layoutX="85.0" layoutY="280.0" prefHeight="75.0" text="Tạo tài khoản mới" textAlignment="CENTER" textFill="WHITE">
@@ -31,7 +31,7 @@
             </TextField>
             <ImageView fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/image/Badge.png" />
+                  <Image url="@../image/Badge.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -48,7 +48,7 @@
             </TextField>
             <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/Image/Badge.png" />
+                  <Image url="@../image/Badge.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -65,7 +65,7 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/image/Mail.png" />
+                  <Image url="@../image/Mail.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -82,7 +82,7 @@
               </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/image/Username(1).png" />
+                  <Image url="@../image/Username(1).png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -99,7 +99,7 @@
               </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../resources/image/Password(1).png" />
+                  <Image url="@../image/Password(1).png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />

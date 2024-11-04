@@ -14,22 +14,22 @@
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Background(1).png" />
+            <Image url="@../image/Background(1).png" />
          </image>
       </ImageView>
       <ImageView fitHeight="436.0" fitWidth="800.0" layoutX="80.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Ảnh1.png" />
+            <Image url="@../image/Ảnh1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="185.0" fitWidth="600.0" layoutX="180.0" layoutY="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Ảnh2.png" />
+            <Image url="@../image/Ảnh2.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="62.0" fitWidth="500.0" layoutX="230.0" layoutY="850.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/dia_chi.png" />
+            <Image url="@../image/dia_chi.png" />
          </image>
       </ImageView>
       <Label layoutX="1040.0" layoutY="200.0" prefHeight="700.0" prefWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.75);" textFill="WHITE" />
@@ -55,7 +55,7 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Username.png" />
+                  <Image url="@../image/Username.png" />
                </image>
                <StackPane.margin>
                   <Insets left="12.5" />
@@ -75,7 +75,7 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Password.png" />
+                  <Image url="@../image/Password.png" />
                </image>
                <StackPane.margin>
                   <Insets left="12.5" />
@@ -83,7 +83,7 @@
             </ImageView>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Visibility.png" />
+                  <Image url="@../image/Visibility.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -91,7 +91,7 @@
             </ImageView>
             <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="587.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Visibility_off.png" />
+                  <Image url="@../image/Visibility_off.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />

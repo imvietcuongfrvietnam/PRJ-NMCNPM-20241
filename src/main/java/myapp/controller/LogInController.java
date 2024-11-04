@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import myapp.model.communicatedb.select.PasswordSelector;
 import myapp.model.manager.Switcher;
 public class LogInController {
 
@@ -42,8 +43,7 @@ public class LogInController {
     }
 
     private boolean validateCredentials(String username, String password) {
-        // Kiểm tra thông tin đăng nhập
-        // Bạn có thể thay thế logic này để kiểm tra từ cơ sở dữ liệu
-        return "user".equals(username) && "pass".equals(password);
+        PasswordSelector passwordSelector = new PasswordSelector();
+        return passwordSelector.select(username).equals(password);
     }
 }
