@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -13,9 +14,74 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
+      <Label prefHeight="1010.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
+      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="860.0" prefWidth="1570.0">
+               <children>
+                  <Label layoutX="50.0" layoutY="50.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label layoutX="50.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label layoutX="430.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label layoutX="810.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label layoutX="1190.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../resources/image/Logo.png" />
@@ -121,18 +187,42 @@
             </ImageView>
          </children>
       </StackPane>
-      <Button layoutX="25.0" layoutY="350.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="25.0" layoutY="425.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Button>
+      <StackPane layoutX="25.0" layoutY="350.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../../../resources/image/Manage.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="25.0" layoutY="425.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../../../resources/image/Manage.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-      <StackPane layoutX="25.0" layoutY="905.0">
+      <StackPane layoutX="25.0" layoutY="860.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
                <font>
@@ -149,7 +239,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="25.0" layoutY="980.0">
+      <StackPane layoutX="25.0" layoutY="935.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                <font>
@@ -166,60 +256,5 @@
             </ImageView>
          </children>
       </StackPane>
-      <Label layoutX="400.0" layoutY="200.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF;">
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-               <color>
-                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-               </color>
-            </DropShadow>
-         </effect></Label>
-      <Label layoutX="400.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-               <color>
-                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-               </color>
-            </DropShadow>
-         </effect></Label>
-      <Label layoutX="780.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-               <color>
-                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Label>
-      <Label layoutX="1160.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-               <color>
-                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Label>
-      <Label layoutX="1540.0" layoutY="575.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF;">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <effect>
-            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-               <color>
-                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Label>
    </children>
 </AnchorPane>
