@@ -23,7 +23,7 @@ public class Main extends Application {
             primaryStage.setTitle("Blockchain Search App");
 
             // set the icon
-            primaryStage.getIcons().add(new javafx.scene.image.Image("/image/icon.png"));
+            primaryStage.getIcons().add(new javafx.scene.image.Image("/image/Icon.png"));
 
             // show the GUI
             primaryStage.show();
