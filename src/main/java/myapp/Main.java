@@ -1,3 +1,5 @@
+package myapp;
+
 import java.io.IOException;
 import java.util.Objects;
 
