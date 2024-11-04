@@ -65,6 +65,7 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
+
                   <Image url="@../image/Mail.png" />
                </image>
                <StackPane.margin>
@@ -109,9 +110,7 @@
       </StackPane>
         <Button layoutX="85.0" layoutY="835.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="650.0" style="-fx-background-radius: 37,5; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng ký" textFill="#002060">
             <font>
-
                 <Font name="System Bold" size="35.0" />
-
             </font>
         </Button>
       <Label layoutX="821.0" layoutY="425.0" prefHeight="485.0" prefWidth="1015.0" style="-fx-background-color: rgba(255, 255, 255, 0.75); -fx-background-radius: 15;" />
