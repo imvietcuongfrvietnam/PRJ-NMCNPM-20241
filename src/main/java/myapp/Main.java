@@ -24,7 +24,7 @@
                 primaryStage.setTitle("Blockchain Search App");
 
                 // set the icon
-                primaryStage.getIcons().add(new javafx.scene.image.Image("/image/Icon.png"));
+                primaryStage.getIcons().add(new javafx.scene.image.Image("" +"/image/Icon.png"));
 
                 // show the GUI
                 primaryStage.show();
