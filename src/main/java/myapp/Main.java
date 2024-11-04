@@ -6,30 +6,19 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 public class Main extends Application {
-
     @Override
-    public void start(Stage primaryStage) {
-        try {
-            // load the FXML resource
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("myapp/view/Main.fxml")));
-            // create a scene
-            primaryStage.setScene(new Scene(root, 1920, 1080));
-            // prevent resizing
-            primaryStage.setResizable(false);
-            // set the title
-            primaryStage.setTitle("Blockchain Search App");
-
-            // set the icon
-            primaryStage.getIcons().add(new javafx.scene.image.Image("/image/icon.png"));
-
-            // show the GUI
-            primaryStage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/List_of_residents.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/Button.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Hệ thống quản lý thu phí chung cư BlueMoon");
+        Image icon = new Image(getClass().getResourceAsStream("/image/Icon.png"));
+        primaryStage.getIcons().add(icon);
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,21 @@
+.edit-button {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-border-color:  #00B050;
+    -fx-border-radius: 10;
+    -fx-border-width: 2.5;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-padding: 0;
+}
+
+.delete-button {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-border-color:   #FF0000;
+    -fx-border-radius: 10;
+    -fx-border-width: 2.5;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-padding: 0;
+}
