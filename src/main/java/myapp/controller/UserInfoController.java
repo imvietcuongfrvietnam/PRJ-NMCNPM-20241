@@ -39,6 +39,6 @@ public class UserInfoController {
     }
 
     private void handleReturnButton(ActionEvent event) {
-        Switcher.switchTo("MainScreen.fxml");
+        Switcher.switchTo("Main.fxml");
     }
 }

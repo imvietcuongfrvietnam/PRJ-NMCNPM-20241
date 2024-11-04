@@ -10,7 +10,7 @@ public class HomePageController {
 
     @FXML
     private void handleSignUpButtonAction(ActionEvent event) {
-        Switcher.switchTo("SignUp.fxml");
+        Switcher.switchTo("Signup.fxml");
     }
 
     @FXML

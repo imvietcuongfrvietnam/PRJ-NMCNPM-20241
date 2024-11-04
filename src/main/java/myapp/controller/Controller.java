@@ -24,9 +24,9 @@ public class Controller {
     private void initialize() {
         userNameLabel.setText("Nguyen Van A");
         emailLabel.setText("nva@gmail.com");
-        avatarImageView.setImage(new Image("/image/avatar.png"));
+        avatarImageView.setImage(new Image("/image/Background.png"));
         
         // Gọi sự kiện cho nút Trở về
-        returnMainScreenButton.setOnAction(event -> Switcher.switchTo("MainScreen.fxml"));
+        returnMainScreenButton.setOnAction(event -> Switcher.switchTo("Main.fxml"));
     }
 }
