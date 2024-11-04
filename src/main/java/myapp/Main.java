@@ -1,3 +1,4 @@
+package myapp;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -12,8 +13,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         try {
             // load the FXML resource
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Main.fxml")));
-
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("myapp/view/Main.fxml")));
             // create a scene
             primaryStage.setScene(new Scene(root, 1920, 1080));
             // prevent resizing
