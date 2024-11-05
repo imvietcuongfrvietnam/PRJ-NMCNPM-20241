@@ -21,8 +21,6 @@ public class Main extends Application {
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
 
-            // prevent resizing
-            primaryStage.setResizable(false);
             // set the title
             primaryStage.setTitle("Blockchain Search App");
 
@@ -37,17 +35,16 @@ public class Main extends Application {
             // open in full screen
             primaryStage.setFullScreen(true);
 
+            // Optional: Add a listener to handle when leaving full screen
+            primaryStage.fullScreenProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal) {
+                    primaryStage.setWidth(1920);
+                    primaryStage.setHeight(1080);
+                }
+            });
+
             // show the GUI
             primaryStage.show();
-
-            // Optional: Add a listener to handle resizing events if necessary
-            primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
-                // Code to handle width changes, if needed
-            });
-
-            primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
-                // Code to handle height changes, if needed
-            });
 
         } catch (IOException e) {
             e.printStackTrace();
