@@ -56,7 +56,7 @@ public class ListofResidentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        residentsList = FXCollections.observableArrayList(
+        residentsList = FXCollections.observableArrayList( // Thêm dữ liệu từ database vào đây
                 new Resident(1, "A", "01/01/2004", "Hà Nội"),
                 new Resident(2, "B", "02/02/2004", "Hà Nội"),
                 new Resident(3, "C", "03/03/2004", "Hà Nội")

@@ -4,19 +4,27 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="1010.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="1010.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../resources/image/Background.png" />
+                <Image url="@../image/Background.png" />
             </image>
         </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="400.0" layoutX="85.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Logo.png" />
+         </image>
+      </ImageView>
         <Label layoutX="85.0" layoutY="250.0" prefHeight="75.0" text="Tạo tài khoản mới" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="50.0" />
@@ -31,7 +39,7 @@
             </TextField>
             <ImageView fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Badge.png" />
+                  <Image url="@../image/Badge.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -48,7 +56,7 @@
             </TextField>
             <ImageView fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Badge.png" />
+                  <Image url="@../image/Badge.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -65,7 +73,7 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Mail.png" />
+                  <Image url="@../image/Mail.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -82,7 +90,7 @@
             </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Phone.png" />
+                  <Image url="@../image/Phone.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -99,7 +107,7 @@
               </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Username.png" />
+                  <Image url="@../image/Username.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -116,7 +124,7 @@
               </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Password.png" />
+                  <Image url="@../image/Password.png" />
                </image>
                <StackPane.margin>
                   <Insets right="12.5" />
@@ -130,20 +138,158 @@
             </font>
         </Button>
       <Label layoutX="820.0" layoutY="250.0" prefHeight="675.0" prefWidth="1015.0" style="-fx-background-color: rgba(255, 255, 255, 0.75); -fx-background-radius: 15;" />
-        <Button layoutX="1492.0" layoutY="825.0" lineSpacing="1.0" mnemonicParsing="false" style="-fx-background-color: #00000000;" text="Đăng nhập" textFill="BLUE" underline="true">
-            <font>
-                <Font size="30.0" />
-            </font>
-        </Button>
-      <ImageView fitHeight="150.0" fitWidth="400.0" layoutX="85.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../resources/image/Logo.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" layoutX="890.0" layoutY="275.0" prefHeight="60.0" prefWidth="875.0" text="Hệ thống quản lý thu phí chung cư Blue Moon" textAlignment="CENTER" textFill="#002060">
+      <Label alignment="CENTER" layoutX="890.0" layoutY="300.0" prefHeight="60.0" prefWidth="875.0" text="Hệ thống quản lý thu phí chung cư Blue Moon" textAlignment="CENTER" textFill="#002060">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
+      <Label alignment="CENTER" layoutX="1127.5" layoutY="400.0" prefHeight="60.0" prefWidth="400.0" text="Các chức năng chính" textFill="#0070c0">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <StackPane layoutX="900.0" layoutY="500.0" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <Circle fill="WHITE" radius="50.0" stroke="#002060" strokeType="INSIDE" strokeWidth="5.0" StackPane.alignment="CENTER_LEFT">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                     <color>
+                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                     </color>
+                  </DropShadow>
+               </effect></Circle>
+            <Label text="Quản lý thu phí" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="120.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Fee.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="1355.0" layoutY="500.0" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <Circle fill="WHITE" radius="50.0" stroke="#002060" strokeType="INSIDE" strokeWidth="5.0" StackPane.alignment="CENTER_LEFT">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                     <color>
+                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                     </color>
+                  </DropShadow>
+               </effect></Circle>
+            <Label text="Quản lý hộ gia đình" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="120.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Household.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="900.0" layoutY="650.0" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <Circle fill="WHITE" radius="50.0" stroke="#002060" strokeType="INSIDE" strokeWidth="5.0" StackPane.alignment="CENTER_LEFT">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                     <color>
+                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                     </color>
+                  </DropShadow>
+               </effect></Circle>
+            <Label text="Tra cứu &amp; thống kê" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="120.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Lookup.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="12.5" />
+               </StackPane.margin></ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="1355.0" layoutY="650.0" prefHeight="100.0" prefWidth="400.0">
+         <children>
+            <Circle fill="WHITE" radius="50.0" stroke="#002060" strokeType="INSIDE" strokeWidth="5.0" StackPane.alignment="CENTER_LEFT">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                     <color>
+                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                     </color>
+                  </DropShadow>
+               </effect></Circle>
+            <Label text="Bảo mật &amp; truy cập" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="120.0" />
+               </StackPane.margin>
+            </Label>
+            <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Security.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Label alignment="CENTER" layoutX="900.0" layoutY="835.0" prefHeight="40.0" text="Phiên bản v1.0" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <StackPane layoutX="1355.0" layoutY="800.0">
+         <children>
+            <Button alignment="CENTER" mnemonicParsing="false" prefHeight="75.0" prefWidth="400.0" style="-fx-background-radius: 37,5; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng nhập ngay" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+               <padding>
+                  <Insets right="75.0" />
+               </padding>
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                     <color>
+                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Button>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../image/Icon(1).png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
     </children>
 </AnchorPane>

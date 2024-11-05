@@ -14,23 +14,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.controller.MainController">
    <children>
       <Label prefHeight="1010.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="860.0" prefWidth="1570.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="977.0" prefWidth="1570.0">
                <children>
-                  <Label layoutX="50.0" layoutY="50.0" prefHeight="325.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
-                  </Label>
-                  <Label layoutX="50.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label fx:id="slideshowLabel" layoutX="50.0" layoutY="50.0" prefHeight="530.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -42,7 +33,9 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label layoutX="430.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Button fx:id="previousButton" layoutX="62.5" layoutY="290.0" mnemonicParsing="false" onAction="#showPreviousImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 25; -fx-background-color: rgba(255, 255, 255, 0.25); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-radius: 25; -fx-border-width: 2.5;" />
+                  <Button fx:id="nextButton" layoutX="1457.5" layoutY="290.0" mnemonicParsing="false" onAction="#showNextImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 25; -fx-background-color: rgba(255, 255, 255, 0.25); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-radius: 25; -fx-border-width: 2.5;" />
+                  <Label layoutX="50.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -54,7 +47,7 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label layoutX="810.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="430.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -66,7 +59,19 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label layoutX="1190.0" layoutY="425.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="810.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label layoutX="1190.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -84,7 +89,7 @@
       </ScrollPane>
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Logo.png" />
+            <Image url="@../image/Logo.png" />
          </image>
       </ImageView>
       <StackPane layoutX="400.0" layoutY="50.0" prefHeight="50.0" prefWidth="960.0">
@@ -99,7 +104,7 @@
             </TextField>
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Search.png" />
+                  <Image url="@../image/Search.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -112,7 +117,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/image/Notification.png" />
+                  <Image url="@../image/Notification.png" />
                </image>
             </ImageView>
          </graphic>
@@ -121,7 +126,7 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../resources/image/Message.png" />
+                  <Image url="@../image/Message.png" />
                </image>
             </ImageView>
          </graphic>
@@ -129,7 +134,7 @@
       <Line endY="50.0" layoutX="1560.0" layoutY="50.0" stroke="#7f7f7f" />
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../resources/image/Avatar.png" />
+            <Image url="@../image/Avatar.png" />
          </image>
       </ImageView>
       <StackPane layoutX="1660.0" layoutY="50.0" prefHeight="50.0" prefWidth="210.0">
@@ -144,7 +149,7 @@
             </Button>
             <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-                  <Image url="@../../../resources/image/Menu.png" />
+                  <Image url="@../image/Menu.png" />
                </image>
                <StackPane.margin>
                   <Insets right="7.5" />
@@ -162,7 +167,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Home.png" />
+                  <Image url="@../image/Home.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -179,7 +184,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/List.png" />
+                  <Image url="@../image/List.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -196,7 +201,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Manage.png" />
+                  <Image url="@../image/Manage.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -213,7 +218,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Manage.png" />
+                  <Image url="@../image/Manage.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -231,7 +236,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Setting.png" />
+                  <Image url="@../image/Setting.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -248,7 +253,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../../../resources/image/Logout.png" />
+                  <Image url="@../image/Logout.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
