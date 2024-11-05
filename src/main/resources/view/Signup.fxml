@@ -25,7 +25,7 @@
         </Label>
       <StackPane layoutX="85.0" layoutY="350.0">
          <children>
-            <TextField prefHeight="75.0" prefWidth="312.5" promptText="Họ" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255);">
+            <TextField fx:id="lastNameField" prefHeight="75.0" prefWidth="312.5" promptText="Họ" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255);">
                <font>
                   <Font size="30.0" />
                </font>
@@ -42,7 +42,7 @@
       </StackPane>
       <StackPane layoutX="422.5" layoutY="350.0">
          <children>
-            <TextField prefHeight="75.0" prefWidth="312.5" promptText="Tên" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+            <TextField fx:id="firstNameField" prefHeight="75.0" prefWidth="312.5" promptText="Tên" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
                <font>
                   <Font size="30.0" />
                </font>
@@ -59,7 +59,7 @@
       </StackPane>
       <StackPane layoutX="85.0" layoutY="450.0">
          <children>
-            <TextField prefHeight="75.0" prefWidth="650.0" promptText="Email" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+            <TextField fx:id="emailField" prefHeight="75.0" prefWidth="650.0" promptText="Email" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
                <font>
                   <Font size="30.0" />
                </font>
@@ -77,7 +77,7 @@
       </StackPane>
       <StackPane layoutX="85.0" layoutY="550.0">
          <children>
-            <TextField prefHeight="75.0" prefWidth="650.0" promptText="Số điện thoại" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+            <TextField fx:id="phoneField" prefHeight="75.0" prefWidth="650.0" promptText="Số điện thoại" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
                <font>
                   <Font size="30.0" />
                </font>
@@ -94,7 +94,7 @@
       </StackPane>
       <StackPane layoutX="85.0" layoutY="650.0">
          <children>
-              <TextField prefHeight="75.0" prefWidth="650.0" promptText="Tên đăng nhập" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+              <TextField fx:id="userNameField" prefHeight="75.0" prefWidth="650.0" promptText="Tên đăng nhập" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
                   <font>
                       <Font size="30.0" />
                   </font>
@@ -113,7 +113,7 @@
       </StackPane>
       <StackPane layoutX="85.0" layoutY="750.0">
          <children>
-              <TextField prefHeight="75.0" prefWidth="650.0" promptText="Mật khẩu" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
+              <TextField fx:id="passwordField" prefHeight="75.0" prefWidth="650.0" promptText="Mật khẩu" style="-fx-background-radius: 15; -fx-background-color: rgba(255, 255, 255); -fx-text-fill: #002060;">
                   <font>
                       <Font size="30.0" />
                   </font>
@@ -129,13 +129,13 @@
             </ImageView>
          </children>
       </StackPane>
-        <Button layoutX="85.0" layoutY="850.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="650.0" style="-fx-background-radius: 37,5; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng ký" textFill="#002060">
+        <Button fx:id="signUpButton" layoutX="85.0" layoutY="850.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="650.0" style="-fx-background-radius: 37,5; -fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng ký" textFill="#002060">
             <font>
                 <Font name="System Bold" size="35.0" />
             </font>
         </Button>
       <Label layoutX="820.0" layoutY="250.0" prefHeight="675.0" prefWidth="1015.0" style="-fx-background-color: rgba(255, 255, 255, 0.75); -fx-background-radius: 15;" />
-        <Button layoutX="1492.0" layoutY="825.0" lineSpacing="1.0" mnemonicParsing="false" style="-fx-background-color: #00000000;" text="Đăng nhập" textFill="BLUE" underline="true">
+        <Button fx:id="logInButton" layoutX="1492.0" layoutY="825.0" lineSpacing="1.0" mnemonicParsing="false" style="-fx-background-color: #00000000;" text="Đăng nhập" textFill="BLUE" underline="true">
             <font>
                 <Font size="30.0" />
             </font>
