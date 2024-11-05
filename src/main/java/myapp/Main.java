@@ -1,8 +1,5 @@
 package myapp;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Objects;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +11,7 @@ public class Main extends Application {
     @Override
 
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/List_of_residents.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/ListOfResidents.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/Button.css").toExternalForm());
         primaryStage.setScene(scene);
