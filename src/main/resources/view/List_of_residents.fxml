@@ -2,7 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -13,11 +13,15 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.DatePicker?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.controller.ListofResidentController">
    <children>
-      <Label prefHeight="1080.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
+      <Label prefHeight="1010.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
 
@@ -38,6 +42,7 @@
                <image>
                   <Image url="@../image/Search.png" />
 
+
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -51,7 +56,6 @@
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/Notification.png" />
-
                </image>
             </ImageView>
          </graphic>
@@ -60,7 +64,6 @@
          <graphic>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
-
                   <Image url="@../image/Message.png" />
 
                </image>
@@ -70,7 +73,6 @@
       <Line endY="50.0" layoutX="1560.0" layoutY="50.0" stroke="#7f7f7f" />
       <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
-
             <Image url="@../image/Avatar.png" />
          </image>
       </ImageView>
@@ -86,7 +88,6 @@
             </Button>
             <ImageView fitHeight="150.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
-
                   <Image url="@../image/Menu.png" />
                </image>
                <StackPane.margin>
@@ -105,7 +106,6 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-
                   <Image url="@../image/Home.png" />
                </image>
                <StackPane.margin>
@@ -123,8 +123,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-
-                  <Image url="@../image/List.png" />l
+                  <Image url="@../image/List.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -132,18 +131,42 @@
             </ImageView>
          </children>
       </StackPane>
-      <Button layoutX="25.0" layoutY="350.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Button>
-      <Button layoutX="25.0" layoutY="425.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Button>
+      <StackPane layoutX="25.0" layoutY="350.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Manage.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="25.0" layoutY="425.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Manage.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-      <StackPane layoutX="25.0" layoutY="905.0">
+      <StackPane layoutX="25.0" layoutY="860.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
                <font>
@@ -152,7 +175,6 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-
                   <Image url="@../image/Setting.png" />
                </image>
                <StackPane.margin>
@@ -161,7 +183,7 @@
             </ImageView>
          </children>
       </StackPane>
-      <StackPane layoutX="25.0" layoutY="980.0">
+      <StackPane layoutX="25.0" layoutY="935.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                <font>
@@ -178,12 +200,12 @@
             </ImageView>
          </children>
       </StackPane>
-      <Label layoutX="400.0" layoutY="200.0" text="Danh sách cư dân" textFill="#002060">
+      <Label layoutX="400.0" layoutY="175.0" prefHeight="60.0" text="Danh sách cư dân" textFill="#002060">
          <font>
-            <Font name="System Bold" size="30.0" />
+            <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="addButton" layoutX="1295.0" layoutY="200.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #0070C0;" text="Thêm mới" textFill="WHITE">
+      <Button fx:id="addButton" layoutX="1295.0" layoutY="182.5" mnemonicParsing="false" onAction="#handleThemMoi" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #0070C0;" text="Thêm mới" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -194,7 +216,7 @@
                </color>
             </DropShadow>
          </effect></Button>
-      <StackPane layoutX="1470.0" layoutY="200.0">
+      <StackPane layoutX="1470.0" layoutY="182.5">
          <children>
             <TextField prefHeight="45.0" prefWidth="400.0" promptText="Tra cứu thông tin" style="-fx-background-radius: 22.5;">
                <font>
@@ -217,15 +239,16 @@
             </ImageView>
          </children>
       </StackPane>
-      <TableView fixedCellSize="1.0" layoutX="400.0" layoutY="300.0" prefHeight="655.0" prefWidth="1470.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="STT" />
-          <TableColumn prefWidth="75.0" text="Họ và tên" />
-            <TableColumn prefWidth="75.0" text="C1" />
-            <TableColumn prefWidth="75.0" text="Column X" />
-        </columns>
+      <TableView fx:id="residentTableView" editable="true" fixedCellSize="60.0" layoutX="400.0" layoutY="260.0" prefHeight="650.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10;">
+         <columns>
+            <TableColumn fx:id="indexColumn" prefWidth="75.0" style="-fx-alignment: center;" text="STT" />
+            <TableColumn fx:id="nameColumn" prefWidth="155.0" style="-fx-alignment: center;" text="Họ và tên" />
+            <TableColumn fx:id="birthdayColumn" prefWidth="223.0" style="-fx-alignment: center;" text="Ngày sinh" />
+            <TableColumn fx:id="hometownColumn" prefWidth="668.0" style="-fx-alignment: center;" text="Quê quán" />
+            <TableColumn fx:id="editColumn" prefWidth="125.0" text="Chỉnh sửa" />
+         </columns>
       </TableView>
-      <StackPane layoutX="1370.0" layoutY="980.0">
+      <StackPane layoutX="1370.0" layoutY="935.0">
          <children>
             <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" textFill="#002060">
                <font>
@@ -239,32 +262,32 @@
             </ImageView>
          </children>
       </StackPane>
-      <Button layoutX="1445.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="1" textFill="#002060">
+      <Button layoutX="1445.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="1" textFill="#002060">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="1520.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="2" textFill="#002060">
+      <Button layoutX="1520.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="2" textFill="#002060">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Button layoutX="1595.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="3" textFill="#002060">
+      <Button layoutX="1595.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="3" textFill="#002060">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <Label alignment="BOTTOM_CENTER" layoutX="1670.0" layoutY="980.0" prefHeight="50.0" prefWidth="50.0" text=". . ." textAlignment="CENTER" textFill="#002060">
+      <Label alignment="BOTTOM_CENTER" layoutX="1670.0" layoutY="935.0" prefHeight="50.0" prefWidth="50.0" text=". . ." textAlignment="CENTER" textFill="#002060">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <Button layoutX="1745.0" layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="9" textFill="#002060">
+      <Button layoutX="1745.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="9" textFill="#002060">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
       </Button>
-      <StackPane layoutX="1820.0" layoutY="980.0">
+      <StackPane layoutX="1820.0" layoutY="935.0">
          <children>
             <Button layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" textFill="#002060">
                <font>
@@ -276,6 +299,247 @@
                   <Image url="@../image/Next.png" />
                </image>
             </ImageView>
+         </children>
+      </StackPane>
+      <StackPane fx:id="stackPaneInsertUpdate" visible="false">
+         <children>
+            <Label prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: rgba(0, 32, 96, 0.5);" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="760.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="1220.0" StackPane.alignment="TOP_LEFT">
+               <StackPane.margin>
+                  <Insets left="350.0" top="150.0" />
+               </StackPane.margin></Rectangle>
+            <Label text="Thông tin cá nhân" textFill="#002060" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold" size="45.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="200.0" />
+               </StackPane.margin>
+            </Label>
+            <Label text="Họ và tên:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="285.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="nameText" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="315.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Giới tính:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="285.0" />
+               </StackPane.margin>
+            </Label>
+            <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Nam" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="322.5" />
+               </StackPane.margin>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Nữ" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="850.0" top="322.5" />
+               </StackPane.margin>
+            </RadioButton>
+            <Label text="Ngày sinh:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="385.0" />
+               </StackPane.margin>
+            </Label>
+            <DatePicker fx:id="birthdayText" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <opaqueInsets>
+                  <Insets right="5.0" />
+               </opaqueInsets>
+               <StackPane.margin>
+                  <Insets left="400.0" top="415.0" />
+               </StackPane.margin>
+            </DatePicker>
+            <Label text="Số CMTND/CCCD:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="385.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="415.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Quê quán:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="485.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField fx:id="hometownText" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Số điện thoại:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="485.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="515.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Quốc tịch:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="585.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="615.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Dân tộc:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="585.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="615.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Nghề nghiệp:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="685.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="715.0" />
+               </StackPane.margin>
+            </TextField>
+            <Label text="Trình độ học vấn:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="685.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="715.0" />
+               </StackPane.margin>
+            </TextField>
+            <ImageView fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+               <image>
+                  <Image url="@../image/Avatar.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="1160.0" top="360.0" />
+               </StackPane.margin>
+            </ImageView>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF;" text="Xem ảnh" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="1190" top="695.0" />
+               </StackPane.margin>
+            </Button>
+            <Button contentDisplay="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="110.0" style="-fx-background-color: #FFFFFF;" text="Sửa ảnh" textAlignment="CENTER" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="1310" top="695.0" />
+               </StackPane.margin>
+            </Button>
+            <Button fx:id="cancleButton" mnemonicParsing="false" onAction="#handleThoat" prefHeight="45.0" prefWidth="80.0" style="-fx-background-color: #FFFFFF;" text="Thoát" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="1255.0" top="815.0" />
+               </StackPane.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#save" prefHeight="45.0" prefWidth="160.0" style="-fx-background-color: #0070C0;" text="Lưu thông tin" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="1360.0" top="815.0" />
+               </StackPane.margin>
+            </Button>
+            <Label layoutX="410.0" layoutY="695.0" text="Ghi chú:" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="785.0" />
+               </StackPane.margin>
+            </Label>
+            <TextField layoutX="410.0" layoutY="725.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="650.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="400.0" top="815.0" />
+               </StackPane.margin>
+            </TextField>
          </children>
       </StackPane>
    </children>
