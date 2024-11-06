@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.controller.LogInController">
    <children>
       <ImageView fitHeight="1010.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -46,18 +46,11 @@
       <Label fx:id="alertField" alignment="CENTER" contentDisplay="CENTER" layoutX="1205.0" layoutY="362.5" prefHeight="45.0" prefWidth="450.0" text="Tài khoản hoặc mật khẩu không hợp lệ" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="25.0" />
+            <Font size="25.0" />
          </font>
       </Label>
       <StackPane layoutX="1120.0" layoutY="420.0">
          <children>
-            <TextField fx:id="userName" prefHeight="75.0" prefWidth="640.0" promptText="Tên đăng nhập" style="-fx-background-radius: 10;">
-               <font>
-                  <Font size="30.0" />
-               </font>
-               <padding>
-                  <Insets left="75.0" />
-               </padding>
-            </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../image/Username.png" />
@@ -66,6 +59,14 @@
                   <Insets left="12.5" />
                </StackPane.margin>
             </ImageView>
+            <TextField fx:id="usernameField" prefHeight="75.0" prefWidth="640.0" promptText="Tên đăng nhập" style="-fx-background-radius: 10;">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="75.0" />
+               </padding>
+            </TextField>
          </children>
       </StackPane>
       <StackPane layoutX="1120.0" layoutY="520.0">
@@ -86,15 +87,7 @@
                   <Insets left="12.5" />
                </StackPane.margin>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
-               <image>
-                  <Image url="@../image/Visibility.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets right="12.5" />
-               </StackPane.margin>
-            </ImageView>
-            <ImageView fx:id="showPasswordButton" fitHeight="50.0" fitWidth="50.0" layoutX="587.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+            <ImageView fx:id="viewPassword" fitHeight="50.0" fitWidth="66.0" layoutX="587.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
                <image>
                   <Image url="@../image/Visibility_off.png" />
                </image>

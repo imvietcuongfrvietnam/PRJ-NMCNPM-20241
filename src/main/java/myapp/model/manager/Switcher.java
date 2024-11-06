@@ -34,4 +34,7 @@ public class Switcher {
     public  void goLogInPage(BaseController baseController, Event event) throws IOException {
         this.switchScene(baseController, event, "LogIn.fxml");
     }
+    public  void goSignUpPage(BaseController baseController, Event event) throws IOException {
+        this.switchScene(baseController, event, "SignUp.fxml");
+    }
 }

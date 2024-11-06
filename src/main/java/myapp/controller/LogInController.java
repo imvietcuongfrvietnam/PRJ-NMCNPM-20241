@@ -1,53 +1,84 @@
 package myapp.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import myapp.model.communicatedb.select.PasswordSelector;
 import myapp.model.manager.Switcher;
-public class LogInController {
+
+import java.io.IOException;
+
+public class LogInController extends BaseController implements Runnable{
 
     @FXML
     private Button signInButton;
+    @FXML
+    private RadioButton saveSignInButton;
 
     @FXML
-    private TextField usernameField;  // Trường nhập tên người dùng
-
+    private TextField usernameField;
     @FXML
-    private PasswordField passwordField; // Trường nhập mật khẩu
-
+    private PasswordField passwordField;
     @FXML
-    private Label errorLabel; // Nhãn để hiển thị thông báo lỗi
+    private Label alertField;
+
     @FXML
     private Button registrationButton;
-    @FXML
-    private Button saveSignInButton;
 
     @FXML
-    private void initialize() {
+    private ImageView viewPassword;
+
+    private String password;
+    private String username;
+
+    @Override
+    public void initialize() {
+        alertField.setText("");
         signInButton.setOnAction(event -> {
+            password = passwordField.getText();
+            username = usernameField.getText();
 
+            if (validateCredentials(username, password)) {
+                try {
+                    new Switcher().goHomePage(this, event);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                alertField.setText("Tên đăng nhập hoặc mật khẩu không đúng.");
+            }
         });
+
+        registrationButton.setOnAction(event -> {
+            try {
+                new Switcher().goSignUpPage(this, event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        viewPassword.setOnMousePressed(event -> {
+            // Thay đổi để hiển thị mật khẩu dưới dạng TextField
+            passwordField.setStyle("-fx-opacity: 1;");  // Loại bỏ hiệu ứng che giấu mật khẩu
+            passwordField.setText(passwordField.getText());  // Đảm bảo mật khẩu được hiển thị rõ ràng
+            passwordField.setPromptText("");  // Nếu có PromptText thì đặt lại
+        });
+
+        viewPassword.setOnMouseReleased(event -> {
+            // Khôi phục lại mật khẩu dưới dạng PasswordField khi thả chuột
+            passwordField.setStyle("-fx-opacity: 0;");  // Đặt lại chế độ ẩn mật khẩu
+            passwordField.setPromptText("Password");  // Đặt lại PromptText nếu cần
+        });
+
+
     }
 
-//    @FXML
-//    private void handleSignInButtonAction() {
-//        String username = usernameField.getText();
-//        String password = passwordField.getText();
-//
-//        if (validateCredentials(username, password)) {
-//            // Nếu thông tin hợp lệ, chuyển đến HomePage
-//            switcher.goHomePage();
-//        } else {
-//            // Nếu thông tin không hợp lệ, hiển thị thông báo lỗi
-//            errorLabel.setText("Tên đăng nhập hoặc mật khẩu không đúng.");
-//        }
-//    }
-//
-//    private boolean validateCredentials(String username, String password) {
-//        PasswordSelector passwordSelector = new PasswordSelector();
-//        return passwordSelector.select(username).equals(password);
-//    }
+    private boolean validateCredentials(String username, String password) {
+        PasswordSelector passwordSelector = new PasswordSelector();
+        return passwordSelector.select(username).equals(password);
+    }
+
+    @Override
+    public void run() {
+    }
 }
