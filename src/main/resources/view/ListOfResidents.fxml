@@ -24,6 +24,7 @@
       <Label prefHeight="1010.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
       <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
+
             <Image url="@../image/Logo.png" />
          </image>
       </ImageView>
@@ -40,6 +41,8 @@
             <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../image/Search.png" />
+
+
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -62,12 +65,13 @@
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/Message.png" />
+
                </image>
             </ImageView>
          </graphic>
       </Button>
       <Line endY="50.0" layoutX="1560.0" layoutY="50.0" stroke="#7f7f7f" />
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="avatar" fitHeight="50.0" fitWidth="50.0" layoutX="1585.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/Avatar.png" />
          </image>
@@ -164,7 +168,7 @@
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
       <StackPane layoutX="25.0" layoutY="860.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
+            <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -181,7 +185,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="935.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
+            <Button fx:id="signOutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -201,7 +205,7 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button fx:id="addButton" layoutX="1295.0" layoutY="182.5" mnemonicParsing="false" onAction="#handleThemMoi" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #0070C0;" text="Thêm mới" textFill="WHITE">
+      <Button fx:id="addButton" layoutX="1295.0" layoutY="182.5" mnemonicParsing="false" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #0070C0;" text="Thêm mới" textFill="WHITE">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
@@ -251,7 +255,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="prevButton" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/Back.png" />
                </image>
@@ -290,14 +294,13 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="980.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="nextButton" fitHeight="50.0" fitWidth="50.0" layoutY="980.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image/Next.png" />
                </image>
             </ImageView>
          </children>
       </StackPane>
-
       <StackPane fx:id="stackPaneInsertUpdate" visible="false">
          <children>
             <Label prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: rgba(0, 32, 96, 0.5);" />

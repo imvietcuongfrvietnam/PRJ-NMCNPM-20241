@@ -1,4 +1,4 @@
-package myapp.model.entities;
+package myapp.model.entities.entitiesdb;
 
 public class Phong {
     private String id; // ID phòng

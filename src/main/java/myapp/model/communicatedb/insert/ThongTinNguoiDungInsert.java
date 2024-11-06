@@ -3,33 +3,32 @@ package myapp.model.communicatedb.insert;
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
-public class TaiKhoanNguoiDungInsert {
-    int defaultTinhTrang = 0;
-    public void insert(String VaiTro, String TenDangNhap, String MatKhau, LocalDateTime NgayTaoTaiKhoan) {
+public class ThongTinNguoiDungInsert {
+    public void insert(String hoTen, String CMND, String ngaySinh, String email, String queQuan, String soDienThoai, int maTaiKhoan){
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-
-        String sql = "INSERT INTO taikhoannguoidung (VaiTro, TenDangNhap, MatKhau, NgayTaoTaiKhoan, TinhTrang) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO thongtinnguoidung (MaTaiKhoan, Ten, SoCMND, NgaySinh, Email, QueQuan, DienThoai) VALUES (?, ?,?,?, ?, ?, ?)";
 
         try {
             connection = connector.getConnection();
-
             preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, maTaiKhoan);
+            preparedStatement.setString(2, hoTen);
+            preparedStatement.setString(3, CMND);
 
-            preparedStatement.setString(1, VaiTro);
-            preparedStatement.setString(2, TenDangNhap);
-            preparedStatement.setString(3, MatKhau);
+            // Chuyển đổi ngaySinh từ String sang java.sql.Date
+            Date sqlDate = Date.valueOf(ngaySinh); // Định dạng ngaySinh: "yyyy-MM-dd"
+            preparedStatement.setDate(4, sqlDate);
 
-            // Chuyển đổi LocalDateTime sang Timestamp
-            Timestamp timestamp = Timestamp.valueOf(NgayTaoTaiKhoan);
-            preparedStatement.setTimestamp(4, timestamp);
-            preparedStatement.setInt(5, defaultTinhTrang);
+            preparedStatement.setString(5, email);
+            preparedStatement.setString(6, queQuan);
+            preparedStatement.setString(7, soDienThoai);
+
             int rowsAffected = preparedStatement.executeUpdate();
             System.out.println("Số bản ghi đã thêm: " + rowsAffected);
 

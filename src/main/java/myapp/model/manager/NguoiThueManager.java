@@ -1,7 +1,7 @@
 package myapp.model.manager;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
-import myapp.model.entities.NguoiThue;
+import myapp.model.entities.entitiesdb.NguoiThue;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;

@@ -14,8 +14,9 @@ module myapp {
     exports myapp.model;
     exports myapp.model.entities;
     opens myapp.model.entities to javafx.fxml;
-    exports myapp.model.entities.nguoidung;
-    opens myapp.model.entities.nguoidung to javafx.fxml;
+    exports myapp.model.entities.entitiesdb;
+    opens myapp.model.entities.entitiesdb to javafx.fxml;
     exports myapp.model.manager;
     opens myapp.model.manager to javafx.fxml; // Xuất package model nếu cần truy cập bên ngoài module
+    exports myapp.model.entities.entitiessystem;
 }
