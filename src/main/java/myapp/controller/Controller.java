@@ -29,4 +29,13 @@ public class Controller {
 //        // Gọi sự kiện cho nút Trở về
 //        returnMainScreenButton.setOnAction(event -> Switcher.switchTo("MainScreen.fxml"));
 //    }
+//    @FXML
+//    private void initialize() {
+//        userNameLabel.setText("Nguyen Van A");
+//        emailLabel.setText("nva@gmail.com");
+//        avatarImageView.setImage(new Image("/image/Background.png"));
+//
+//        // Gọi sự kiện cho nút Trở về
+//        returnMainScreenButton.setOnAction(event -> Switcher.switchTo("Main.fxml"));
+//    }
 }

@@ -41,4 +41,13 @@ public class UserInfoController {
 //    private void handleReturnButton(ActionEvent event) {
 //        Switcher.switchTo("MainScreen.fxml");
 //    }
+
+//        // Gọi sự kiện cho nút Trở về
+//        btnReturn.setOnAction(this::handleReturnButton);
+//    }
+//
+//    private void handleReturnButton(ActionEvent event) {
+//        Switcher.switchTo("Main.fxml");
+//    }
+
 }
