@@ -148,12 +148,12 @@ public class ListofResidentController implements Initializable {
         hometownText.clear();
     }
     @FXML
-    public void handleThemMoi() {
+    public void add() {
         stackPaneInsertUpdate.setVisible(true);
     }
 
     @FXML
-    public void handleThoat() {
+    public void cancel() {
         clearFields();
         stackPaneInsertUpdate.setVisible(false);
     }

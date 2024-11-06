@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -20,6 +19,11 @@
 
             <Image url="@../image/Background.png" />
 
+         </image>
+      </ImageView>
+      <ImageView fitHeight="115.0" fitWidth="400.0" layoutX="85.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/Logo.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="436.0" fitWidth="800.0" layoutX="80.0" layoutY="250.0" pickOnBounds="true" preserveRatio="true">
@@ -43,7 +47,7 @@
             <Font name="System Bold" size="50.0" />
          </font>
       </Label>
-      <Label fx:id="alertField" alignment="CENTER" contentDisplay="CENTER" layoutX="1205.0" layoutY="362.5" prefHeight="45.0" prefWidth="450.0" text="Tài khoản hoặc mật khẩu không hợp lệ" textAlignment="CENTER" textFill="RED">
+      <Label fx:id="alertLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1205.0" layoutY="362.5" prefHeight="45.0" prefWidth="450.0" text="Tài khoản hoặc mật khẩu không hợp lệ" textAlignment="CENTER" textFill="RED">
          <font>
             <Font size="25.0" />
             <Font size="25.0" />
@@ -51,6 +55,14 @@
       </Label>
       <StackPane layoutX="1120.0" layoutY="420.0">
          <children>
+            <TextField fx:id="usernameText" prefHeight="75.0" prefWidth="640.0" promptText="Tên đăng nhập" style="-fx-background-radius: 10;">
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="75.0" />
+               </padding>
+            </TextField>
             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../image/Username.png" />
@@ -59,18 +71,17 @@
                   <Insets left="12.5" />
                </StackPane.margin>
             </ImageView>
-            <TextField fx:id="usernameField" prefHeight="75.0" prefWidth="640.0" promptText="Tên đăng nhập" style="-fx-background-radius: 10;">
+         </children>
+      </StackPane>
+      <StackPane layoutX="1120.0" layoutY="520.0">
+         <children>
+            <TextField fx:id="passwordText" prefHeight="75.0" prefWidth="640.0" promptText="Mật khẩu" style="-fx-background-radius: 10;">
                <font>
                   <Font size="30.0" />
                </font>
                <padding>
                   <Insets left="75.0" />
-               </padding>
-            </TextField>
-         </children>
-      </StackPane>
-      <StackPane layoutX="1120.0" layoutY="520.0">
-         <children>
+               </padding></TextField>
             <PasswordField fx:id="passwordField" prefHeight="75.0" prefWidth="640.0" promptText="Mật khẩu" style="-fx-background-radius: 10;">
                <font>
                   <Font size="30.0" />
@@ -87,26 +98,36 @@
                   <Insets left="12.5" />
                </StackPane.margin>
             </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="23.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_RIGHT">
+               <image>
+                  <Image url="@../image/Visibility.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </ImageView>
+            <Button fx:id="visibilityButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(255, 255, 255, 0);" StackPane.alignment="CENTER_RIGHT">
+               <StackPane.margin>
+                  <Insets right="12.5" />
+               </StackPane.margin>
+            </Button>
          </children>
       </StackPane>
-      <Button fx:id="signInButton" layoutX="1120.0" layoutY="680.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="640.0" style="-fx-background-color: #002060; -fx-background-radius: 10;" text="Đăng nhập" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="30.0" />
-         </font>
-      </Button>
-      <ImageView fitHeight="115.0" fitWidth="400.0" layoutX="85.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/Logo.png" />
-         </image>
-         <viewport>
-            <Rectangle2D height="115.0" width="400.0" />
-         </viewport>
-      </ImageView>
       <RadioButton fx:id="saveSignInButton" layoutX="1120.0" layoutY="620.0" minHeight="-Infinity" mnemonicParsing="false" text="Lưu mật khẩu" textFill="#002060">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
+      <Button fx:id="forgotPasswordButton" alignment="CENTER" layoutX="1555.0" layoutY="611.5" mnemonicParsing="false" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Quên mật khẩu" textAlignment="RIGHT" textFill="#002060">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button fx:id="signInButton" layoutX="1120.0" layoutY="680.0" mnemonicParsing="false" prefHeight="75.0" prefWidth="640.0" style="-fx-background-color: #002060; -fx-background-radius: 10;" text="Đăng nhập" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Button>
       <StackPane layoutX="1240.0" layoutY="795.0">
          <children>
             <Label prefWidth="200.0" text="Chưa có tài khoản" textFill="#002060" StackPane.alignment="CENTER_LEFT">
@@ -124,10 +145,5 @@
             </Button>
          </children>
       </StackPane>
-      <ImageView fitHeight="115.0" fitWidth="400.0" layoutX="85.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../image/Logo.png" />
-         </image>
-      </ImageView>
    </children>
 </AnchorPane>

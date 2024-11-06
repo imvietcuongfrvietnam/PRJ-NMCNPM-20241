@@ -229,7 +229,7 @@
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
       <StackPane layoutX="25.0" layoutY="860.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

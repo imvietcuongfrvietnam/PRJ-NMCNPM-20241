@@ -3,7 +3,6 @@ package myapp.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import myapp.model.communicatedb.insert.TaiKhoanNguoiDungInsert;
 import myapp.model.communicatedb.insert.ThongTinNguoiDungInsert;
 import myapp.model.communicatedb.select.MaTaiKhoanSelector;
@@ -16,31 +15,33 @@ import java.time.LocalDateTime;
 
 public class SignUpController extends BaseController{
     @FXML
-    TextField lastNameField;
+    private TextField lastNameText;
     @FXML
-    TextField firstNameField;
+    private TextField firstNameText;
     @FXML
-    TextField emailField;
+    private TextField emailText;
     @FXML
-    TextField phoneField;
+    private TextField phoneText;
     @FXML
-    TextField userNameField;
+    private TextField usernameText;
     @FXML
-    TextField passwordField;
+    private TextField passwordText;
     @FXML
-    Button signUpButton;
+    private Button signUpButton;
     @FXML
-    Button logInButton;
-    String lastName;
-    String firstName;
-    String email;
-    String phone;
-    String userName;
-    String password;
-    String defaultCMND = "";
-    String defaultQueQuan = "";
-    String defaultNgaySinh = "01/01/1970";
-    String defaultRole = "admin";
+    private Button logInButton;
+
+    private String lastName;
+    private String firstName;
+    private String email;
+    private String phone;
+    private String userName;
+    private String password;
+    private String defaultCMND = "";
+    private String defaultQueQuan = "";
+    private String defaultNgaySinh = "01/01/1970";
+    private String defaultRole = "admin";
+
     @Override
     public void initialize(){
         logInButton.setOnAction(event -> {
@@ -54,15 +55,13 @@ public class SignUpController extends BaseController{
 
         signUpButton.setOnAction(event -> {
             // Lấy giá trị của từng trường
-            lastName = lastNameField.getText();
-            firstName = firstNameField.getText();
-            email = emailField.getText();
-            phone = phoneField.getText();
-            userName = userNameField.getText();
-            password = passwordField.getText();
-            if (lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() ||
-                    phone.isEmpty() || userName.isEmpty() || password.isEmpty()) {
-
+            lastName = lastNameText.getText();
+            firstName = firstNameText.getText();
+            email = emailText.getText();
+            phone = phoneText.getText();
+            userName = usernameText.getText();
+            password = passwordText.getText();
+            if(lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || userName.isEmpty() || password.isEmpty()) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Thiếu thông tin");
                 alert.setHeaderText(null);
@@ -75,7 +74,6 @@ public class SignUpController extends BaseController{
                 taiKhoanNguoiDungInsert.insert(defaultRole, userName, password, now);
                 ThongTinNguoiDungInsert thongTinNguoiDungInsert = new ThongTinNguoiDungInsert();
             thongTinNguoiDungInsert.insert(lastName + " " + firstName, defaultCMND, defaultNgaySinh, email, defaultQueQuan, phone, new MaTaiKhoanSelector().select());}
-
         });
     }
 

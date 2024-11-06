@@ -13,24 +13,24 @@ import java.io.File;
 import java.io.IOException;
 
 public class LogInController extends BaseController{
-
     @FXML
-    private Button signInButton;
+    private Label alertLabel;
     @FXML
-    private RadioButton saveSignInButton;
-
-    @FXML
-    private TextField usernameField;
+    private TextField usernameText;
     @FXML
     private PasswordField passwordField;
     @FXML
-    private Label alertField;
-
+    private TextField passwordText;
+    @FXML
+    private Button visibilityButton;
+    @FXML
+    private RadioButton saveSignInButton;
+    @FXML
+    private Button forgotPasswordButton;
+    @FXML
+    private Button signInButton;
     @FXML
     private Button registrationButton;
-
-    @FXML
-    private ImageView viewPassword;
 
     private String password;
     private String username;
@@ -38,10 +38,10 @@ public class LogInController extends BaseController{
     @Override
     public void initialize() {
         this.showSaved();
-        alertField.setText("");
+        alertLabel.setText("");
         signInButton.setOnAction(event -> {
             password = passwordField.getText();
-            username = usernameField.getText();
+            username = usernameText.getText();
 
             if (validateCredentials(username, password)) {
                 try {
@@ -50,7 +50,7 @@ public class LogInController extends BaseController{
                     throw new RuntimeException(e);
                 }
             } else {
-                alertField.setText("Tên đăng nhập hoặc mật khẩu không đúng.");
+                alertLabel.setText("Tài khoản hoặc mật khẩu không hợp lệ");
             }
         });
 
@@ -62,22 +62,27 @@ public class LogInController extends BaseController{
             }
         });
 
-        viewPassword.setOnMousePressed(event -> {
-            // Thay đổi để hiển thị mật khẩu dưới dạng TextField
-            passwordField.setStyle("-fx-opacity: 1;");  // Loại bỏ hiệu ứng che giấu mật khẩu
-            passwordField.setText(passwordField.getText());  // Đảm bảo mật khẩu được hiển thị rõ ràng
-            passwordField.setPromptText("");  // Nếu có PromptText thì đặt lại
-        });
-
-        viewPassword.setOnMouseReleased(event -> {
-            // Khôi phục lại mật khẩu dưới dạng PasswordField khi thả chuột
-            passwordField.setStyle("-fx-opacity: 0;");  // Đặt lại chế độ ẩn mật khẩu
-            passwordField.setPromptText("Password");  // Đặt lại PromptText nếu cần
-        });
+        visibilityButton.setOnAction(event -> passwordVisibility());
         saveSignInButton.setOnAction(event -> {
             this.savePassword();
         });
 
+    }
+    private void passwordVisibility() {
+        // Kiểm tra nếu passwordField đang hiển thị
+        if (passwordField.isVisible()) {
+            // Ẩn passwordField và hiển thị passwordText
+            passwordField.setVisible(false);
+            passwordText.setVisible(true);
+            // Đảm bảo nội dung của passwordText giống với passwordField
+            passwordText.setText(passwordField.getText());
+        } else {
+            // Ẩn passwordText và hiển thị passwordField
+            passwordField.setVisible(true);
+            passwordText.setVisible(false);
+            // Đảm bảo nội dung của passwordField giống với passwordText
+            passwordField.setText(passwordText.getText());
+        }
     }
 
     private boolean validateCredentials(String username, String password) {
@@ -85,21 +90,21 @@ public class LogInController extends BaseController{
         return passwordSelector.select(username).equals(password);
     }
     private void savePassword() {
-        if (saveSignInButton.isSelected()) {
+        if(saveSignInButton.isSelected()) {
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode userNode = mapper.createObjectNode();
 
-            userNode.put("username", usernameField.getText());
+            userNode.put("username", usernameText.getText());
             userNode.put("password", passwordField.getText()); // Lưu ý: Mật khẩu không nên lưu trữ dạng plaintext, chỉ ví dụ
 
             try {
                 // Ghi vào file savepassword.json
                 File file = new File("src/main/resources/logs/savepassword.json");
                 mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
-                alertField.setText("Đã lưu thông tin đăng nhập.");
+                alertLabel.setText("Đã lưu thông tin đăng nhập.");
             } catch (IOException e) {
                 e.printStackTrace();
-                alertField.setText("Lỗi khi lưu thông tin đăng nhập.");
+                alertLabel.setText("Lỗi khi lưu thông tin đăng nhập.");
             }
 
         }
@@ -111,7 +116,7 @@ public class LogInController extends BaseController{
             // Đọc nội dung file và ánh xạ vào đối tượng UserCredentials
             UserCredentials credentials = mapper.readValue(file, UserCredentials.class);
             // Hiển thị thông tin
-            usernameField.setText(credentials.getUsername());
+            usernameText.setText(credentials.getUsername());
             passwordField.setText(credentials.getPassword());
         } catch (IOException e) {
             e.printStackTrace();

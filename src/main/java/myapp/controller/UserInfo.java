@@ -9,6 +9,8 @@ public class UserInfo {
     private String email;
     private String hometown;
     private String address;
+    private String username;
+    private String password;
 
     public UserInfo(String name, String gender, String birthday, String id, String phone, String email, String hometown, String address) {
         this.name = name;
@@ -21,8 +23,6 @@ public class UserInfo {
         this.address = address;
     }
 
-    public UserInfo() {
-    }
 
     public String getName() {
         return name;
