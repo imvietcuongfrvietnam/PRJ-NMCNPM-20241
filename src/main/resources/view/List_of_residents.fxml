@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -343,8 +344,11 @@
                <StackPane.margin>
                   <Insets left="750.0" top="322.5" />
                </StackPane.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="genderGroup" />
+               </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Nữ" StackPane.alignment="TOP_LEFT">
+            <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="80.0" text="Nữ" toggleGroup="$genderGroup" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font size="20.0" />
                </font>
