@@ -1,37 +1,37 @@
-package myapp.model.entities;
+package myapp.model.entities.entitiesdb;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class HoaDonNuoc {
-    private String maKH;
+public class HoaDonInternet {
     private String maHD;
+    private String maKH;
+    private BigDecimal soTien;
     private LocalDate ngayHetHan;
     private String thongTinBoSung;
-    private BigDecimal tienNuoc;
 
     // Constructor
-    public HoaDonNuoc(String maKH, String maHD, LocalDate ngayHetHan, String thongTinBoSung, BigDecimal tienNuoc) {
-        this.maKH = maKH;
+    public HoaDonInternet(String maHD, String maKH, BigDecimal soTien, LocalDate ngayHetHan, String thongTinBoSung) {
         this.maHD = maHD;
+        this.maKH = maKH;
+        this.soTien = soTien;
         this.ngayHetHan = ngayHetHan;
         this.thongTinBoSung = thongTinBoSung;
-        this.tienNuoc = tienNuoc;
     }
 
     // Getters and Setters
+    public String getMaHD() { return maHD; }
+    public void setMaHD(String maHD) { this.maHD = maHD; }
+
     public String getMaKH() { return maKH; }
     public void setMaKH(String maKH) { this.maKH = maKH; }
 
-    public String getMaHD() { return maHD; }
-    public void setMaHD(String maHD) { this.maHD = maHD; }
+    public BigDecimal getSoTien() { return soTien; }
+    public void setSoTien(BigDecimal soTien) { this.soTien = soTien; }
 
     public LocalDate getNgayHetHan() { return ngayHetHan; }
     public void setNgayHetHan(LocalDate ngayHetHan) { this.ngayHetHan = ngayHetHan; }
 
     public String getThongTinBoSung() { return thongTinBoSung; }
     public void setThongTinBoSung(String thongTinBoSung) { this.thongTinBoSung = thongTinBoSung; }
-
-    public BigDecimal getTienNuoc() { return tienNuoc; }
-    public void setTienNuoc(BigDecimal tienNuoc) { this.tienNuoc = tienNuoc; }
 }

@@ -1,4 +1,4 @@
-package myapp.model.entities;
+package myapp.model.entities.entitiesdb;
 
 public class QuanLyXe {
     private String maHo; // Mã hộ

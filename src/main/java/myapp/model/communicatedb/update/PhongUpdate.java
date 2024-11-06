@@ -1,7 +1,7 @@
 package myapp.model.communicatedb.update;
 
 import myapp.model.connectdb.SQLConnector;
-import myapp.model.entities.Phong;
+import myapp.model.entities.entitiesdb.Phong;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

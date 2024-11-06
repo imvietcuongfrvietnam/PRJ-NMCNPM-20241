@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.util.converter.LocalDateTimeStringConverter;
 import myapp.model.communicatedb.insert.TaiKhoanNguoiDungInsert;
 import myapp.model.communicatedb.insert.ThongTinNguoiDungInsert;
+import myapp.model.communicatedb.select.MaTaiKhoanSelector;
 import myapp.model.manager.Switcher;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -69,11 +70,12 @@ public class SignUpController extends BaseController{
                 alert.showAndWait();
             }
             else{
+                TaiKhoanNguoiDungInsert taiKhoanNguoiDungInsert = new TaiKhoanNguoiDungInsert();
+                LocalDateTime now = LocalDateTime.now();
+                taiKhoanNguoiDungInsert.insert(defaultRole, userName, password, now);
                 ThongTinNguoiDungInsert thongTinNguoiDungInsert = new ThongTinNguoiDungInsert();
-            thongTinNguoiDungInsert.insert(lastName + " " + firstName, defaultCMND, defaultNgaySinh, email, defaultQueQuan, phone);}
-            TaiKhoanNguoiDungInsert taiKhoanNguoiDungInsert = new TaiKhoanNguoiDungInsert();
-            LocalDateTime now = LocalDateTime.now();
-            taiKhoanNguoiDungInsert.insert(defaultRole, userName, password, now);
+            thongTinNguoiDungInsert.insert(lastName + " " + firstName, defaultCMND, defaultNgaySinh, email, defaultQueQuan, phone, new MaTaiKhoanSelector().select());}
+
         });
     }
 
