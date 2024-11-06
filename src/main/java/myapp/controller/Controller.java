@@ -20,13 +20,13 @@ public class Controller {
     @FXML
     private Button returnMainScreenButton;
 
-    @FXML
-    private void initialize() {
-        userNameLabel.setText("Nguyen Van A");
-        emailLabel.setText("nva@gmail.com");
-        avatarImageView.setImage(new Image("/image/avatar.png"));
-        
-        // Gọi sự kiện cho nút Trở về
-        returnMainScreenButton.setOnAction(event -> Switcher.switchTo("MainScreen.fxml"));
-    }
+//    @FXML
+//    private void initialize() {
+//        userNameLabel.setText("Nguyen Van A");
+//        emailLabel.setText("nva@gmail.com");
+//        avatarImageView.setImage(new Image("/image/avatar.png"));
+//
+//        // Gọi sự kiện cho nút Trở về
+//        returnMainScreenButton.setOnAction(event -> Switcher.switchTo("MainScreen.fxml"));
+//    }
 }

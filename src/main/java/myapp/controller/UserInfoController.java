@@ -24,21 +24,21 @@ public class UserInfoController {
     @FXML
     private Button btnReturn;
 
-    @FXML
-    public void initialize() {
-        // Thiết lập thông tin mẫu
-        lblTen.setText("Nguyen Van A");
-        lblSoCMND.setText("123456789");
-        lblEmail.setText("nva@gmail.com");
-        lblQueQuan.setText("Hanoi");
-        lblDienThoai.setText("0123456789");
-        imgView.setImage(new Image("/image/avatar.png"));
+//    @FXML
+//    public void initialize() {
+//        // Thiết lập thông tin mẫu
+//        lblTen.setText("Nguyen Van A");
+//        lblSoCMND.setText("123456789");
+//        lblEmail.setText("nva@gmail.com");
+//        lblQueQuan.setText("Hanoi");
+//        lblDienThoai.setText("0123456789");
+//        imgView.setImage(new Image("/image/avatar.png"));
+//
+//        // Gọi sự kiện cho nút Trở về
+//        btnReturn.setOnAction(this::handleReturnButton);
+//    }
 
-        // Gọi sự kiện cho nút Trở về
-        btnReturn.setOnAction(this::handleReturnButton);
-    }
-
-    private void handleReturnButton(ActionEvent event) {
-        Switcher.switchTo("MainScreen.fxml");
-    }
+//    private void handleReturnButton(ActionEvent event) {
+//        Switcher.switchTo("MainScreen.fxml");
+//    }
 }

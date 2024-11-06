@@ -3,6 +3,7 @@ package myapp.model.communicatedb.insert;
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -12,18 +13,23 @@ public class ThongTinNguoiDungInsert {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         String sql = "INSERT INTO thongtinnguoidung (Ten, SoCMND, NgaySinh, Email, QueQuan, DienThoai) VALUES (?,?,?, ?, ?, ?)";
+
         try {
             connection = connector.getConnection();
-
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, hoTen);
             preparedStatement.setString(2, CMND);
-            preparedStatement.setString(3, new java.sql.Date(ngaySinh.getTime()));
-            preparedStatement.setString(4, email);
-            preparedStatement.setDate(5, queQuan);
 
-            int rowsAffected = preparedStatement.executeUpdate(); // Sử dụng executeUpdate() cho câu lệnh INSERT
+            // Chuyển đổi ngaySinh từ String sang java.sql.Date
+            Date sqlDate = Date.valueOf(ngaySinh); // Định dạng ngaySinh: "yyyy-MM-dd"
+            preparedStatement.setDate(3, sqlDate);
+
+            preparedStatement.setString(4, email);
+            preparedStatement.setString(5, queQuan);
+            preparedStatement.setString(6, soDienThoai);
+
+            int rowsAffected = preparedStatement.executeUpdate();
             System.out.println("Số bản ghi đã thêm: " + rowsAffected);
 
         } catch (SQLException e) {

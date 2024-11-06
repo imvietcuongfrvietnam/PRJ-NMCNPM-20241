@@ -5,10 +5,11 @@ import myapp.model.connectdb.SQLConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class TaiKhoanNguoiDungInsert {
-    public void insert(String VaiTro, String TenDangNhap, String MatKhau, Date NgayTaoTaiKhoan) {
+    public void insert(String VaiTro, String TenDangNhap, String MatKhau, LocalDateTime NgayTaoTaiKhoan) {
         SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -23,9 +24,12 @@ public class TaiKhoanNguoiDungInsert {
             preparedStatement.setString(1, VaiTro);
             preparedStatement.setString(2, TenDangNhap);
             preparedStatement.setString(3, MatKhau);
-            preparedStatement.setDate(4, new java.sql.Date(NgayTaoTaiKhoan.getTime())); // Chuyển đổi Date sang java.sql.Date
 
-            int rowsAffected = preparedStatement.executeUpdate(); // Sử dụng executeUpdate() cho câu lệnh INSERT
+            // Chuyển đổi LocalDateTime sang Timestamp
+            Timestamp timestamp = Timestamp.valueOf(NgayTaoTaiKhoan);
+            preparedStatement.setTimestamp(4, timestamp);
+
+            int rowsAffected = preparedStatement.executeUpdate();
             System.out.println("Số bản ghi đã thêm: " + rowsAffected);
 
         } catch (SQLException e) {
