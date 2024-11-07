@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class ListofResidentController implements Initializable {
+public class ListofResidentController extends BaseController implements Initializable {
     @FXML
     private StackPane mainStackPane;
     @FXML
