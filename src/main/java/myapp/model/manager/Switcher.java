@@ -7,7 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import myapp.controller.BaseController;
-import myapp.controller.SignUpController;
+import myapp.controller.LogInController;
 
 import java.io.IOException;
 
@@ -28,8 +28,8 @@ public class Switcher {
         stage.show();
     }
 
-    public void goHomePage(BaseController baseController, Event event) throws IOException {
-        this.switchScene(baseController, event, "HomePage.fxml");
+    public void goHomePage(LogInController mainController, Event event) throws IOException {
+        this.switchScene(mainController, event, "Main.fxml");
     }
     public  void goLogInPage(BaseController baseController, Event event) throws IOException {
         this.switchScene(baseController, event, "LogIn.fxml");
