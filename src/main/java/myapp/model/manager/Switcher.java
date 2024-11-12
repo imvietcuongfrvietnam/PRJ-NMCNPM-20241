@@ -26,6 +26,7 @@ public class Switcher {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     public void goHomePage(LogInController mainController, Event event) throws IOException {

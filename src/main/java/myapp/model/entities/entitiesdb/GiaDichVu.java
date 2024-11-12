@@ -1,7 +1,13 @@
 package myapp.model.entities.entitiesdb;
 
 import java.math.BigDecimal;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class GiaDichVu {
     private int id;
     private String tenDichVu;
@@ -9,23 +15,5 @@ public class GiaDichVu {
     private String thongTinBoSung;
 
     // Constructor
-    public GiaDichVu(int id, String tenDichVu, BigDecimal donGia, String thongTinBoSung) {
-        this.id = id;
-        this.tenDichVu = tenDichVu;
-        this.donGia = donGia;
-        this.thongTinBoSung = thongTinBoSung;
-    }
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getTenDichVu() { return tenDichVu; }
-    public void setTenDichVu(String tenDichVu) { this.tenDichVu = tenDichVu; }
-
-    public BigDecimal getDonGia() { return donGia; }
-    public void setDonGia(BigDecimal donGia) { this.donGia = donGia; }
-
-    public String getThongTinBoSung() { return thongTinBoSung; }
-    public void setThongTinBoSung(String thongTinBoSung) { this.thongTinBoSung = thongTinBoSung; }
 }

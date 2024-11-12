@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class SQLConnector implements IConnectorDB{
     private static SQLConnector sqlconnector = null;
     private Connection connection = null;
-    private final String url = "jdbc:sqlserver://localhost:1433;databaseName=QLThuphi;encrypt=true;trustServerCertificate=true;";
+    private final String url = "jdbc:sqlserver://LAPTOP-6EEOSOCP\\SQLEXPRESS:1433;databaseName=QLThuphi;encrypt=true;trustServerCertificate=true;";
     private final String userName = "root";
     private final String password = "";
     private SQLConnector() {
