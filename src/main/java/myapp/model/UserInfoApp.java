@@ -12,7 +12,7 @@ public class UserInfoApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         try {
             // Nạp tệp FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/UserInfo.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UserInfo.fxml"));
             Parent root = loader.load();
 
             // Tạo Scene và hiển thị

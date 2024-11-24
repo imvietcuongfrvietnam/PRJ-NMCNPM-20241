@@ -18,7 +18,7 @@ public class Switcher {
     private static Parent root;
 
     private void switchScene(BaseController baseController, Event event, String fxmlPath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(baseController.getClass().getResource("/view/"+fxmlPath));
+        FXMLLoader loader = new FXMLLoader(baseController.getClass().getResource("/fxml/" +fxmlPath));
         root = loader.load();
         baseController = loader.getController();
         baseController.initialize();
