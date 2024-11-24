@@ -15,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import myapp.model.entities.entitiessystem.Resident;
 
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -25,9 +24,9 @@ public class ListofResidentController extends BaseController implements Initiali
     @FXML
     private StackPane mainStackPane;
     @FXML
-    private StackPane stackPaneInsertUpdate;
+    private StackPane formPane; // Đổi tên từ stackPaneInsertUpdate để dễ hiểu hơn
     @FXML
-    private Button addButton, cancleButton;
+    private Button addButton, cancelButton;
     @FXML
     private TableView<Resident> residentTableView;
     @FXML
@@ -44,8 +43,6 @@ public class ListofResidentController extends BaseController implements Initiali
     private ObservableList<Resident> residentsList;
 
     @FXML
-    private TextField indexText;
-    @FXML
     private TextField nameText;
     @FXML
     private DatePicker birthdayText;
@@ -54,60 +51,64 @@ public class ListofResidentController extends BaseController implements Initiali
 
     private Resident editingResident;
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        residentsList = FXCollections.observableArrayList( // Thêm dữ liệu từ database vào đây
+        residentsList = FXCollections.observableArrayList(
                 new Resident(1, "A", "01/01/2004", "Hà Nội"),
                 new Resident(2, "B", "02/02/2004", "Hà Nội"),
                 new Resident(3, "C", "03/03/2004", "Hà Nội")
         );
-        indexColumn.setCellValueFactory(new PropertyValueFactory<Resident, Integer>("index"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("name"));
-        birthdayColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("birthday"));
-        hometownColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("hometown"));
+
+        indexColumn.setCellValueFactory(new PropertyValueFactory<>("index"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        hometownColumn.setCellValueFactory(new PropertyValueFactory<>("hometown"));
 
         editColumn.setCellValueFactory(param -> {
             HBox hbox = new HBox(10);
             hbox.setAlignment(Pos.CENTER);
-            ImageView editImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Edit.png")));
-            editImageView.setFitWidth(40);
-            editImageView.setFitHeight(40);
-            editImageView.setPreserveRatio(false);
-            ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Delete.png")));
-            deleteImageView.setFitWidth(40);
-            deleteImageView.setFitHeight(40);
-            deleteImageView.setPreserveRatio(false);
 
-            Button editButton = new Button();
+            ImageView editImageView = createImageView("/image/Edit.png");
+            ImageView deleteImageView = createImageView("/image/Delete.png");
+
+            Button editButton = new Button("", editImageView);
+            Button deleteButton = new Button("", deleteImageView);
+
             editButton.getStyleClass().add("edit-button");
-            editButton.setGraphic(editImageView);
-
-            Button deleteButton = new Button();
             deleteButton.getStyleClass().add("delete-button");
-            deleteButton.setGraphic(deleteImageView);
 
             hbox.getChildren().addAll(editButton, deleteButton);
 
-            deleteButton.setOnAction(event -> {
-                residentsList.remove(param.getValue());
-            });
+            // Xử lý sự kiện nút "Edit"
+            editButton.setOnAction(event -> editResident(param.getValue()));
 
-            editButton.setOnAction(event -> {
-                editingResident = param.getValue();
-                nameText.setText(editingResident.getName());
-                birthdayText.setValue(LocalDate.parse(editingResident.getBirthday(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                hometownText.setText(editingResident.getHometown());
-                stackPaneInsertUpdate.setVisible(true);
-            });
-
+            // Xử lý sự kiện nút "Delete"
+            deleteButton.setOnAction(event -> residentsList.remove(param.getValue()));
 
             return new SimpleObjectProperty<>(hbox);
         });
+
         residentTableView.setItems(residentsList);
         residentTableView.setStyle("-fx-font-size: 20px;");
-
     }
+
+    private ImageView createImageView(String path) {
+        ImageView imageView = new ImageView(new Image(getClass().getResourceAsStream(path)));
+        imageView.setFitWidth(40);
+        imageView.setFitHeight(40);
+        imageView.setPreserveRatio(false);
+        return imageView;
+    }
+
+    private void editResident(Resident resident) {
+        editingResident = resident;
+        nameText.setText(resident.getName());
+        birthdayText.setValue(LocalDate.parse(resident.getBirthday(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        hometownText.setText(resident.getHometown());
+        formPane.setVisible(true);
+    }
+
+    @FXML
     public void save(ActionEvent e) {
         if (editingResident != null) {
             editingResident.setName(nameText.getText());
@@ -115,47 +116,40 @@ public class ListofResidentController extends BaseController implements Initiali
             editingResident.setHometown(hometownText.getText());
             residentTableView.refresh();
             editingResident = null;
-            stackPaneInsertUpdate.setVisible(false);
-            clearFields();
         } else {
             Resident newResident = new Resident();
             newResident.setIndex(residentsList.size() + 1);
             newResident.setName(nameText.getText());
             newResident.setBirthday(birthdayText.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
             newResident.setHometown(hometownText.getText());
-
             residentsList.add(newResident);
-            stackPaneInsertUpdate.setVisible(false);
-            clearFields();
         }
+        formPane.setVisible(false);
+        clearFields();
     }
-    public void delete (ActionEvent e) {
-        Resident resident = residentTableView.getSelectionModel().getSelectedItem();
-        if(resident != null) {
-            int index = residentsList.indexOf(resident);
-            residentsList.remove(index);
-            if(index < residentsList.size()) {
-                for(int i=index; i<residentsList.size(); i++) {
-                    residentsList.get(i).setIndex(i-1);
-                }
+
+    @FXML
+    public void delete(ActionEvent e) {
+        Resident selectedResident = residentTableView.getSelectionModel().getSelectedItem();
+        if (selectedResident != null) {
+            residentsList.remove(selectedResident);
+            // Cập nhật chỉ số
+            for (int i = 0; i < residentsList.size(); i++) {
+                residentsList.get(i).setIndex(i + 1);
             }
             residentTableView.refresh();
         }
-    }
-    private void clearFields() {
-        //indexText.clear();
-        nameText.clear();
-        birthdayText.setValue(null);
-        hometownText.clear();
-    }
-    @FXML
-    public void add() {
-        stackPaneInsertUpdate.setVisible(true);
     }
 
     @FXML
     public void cancel() {
         clearFields();
-        stackPaneInsertUpdate.setVisible(false);
+        formPane.setVisible(false);
+    }
+
+    private void clearFields() {
+        nameText.clear();
+        birthdayText.setValue(null);
+        hometownText.clear();
     }
 }
