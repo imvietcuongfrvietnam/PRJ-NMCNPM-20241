@@ -5,7 +5,6 @@ module myapp {
     requires java.sql;
     requires junit;
     requires com.fasterxml.jackson.databind;
-    requires static lombok; // Nếu có sử dụng các tính năng liên quan đến database (tùy chọn)
 
     // Mở các package chứa controller và model để có thể sử dụng với JavaFX và FXML
     opens myapp.controller to javafx.fxml, javafx.base;  // Mở package controller để FXML có thể truy cập
