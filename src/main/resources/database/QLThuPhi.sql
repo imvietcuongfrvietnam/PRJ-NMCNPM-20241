@@ -154,7 +154,7 @@ CREATE TABLE taikhoannguoidung (
 );
 --DROP TABLE taikhoannguoidung;
 
-INSERT INTO taikhoannguoidung VALUES ('Admin','admin','123456','2024-10-13 15:46:38'),('user','vietcuong04','123456','2024-10-13 15:47:48');
+INSERT INTO taikhoannguoidung VALUES ('Admin','admin','123456','2024-10-13 15:46:38', '0'),('user','vietcuong04','123456','2024-10-13 15:47:48', '0');
 
 CREATE TABLE thongtinnguoidung (
                                    MaTaiKhoan int NOT NULL,
@@ -172,3 +172,6 @@ ALTER TABLE taikhoannguoidung ADD TinhTrang INT NOT NULL; --hien thi co dang nha
 INSERT INTO thongtinnguoidung VALUES
                                   (1,'Nguyen Van A','123456789123','2000-01-01','nva@gmail.com','Ho Chi Minh','0987654321'),
                                   (2,'Viet Cuong','123456789234','2000-09-25','vietcuong04@gmail.com','Nam Dinh','0399565455');
+
+
+SELECT MAX(MaTaiKhoan) FROM taikhoannguoidung;
