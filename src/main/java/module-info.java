@@ -7,16 +7,16 @@ module myapp {
     requires com.fasterxml.jackson.databind;
 
     // Mở các package chứa controller và model để có thể sử dụng với JavaFX và FXML
-    opens myapp.controller to javafx.fxml, javafx.base;  // Mở package controller để FXML có thể truy cập
-    opens myapp.model to javafx.fxml;       // Nếu cần, mở package model (không bắt buộc)
+    opens myapp.mvc.controller to javafx.fxml, javafx.base;  // Mở package controller để FXML có thể truy cập
+    opens myapp.mvc.model to javafx.fxml;       // Nếu cần, mở package model (không bắt buộc)
 
     exports myapp;                           // Xuất package myapp để JavaFX có thể truy cập
-    exports myapp.model;
-    exports myapp.model.entities;
-    opens myapp.model.entities to javafx.fxml;
-    exports myapp.model.entities.entitiesdb;
-    opens myapp.model.entities.entitiesdb to javafx.fxml;
-    exports myapp.model.manager;
-    opens myapp.model.manager to javafx.fxml; // Xuất package model nếu cần truy cập bên ngoài module
-    exports myapp.model.entities.entitiessystem;
+    exports myapp.mvc.model;
+    exports myapp.mvc.model.entities;
+    opens myapp.mvc.model.entities to javafx.fxml;
+    exports myapp.mvc.model.entities.entitiesdb;
+    opens myapp.mvc.model.entities.entitiesdb to javafx.fxml;
+    exports myapp.mvc.model.manager;
+    opens myapp.mvc.model.manager to javafx.fxml; // Xuất package model nếu cần truy cập bên ngoài module
+    exports myapp.mvc.model.entities.entitiessystem;
 }

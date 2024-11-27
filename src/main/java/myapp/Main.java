@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import myapp.model.connectdb.SQLConnector;
+import myapp.mvc.model.connectdb.SQLConnector;
 
 import static org.junit.internal.Classes.getClass;
 
@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
 
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/css/Button.css").toExternalForm());
         primaryStage.setScene(scene);
