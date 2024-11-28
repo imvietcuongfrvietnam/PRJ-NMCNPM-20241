@@ -9,7 +9,7 @@ public class SQLConnector implements IConnectorDB {
     private Connection connection = null;
 
     // Thêm các tham số cấu hình tên người dùng và mật khẩu SQL Server
-    private final String url = "jdbc:sqlserver://LAPTOP-6EEOSOCP\\SQLEXPRESS:1433;databaseName=QLThuphi;encrypt=true;trustServerCertificate=true;";
+    private final String url = "jdbc:sqlserver://ADMIN\\NGOCMINH:1433;databaseName=QLThuphi;encrypt=true;trustServerCertificate=true;";
     private final String user = "sa"; // Tên người dùng
     private final String password = "123456789"; // Mật khẩu
 

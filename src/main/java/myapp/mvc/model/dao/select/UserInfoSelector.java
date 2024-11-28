@@ -14,8 +14,8 @@ public class UserInfoSelector {
             "SELECT thongtinnguoidung.Ten AS name, thongtinnguoidung.NgaySinh AS birthday, " +
                     "thongtinnguoidung.SoCMND AS id, thongtinnguoidung.DienThoai AS phone, " +
                     "thongtinnguoidung.Email AS email, thongtinnguoidung.QueQuan AS hometown " +
-                    "FROM thongtinnguoidung " +
-                    "WHERE thongtinnguoidung.MaTaiKhoan = ?";
+                    "FROM thongtinnguoidung, taikhoannguoidung " +
+                    "WHERE thongtinnguoidung.maTaiKhoan = taikhoannguoidung.maTaiKhoan and taikhoannguoidung.TenDangNhap= ?";
 
     public UserInfo select(String maTaiKhoan) {
         SQLConnector connector = SQLConnector.getInstance();
