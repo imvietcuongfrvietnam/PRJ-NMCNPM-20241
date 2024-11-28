@@ -1,8 +1,8 @@
 package testing;
 
-import myapp.model.entities.Resident;
+import myapp.mvc.model.entities.Resident;
 import org.junit.Test;
-import myapp.model.entities.Household;
+import myapp.mvc.model.entities.Household;
 
 import static org.junit.Assert.assertTrue;
 

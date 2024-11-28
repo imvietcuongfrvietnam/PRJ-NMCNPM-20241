@@ -1,8 +1,5 @@
 package testing;
 
-import myapp.model.entities.QuyDongGop;
-import org.junit.Test;
-
 import static org.junit.Assert.assertTrue;
 
 public class ContributionTest {

@@ -1,40 +1,34 @@
-    package myapp;
-    import java.io.IOException;
-    import java.util.Objects;
+package myapp;
 
-    import javafx.application.Application;
-    import javafx.fxml.FXMLLoader;
-    import javafx.scene.Parent;
-    import javafx.scene.Scene;
-    import javafx.stage.Stage;
-    public class Main extends Application {
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import myapp.mvc.model.connectdb.SQLConnector;
 
-        @Override
-        public void start(Stage primaryStage) {
-            try {
-                // load the FXML resource
+import static org.junit.internal.Classes.getClass;
 
-                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/Login.fxml")));
+public class Main extends Application {
+    @Override
 
-                // create a scene
-                primaryStage.setScene(new Scene(root, 1920, 1080));
-                // prevent resizing
-                primaryStage.setResizable(false);
-                // set the title
-                primaryStage.setTitle("Blockchain Search App");
-
-                // set the icon
-                primaryStage.getIcons().add(new javafx.scene.image.Image("" +"/image/Icon.png"));
-
-                // show the GUI
-                primaryStage.show();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        public static void main(String[] args) {
-            launch(args);
-        }
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/Button.css").toExternalForm());
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Hệ thống quản lý thu phí chung cư BlueMoon");
+        Image icon = new Image(getClass().getResourceAsStream("/image/Icon.png"));
+        primaryStage.getIcons().add(icon);
+        primaryStage.show();
+        SQLConnector sqlConnector = new SQLConnector();
+        if(sqlConnector.checkConnection()){
+            System.out.println("Kết nối thanh công");
+        };
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
