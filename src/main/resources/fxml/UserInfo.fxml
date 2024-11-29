@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="myapp.mvc.controller.UserInfoController"
+          alignment="CENTER" hgap="10" vgap="10" style="-fx-padding: 20;">
+
+    <!-- Header -->
+    <VBox alignment="CENTER" spacing="10" GridPane.columnSpan="2">
+        <Label text="Thông Tin Cá Nhân" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    </VBox>
+
+    <!-- Form -->
+    <Label text="Tên:" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+    <TextField fx:id="nameField" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+    <Label text="Ngày sinh:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+    <TextField fx:id="birthdayField" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+    <Label text="Số CMND:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+    <TextField fx:id="idField" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+    <Label text="Số điện thoại:" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+    <TextField fx:id="phoneField" editable="false" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+    <Label text="Email:" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+    <TextField fx:id="emailField" editable="false" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+
+    <Label text="Quê quán:" GridPane.rowIndex="6" GridPane.columnIndex="0" />
+    <TextField fx:id="hometownField" editable="false" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+    <!-- Back Button -->
+    <Button text="Quay lại" onAction="#handleBackAction" GridPane.rowIndex="7" GridPane.columnSpan="2"
+            style="-fx-padding: 5 10; -fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;" />
+</GridPane>

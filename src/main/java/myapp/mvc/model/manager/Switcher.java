@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import myapp.mvc.controller.BaseController;
 import myapp.mvc.controller.LogInController;
+import myapp.mvc.controller.MainController;
+import myapp.mvc.controller.UserInfoController;
 
 import java.io.IOException;
 
@@ -29,9 +31,10 @@ public class Switcher {
 
     }
 
-    public void goHomePage(LogInController mainController, Event event) throws IOException {
+    public void goHomePage(BaseController mainController, Event event) throws IOException {
         this.switchScene(mainController, event, "Main.fxml");
     }
+
     public  void goLogInPage(BaseController baseController, Event event) throws IOException {
         this.switchScene(baseController, event, "LogIn.fxml");
     }
