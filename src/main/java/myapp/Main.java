@@ -25,7 +25,7 @@ public class Main extends Application {
         SQLConnector sqlConnector = new SQLConnector();
         if(sqlConnector.checkConnection()){
             System.out.println("Kết nối thanh công");
-        };
+        }
     }
 
     public static void main(String[] args) {
