@@ -3,19 +3,21 @@ package myapp.model.communicatedb.insert;
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 
-public class GiaDichVuInsert {
-    public void insert(String tenDichVu, int id, double donGia, String thongTinBoSung) {
-        String query = "INSERT INTO banggiadichvu (TenDichVu, ID, DonGia, ThongTinBoSung) VALUES (?, ?, ?, ?)";
+public class WaterBillInsert {
+    public void insert(String maKH, String maHD, Date ngayHetHan, String thongTinBoSung, double tienNuoc) {
+        String query = "INSERT INTO hoadonnuoc (MaKH, MaHD, NgayHetHan, ThongTinBoSung, TienNuoc) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, tenDichVu);
-            preparedStatement.setInt(2, id);
-            preparedStatement.setDouble(3, donGia);
+            preparedStatement.setString(1, maKH);
+            preparedStatement.setString(2, maHD);
+            preparedStatement.setDate(3, ngayHetHan);
             preparedStatement.setString(4, thongTinBoSung);
+            preparedStatement.setDouble(5, tienNuoc);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

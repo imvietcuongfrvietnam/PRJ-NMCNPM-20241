@@ -7,10 +7,9 @@ import java.sql.PreparedStatement;
 
 public class DienNuocInternetInsert {
     public void insert(String maHoGiaDinh, String maKHDien, String maKHNuoc, String thongTinBoSung, String maKHInternet, String nccDien, String nccNuoc, String nccInternet) {
-        SQLConnector connector = SQLConnector.getInstance();
         String query = "INSERT INTO diennuocinternet (MaHoGiaDinh, MaKHDien, MaKHNuoc, ThongTinBoSung, MaKHInternet, NCCDien, NCCNuoc, NCCInternet) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = connector.getConnection();
+        try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, maHoGiaDinh);

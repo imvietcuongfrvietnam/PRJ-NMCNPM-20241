@@ -59,13 +59,13 @@
                 </ImageView>
          </children>
       </StackPane>
-      <Button alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí dịch vụ" textFill="#0070c0">
+      <Button fx:id="feeButton" alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí dịch vụ" textFill="#0070c0">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Button>
       <Line endX="175.0" layoutX="400.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
-      <Button alignment="CENTER" layoutX="600.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí hóa đơn" textFill="#7f7f7f">
+      <Button fx:id="billButton" alignment="CENTER" layoutX="600.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí hóa đơn" textFill="#7f7f7f">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
@@ -209,7 +209,16 @@
                 </ImageView>
             </children>
         </StackPane>
-        <TableView fx:id="residentTableView" editable="true" fixedCellSize="60.0" layoutX="400.0" layoutY="250.0" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10;">
+      <TableView fx:id="feeTableView" editable="true" fixedCellSize="60.0" layoutX="400.0" layoutY="250.0" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10;">
+         <columns>
+            <TableColumn fx:id="indexColumn1" prefWidth="75.0" style="-fx-alignment: center;" text="STT" />
+            <TableColumn fx:id="nameColumn1" prefWidth="155.0" style="-fx-alignment: center;" text="Họ và tên" />
+            <TableColumn fx:id="birthdayColumn1" prefWidth="223.0" style="-fx-alignment: center;" text="Ngày sinh" />
+            <TableColumn fx:id="hometownColumn1" prefWidth="668.0" style="-fx-alignment: center;" text="Quê quán" />
+            <TableColumn fx:id="editColumn1" prefWidth="125.0" text="Chỉnh sửa" />
+         </columns>
+      </TableView>
+        <TableView fx:id="billTableView" editable="true" fixedCellSize="60.0" layoutX="400.0" layoutY="250.0" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10;">
             <columns>
                 <TableColumn fx:id="indexColumn" prefWidth="75.0" style="-fx-alignment: center;" text="STT" />
                 <TableColumn fx:id="nameColumn" prefWidth="155.0" style="-fx-alignment: center;" text="Họ và tên" />

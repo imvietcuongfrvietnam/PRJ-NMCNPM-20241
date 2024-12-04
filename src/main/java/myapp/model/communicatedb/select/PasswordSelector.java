@@ -11,14 +11,13 @@ public class PasswordSelector {
     public String select(String userName) {
         String sql = "SELECT MatKhau FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
-        SQLConnector connector = SQLConnector.getInstance();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         String password = null;
 
         try {
-            connection = connector.getConnection();
+            connection = SQLConnector.getConnection();
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, userName);
             resultSet = preparedStatement.executeQuery();
@@ -38,7 +37,7 @@ public class PasswordSelector {
                     preparedStatement.close();
                 }
                 if (connection != null) {
-                    connector.closeDB();
+                    SQLConnector.closeConnection();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

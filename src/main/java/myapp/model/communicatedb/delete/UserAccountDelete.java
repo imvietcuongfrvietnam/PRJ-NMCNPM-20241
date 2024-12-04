@@ -1,33 +1,29 @@
-package myapp.model.communicatedb.select;
+package myapp.model.communicatedb.delete;
 
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class MaTaiKhoanSelector {
-    public int select() {
-        String sql = "SELECT MAX(MaTaiKhoan) FROM taikhoannguoidung";
+public class UserAccountDelete {
+    public void delete(String tenDangNhap) {
+        String sql = "DELETE FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        int password = 0;
 
         try {
             connection = SQLConnector.getConnection();
             preparedStatement = connection.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+            preparedStatement.setString(1, tenDangNhap);
+
+            int rowsAffected = preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
                 if (preparedStatement != null) {
                     preparedStatement.close();
                 }
@@ -38,6 +34,17 @@ public class MaTaiKhoanSelector {
                 e.printStackTrace();
             }
         }
-        return password;
+    }
+    public void delete(int maTaiKhoan) {
+        String query = "DELETE FROM taikhoannguoidung WHERE MaTaiKhoan = ?";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, maTaiKhoan);
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

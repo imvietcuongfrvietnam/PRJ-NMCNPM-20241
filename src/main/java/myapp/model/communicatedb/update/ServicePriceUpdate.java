@@ -1,24 +1,23 @@
 package myapp.model.communicatedb.update;
 
 import myapp.model.connectdb.SQLConnector;
-import myapp.model.entities.entitiesdb.ParkingBill;
+import myapp.model.entities.entitiesdb.ServicePrice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class HoaDonGuiXeUpdate implements Updater<ParkingBill> {
+public class ServicePriceUpdate implements Updater<ServicePrice> {
     @Override
-    public void update(ParkingBill entity) {
-
-        String query = "UPDATE hoadonguixe SET SoTien = ?, NgayHetHan = ?, ThongTinBoSung = ? WHERE MaHD = ?";
+    public void update(ServicePrice entity) {
+        String query = "UPDATE banggiadichvu SET TenDichVu = ?, DonGia = ?, ThongTinBoSung = ? WHERE ID = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setBigDecimal(1, entity.getSoTien());
-            preparedStatement.setDate(2, java.sql.Date.valueOf(entity.getNgayHetHan()));
+            preparedStatement.setString(1, entity.getTenDichVu());
+            preparedStatement.setBigDecimal(2, entity.getDonGia());
             preparedStatement.setString(3, entity.getThongTinBoSung());
-            preparedStatement.setString(4, entity.getMaHD());
+            preparedStatement.setInt(4, entity.getId());
 
             preparedStatement.executeUpdate();
         } catch (Exception e) {

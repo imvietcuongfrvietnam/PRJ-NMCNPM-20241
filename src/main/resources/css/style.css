@@ -1,0 +1,8 @@
+.table-view .column-header {
+    -fx-pref-height: 60px;
+    -fx-alignment: CENTER;
+}
+
+.table-view .table-row-cell {
+    -fx-pref-height: 60px;
+}

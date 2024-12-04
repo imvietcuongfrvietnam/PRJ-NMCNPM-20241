@@ -4,7 +4,10 @@ module myapp {
     requires javafx.graphics;   // Cho các lớp đồ họa như Scene, Stage, ImageView
     requires java.sql;
     requires junit;
-    requires com.fasterxml.jackson.databind; // Nếu có sử dụng các tính năng liên quan đến database (tùy chọn)
+    requires com.fasterxml.jackson.databind;
+    requires com.microsoft.sqlserver.jdbc;
+    // requires com.microsoft.sqlserver.jdbc; // Nếu có sử dụng các tính năng liên quan đến database (tùy chọn)
+    requires java.naming;
 
     // Mở các package chứa controller và model để có thể sử dụng với JavaFX và FXML
     opens myapp.controller to javafx.fxml, javafx.base;  // Mở package controller để FXML có thể truy cập
