@@ -1,2 +1,4 @@
-package myapp.controller;public class FeeController {
+package myapp.controller;
+
+public class FeeController {
 }
