@@ -4,8 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import myapp.model.communicatedb.select.PasswordSelector;
+import myapp.model.dao.select.PasswordSelector;
 import myapp.model.entities.entitiessystem.UserCredentials;
 import myapp.model.manager.Switcher;
 
