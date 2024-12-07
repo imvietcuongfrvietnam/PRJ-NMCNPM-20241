@@ -3,40 +3,33 @@ package myapp.controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import myapp.model.entities.entitiesdb.ContributionFund;
+import myapp.model.entities.entitiesdb.Resident;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainController {
     @FXML
-    private Label slideshowLabel;
+    private Label slideshowLabel, totalAmount1, totalAmount2, totalAmount3, totalAmount4;
     @FXML
-    private Button previousButton;
-    @FXML
-    private Button nextButton;
-    @FXML
-    private Label totalAmount1;
-    @FXML
-    private Label totalAmount2;
-    @FXML
-    private Label totalAmount3;
-    @FXML
-    private Label totalAmount4;
+    private Button previousButton, nextButton;
     @FXML
     private BarChart<String, Number> barChart;
     @FXML
@@ -50,41 +43,21 @@ public class MainController {
     @FXML
     private Button filterButton;
     @FXML
-    private Button edit1;
+    private Button edit1, edit2, edit3, edit4, save1, save2, save3, save4, cancel1, cancel2, cancel3, cancel4, deleteFundButton, saveFundButton;
     @FXML
-    private Button edit2;
+    private TextField textField1, textField2, textField3, textField4;
     @FXML
-    private Button edit3;
+    private TableView<ContributionFund> contributionFundTableView;
     @FXML
-    private Button edit4;
+    private TableColumn<ContributionFund, Integer> indexColumn;
     @FXML
-    private Button save1;
+    private TableColumn<ContributionFund, String> fundNameColumn, fundIDColumn, amountColumn, periodOfTimeColumn;
     @FXML
-    private Button save2;
+    private TextField fundNameText, fundIDText, amountText;
     @FXML
-    private Button save3;
-    @FXML
-    private Button save4;
-    @FXML
-    private Button cancel1;
-    @FXML
-    private Button cancel2;
-    @FXML
-    private Button cancel3;
-    @FXML
-    private Button cancel4;
-    @FXML
-    private TextField textField1;
-    @FXML
-    private TextField textField2;
-    @FXML
-    private TextField textField3;
-    @FXML
-    private TextField textField4;
+    private DatePicker startDatePicker, endDatePicker;
 
-
-
-
+    private final ObservableList<ContributionFund> contributionFundList = FXCollections.observableArrayList();
     private List<Image> images = new ArrayList<>();
     private int currentImageIndex = 0;
     private ImageView imageView;
@@ -111,36 +84,6 @@ public class MainController {
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> showNextImage()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
-//        xAxis.getCategories().addAll("Phí dịch vụ", "Phí quản lý", "Phí gửi xe", "Các khoản đóng góp");
-//        yAxis.setLabel("Chi phí (VNĐ)");
-//        yAxis.setStyle("-fx-font-size: 20px; -fx-text-fill: #002060;");
-
-//        // Tạo dữ liệu cho Series
-//        XYChart.Series<String, Number> series1 = new XYChart.Series<>();
-//        series1.setName("Tháng 1");
-//        series1.getData().add(new XYChart.Data<>("Phí dịch vụ", 500000));
-//        series1.getData().add(new XYChart.Data<>("Phí quản lý", 300000));
-//        series1.getData().add(new XYChart.Data<>("Phí gửi xe", 150000));
-//        series1.getData().add(new XYChart.Data<>("Các khoản đóng góp", 200000));
-//
-//        XYChart.Series<String, Number> series2 = new XYChart.Series<>();
-//        series2.setName("Tháng 2");
-//        series2.getData().add(new XYChart.Data<>("Phí dịch vụ", 550000));
-//        series2.getData().add(new XYChart.Data<>("Phí quản lý", 350000));
-//        series2.getData().add(new XYChart.Data<>("Phí gửi xe", 200000));
-//        series2.getData().add(new XYChart.Data<>("Các khoản đóng góp", 250000));
-//
-//        XYChart.Series<String, Number> series3 = new XYChart.Series<>();
-//        series3.setName("Tháng 3");
-//        series3.getData().add(new XYChart.Data<>("Phí dịch vụ", 600000));
-//        series3.getData().add(new XYChart.Data<>("Phí quản lý", 400000));
-//        series3.getData().add(new XYChart.Data<>("Phí gửi xe", 250000));
-//        series3.getData().add(new XYChart.Data<>("Các khoản đóng góp", 300000));
-//
-//
-//        // Thêm dữ liệu vào BarChart
-//        barChart.getData().addAll(series1, series2, series3);
 
         // Thiết lập dữ liệu mặc định cho ComboBox
         quarterComboBox.setItems(FXCollections.observableArrayList("1", "2", "3", "4"));
@@ -196,6 +139,22 @@ public class MainController {
         save2.setOnAction(e -> handleSaveAction(edit2, save2, cancel2, textField2, 1));
         save3.setOnAction(e -> handleSaveAction(edit3, save3, cancel3, textField3, 2));
         save4.setOnAction(e -> handleSaveAction(edit4, save4, cancel4, textField4, 3));
+
+
+        // Cập nhật thông tin trong bảng ContributionFund
+        indexColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(contributionFundList.indexOf(cellData.getValue()) + 1));
+        fundNameColumn.setCellValueFactory(new PropertyValueFactory<>("fundName"));
+        fundIDColumn.setCellValueFactory(new PropertyValueFactory<>("fundID"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        periodOfTimeColumn.setCellValueFactory(new PropertyValueFactory<>("periodOfTime"));
+        // Gắn danh sách vào TableView
+        contributionFundTableView.setItems(contributionFundList);
+
+        // Xử lý sự kiện nút Save
+        saveFundButton.setOnAction(event -> saveContributionFund());
+
+        // Xử lý sự kiện nút Delete
+        deleteFundButton.setOnAction(event -> deleteSelectedFund());
     }
 
     private ImageView createImageView(Image image, double width, double height, double arcWidth, double arcHeight) {
@@ -224,14 +183,6 @@ public class MainController {
         iconView.setFitHeight(30);
         button.setGraphic(iconView);
     }
-
-//    private void slideTransition(ImageView imageView, double fromX, double toX) {
-//        TranslateTransition transition = new TranslateTransition(Duration.seconds(0.5), imageView);
-//        transition.setFromX(fromX);
-//        transition.setToX(toX);
-//        transition.setOnFinished(event -> setImageForLabel(currentImageIndex));
-//        transition.play();
-//    }
 
     @FXML
     private void showNextImage() {
@@ -282,6 +233,55 @@ public class MainController {
 
             barChart.getData().add(series);
         }
+    }
+
+    private void saveContributionFund() {
+        // Lấy thông tin từ các trường input
+        String fundName = fundNameText.getText().trim();
+        String fundID = fundIDText.getText().trim();
+        String amount = amountText.getText().trim();
+        LocalDate startDate = startDatePicker.getValue();
+        LocalDate endDate = endDatePicker.getValue();
+
+        if (fundName.isEmpty() || fundID.isEmpty() || amount.isEmpty() || startDate == null || endDate == null) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin!");
+            return;
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String periodOfTime = startDate.format(formatter) + " - " + endDate.format(formatter);
+
+        ContributionFund newFund = new ContributionFund(fundName, fundID, amount, periodOfTime);
+        contributionFundList.add(newFund);
+
+        clearInputFields();
+    }
+
+    private void deleteSelectedFund() {
+        ContributionFund selectedFund = contributionFundTableView.getSelectionModel().getSelectedItem();
+
+        if (selectedFund == null) {
+            showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Vui lòng chọn một hàng để xóa!");
+            return;
+        }
+
+        contributionFundList.remove(selectedFund);
+    }
+
+    private void clearInputFields() {
+        fundNameText.clear();
+        fundIDText.clear();
+        amountText.clear();
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
+    }
+
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML

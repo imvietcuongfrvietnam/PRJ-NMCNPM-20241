@@ -1,24 +1,32 @@
 package myapp.model.entities.entitiesdb;
 
 public class ContributionFund {
-    private int id;
-    private String tenQuy;
-    private String moTa;
+    private String fundName;
+    private String fundID;
+    private String amount;
+    private String periodOfTime;
 
-    // Constructor
-    public ContributionFund(int id, String tenQuy, String moTa) {
-        this.id = id;
-        this.tenQuy = tenQuy;
-        this.moTa = moTa;
+    public ContributionFund(String fundName, String fundID, String amount, String periodOfTime) {
+        this.fundName = fundName;
+        this.fundID = fundID;
+        this.amount = amount;
+        this.periodOfTime = periodOfTime;
     }
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public String getFundName() {
+        return fundName;
+    }
 
-    public String getTenQuy() { return tenQuy; }
-    public void setTenQuy(String tenQuy) { this.tenQuy = tenQuy; }
+    public String getFundID() {
+        return fundID;
+    }
 
-    public String getMoTa() { return moTa; }
-    public void setMoTa(String moTa) { this.moTa = moTa; }
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getPeriodOfTime() {
+        return periodOfTime;
+    }
 }
+
