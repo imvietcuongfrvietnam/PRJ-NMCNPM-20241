@@ -15,6 +15,7 @@ module myapp {
 
     exports myapp;                           // Xuất package myapp để JavaFX có thể truy cập
     exports myapp.model;
+    opens myapp.model to javafx.fxml;
     exports myapp.model.entities;
     opens myapp.model.entities to javafx.fxml;
     exports myapp.model.entities.entitiesdb;
