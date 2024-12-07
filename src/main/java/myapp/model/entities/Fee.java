@@ -1,48 +1,80 @@
 package myapp.model.entities;
 
 public class Fee {
-    private String feeId;
-    private String feeType; // Loại phí (phí dịch vụ, phí quản lý, phí đóng góp)
-    private double amount;
-    private String householdId; // Liên kết với hộ gia đình nào
+    private String feeID;
+    private String feeName;
+    private String houseHoldID;
+    private String amount;
+    private String expDate;
+    private String status;
+    private String note;
 
-    public Fee(String feeId, String feeType, double amount, String householdId) {
-        this.feeId = feeId;
-        this.feeType = feeType;
+    public Fee(String feeID, String feeName, String houseHoldID, String amount, String expDate, String status, String note) {
+        this.feeID = feeID;
+        this.feeName = feeName;
+        this.houseHoldID = houseHoldID;
         this.amount = amount;
-        this.householdId = householdId;
+        this.expDate = expDate;
+        this.status = status;
+        this.note = note;
     }
 
-    // Getter và Setter
-    public String getFeeId() {
-        return feeId;
+    public Fee() {
     }
 
-    public void setFeeId(String feeId) {
-        this.feeId = feeId;
+    public String getFeeID() {
+        return feeID;
     }
 
-    public String getFeeType() {
-        return feeType;
+    public void setFeeID(String feeID) {
+        this.feeID = feeID;
     }
 
-    public void setFeeType(String feeType) {
-        this.feeType = feeType;
+    public String getFeeName() {
+        return feeName;
     }
 
-    public double getAmount() {
+    public void setFeeName(String feeName) {
+        this.feeName = feeName;
+    }
+
+    public String getHouseHoldID() {
+        return houseHoldID;
+    }
+
+    public void setHouseHoldID(String houseHoldID) {
+        this.houseHoldID = houseHoldID;
+    }
+
+    public String getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(String amount) {
         this.amount = amount;
     }
 
-    public String getHouseholdId() {
-        return householdId;
+    public String getExpDate() {
+        return expDate;
     }
 
-    public void setHouseholdId(String householdId) {
-        this.householdId = householdId;
+    public void setExpDate(String expDate) {
+        this.expDate = expDate;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

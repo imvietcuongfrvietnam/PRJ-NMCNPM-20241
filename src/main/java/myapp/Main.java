@@ -13,7 +13,6 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/Button.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Hệ thống quản lý thu phí chung cư BlueMoon");
         Image icon = new Image(getClass().getResourceAsStream("/image/Icon.png"));

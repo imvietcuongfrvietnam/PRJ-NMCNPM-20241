@@ -2,7 +2,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.controller.ListOfFeesController">
     <children>
         <Label prefHeight="1010.0" prefWidth="350.0" style="-fx-background-color: linear-gradient(to bottom, #002060, #0070C0);" />
         <ImageView fitHeight="187.5" fitWidth="250.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
@@ -31,7 +33,7 @@
         </Label>
         <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="500.0">
             <children>
-                <TextField prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -70,7 +72,8 @@
             <Font name="System Bold" size="25.0" />
          </font>
       </Button>
-      <Line endX="180.0" layoutX="600.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
+      <ChoiceBox fx:id="feeNameChoiceBox" layoutX="1295.0" layoutY="125.0" prefHeight="45.0" prefWidth="275.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" />
+      <ChoiceBox fx:id="statusChoiceBox" layoutX="1595.0" layoutY="125.0" prefHeight="45.0" prefWidth="275.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" />
         <Line endX="1570.0" layoutX="350.0" layoutY="200.0" stroke="#7f7f7f" />
         <StackPane layoutX="25.0" layoutY="200.0">
             <children>
@@ -98,7 +101,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/List.png" />
+                        <Image url="@../image/ResidentManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -115,7 +118,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/Manage.png" />
+                        <Image url="@../image/FeeManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -125,14 +128,14 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="425.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/Manage.png" />
+                        <Image url="@../image/GeneralManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -151,23 +154,6 @@
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../image/Notification.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="10.0" />
-               </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
-      <StackPane layoutX="25.0" layoutY="600.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Tin nhắn" textFill="#002060">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../image/Message.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -209,77 +195,26 @@
                 </ImageView>
             </children>
         </StackPane>
-      <TableView fx:id="feeTableView" editable="true" fixedCellSize="60.0" layoutX="400.0" layoutY="250.0" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10;">
-         <columns>
-            <TableColumn fx:id="indexColumn1" prefWidth="75.0" style="-fx-alignment: center;" text="STT" />
-            <TableColumn fx:id="nameColumn1" prefWidth="155.0" style="-fx-alignment: center;" text="Họ và tên" />
-            <TableColumn fx:id="birthdayColumn1" prefWidth="223.0" style="-fx-alignment: center;" text="Ngày sinh" />
-            <TableColumn fx:id="hometownColumn1" prefWidth="668.0" style="-fx-alignment: center;" text="Quê quán" />
-            <TableColumn fx:id="editColumn1" prefWidth="125.0" text="Chỉnh sửa" />
-         </columns>
-      </TableView>
-        <TableView fx:id="billTableView" editable="true" fixedCellSize="60.0" layoutX="400.0" layoutY="250.0" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10;">
-            <columns>
-                <TableColumn fx:id="indexColumn" prefWidth="75.0" style="-fx-alignment: center;" text="STT" />
-                <TableColumn fx:id="nameColumn" prefWidth="155.0" style="-fx-alignment: center;" text="Họ và tên" />
-                <TableColumn fx:id="birthdayColumn" prefWidth="223.0" style="-fx-alignment: center;" text="Ngày sinh" />
-                <TableColumn fx:id="hometownColumn" prefWidth="668.0" style="-fx-alignment: center;" text="Quê quán" />
-                <TableColumn fx:id="editColumn" prefWidth="125.0" text="Chỉnh sửa" />
-            </columns>
-        </TableView>
-        <StackPane layoutX="1370.0" layoutY="935.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" textFill="#002060">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../image/Back.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </StackPane>
-        <Button layoutX="1445.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="1" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Button>
-        <Button layoutX="1520.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="2" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Button>
-        <Button layoutX="1595.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="3" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Button>
-        <Label alignment="BOTTOM_CENTER" layoutX="1670.0" layoutY="935.0" prefHeight="50.0" prefWidth="50.0" text=". . ." textAlignment="CENTER" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Label>
-        <Button layoutX="1745.0" layoutY="935.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" text="9" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Button>
-        <StackPane layoutX="1820.0" layoutY="935.0">
-            <children>
-                <Button layoutY="980.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" textFill="#002060">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="980.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../image/Next.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </StackPane>
+      <StackPane layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0">
+         <children>
+            <TableView fx:id="feeTableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20;" StackPane.alignment="TOP_CENTER">
+               <columns>
+                  <TableColumn fx:id="indexColumn" maxWidth="80.0" minWidth="80.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="STT" />
+                  <TableColumn fx:id="houseHoldIDColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hộ gia đình" />
+                  <TableColumn fx:id="feeNameColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Tên khoản phí" />
+                  <TableColumn fx:id="feeIDColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã khoản phí" />
+                  <TableColumn fx:id="amountColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Số tiền" />
+                  <TableColumn fx:id="expDateColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ngày hết hạn" />
+                  <TableColumn fx:id="statusColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Trạng thái" />
+                  <TableColumn fx:id="noteColumn" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ghi chú" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
+         </children>
+      </StackPane>
 
         <StackPane fx:id="stackPaneInsertUpdate" visible="false">
             <children>

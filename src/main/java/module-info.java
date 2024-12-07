@@ -8,14 +8,13 @@ module myapp {
     requires com.microsoft.sqlserver.jdbc;
     // requires com.microsoft.sqlserver.jdbc; // Nếu có sử dụng các tính năng liên quan đến database (tùy chọn)
     requires java.naming;
+    requires jakarta.mail;
 
     // Mở các package chứa controller và model để có thể sử dụng với JavaFX và FXML
     opens myapp.controller to javafx.fxml, javafx.base;  // Mở package controller để FXML có thể truy cập
     opens myapp.model to javafx.fxml;       // Nếu cần, mở package model (không bắt buộc)
 
     exports myapp;                           // Xuất package myapp để JavaFX có thể truy cập
-    exports myapp.model;
-    opens myapp.model to javafx.fxml;
     exports myapp.model.entities;
     opens myapp.model.entities to javafx.fxml;
     exports myapp.model.entities.entitiesdb;

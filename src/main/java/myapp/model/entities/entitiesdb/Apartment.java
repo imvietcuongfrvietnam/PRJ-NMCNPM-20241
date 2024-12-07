@@ -1,60 +1,61 @@
 package myapp.model.entities.entitiesdb;
 
 public class Apartment {
-    private String maCanHo; // Mã căn hộ
-    private int tang; // Tầng
-    private int dienTich; // Diện tích
-    private String tinhTrang; // Tình trạng
-    private String thongTinBoSung; // Thông tin bổ sung
+    private String apartmentID; // Mã căn hộ
+    private int floor; // Tầng
+    private int area; // Diện tích
+    private String houseHoldID;
+    private String status; // Tình trạng
+    private String note; // Thông tin bổ sung
 
-    public Apartment(String maCanHo, int tang, int dienTich, String tinhTrang, String thongTinBoSung) {
-        this.maCanHo = maCanHo;
-        this.tang = tang;
-        this.dienTich = dienTich;
-        this.tinhTrang = tinhTrang;
-        this.thongTinBoSung = thongTinBoSung;
+    public Apartment(String apartmentID, int floor, int area, String status, String note) {
+        this.apartmentID = apartmentID;
+        this.floor = floor;
+        this.area = area;
+        this.status = status;
+        this.note = note;
     }
 
     public Apartment() {
     }
 
-    public String getMaCanHo() {
-        return maCanHo;
+    public String getApartmentID() {
+        return apartmentID;
     }
 
-    public void setMaCanHo(String maCanHo) {
-        this.maCanHo = maCanHo;
+    public void setApartmentID(String apartmentID) {
+        this.apartmentID = apartmentID;
     }
 
-    public int getTang() {
-        return tang;
+    public int getFloor() {
+        return floor;
     }
 
-    public void setTang(int tang) {
-        this.tang = tang;
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 
-    public int getDienTich() {
-        return dienTich;
+    public int getArea() {
+        return area;
     }
 
-    public void setDienTich(int dienTich) {
-        this.dienTich = dienTich;
+    public void setArea(int area) {
+        this.area = area;
     }
 
-    public String getTinhTrang() {
-        return tinhTrang;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTinhTrang(String tinhTrang) {
-        this.tinhTrang = tinhTrang;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getThongTinBoSung() {
-        return thongTinBoSung;
+    public String getNote() {
+        return note;
     }
 
-    public void setThongTinBoSung(String thongTinBoSung) {
-        this.thongTinBoSung = thongTinBoSung;
+    public void setNote(String note) {
+        this.note = note;
     }
 }

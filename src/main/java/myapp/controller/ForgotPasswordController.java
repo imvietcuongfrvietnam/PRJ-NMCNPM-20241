@@ -1,14 +1,15 @@
 package myapp.controller;
 
 import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import myapp.model.manager.SendCodeToEmailManager;
 
 import java.util.Random;
 
@@ -23,7 +24,6 @@ public class ForgotPasswordController {
     private Line line1;
     @FXML
     private Line line2;
-    // Các thành phần cho bước 1: Nhập email
     @FXML
     private StackPane emailPane;
     @FXML
@@ -34,7 +34,6 @@ public class ForgotPasswordController {
     private Button sendButton;
     @FXML
     private Button backButton;
-    // Các thành phần cho bước 2: Nhập mã xác minh
     @FXML
     private StackPane codePane;
     @FXML
@@ -45,7 +44,6 @@ public class ForgotPasswordController {
     private Button verifyButton;
     @FXML
     private Button sendBackButton;
-    // Các thành phần cho bước 3: Đặt lại mật khẩu
     @FXML
     private StackPane passwordPane;
     @FXML
@@ -56,55 +54,55 @@ public class ForgotPasswordController {
     private Button saveButton;
 
     private String verificationCode;
+    private String email;
+    private long codeExpirationTime; // Thời gian hết hạn mã xác minh
 
     @FXML
     public void initialize() {
         showEmailPane();
         sendButton.setDisable(true);
         emailText.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.isEmpty() && newValue.contains("@gmail.com")) {
+            if (!newValue.isEmpty() && isValidEmail(newValue)) {
                 sendButton.setDisable(false);
+                email = emailText.getText();
             } else {
                 sendButton.setDisable(true);
             }
         });
-        sendButton.setOnAction(e -> {
-            emailLabel.setText(emailText.getText());
-            generateVerificationCode();
-            showCodePane();
-        });
+        sendButton.setOnAction(e -> sendVerificationCode());
 
         backButton.setOnAction(e -> showEmailPane());
 
         verifyButton.setOnAction(e -> verifyCode());
 
-        sendBackButton.setOnAction(e -> {
-            generateVerificationCode();
-            clearCodeFields();
-        });
+        sendBackButton.setOnAction(e -> sendVerificationCode());
 
-        saveButton.setOnAction(e -> {
-            String newPassword = newPasswordText.getText();
-            String reenteredPassword = reenterPasswordText.getText();
-            if (newPassword.equals(reenteredPassword)) {
-                // Thêm phương thức để lưu mật khẩu mới
-                notifyLabel.setText("Password has been reset successfully.");
-            } else {
-                // Thêm phương thức để nhập lại mật khẩu mới
-                notifyLabel.setText("Passwords do not match. Try again.");
-            }
-        });
+        saveButton.setOnAction(e -> saveNewPassword());
 
         setupAutoFocusForCodeFields();
+    }
+
+    private void sendVerificationCode() {
+        emailLabel.setText(emailText.getText());
+        generateVerificationCode();
+        SendCodeToEmailManager.sendCode(email, verificationCode);
+        codeExpirationTime = System.currentTimeMillis() + 120000; // Mã xác minh hết hạn sau 2 phút (120 giây)
+        notifyLabel.setText("A verification code has been sent to your email. It is valid for 2 minutes.");
+        showCodePane();
+        clearCodeFields();
     }
 
     private void generateVerificationCode() {
         Random random = new Random();
         verificationCode = String.format("%06d", random.nextInt(1000000));
-        System.out.println("Verification Code: " + verificationCode);
     }
 
     private void verifyCode() {
+        if (System.currentTimeMillis() > codeExpirationTime) {
+            notifyLabel.setText("The verification code has expired. Please request a new code.");
+            return;
+        }
+
         StringBuilder inputCode = new StringBuilder();
         inputCode.append(codeField1.getText())
                 .append(codeField2.getText())
@@ -123,13 +121,26 @@ public class ForgotPasswordController {
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(e -> showPasswordPane());
             delay.play();
+            notifyLabel.setText("Code verified successfully.");
         } else {
+            notifyLabel.setText("Invalid verification code. Please try again.");
             codeField1.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
             codeField2.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
             codeField3.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
             codeField4.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
             codeField5.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
             codeField6.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
+        }
+    }
+
+    private void saveNewPassword() {
+        String newPassword = newPasswordText.getText();
+        String reenteredPassword = reenterPasswordText.getText();
+        if (newPassword.equals(reenteredPassword)) {
+            // Lưu mật khẩu mới
+            notifyLabel.setText("Password has been reset successfully.");
+        } else {
+            notifyLabel.setText("Passwords do not match. Try again.");
         }
     }
 
@@ -216,5 +227,10 @@ public class ForgotPasswordController {
         emailPane.setVisible(false);
         codePane.setVisible(false);
         passwordPane.setVisible(true);
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        return email.matches(emailRegex);
     }
 }

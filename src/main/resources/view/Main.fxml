@@ -6,8 +6,11 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -26,14 +29,14 @@
             <Image url="@../image/Logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="400.0" layoutY="45.0" prefHeight="60.0" text="Xin chào, username" textFill="#002060">
+      <Label fx:id="helloText" layoutX="400.0" layoutY="45.0" prefHeight="60.0" text="Xin chào, username" textFill="#002060">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
+      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="3800.0" prefWidth="1570.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3000.0" prefWidth="1570.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3365.0" prefWidth="1570.0">
                <children>
                   <Label fx:id="slideshowLabel" layoutX="50.0" layoutY="50.0" prefHeight="530.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
@@ -512,6 +515,98 @@
                         </Button>
                      </children>
                   </StackPane>
+                  <Label layoutX="50.0" layoutY="2570.0" prefHeight="745.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="550.0" layoutY="2595.0" prefHeight="60.0" text="Các khoản quỹ đóng góp" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="contributionFundTableView" editable="true" layoutX="100.0" layoutY="2680.0" maxHeight="-Infinity" prefHeight="585.0" prefWidth="825.0">
+                    <columns>
+                      <TableColumn fx:id="indexColumn" prefWidth="75.0" style="-fx-alignment: center; -fx-font-size: 20;" text="STT" />
+                      <TableColumn fx:id="fundNameColumn" prefWidth="200.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Tên quỹ" />
+                        <TableColumn fx:id="fundIDColumn" prefWidth="150.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Mã quỹ" />
+                        <TableColumn fx:id="amountColumn" prefWidth="150.0" style="-fx-font-size: 20; -fx-alignment: center;" text="Số tiền" />
+                        <TableColumn fx:id="periodOfTimeColumn" prefWidth="250.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Đợt thu phí" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="975.0" layoutY="2680.0" text="Tên quỹ:">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fundNameText" layoutX="975.0" layoutY="2720.0" prefHeight="45.0" prefWidth="495.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="975.0" layoutY="2780.0" text="Mã quỹ:">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="fundIDText" layoutX="975.0" layoutY="2820.0" prefHeight="45.0" prefWidth="495.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="975.0" layoutY="2880.0" text="Số tiền:">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="amountText" layoutX="975.0" layoutY="2920.0" prefHeight="45.0" prefWidth="495.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="975.0" layoutY="2980.0" text="Đợt thu phí:">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="975.0" layoutY="3075.0" text="đến">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <DatePicker fx:id="startDatePicker" layoutX="975.0" layoutY="3020.0" prefHeight="45.0" prefWidth="495.0" style="-fx-font-size: 20;" />
+                  <DatePicker fx:id="endDatePicker" layoutX="975.0" layoutY="3120.0" prefHeight="45.0" prefWidth="495.0" style="-fx-font-size: 20;" />
+                  <Button fx:id="saveFundButton" layoutX="1235.0" layoutY="3220.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="235.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu khoản phí" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Button>
+                  <Button fx:id="deleteFundButton" layoutX="975.0" layoutY="3220.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="235.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 10;" text="Xóa khoản phí" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Button>
                </children>
             </AnchorPane>
         </content>
@@ -563,7 +658,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../image/List.png" />
+                  <Image url="@../image/ResidentManagement.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -580,7 +675,7 @@
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../image/Manage.png" />
+                  <Image url="@../image/FeeManagement.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -590,14 +685,14 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="425.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Button>
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
-                  <Image url="@../image/Manage.png" />
+                  <Image url="@../image/GeneralManagement.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
@@ -616,23 +711,6 @@
             <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                <image>
                   <Image url="@../image/Notification.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="10.0" />
-               </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
-      <StackPane layoutX="25.0" layoutY="600.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Tin nhắn" textFill="#002060">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../image/Message.png" />
                </image>
                <StackPane.margin>
                   <Insets left="10.0" />
