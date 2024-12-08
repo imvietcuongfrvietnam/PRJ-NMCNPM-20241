@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import myapp.model.communicatedb.select.UserInfoSelector;
+import myapp.model.dao.select.*;
 import myapp.model.entities.entitiesdb.UserInformation;
 import myapp.model.dao.select.PasswordSelector;
 import myapp.model.entities.entitiessystem.UserCredentials;
@@ -15,26 +15,33 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class dung de điều khiển các tương tác người duùng với hệ thống
+ * Controller lớp để xử lý các tương tác giữa giao diện người dùng và hệ thống trong màn hình đăng nhập.
  */
-
-public class LogInController extends BaseController{
+public class LogInController extends BaseController {
     @FXML
     private Label alertLabel;
+
     @FXML
     private TextField usernameText;
+
     @FXML
     private PasswordField passwordField;
+
     @FXML
     private TextField passwordText;
+
     @FXML
     private Button visibilityButton;
+
     @FXML
     private RadioButton saveSignInButton;
+
     @FXML
     private Button forgotPasswordButton;
+
     @FXML
     private Button signInButton;
+
     @FXML
     private Button registrationButton;
 
@@ -42,11 +49,8 @@ public class LogInController extends BaseController{
     private String username;
 
     /**
-     * <p>
-     *     Phương thức dùng để khoi tao cac su kien cho cac nut trong giao dien
-     * </p>
+     * Phương thức khởi tạo các sự kiện và xử lý ban đầu cho các thành phần trong giao diện.
      */
-
     @Override
     public void initialize() {
         this.showSaved();
@@ -58,7 +62,7 @@ public class LogInController extends BaseController{
             if (validateCredentials(username, password)) {
                 try {
                     saveUserInfo(username);
-                    new Switcher().goHomePage(this, event);
+                    new Switcher().goHomePage(event, this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -69,21 +73,26 @@ public class LogInController extends BaseController{
 
         registrationButton.setOnAction(event -> {
             try {
-                new Switcher().goSignUpPage(this, event);
+                new Switcher().goSignUpPage(event, this);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
         visibilityButton.setOnAction(event -> passwordVisibility());
-        saveSignInButton.setOnAction(event -> {
-            this.savePassword();
-        });
-
+        saveSignInButton.setOnAction(event -> savePassword());
+        forgotPasswordButton.setOnAction(event -> {
+                    try {
+                        new Switcher().goForgotPasswordPage(event,this);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                );
     }
 
     /**
-     * <p>Phương thức dùng để hiển thị mật khẩu nếu chọn</p>
+     * Phương thức chuyển đổi chế độ hiển thị mật khẩu giữa dạng ẩn và hiển thị.
      */
     private void passwordVisibility() {
         if (passwordField.isVisible()) {
@@ -98,10 +107,11 @@ public class LogInController extends BaseController{
     }
 
     /**
-     * <p>Phương thức này dùng để kiểm tra tài khoản mật khẩu có khớp với trong hệ thống không</p>
-     * @param username Tài khoản người dùng nhập
-     * @param password Mật khẩu người dùng nhập
-     * @return True nếu thông tin trùng khớp với thông tin trong hệ thống
+     * Kiểm tra tính hợp lệ của thông tin đăng nhập (tên người dùng và mật khẩu).
+     *
+     * @param username Tên đăng nhập do người dùng nhập.
+     * @param password Mật khẩu do người dùng nhập.
+     * @return True nếu thông tin khớp với cơ sở dữ liệu, ngược lại trả về False.
      */
     private boolean validateCredentials(String username, String password) {
         PasswordSelector passwordSelector = new PasswordSelector();
@@ -109,13 +119,11 @@ public class LogInController extends BaseController{
     }
 
     /**
-     * <p>
-     *     Phương thức này dùng để lưu lại thông tin đăng nhập nếu người dùng chọn lưu thông tin đăng nhập.
-     *     <br> Thông tin được lưu trong file savepassword.json
-     * </p>
+     * Lưu thông tin đăng nhập của người dùng (nếu được chọn) vào tệp JSON.
+     * Thông tin được lưu trữ trong tệp `savepassword.json`.
      */
     private void savePassword() {
-        if(saveSignInButton.isSelected()) {
+        if (saveSignInButton.isSelected()) {
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode userNode = mapper.createObjectNode();
 
@@ -130,38 +138,30 @@ public class LogInController extends BaseController{
                 e.printStackTrace();
                 alertLabel.setText("Lỗi khi lưu thông tin đăng nhập.");
             }
-
         }
     }
 
     /**
-     * <p>
-     *     Phương thức này dùng để lấy thông tin đăng nhập đã được lưu trước đó trong hệ thống
-     * </p>
+     * Hiển thị thông tin đăng nhập được lưu trước đó (nếu có) từ tệp JSON.
      */
-    private void showSaved(){
+    private void showSaved() {
         File file = new File("src/main/resources/logs/savepassword.json");
         ObjectMapper mapper = new ObjectMapper();
         try {
-            // Đọc nội dung file và ánh xạ vào đối tượng UserCredentials
             UserCredentials credentials = mapper.readValue(file, UserCredentials.class);
-            // Hiển thị thông tin
             usernameText.setText(credentials.getUsername());
             passwordField.setText(credentials.getPassword());
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Không thể đọc file savepassword.json.");
+            alertLabel.setText("Lỗi khi lấy lại mât khẩu đã lưu.");
         }
-
     }
 
     /**
-     * <p>
-     *     Phương thức này lưu thông tin người dùng sau khi đăng nhập vào hệ thống, thông tin người dùng lưu trong userinfo.json
-     * </p>
-
-     * @param username Tài khoản người dùng
+     * Lưu thông tin người dùng đăng nhập vào hệ thống dưới dạng JSON.
+     * Thông tin này bao gồm các trường cơ bản của người dùng như số CMND, tên, số điện thoại và email.
      *
+     * @param username Tên đăng nhập của người dùng.
      */
     private void saveUserInfo(String username) {
         File file = new File("src/main/resources/logs/userinfo.json");
@@ -170,16 +170,16 @@ public class LogInController extends BaseController{
         UserInfoSelector userInfoSelector = new UserInfoSelector();
         UserInformation userInfomation = userInfoSelector.select(username);
         userNode.put("soCMND", userInfomation.getSoCMND());
-        userNode.put("Ten", userInfomation.getTen()); // Lưu ý: Mật khẩu không nên lưu trữ dạng plaintext, chỉ ví dụ
+        userNode.put("Ten", userInfomation.getTen());
         userNode.put("sdt", userInfomation.getDienThoai());
         userNode.put("email", userInfomation.getEmail());
 
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
-            alertLabel.setText("Đã lưu thông tin đăng nhập.");
+            alertLabel.setText("Đã lưu thông tin người dùng.");
         } catch (IOException e) {
             e.printStackTrace();
-            alertLabel.setText("Lỗi khi lưu thông tin đăng nhập.");
+            alertLabel.setText("Lỗi khi lưu thông tin người dùng.");
         }
     }
 }
