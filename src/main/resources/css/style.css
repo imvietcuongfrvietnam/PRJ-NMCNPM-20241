@@ -6,3 +6,14 @@
 .table-view .table-row-cell {
     -fx-pref-height: 60px;
 }
+.pagination .pagination-control .page-button .page .previous-page .next-page{
+    -fx-background-color: white;
+    -fx-text-fill: #002060;
+    -fx-font-size: 25px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-border-color: #002060;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}

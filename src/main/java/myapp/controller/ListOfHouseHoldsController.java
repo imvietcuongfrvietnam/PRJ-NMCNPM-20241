@@ -12,26 +12,28 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import myapp.model.dao.select.ResidentDataHandler;
 import myapp.model.connectdb.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
+import myapp.model.manager.Switcher;
+import javafx.event.Event;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
-public class ListOfHouseHoldController implements Initializable {
+public class ListOfHouseHoldsController implements Initializable {
     @FXML private StackPane stackPaneInsertUpdate;
-    @FXML private Button addButton, cancelButton, saveButton;
+    @FXML private Button addButton, cancelButton, saveButton, listOfResidentsButton;
     @FXML private TableView<HouseHold> houseHoldTableView;
     @FXML private TableColumn<HouseHold, Integer> indexColumn;
     @FXML private TableColumn<HouseHold, String> houseHoldIDColumn, apartmentIDColumn, moveInDateColumn, moveOutDateColumn, residentIDColumn, statusColumn;
-    @FXML private TableColumn<HouseHold, HBox> editColumn;
+    @FXML private TableColumn<HouseHold, HBox> operationsColumn;
     @FXML private Pagination pagination;
-    @FXML private TextField houseHoldIDText, apartmentIDText, addressText, residentNameText, residentIDText, residentPhoneText;
+    @FXML private TextField houseHoldIDText, apartmentIDText, addressText, residentNameText, residentIDText, residentPhoneText, searchText;
     @FXML private DatePicker moveInDate, moveOutDate;
     @FXML private ChoiceBox<String> status;
     @FXML private TableView<Resident> memberTableView;
@@ -41,11 +43,14 @@ public class ListOfHouseHoldController implements Initializable {
 
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<HouseHold> houseHoldsList;
+    private ObservableList<HouseHold> filteredList;
     private HouseHold editingHouseHold;
+    private final Switcher switcher = new Switcher();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         houseHoldsList = SQLConnector.getHouseHolds();
+        filteredList = FXCollections.observableArrayList(houseHoldsList);
 
         // Lựa chọn cho ChoiceBox status
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sinh sống", "Đã rời đi");
@@ -66,13 +71,8 @@ public class ListOfHouseHoldController implements Initializable {
         moveOutDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMoveOutDate()));
         residentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getResidentID()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
-
-        // Cột Edit và Delete trong bảng HouseHold
-        editColumn.setCellValueFactory(param -> {
-            HBox hbox = createEditDeleteButtons(param);
-            return new SimpleObjectProperty<>(hbox);
-        });
-
+        operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createViewEditDeleteButtons(param)));
+        searchText.textProperty().addListener((observable, oldValue, newValue) -> filterResidents());
         // Cập nhật bảng HouseHold
         houseHoldTableView.setItems(houseHoldsList);
         houseHoldTableView.setStyle("-fx-font-size: 20px;");
@@ -83,11 +83,22 @@ public class ListOfHouseHoldController implements Initializable {
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
+        listOfResidentsButton.setOnAction(event -> switchToListOfResidents(event));
     }
 
-    private HBox createEditDeleteButtons(TableColumn.CellDataFeatures<HouseHold, HBox> param) {
+    private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<HouseHold, HBox> param) {
         HBox hbox = new HBox(10);
         hbox.setAlignment(Pos.CENTER);
+
+        // Thêm nút xem
+        ImageView viewImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/View.png")));
+        viewImageView.setFitWidth(40);
+        viewImageView.setFitHeight(40);
+        viewImageView.setPreserveRatio(false);
+        Button viewButton = new Button();
+        viewButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #0070C0; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
+        viewButton.setGraphic(viewImageView);
+        viewButton.setOnAction(event -> viewHouseHold(param.getValue()));
 
         // Thêm nút sửa
         ImageView editImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Edit.png")));
@@ -95,7 +106,7 @@ public class ListOfHouseHoldController implements Initializable {
         editImageView.setFitHeight(40);
         editImageView.setPreserveRatio(false);
         Button editButton = new Button();
-        editButton.getStyleClass().add("edit-button");
+        editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #00B050; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         editButton.setGraphic(editImageView);
         editButton.setOnAction(event -> editHouseHold(param.getValue()));
 
@@ -105,56 +116,127 @@ public class ListOfHouseHoldController implements Initializable {
         deleteImageView.setFitHeight(40);
         deleteImageView.setPreserveRatio(false);
         Button deleteButton = new Button();
-        deleteButton.getStyleClass().add("delete-button");
+        deleteButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #FF0000; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         deleteButton.setGraphic(deleteImageView);
         deleteButton.setOnAction(event -> deleteHouseHold(param.getValue()));
 
-        hbox.getChildren().addAll(editButton, deleteButton);
+        hbox.getChildren().addAll(viewButton, editButton, deleteButton);
         return hbox;
     }
 
+    private void viewHouseHold(HouseHold houseHold) {
+        editingHouseHold = houseHold;
+        houseHoldIDText.setText(houseHold.getHouseHoldID());
+        apartmentIDText.setText(houseHold.getApartmentID());
+        addressText.setText("Chung cư BlueMoon");
+        moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        String residentName = DataHandler.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentPhone = DataHandler.getResidentPhoneByResidentID(houseHold.getResidentID());
+        residentNameText.setText(residentName);
+        residentIDText.setText(houseHold.getResidentID());
+        residentPhoneText.setText(residentPhone);
+        status.setValue(houseHold.getStatus());
+        updateMemberTable(houseHold.getHouseHoldID());
+
+        // Tắt khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ xem
+        houseHoldIDText.setEditable(false);
+        apartmentIDText.setEditable(false);
+        addressText.setEditable(false);
+        moveInDate.setMouseTransparent(true);
+        moveOutDate.setMouseTransparent(true);
+        status.setMouseTransparent(true);
+        residentNameText.setEditable(false);
+        residentIDText.setEditable(false);
+        residentPhoneText.setEditable(false);
+        memberTableView.setEditable(false);
+
+        saveButton.setVisible(false);
+        cancelButton.setStyle("-fx-background-color: #0070C0; -fx-font-size: 20; -fx-text-fill: #FFFFFF; -fx-font-weight: Bold;");
+
+        stackPaneInsertUpdate.setVisible(true);
+    }
     private void editHouseHold(HouseHold houseHold) {
         editingHouseHold = houseHold;
         houseHoldIDText.setText(houseHold.getHouseHoldID());
         apartmentIDText.setText(houseHold.getApartmentID());
         addressText.setText("Chung cư BlueMoon");
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        moveOutDateColumn.setCellValueFactory(cellData -> {
-            String moveOutDate = cellData.getValue().getMoveOutDate();
-            // Kiểm tra nếu có giá trị và hợp lệ
-            if (moveOutDate != null && !moveOutDate.trim().isEmpty()) {
-                try {
-                    // Nếu có giá trị thì format lại theo định dạng dd/MM/yyyy
-                    LocalDate date = LocalDate.parse(moveOutDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    return new SimpleStringProperty(formattedDate);
-                } catch (DateTimeParseException e) {
-                    return new SimpleStringProperty("31/12/9999"); // Nếu có lỗi khi parse thì trả về giá trị mặc định
-                }
-            } else {
-                return new SimpleStringProperty("31/12/9999"); // Nếu không có giá trị, trả về giá trị mặc định
-            }
-        });
+        moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-        String residentName = ResidentDataHandler.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentName = DataHandler.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentPhone = DataHandler.getResidentPhoneByResidentID(houseHold.getResidentID());
         residentNameText.setText(residentName);
         residentIDText.setText(houseHold.getResidentID());
-        residentPhoneText.setText(" ");
+        residentPhoneText.setText(residentPhone);
         status.setValue(houseHold.getStatus());
 
+        // Bật lại khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ sửa
+        houseHoldIDText.setEditable(true);
+        apartmentIDText.setEditable(true);
+        addressText.setEditable(true);
+        moveInDate.setMouseTransparent(false);
+        moveOutDate.setMouseTransparent(false);
+        status.setMouseTransparent(false);
+        residentNameText.setEditable(true);
+        residentIDText.setEditable(true);
+        residentPhoneText.setEditable(true);
         updateMemberTable(houseHold.getHouseHoldID());
+
+        saveButton.setVisible(true);
+        cancelButton.setStyle("-fx-background-color: #F2F2F2; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal;");
+
         stackPaneInsertUpdate.setVisible(true);
     }
 
     private void deleteHouseHold(HouseHold houseHold) {
         houseHoldsList.remove(houseHold);
-        updatePagination();
+        houseHoldTableView.refresh();
+        updatePagination(houseHoldsList);
+    }
+
+    private void filterResidents() {
+        String searchKeyword = searchText.getText().toLowerCase();
+
+        if (searchKeyword.isEmpty()) {
+            houseHoldTableView.setItems(houseHoldsList); // Hiển thị tất cả khi ô tìm kiếm trống
+            updatePagination(houseHoldsList); // Cập nhật phân trang
+            return;
+        }
+        // Bộ lọc
+        ObservableList<HouseHold> filteredList = houseHoldsList.filtered(houseHold -> {
+            if (houseHold.getHouseHoldID().toLowerCase().contains(searchKeyword)) {
+                return true;
+            }
+            if (houseHold.getApartmentID().toLowerCase().contains(searchKeyword)) {
+                return true;
+            }
+            if (houseHold.getResidentID().toLowerCase().contains(searchKeyword)) {
+                return true;
+            }
+            String moveInDate = formatDate(houseHold.getMoveInDate());
+            if (moveInDate.toLowerCase().contains(searchKeyword)) {
+                return true;
+            }
+            String moveOutDate = formatDate(houseHold.getMoveOutDate());
+            if (moveOutDate.toLowerCase().contains(searchKeyword)) {
+                return true;
+            }
+            if (houseHold.getStatus().toLowerCase().contains(searchKeyword)) {
+                return true;
+            }
+            return false;
+        });
+
+        houseHoldTableView.setItems(filteredList);
+        updatePagination(filteredList); // Cập nhật phân trang sau khi lọc
     }
 
     private TableView<HouseHold> createPage(int pageIndex) {
         int fromIndex = pageIndex * ROWS_PER_PAGE;
-        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, houseHoldsList.size());
-        ObservableList<HouseHold> pageData = FXCollections.observableArrayList(houseHoldsList.subList(fromIndex, toIndex));
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
+        ObservableList<HouseHold> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
         houseHoldTableView.setItems(pageData);
 
         indexColumn.setCellValueFactory(cellData -> {
@@ -165,8 +247,19 @@ public class ListOfHouseHoldController implements Initializable {
         return houseHoldTableView;
     }
 
+    private void updatePagination(ObservableList<HouseHold> filteredList) {
+        pagination.setPageFactory(pageIndex -> {
+            int fromIndex = pageIndex * ROWS_PER_PAGE;
+            int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
+            ObservableList<HouseHold> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
+            houseHoldTableView.setItems(pageData);
+            return houseHoldTableView;
+        });
+        pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
+    }
+
     private void updateMemberTable(String houseHoldID) {
-        ObservableList<Resident> members = ResidentDataHandler.getMembersByHouseHoldID(houseHoldID);
+        ObservableList<Resident> members = DataHandler.getMembersByHouseHoldID(houseHoldID);
 
         // Cập nhật cột chỉ số (index) của thành viên trong gia đình
         memberIndexColumn.setCellValueFactory(cellData -> {
@@ -183,7 +276,7 @@ public class ListOfHouseHoldController implements Initializable {
             if (originalDate != null && !originalDate.isEmpty()) {
                 try {
                     LocalDate date = LocalDate.parse(originalDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     return new SimpleStringProperty(formattedDate);
                 } catch (DateTimeParseException e) {
                     return new SimpleStringProperty("31/12/9999"); // Hoặc xử lý khác nếu cần
@@ -196,12 +289,6 @@ public class ListOfHouseHoldController implements Initializable {
         memberIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIDcard()));
 
         memberTableView.setItems(members);
-    }
-
-    private void updatePagination() {
-        pagination.setPageFactory(this::createPage);
-        pagination.setPageCount((houseHoldsList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-        houseHoldTableView.refresh();
     }
 
     public void add() {
@@ -237,7 +324,7 @@ public class ListOfHouseHoldController implements Initializable {
         }
 
         stackPaneInsertUpdate.setVisible(false);
-        updatePagination();
+        updatePagination(houseHoldsList);
     }
 
     private void clearFields() {
@@ -250,4 +337,22 @@ public class ListOfHouseHoldController implements Initializable {
         residentPhoneText.clear();
         status.setValue(null);
     }
+    private String formatDate(String formattedDate) {
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return LocalDate.parse(formattedDate, inputFormatter).format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            return formattedDate;
+        }
+    }
+
+    private void switchToListOfResidents(Event event) {
+        try {
+            switcher.goListOfResidentsPage(event); // Gọi phương thức chuyển cảnh
+        } catch (IOException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        }
+    }
+
 }

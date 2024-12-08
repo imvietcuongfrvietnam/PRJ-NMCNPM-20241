@@ -47,7 +47,7 @@ public class SignUpController extends BaseController{
         logInButton.setOnAction(event -> {
             Switcher switcher = new Switcher();
             try {
-                switcher.goLogInPage(this, event);
+                switcher.goLogInPage(event, this);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

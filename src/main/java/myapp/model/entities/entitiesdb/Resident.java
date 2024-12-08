@@ -9,6 +9,7 @@ public class Resident {
     private String birthday;
     private String IDcard;
     private String hometown;
+    private String phone;
     private String occupation;
     private String ethnicity;
     private String nationality;
@@ -16,14 +17,15 @@ public class Resident {
     private String status;
     private String additionalInfo;
     private String houseHoldID;
-    private String relation;
 
-    public Resident(String name, String gender, String birthday, String IDcard, String hometown, String occupation, String ethnicity, String nationality, String education, String status, String additionalInfo, String houseHoldID) {
+
+    public Resident(String name, String gender, String birthday, String IDcard, String hometown, String phone, String occupation, String ethnicity, String nationality, String education, String status, String additionalInfo, String houseHoldID) {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
         this.IDcard = IDcard;
         this.hometown = hometown;
+        this.phone = phone;
         this.occupation = occupation;
         this.ethnicity = ethnicity;
         this.nationality = nationality;
@@ -40,6 +42,11 @@ public class Resident {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
+        this.IDcard = IDcard;
+    }
+
+    public Resident(String name, String IDcard) {
+        this.name = name;
         this.IDcard = IDcard;
     }
 
@@ -81,6 +88,14 @@ public class Resident {
 
     public void setHometown(String hometown) {
         this.hometown = hometown;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getOccupation() {
@@ -141,13 +156,5 @@ public class Resident {
 
     public LocalTime getBirthDate() {
         return null;
-    }
-
-    public String getRelation() {
-        return relation;
-    }
-
-    public void setRelation(String relation) {
-        this.relation = relation;
     }
 }

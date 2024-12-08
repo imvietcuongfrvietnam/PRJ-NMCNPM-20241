@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import myapp.model.dao.select.*;
+import myapp.model.entities.entitiesdb.UserInformation;
 import myapp.model.dao.select.PasswordSelector;
 import myapp.model.entities.entitiessystem.UserCredentials;
 import myapp.model.manager.Switcher;
@@ -11,29 +14,43 @@ import myapp.model.manager.Switcher;
 import java.io.File;
 import java.io.IOException;
 
-public class LogInController extends BaseController{
+/**
+ * Controller lớp để xử lý các tương tác giữa giao diện người dùng và hệ thống trong màn hình đăng nhập.
+ */
+public class LogInController extends BaseController {
     @FXML
     private Label alertLabel;
+
     @FXML
     private TextField usernameText;
+
     @FXML
     private PasswordField passwordField;
+
     @FXML
     private TextField passwordText;
+
     @FXML
     private Button visibilityButton;
+
     @FXML
     private RadioButton saveSignInButton;
+
     @FXML
     private Button forgotPasswordButton;
+
     @FXML
     private Button signInButton;
+
     @FXML
     private Button registrationButton;
 
     private String password;
     private String username;
 
+    /**
+     * Phương thức khởi tạo các sự kiện và xử lý ban đầu cho các thành phần trong giao diện.
+     */
     @Override
     public void initialize() {
         this.showSaved();
@@ -44,7 +61,8 @@ public class LogInController extends BaseController{
 
             if (validateCredentials(username, password)) {
                 try {
-                    new Switcher().goHomePage(this, event);
+                    saveUserInfo(username);
+                    new Switcher().goHomePage(event, this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -55,49 +73,64 @@ public class LogInController extends BaseController{
 
         registrationButton.setOnAction(event -> {
             try {
-                new Switcher().goSignUpPage(this, event);
+                new Switcher().goSignUpPage(event, this);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
         visibilityButton.setOnAction(event -> passwordVisibility());
-        saveSignInButton.setOnAction(event -> {
-            this.savePassword();
-        });
-
+        saveSignInButton.setOnAction(event -> savePassword());
+        forgotPasswordButton.setOnAction(event -> {
+                    try {
+                        new Switcher().goForgotPasswordPage(event,this);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                );
     }
+
+    /**
+     * Phương thức chuyển đổi chế độ hiển thị mật khẩu giữa dạng ẩn và hiển thị.
+     */
     private void passwordVisibility() {
-        // Kiểm tra nếu passwordField đang hiển thị
         if (passwordField.isVisible()) {
-            // Ẩn passwordField và hiển thị passwordText
             passwordField.setVisible(false);
             passwordText.setVisible(true);
-            // Đảm bảo nội dung của passwordText giống với passwordField
             passwordText.setText(passwordField.getText());
         } else {
-            // Ẩn passwordText và hiển thị passwordField
             passwordField.setVisible(true);
             passwordText.setVisible(false);
-            // Đảm bảo nội dung của passwordField giống với passwordText
             passwordField.setText(passwordText.getText());
         }
     }
 
+    /**
+     * Kiểm tra tính hợp lệ của thông tin đăng nhập (tên người dùng và mật khẩu).
+     *
+     * @param username Tên đăng nhập do người dùng nhập.
+     * @param password Mật khẩu do người dùng nhập.
+     * @return True nếu thông tin khớp với cơ sở dữ liệu, ngược lại trả về False.
+     */
     private boolean validateCredentials(String username, String password) {
         PasswordSelector passwordSelector = new PasswordSelector();
         return passwordSelector.select(username).equals(password);
     }
+
+    /**
+     * Lưu thông tin đăng nhập của người dùng (nếu được chọn) vào tệp JSON.
+     * Thông tin được lưu trữ trong tệp `savepassword.json`.
+     */
     private void savePassword() {
-        if(saveSignInButton.isSelected()) {
+        if (saveSignInButton.isSelected()) {
             ObjectMapper mapper = new ObjectMapper();
             ObjectNode userNode = mapper.createObjectNode();
 
             userNode.put("username", usernameText.getText());
-            userNode.put("password", passwordField.getText()); // Lưu ý: Mật khẩu không nên lưu trữ dạng plaintext, chỉ ví dụ
+            userNode.put("password", passwordField.getText());
 
             try {
-                // Ghi vào file savepassword.json
                 File file = new File("src/main/resources/logs/savepassword.json");
                 mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
                 alertLabel.setText("Đã lưu thông tin đăng nhập.");
@@ -105,22 +138,48 @@ public class LogInController extends BaseController{
                 e.printStackTrace();
                 alertLabel.setText("Lỗi khi lưu thông tin đăng nhập.");
             }
-
         }
     }
-    private void showSaved(){
+
+    /**
+     * Hiển thị thông tin đăng nhập được lưu trước đó (nếu có) từ tệp JSON.
+     */
+    private void showSaved() {
         File file = new File("src/main/resources/logs/savepassword.json");
         ObjectMapper mapper = new ObjectMapper();
         try {
-            // Đọc nội dung file và ánh xạ vào đối tượng UserCredentials
             UserCredentials credentials = mapper.readValue(file, UserCredentials.class);
-            // Hiển thị thông tin
             usernameText.setText(credentials.getUsername());
             passwordField.setText(credentials.getPassword());
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Không thể đọc file savepassword.json.");
+            alertLabel.setText("Lỗi khi lấy lại mât khẩu đã lưu.");
         }
+    }
 
+    /**
+     * Lưu thông tin người dùng đăng nhập vào hệ thống dưới dạng JSON.
+     * Thông tin này bao gồm các trường cơ bản của người dùng như số CMND, tên, số điện thoại và email.
+     *
+     * @param username Tên đăng nhập của người dùng.
+     */
+    private void saveUserInfo(String username) {
+        File file = new File("src/main/resources/logs/userinfo.json");
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode userNode = mapper.createObjectNode();
+        UserInfoSelector userInfoSelector = new UserInfoSelector();
+        UserInformation userInfomation = userInfoSelector.select(username);
+        userNode.put("soCMND", userInfomation.getSoCMND());
+        userNode.put("Ten", userInfomation.getTen());
+        userNode.put("sdt", userInfomation.getDienThoai());
+        userNode.put("email", userInfomation.getEmail());
+
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
+            alertLabel.setText("Đã lưu thông tin người dùng.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            alertLabel.setText("Lỗi khi lưu thông tin người dùng.");
+        }
     }
 }

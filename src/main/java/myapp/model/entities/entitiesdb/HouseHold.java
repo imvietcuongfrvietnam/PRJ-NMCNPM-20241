@@ -24,6 +24,12 @@ public class HouseHold {
 
     }
 
+    public HouseHold(String houseHoldID, String moveInDate, String moveOutDate) {
+        this.houseHoldID = houseHoldID;
+        this.moveInDate = moveInDate;
+        this.moveOutDate = moveOutDate;
+    }
+
     public String getHouseHoldID() {
         return houseHoldID;
     }

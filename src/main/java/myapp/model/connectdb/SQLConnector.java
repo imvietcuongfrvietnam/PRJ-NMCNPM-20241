@@ -2,6 +2,8 @@ package myapp.model.connectdb;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import myapp.model.entities.Fee;
+import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 
@@ -12,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 public class SQLConnector {
 
     // Thông tin kết nối cơ sở dữ liệu
-    private static final String DB_URL = "jdbc:sqlserver://LAPTOP-cua-Hieu\\SQLEXPRESS:1433;databaseName=QlThuphi;encrypt=false";
+    private static final String DB_URL = "jdbc:sqlserver://LAPTOP-6EEOSOCP\\SQLEXPRESS\\SQLEXPRESS:1433;databaseName=QlThuphi;encrypt=false";
     private static final String USER = "sa";
     private static final String PASSWORD = "123456789";
 
@@ -78,7 +80,7 @@ public class SQLConnector {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                String birthday = formatBirthday(resultSet.getString("NgaySinh"));
+                String birthday = formatDate(resultSet.getString("NgaySinh"));
 
                 residentsList.add(new Resident(
                         resultSet.getString("HoTen"),
@@ -86,6 +88,7 @@ public class SQLConnector {
                         birthday,
                         resultSet.getString("SoCMND"),
                         resultSet.getString("QueQuan"),
+                        resultSet.getString("SoDienThoai"),
                         resultSet.getString("NgheNghiep"),
                         resultSet.getString("DanToc"),
                         resultSet.getString("QuocTich"),
@@ -101,13 +104,63 @@ public class SQLConnector {
         return residentsList;
     }
 
+    // Truy vấn danh sách căn hộ
+    public static ObservableList<Apartment> getApartments() {
+        ObservableList<Apartment> apartmentsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM canho";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                apartmentsList.add(new Apartment(
+                        resultSet.getString("MaCanHo"),
+                        resultSet.getInt("Tang"),
+                        resultSet.getInt("DienTich"),
+                        resultSet.getString("TinhTrang"),
+                        resultSet.getString("ThongTinBoSung")
+
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return apartmentsList;
+    }
+    // Truy vấn danh sách căn hộ
+    public static ObservableList<Fee> getFees() {
+        ObservableList<Fee> feesList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM quanlykhoanphi";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String expDate = formatDate(resultSet.getString("NgayHetHan"));
+                feesList.add(new Fee(
+                        resultSet.getString("MaKhoanPhi"),
+                        resultSet.getString("TenKhoanPhi"),
+                        resultSet.getString("MaHoGiaDinh"),
+                        resultSet.getString("SoTien"),
+                        expDate,
+                        resultSet.getString("TinhTrang"),
+                        resultSet.getString("GhiChu")
+
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return feesList;
+    }
+
     // Định dạng ngày sinh từ yyyy-MM-dd sang dd/MM/yyyy
-    private static String formatBirthday(String birthday) {
+    private static String formatDate(String formatDate) {
         try {
-            LocalDate date = LocalDate.parse(birthday, INPUT_FORMATTER);
+            LocalDate date = LocalDate.parse(formatDate, INPUT_FORMATTER);
             return date.format(OUTPUT_FORMATTER);
         } catch (Exception e) {
-            return birthday; // Trả về ngày gốc nếu không định dạng được
+            return formatDate; // Trả về ngày gốc nếu không định dạng được
         }
     }
 }
