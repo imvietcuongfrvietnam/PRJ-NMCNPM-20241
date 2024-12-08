@@ -14,7 +14,7 @@ public class SQLConnector {
     // Thông tin kết nối cơ sở dữ liệu
     private static final String DB_URL = "jdbc:sqlserver://LAPTOP-cua-Hieu\\SQLEXPRESS:1433;databaseName=QlThuphi;encrypt=false";
     private static final String USER = "sa";
-    private static final String PASSWORD = "123456";
+    private static final String PASSWORD = "123456789";
 
     // Định dạng ngày tháng
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");

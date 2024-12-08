@@ -11,7 +11,6 @@ module myapp {
 
     // Mở các package chứa controller và model để có thể sử dụng với JavaFX và FXML
     opens myapp.controller to javafx.fxml, javafx.base;  // Mở package controller để FXML có thể truy cập
-    opens myapp.model to javafx.fxml;       // Nếu cần, mở package model (không bắt buộc)
 
     exports myapp;                           // Xuất package myapp để JavaFX có thể truy cập
     exports myapp.model;
