@@ -21,12 +21,8 @@ public class Switcher {
      * @throws IOException Nếu không thể tải tệp FXML.
      */
     private void switchScene(Event event, String fxmlPath, Object controller) throws IOException {
+        // Kiểm tra thư mục và đảm bảo đường dẫn chính xác.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxmlPath));
-
-        // Gán controller nếu được cung cấp.
-        if (controller != null) {
-            loader.setController(controller);
-        }
 
         // Tải root từ file FXML.
         Parent root = loader.load();
@@ -111,5 +107,4 @@ public class Switcher {
     public void goForgotPasswordPage(Event event, Object baseController) throws IOException {
         this.switchToPage(event, "ForgotPassword.fxml", baseController);
     }
-
 }

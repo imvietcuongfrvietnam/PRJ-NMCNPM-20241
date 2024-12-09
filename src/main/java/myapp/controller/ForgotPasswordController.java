@@ -3,12 +3,14 @@ package myapp.controller;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import myapp.model.dao.select.UserInfoSelector;
 import myapp.model.dao.update.UserAccountUpdate;
 import myapp.model.manager.SendCodeToEmailManager;
 
@@ -98,6 +100,13 @@ public class ForgotPasswordController {
      */
 
     private void sendVerificationCode() {
+        if(! new UserInfoSelector().checkEmail(email)){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Not found your email address!");
+            alert.setContentText("Please try again, not found your email address");
+            alert.show();
+            return;
+        }
         emailLabel.setText(emailText.getText());
         generateVerificationCode();
         SendCodeToEmailManager.sendCode(email, verificationCode);

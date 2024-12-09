@@ -13,7 +13,7 @@ import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class SignUpController extends BaseController{
+public class SignUpController extends BaseController {
     @FXML
     private TextField lastNameText;
     @FXML
@@ -39,11 +39,11 @@ public class SignUpController extends BaseController{
     private String password;
     private String defaultCMND = "";
     private String defaultQueQuan = "";
-    private String defaultNgaySinh = "01/01/1970";
+    private String defaultNgaySinh = "1970-01-01";
     private String defaultRole = "admin";
 
     @Override
-    public void initialize(){
+    public void initialize() {
         logInButton.setOnAction(event -> {
             Switcher switcher = new Switcher();
             try {
@@ -61,20 +61,50 @@ public class SignUpController extends BaseController{
             phone = phoneText.getText();
             userName = usernameText.getText();
             password = passwordText.getText();
-            if(lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || userName.isEmpty() || password.isEmpty()) {
+
+            // Kiểm tra nếu có trường thông tin trống
+            if (lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || userName.isEmpty() || password.isEmpty()) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Thiếu thông tin");
                 alert.setHeaderText(null);
                 alert.setContentText("Vui lòng điền đầy đủ tất cả các trường.");
                 alert.showAndWait();
-            }
-            else{
+            } else {
+                // Kiểm tra trùng lặp tên tài khoản
+                MaTaiKhoanSelector selector = new MaTaiKhoanSelector();
+                if (selector.isUserNameExist(userName)) {
+                    Alert alert = new Alert(AlertType.WARNING);
+                    alert.setTitle("Tài khoản đã tồn tại");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Tên tài khoản này đã tồn tại. Vui lòng chọn tên khác.");
+                    alert.showAndWait();
+                    return;
+                }
+
+                // Chèn tài khoản người dùng vào cơ sở dữ liệu
                 UserAccountInsert taiKhoanNguoiDungInsert = new UserAccountInsert();
                 LocalDateTime now = LocalDateTime.now();
                 taiKhoanNguoiDungInsert.insert(defaultRole, userName, password, now);
+
+                // Chèn thông tin người dùng vào cơ sở dữ liệu
                 UserInformationInsert thongTinNguoiDungInsert = new UserInformationInsert();
-            thongTinNguoiDungInsert.insert(lastName + " " + firstName, defaultCMND, defaultNgaySinh, email, defaultQueQuan, phone, new MaTaiKhoanSelector().select());}
+                thongTinNguoiDungInsert.insert(
+                        lastName + " " + firstName,
+                        defaultCMND,
+                        defaultNgaySinh,
+                        email,
+                        defaultQueQuan,
+                        phone,
+                        selector.select()
+                );
+
+                // Thông báo thành công
+                Alert successAlert = new Alert(AlertType.INFORMATION);
+                successAlert.setTitle("Đăng ký thành công");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("Chúc mừng! Bạn đã đăng ký tài khoản thành công.");
+                successAlert.showAndWait();
+            }
         });
     }
-
 }
