@@ -2,7 +2,6 @@ package myapp.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.animation.TranslateTransition;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +19,7 @@ import javafx.util.Duration;
 import myapp.model.dao.delete.ContributionFundDelete;
 import myapp.model.dao.insert.ContributionFundInsert;
 import myapp.model.entities.entitiesdb.ContributionFund;
-import myapp.model.entities.entitiesdb.Resident;
-import myapp.model.manager.LogReader;
+import myapp.model.manager.LogManager;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -69,7 +67,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
-        helloText.setText("Xin chào, "+LogReader.getUserName());
+        helloText.setText("Xin chào, "+ LogManager.getUserName());
         images.add(new Image(getClass().getResource("/image/Slideshow1.png").toExternalForm()));
         images.add(new Image(getClass().getResource("/image/Slideshow2.png").toExternalForm()));
         images.add(new Image(getClass().getResource("/image/Slideshow3.png").toExternalForm()));

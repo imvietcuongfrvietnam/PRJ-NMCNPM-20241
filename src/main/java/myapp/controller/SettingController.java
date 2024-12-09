@@ -8,8 +8,10 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import myapp.model.entities.entitiesdb.UserInformation;
 
 import java.io.File;
+import java.time.LocalDate;
 
 public class SettingController {
     @FXML
@@ -63,6 +65,35 @@ public class SettingController {
         cancelButton.setOnAction(e -> cancelEdit());
         editPhotoButton.setOnAction(e -> editPhoto());
     }
+    private void fillUserInfo(UserInformation userInformation) {
+        // Điền các trường thông tin cá nhân vào các TextField
+        nameText.setText(userInformation.getTen());
+        idText.setText(userInformation.getSoCMND());
+        phoneText.setText(userInformation.getDienThoai());
+        emailText.setText(userInformation.getEmail());
+        hometownText.setText(userInformation.getQueQuan());
+        addressText.setText(userInformation.getDiaChi());
+
+        // Điền thông tin giới tính
+        if ("Male".equals(userInformation.getGioiTinh())) {
+            maleButton.setSelected(true);
+        } else if ("Female".equals(userInformation.getGioiTinh())) {
+            femaleButton.setSelected(true);
+        }
+
+        // Điền ngày sinh
+        birthdayText.setValue(LocalDate.parse(userInformation.getNgaySinh().toLocaleString()));
+
+        // Điền thông tin ảnh hồ sơ nếu có (ví dụ: ảnh được lưu trữ dưới dạng URI)
+        // Giả sử bạn có trường photoProfile là Rectangle để hiển thị ảnh hồ sơ
+        String photoUrl = "src/main/resources/images/profile_" + userInformation.getSoCMND() + ".png";  // Ví dụ tên ảnh
+        File photoFile = new File(photoUrl);
+        if (photoFile.exists()) {
+            Image image = new Image(photoFile.toURI().toString());
+            photoProfile.setFill(new ImagePattern(image));
+        }
+    }
+
 
     private void setEditable(boolean isEditable) {
         nameText.setEditable(isEditable);

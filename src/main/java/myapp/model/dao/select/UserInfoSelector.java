@@ -30,7 +30,10 @@ public class UserInfoSelector {
                         resultSet.getString("Email"),
                         resultSet.getString("QueQuan"),
                         resultSet.getString("DienThoai"),
-                        resultSet.getString("NgaySinh")
+                        resultSet.getDate("NgaySinh"),
+                        resultSet.getString("DiaChi"),
+                        resultSet.getString("GioiTinh")
+
                 );
 
             }

@@ -13,6 +13,12 @@ import javafx.scene.control.Alert.AlertType;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
+/**
+ * Lớp điều khiển cho màn hình đăng ký người dùng.
+ * Chức năng bao gồm:
+ * - Đăng ký tài khoản mới.
+ * - Chuyển sang màn hình đăng nhập.
+ */
 public class SignUpController extends BaseController {
     @FXML
     private TextField lastNameText;
@@ -42,8 +48,13 @@ public class SignUpController extends BaseController {
     private String defaultNgaySinh = "1970-01-01";
     private String defaultRole = "admin";
 
+    /**
+     * Phương thức khởi tạo màn hình đăng ký.
+     * Gắn các trình xử lý sự kiện cho các nút.
+     */
     @Override
     public void initialize() {
+        // Chuyển sang màn hình đăng nhập
         logInButton.setOnAction(event -> {
             Switcher switcher = new Switcher();
             try {
@@ -53,8 +64,8 @@ public class SignUpController extends BaseController {
             }
         });
 
+        // Xử lý sự kiện khi người dùng nhấn nút Sign Up
         signUpButton.setOnAction(event -> {
-            // Lấy giá trị của từng trường
             lastName = lastNameText.getText();
             firstName = firstNameText.getText();
             email = emailText.getText();
@@ -62,33 +73,33 @@ public class SignUpController extends BaseController {
             userName = usernameText.getText();
             password = passwordText.getText();
 
-            // Kiểm tra nếu có trường thông tin trống
+            // Kiểm tra nếu có trường nào bị bỏ trống
             if (lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || userName.isEmpty() || password.isEmpty()) {
                 Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Thiếu thông tin");
+                alert.setTitle("Missing Information");
                 alert.setHeaderText(null);
-                alert.setContentText("Vui lòng điền đầy đủ tất cả các trường.");
+                alert.setContentText("Please fill in all the fields.");
                 alert.showAndWait();
             } else {
-                // Kiểm tra trùng lặp tên tài khoản
+                // Kiểm tra nếu tên tài khoản đã tồn tại
                 MaTaiKhoanSelector selector = new MaTaiKhoanSelector();
                 if (selector.isUserNameExist(userName)) {
                     Alert alert = new Alert(AlertType.WARNING);
-                    alert.setTitle("Tài khoản đã tồn tại");
+                    alert.setTitle("Username Already Exists");
                     alert.setHeaderText(null);
-                    alert.setContentText("Tên tài khoản này đã tồn tại. Vui lòng chọn tên khác.");
+                    alert.setContentText("This username already exists. Please choose another one.");
                     alert.showAndWait();
                     return;
                 }
 
-                // Chèn tài khoản người dùng vào cơ sở dữ liệu
-                UserAccountInsert taiKhoanNguoiDungInsert = new UserAccountInsert();
+                // Thêm tài khoản người dùng vào cơ sở dữ liệu
+                UserAccountInsert userAccountInsert = new UserAccountInsert();
                 LocalDateTime now = LocalDateTime.now();
-                taiKhoanNguoiDungInsert.insert(defaultRole, userName, password, now);
+                userAccountInsert.insert(defaultRole, userName, password, now);
 
-                // Chèn thông tin người dùng vào cơ sở dữ liệu
-                UserInformationInsert thongTinNguoiDungInsert = new UserInformationInsert();
-                thongTinNguoiDungInsert.insert(
+                // Thêm thông tin người dùng vào cơ sở dữ liệu
+                UserInformationInsert userInformationInsert = new UserInformationInsert();
+                userInformationInsert.insert(
                         lastName + " " + firstName,
                         defaultCMND,
                         defaultNgaySinh,
@@ -98,11 +109,11 @@ public class SignUpController extends BaseController {
                         selector.select()
                 );
 
-                // Thông báo thành công
+                // Hiển thị thông báo thành công
                 Alert successAlert = new Alert(AlertType.INFORMATION);
-                successAlert.setTitle("Đăng ký thành công");
+                successAlert.setTitle("Registration Successful");
                 successAlert.setHeaderText(null);
-                successAlert.setContentText("Chúc mừng! Bạn đã đăng ký tài khoản thành công.");
+                successAlert.setContentText("Congratulations! You have successfully signed up.");
                 successAlert.showAndWait();
             }
         });

@@ -9,10 +9,12 @@ import myapp.model.dao.select.*;
 import myapp.model.entities.entitiesdb.UserInformation;
 import myapp.model.dao.select.PasswordSelector;
 import myapp.model.entities.entitiessystem.UserCredentials;
+import myapp.model.manager.LogManager;
 import myapp.model.manager.Switcher;
 
 import java.io.File;
 import java.io.IOException;
+import static myapp.model.manager.LogManager.saveUserInfo;
 
 /**
  * Controller lớp để xử lý các tương tác giữa giao diện người dùng và hệ thống trong màn hình đăng nhập.
@@ -53,7 +55,15 @@ public class LogInController extends BaseController {
      */
     @Override
     public void initialize() {
-        this.showSaved();
+        LogManager logManager = new LogManager();
+        UserCredentials userCredentials = logManager.credentialsSaved();
+        if(userCredentials == null){
+            alertLabel.setText("Something have wrong when get the saved log in information.");
+        }
+        else {
+            usernameText.setText(userCredentials.getUsername());
+            passwordField.setText(userCredentials.getPassword());
+        }
         alertLabel.setText("");
         signInButton.setOnAction(event -> {
             password = passwordField.getText();
@@ -61,13 +71,18 @@ public class LogInController extends BaseController {
 
             if (validateCredentials(username, password)) {
                 try {
-                    saveUserInfo(username);
+                    if(saveUserInfo(username)){
+                        alertLabel.setText("Saved user information.");
+                    }
+                    else {
+                        alertLabel.setText("Something went wrong.");
+                    }
                     new Switcher().goHomePage(event, this);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             } else {
-                alertLabel.setText("Tài khoản hoặc mật khẩu không hợp lệ");
+                alertLabel.setText("Log in information not correct!");
             }
         });
 
@@ -133,53 +148,14 @@ public class LogInController extends BaseController {
             try {
                 File file = new File("src/main/resources/logs/savepassword.json");
                 mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
-                alertLabel.setText("Đã lưu thông tin đăng nhập.");
+                alertLabel.setText("Saved log in information!.");
             } catch (IOException e) {
                 e.printStackTrace();
-                alertLabel.setText("Lỗi khi lưu thông tin đăng nhập.");
+                alertLabel.setText("Something have wrong.");
             }
         }
     }
 
-    /**
-     * Hiển thị thông tin đăng nhập được lưu trước đó (nếu có) từ tệp JSON.
-     */
-    private void showSaved() {
-        File file = new File("src/main/resources/logs/savepassword.json");
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            UserCredentials credentials = mapper.readValue(file, UserCredentials.class);
-            usernameText.setText(credentials.getUsername());
-            passwordField.setText(credentials.getPassword());
-        } catch (IOException e) {
-            e.printStackTrace();
-            alertLabel.setText("Lỗi khi lấy lại mât khẩu đã lưu.");
-        }
-    }
 
-    /**
-     * Lưu thông tin người dùng đăng nhập vào hệ thống dưới dạng JSON.
-     * Thông tin này bao gồm các trường cơ bản của người dùng như số CMND, tên, số điện thoại và email.
-     *
-     * @param username Tên đăng nhập của người dùng.
-     */
-    private void saveUserInfo(String username) {
-        File file = new File("src/main/resources/logs/userinfo.json");
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectNode userNode = mapper.createObjectNode();
-        UserInfoSelector userInfoSelector = new UserInfoSelector();
-        UserInformation userInfomation = userInfoSelector.select(username);
-        userNode.put("soCMND", userInfomation.getSoCMND());
-        userNode.put("Ten", userInfomation.getTen());
-        userNode.put("sdt", userInfomation.getDienThoai());
-        userNode.put("email", userInfomation.getEmail());
 
-        try {
-            mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
-            alertLabel.setText("Đã lưu thông tin người dùng.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            alertLabel.setText("Lỗi khi lưu thông tin người dùng.");
-        }
-    }
 }
