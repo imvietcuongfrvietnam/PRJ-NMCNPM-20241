@@ -8,15 +8,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: #F2F2F2;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="myapp.controller.ListOfFeesController">
     <children>
@@ -51,29 +48,29 @@
                 </ImageView>
             </children>
         </StackPane>
-      <StackPane layoutX="1820.0" layoutY="50.0">
-         <children>
-              <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
+        <StackPane layoutX="1820.0" layoutY="50.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../image/Notification(1).png" />
                     </image>
                 </ImageView>
-         </children>
-      </StackPane>
-      <Button fx:id="feeButton" alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí dịch vụ" textFill="#0070c0">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Button>
-      <Line endX="175.0" layoutX="400.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
-      <Button fx:id="billButton" alignment="CENTER" layoutX="600.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí hóa đơn" textFill="#7f7f7f">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Button>
-      <ChoiceBox fx:id="feeNameChoiceBox" layoutX="1295.0" layoutY="125.0" prefHeight="45.0" prefWidth="275.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" />
-      <ChoiceBox fx:id="statusChoiceBox" layoutX="1595.0" layoutY="125.0" prefHeight="45.0" prefWidth="275.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" />
+            </children>
+        </StackPane>
+        <Button fx:id="feeButton" alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí dịch vụ" textFill="#0070c0">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Button>
+        <Line endX="175.0" layoutX="400.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
+        <Button fx:id="billButton" alignment="CENTER" layoutX="600.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí hóa đơn" textFill="#7f7f7f">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+        </Button>
+        <ChoiceBox fx:id="feeNameChoiceBox" layoutX="1295.0" layoutY="125.0" prefHeight="45.0" prefWidth="275.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" />
+        <ChoiceBox fx:id="statusChoiceBox" layoutX="1595.0" layoutY="125.0" prefHeight="45.0" prefWidth="275.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #BFBFBF; -fx-border-radius: 10;" />
         <Line endX="1570.0" layoutX="350.0" layoutY="200.0" stroke="#7f7f7f" />
         <StackPane layoutX="25.0" layoutY="200.0">
             <children>
@@ -94,7 +91,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="275.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Danh sách cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+                <Button fx:id="residentManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý dân cư" textFill="#002060" StackPane.alignment="CENTER_LEFT">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -111,7 +108,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="350.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+                <Button fx:id="feeManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -128,7 +125,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="425.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
+                <Button fx:id="generalManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -144,26 +141,26 @@
             </children>
         </StackPane>
         <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-      <StackPane layoutX="25.0" layoutY="525.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Thông báo" textFill="#002060">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../image/Notification.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="10.0" />
-               </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
+        <StackPane layoutX="25.0" layoutY="525.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Thông báo" textFill="#002060">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+                    <image>
+                        <Image url="@../image/Notification.png" />
+                    </image>
+                    <StackPane.margin>
+                        <Insets left="10.0" />
+                    </StackPane.margin>
+                </ImageView>
+            </children>
+        </StackPane>
         <StackPane layoutX="25.0" layoutY="860.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
+                <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -180,7 +177,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="935.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
+                <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -195,347 +192,24 @@
                 </ImageView>
             </children>
         </StackPane>
-      <StackPane layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0">
-         <children>
-            <TableView fx:id="feeTableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20;" StackPane.alignment="TOP_CENTER">
-               <columns>
-                  <TableColumn fx:id="indexColumn" maxWidth="80.0" minWidth="80.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="STT" />
-                  <TableColumn fx:id="houseHoldIDColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hộ gia đình" />
-                  <TableColumn fx:id="feeNameColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Tên khoản phí" />
-                  <TableColumn fx:id="feeIDColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã khoản phí" />
-                  <TableColumn fx:id="amountColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Số tiền" />
-                  <TableColumn fx:id="expDateColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ngày hết hạn" />
-                  <TableColumn fx:id="statusColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Trạng thái" />
-                  <TableColumn fx:id="noteColumn" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ghi chú" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
-         </children>
-      </StackPane>
-
-        <StackPane fx:id="stackPaneInsertUpdate" visible="false">
+        <StackPane layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0">
             <children>
-                <Label prefHeight="1010.0" prefWidth="1920.0" style="-fx-background-color: rgba(0, 32, 96, 0.5);" />
-            <Label layoutX="410.0" layoutY="160.0" prefHeight="850.0" prefWidth="1250.0" style="-fx-background-color: #F2F2F2; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="350.0" top="100.0" />
-               </StackPane.margin>
-            </Label>
-            <Label prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                     <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                     </color>
-                  </DropShadow>
-               </effect>
-               <StackPane.margin>
-                  <Insets left="400.0" top="150.0" />
-               </StackPane.margin>
-            </Label>
-            <Text fill="#002060" strokeType="OUTSIDE" strokeWidth="0.0" text="Hóa đơn tiền điện" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="175.0" />
-               </StackPane.margin>
-            </Text>
-            <Label text="Số tiền: " StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="250.0" />
-               </StackPane.margin>
-            </Label>
-            <Label text="Hạn nộp:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="300.0" />
-               </StackPane.margin>
-            </Label>
-            <Label text="Mã hóa đơn:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="350.0" />
-               </StackPane.margin>
-            </Label>
-            <Label alignment="CENTER" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-radius: 10;" text="Đã đóng tiền" textFill="#002060" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="425.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="420.0" layoutY="170.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="800.0" top="150.0" />
-               </StackPane.margin>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                     <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Label>
-            <Text fill="#002060" layoutX="435.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hóa đơn tiền nước" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="175.0" />
-               </StackPane.margin>
-            </Text>
-            <Label layoutX="435.0" layoutY="260.0" text="Số tiền: " StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="250.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="435.0" layoutY="310.0" text="Hạn nộp:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="300.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="435.0" layoutY="360.0" text="Mã hóa đơn:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="350.0" />
-               </StackPane.margin>
-            </Label>
-            <Label alignment="CENTER" layoutX="435.0" layoutY="435.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-radius: 10;" text="Chưa đóng tiền" textFill="WHITE" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="425.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="795.0" layoutY="170.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="1200.0" top="150.0" />
-               </StackPane.margin>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                     <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Label>
-            <Text fill="#002060" layoutX="835.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hóa đơn tiền nước" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="175.0" />
-               </StackPane.margin>
-            </Text>
-            <Label layoutX="835.0" layoutY="260.0" text="Số tiền: " StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="250.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="835.0" layoutY="310.0" text="Hạn nộp:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="300.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="835.0" layoutY="360.0" text="Mã hóa đơn:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="350.0" />
-               </StackPane.margin>
-            </Label>
-            <Label alignment="CENTER" layoutX="835.0" layoutY="435.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-radius: 10;" text="Đã đóng tiền" textFill="#002060" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="425.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="420.0" layoutY="170.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="400.0" top="550.0" />
-               </StackPane.margin>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                     <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Label>
-            <Text fill="#002060" layoutX="1235.0" layoutY="212.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hóa đơn tiền nước" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="575.0" />
-               </StackPane.margin>
-            </Text>
-            <Label layoutX="435.0" layoutY="260.0" text="Số tiền: " StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="650.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="835.0" layoutY="310.0" text="Hạn nộp:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="700.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="1235.0" layoutY="360.0" text="Mã hóa đơn:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="750.0" />
-               </StackPane.margin>
-            </Label>
-            <Label alignment="CENTER" layoutX="1235.0" layoutY="435.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: rgba(255, 0, 0, 0.5); -fx-background-radius: 10;" text="Chưa đóng tiền" textFill="WHITE" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="425.0" top="825.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="795.0" layoutY="340.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="800.0" top="550.0" />
-               </StackPane.margin>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                     <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Label>
-            <Text fill="#002060" layoutX="435.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hóa đơn tiền nước" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="575.0" />
-               </StackPane.margin>
-            </Text>
-            <Label layoutX="435.0" layoutY="660.0" text="Số tiền: " StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="650.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="435.0" layoutY="710.0" text="Hạn nộp:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="700.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="435.0" layoutY="760.0" text="Mã hóa đơn:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="750.0" />
-               </StackPane.margin>
-            </Label>
-            <Label alignment="CENTER" layoutX="435.0" layoutY="835.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: rgba(0, 255, 0, 0.5); -fx-background-radius: 10;" text="Đã đóng tiền" textFill="#002060" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="825.0" top="825.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="420.0" layoutY="545.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 10;" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="1200.0" top="550.0" />
-               </StackPane.margin>
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                     <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Label>
-            <Text fill="#002060" layoutX="835.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hóa đơn tiền nước" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="575.0" />
-               </StackPane.margin>
-            </Text>
-            <Label layoutX="835.0" layoutY="660.0" text="Số tiền: " StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="650.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="835.0" layoutY="710.0" text="Hạn nộp:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="700.0" />
-               </StackPane.margin>
-            </Label>
-            <Label layoutX="835.0" layoutY="760.0" text="Mã hóa đơn:" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="750.0" />
-               </StackPane.margin>
-            </Label>
-            <Label alignment="CENTER" layoutX="835.0" layoutY="835.0" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: rgba(255, 0,  0, 0.5); -fx-background-radius: 10;" text="Chưa đóng tiền" textFill="WHITE" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="1225.0" top="825.0" />
-               </StackPane.margin>
-            </Label>
+                <TableView fx:id="feeTableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20;" StackPane.alignment="TOP_CENTER">
+                    <columns>
+                        <TableColumn fx:id="indexColumn" maxWidth="80.0" minWidth="80.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="STT" />
+                        <TableColumn fx:id="houseHoldIDColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hộ gia đình" />
+                        <TableColumn fx:id="feeNameColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Tên khoản phí" />
+                        <TableColumn fx:id="feeIDColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã khoản phí" />
+                        <TableColumn fx:id="amountColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Số tiền" />
+                        <TableColumn fx:id="expDateColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ngày hết hạn" />
+                        <TableColumn fx:id="statusColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Trạng thái" />
+                        <TableColumn fx:id="noteColumn" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ghi chú" />
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                    </columnResizePolicy>
+                </TableView>
+                <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
             </children>
         </StackPane>
     </children>

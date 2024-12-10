@@ -153,14 +153,4 @@ public class SQLConnector {
         }
         return feesList;
     }
-
-    // Định dạng ngày sinh từ yyyy-MM-dd sang dd/MM/yyyy
-    private static String formatDate(String formatDate) {
-        try {
-            LocalDate date = LocalDate.parse(formatDate, INPUT_FORMATTER);
-            return date.format(OUTPUT_FORMATTER);
-        } catch (Exception e) {
-            return formatDate; // Trả về ngày gốc nếu không định dạng được
-        }
-    }
 }

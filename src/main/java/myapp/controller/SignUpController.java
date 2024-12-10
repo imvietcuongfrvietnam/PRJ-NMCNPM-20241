@@ -59,7 +59,6 @@ public class SignUpController extends BaseController {
      */
     @Override
     public void initialize() {
-        // Chuyển sang màn hình đăng nhập
         logInButton.setOnAction(event -> {
             Switcher switcher = new Switcher();
             try {

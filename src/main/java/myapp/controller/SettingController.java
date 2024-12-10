@@ -56,24 +56,14 @@ public class SettingController extends BaseController{
     private Button cancelButton;
     @FXML
     private Button saveButton;
-    @FXML
-    private Button logOutButton;
-    @FXML
-    private Button settingButton;
-    @FXML
-    private Button generalManageButton;
-    @FXML
-    private Button residentManageButton;
-    @FXML
-    private Button feeManageButton;
-    @FXML
-    private Button homePageButton;
+
     private String passwordBeforeEdit;
     private UserInformation userInformation;
     private UserCredentials userCredentials;
 
-    @FXML
+    @Override
     public void initialize() {
+        super.initialize();
         setEditable(false);
         saveButton.setVisible(false);
         cancelButton.setVisible(false);
@@ -88,56 +78,6 @@ public class SettingController extends BaseController{
         userInformation = logManager.readUserInfo();
         userCredentials = logManager.readUserCredentials();
         fillUserInfo();
-
-
-        //Cac nut switch
-        homePageButton.setOnAction(event -> {
-            try {
-                switcher.goHomePage(event, this);
-            } catch (IOException e) {
-            }
-        });
-        logOutButton.setOnAction(event ->
-        {
-            try {
-                switcher.goLogInPage(event, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        residentManageButton.setOnAction(event ->
-        {
-            try {
-                switcher.goListOfResidentsPage(event, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        settingButton.setOnAction(event ->
-        {
-            try {
-                switcher.goSettingPage(event, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        generalManageButton.setOnAction(event ->
-        {
-            try {
-                switcher.goListOfApartmentPage(event, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
-        feeManageButton.setOnAction(event ->
-        {
-            try {
-                switcher.goFeeManagementPage(event, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
     private void fillUserInfo() {
         // Điền các trường thông tin cá nhân vào các TextField

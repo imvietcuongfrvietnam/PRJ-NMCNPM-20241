@@ -66,6 +66,7 @@ public class MainController {
 
     @FXML
     public void initialize() {
+
         helloText.setText("Xin chào, "+ LogManager.getUserName());
         images.add(new Image(getClass().getResource("/image/Slideshow1.png").toExternalForm()));
         images.add(new Image(getClass().getResource("/image/Slideshow2.png").toExternalForm()));
