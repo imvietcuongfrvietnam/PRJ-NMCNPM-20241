@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
-public class ListOfFeesController implements Initializable {
+public class ListOfFeesController extends BaseController implements Initializable {
     @FXML private TableView<Fee> feeTableView;
     @FXML private TableColumn<Fee, Integer> indexColumn;
     @FXML private TableColumn<Fee, String> houseHoldIDColumn, feeNameColumn, feeIDColumn, amountColumn, expDateColumn, statusColumn, noteColumn;
@@ -170,7 +170,7 @@ public class ListOfFeesController implements Initializable {
 
     private void switchToListOfHouseHold(Event event) {
         try {
-            switcher.goListOfHouseholdPage(event);
+            switcher.goListOfHouseholdPage(event,this);
         } catch (IOException e) {
             e.printStackTrace();
         }

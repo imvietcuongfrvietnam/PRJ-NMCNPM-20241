@@ -1,12 +1,12 @@
-package myapp.model.dao.insert;
+package myapp.dao;
 
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class GiaDichVuInsert {
-    public void insert(String tenDichVu, int id, double donGia, String thongTinBoSung) {
+public class ServicePriceDAO {
+    public static void insertServicePrice(String tenDichVu, int id, double donGia, String thongTinBoSung) {
         String query = "INSERT INTO banggiadichvu (TenDichVu, ID, DonGia, ThongTinBoSung) VALUES (?, ?, ?, ?)";
 
         try (Connection connection = SQLConnector.getConnection();

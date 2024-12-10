@@ -1,20 +1,15 @@
 package myapp.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import myapp.model.dao.select.*;
-import myapp.model.entities.entitiesdb.UserInformation;
-import myapp.model.dao.select.PasswordSelector;
+import myapp.dao.UserAccountDAO;
 import myapp.model.entities.entitiessystem.UserCredentials;
 import myapp.model.manager.LogManager;
 import myapp.model.manager.Switcher;
 
-import java.io.File;
 import java.io.IOException;
-import static myapp.model.manager.LogManager.saveUserInfo;
+
 
 /**
  * Controller lớp để xử lý các tương tác giữa giao diện người dùng và hệ thống trong màn hình đăng nhập.
@@ -71,7 +66,7 @@ public class LogInController extends BaseController {
 
             if (validateCredentials(username, password)) {
                 try {
-                    if(saveUserInfo(username)){
+                    if(logManager.saveUserInfo(username)){
                         alertLabel.setText("Saved user information.");
                     }
                     else {
@@ -95,7 +90,16 @@ public class LogInController extends BaseController {
         });
 
         visibilityButton.setOnAction(event -> passwordVisibility());
-        saveSignInButton.setOnAction(event -> savePassword());
+        saveSignInButton.setOnAction(event -> {
+            if (saveSignInButton.isSelected()){
+               if (logManager.savePassword(usernameText.getText(), passwordField.getText())){
+                    alertLabel.setText("Saved log in information!.");
+                }
+                else{
+                   alertLabel.setText("Something have wrong.");
+               }
+            }
+        });
         forgotPasswordButton.setOnAction(event -> {
                     try {
                         new Switcher().goForgotPasswordPage(event,this);
@@ -129,32 +133,10 @@ public class LogInController extends BaseController {
      * @return True nếu thông tin khớp với cơ sở dữ liệu, ngược lại trả về False.
      */
     private boolean validateCredentials(String username, String password) {
-        PasswordSelector passwordSelector = new PasswordSelector();
-        return passwordSelector.select(username).equals(password);
+        return UserAccountDAO.selectByUsername(username).equals(password);
     }
 
-    /**
-     * Lưu thông tin đăng nhập của người dùng (nếu được chọn) vào tệp JSON.
-     * Thông tin được lưu trữ trong tệp `savepassword.json`.
-     */
-    private void savePassword() {
-        if (saveSignInButton.isSelected()) {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode userNode = mapper.createObjectNode();
 
-            userNode.put("username", usernameText.getText());
-            userNode.put("password", passwordField.getText());
-
-            try {
-                File file = new File("src/main/resources/logs/savepassword.json");
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
-                alertLabel.setText("Saved log in information!.");
-            } catch (IOException e) {
-                e.printStackTrace();
-                alertLabel.setText("Something have wrong.");
-            }
-        }
-    }
 
 
 

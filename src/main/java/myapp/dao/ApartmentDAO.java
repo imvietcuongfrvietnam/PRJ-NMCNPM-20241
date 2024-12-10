@@ -1,4 +1,4 @@
-package myapp.model.dao.update;
+package myapp.dao;
 
 import myapp.model.connectdb.SQLConnector;
 import myapp.model.entities.entitiesdb.Apartment;
@@ -6,9 +6,8 @@ import myapp.model.entities.entitiesdb.Apartment;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class ApartmentUpdate implements Updater<Apartment> {
-    @Override
-    public void update(Apartment entity) {
+public class ApartmentDAO {
+    public static void updateApartment(Apartment entity) {
         String query = "UPDATE phong SET Tang = ?, DienTich = ?, TinhTrang = ?, ThongTinBoSung = ? WHERE ID = ?";
 
         try (Connection connection = SQLConnector.getConnection();

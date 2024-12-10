@@ -16,7 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import myapp.model.dao.delete.ContributionFundDelete;
+import myapp.dao.ContributionFundDAO;
 import myapp.model.dao.insert.ContributionFundInsert;
 import myapp.model.entities.entitiesdb.ContributionFund;
 import myapp.model.manager.LogManager;
@@ -269,8 +269,7 @@ public class MainController {
         }
 
         contributionFundList.remove(selectedFund);
-        ContributionFundDelete contributionFundDelete = new ContributionFundDelete();
-        contributionFundDelete.delete(Integer.parseInt(selectedFund.getFundID()));
+        ContributionFundDAO.deleteByID(Integer.parseInt(selectedFund.getFundID()));
     }
 
     private void clearInputFields() {

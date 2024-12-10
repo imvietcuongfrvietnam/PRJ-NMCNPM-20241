@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
-public class ListOfHouseHoldsController implements Initializable {
+public class ListOfHouseHoldsController extends BaseController implements Initializable {
     @FXML private StackPane stackPaneInsertUpdate;
     @FXML private Button addButton, cancelButton, saveButton, listOfResidentsButton;
     @FXML private TableView<HouseHold> houseHoldTableView;
@@ -349,7 +349,7 @@ public class ListOfHouseHoldsController implements Initializable {
 
     private void switchToListOfResidents(Event event) {
         try {
-            switcher.goListOfResidentsPage(event); // Gọi phương thức chuyển cảnh
+            switcher.goListOfResidentsPage(event,this); // Gọi phương thức chuyển cảnh
         } catch (IOException e) {
             e.printStackTrace(); // Xử lý ngoại lệ
         }

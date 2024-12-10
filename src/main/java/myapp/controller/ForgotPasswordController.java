@@ -1,7 +1,6 @@
 package myapp.controller;
 
 import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,8 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
-import myapp.model.dao.select.UserInfoSelector;
-import myapp.model.dao.update.UserAccountUpdate;
+import myapp.dao.UserAccountDAO;
+import myapp.dao.UserInformationDAO;
 import myapp.model.manager.SendCodeToEmailManager;
 
 import java.util.Random;
@@ -100,7 +99,7 @@ public class ForgotPasswordController {
      */
 
     private void sendVerificationCode() {
-        if(! new UserInfoSelector().checkEmail(email)){
+        if(! UserInformationDAO.checkEmail(email)){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Not found your email address!");
             alert.setContentText("Please try again, not found your email address");
@@ -189,8 +188,7 @@ public class ForgotPasswordController {
             return;
         }
         try {
-            UserAccountUpdate userAccountUpdate = new UserAccountUpdate();
-            userAccountUpdate.updatePasswordByEmail(email, newPassword);
+            UserAccountDAO.updatePasswordByEmail(email, newPassword);
             notifyLabel.setText("Password has been reset successfully.");
         } catch (Exception e) {
             notifyLabel.setText("An error occurred while resetting the password. Please try again.");

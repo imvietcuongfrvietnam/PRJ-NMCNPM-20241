@@ -3,17 +3,23 @@ package myapp.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+
+import myapp.dao.UserInformationDAO;
 import myapp.model.entities.entitiesdb.UserInformation;
+import myapp.model.entities.entitiessystem.UserCredentials;
+import myapp.model.manager.LogManager;
+import myapp.model.manager.Switcher;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 
-public class SettingController {
+public class SettingController extends BaseController{
     @FXML
     private Button editProfileButton;
     @FXML
@@ -50,8 +56,21 @@ public class SettingController {
     private Button cancelButton;
     @FXML
     private Button saveButton;
-
+    @FXML
+    private Button logOutButton;
+    @FXML
+    private Button settingButton;
+    @FXML
+    private Button generalButton;
+    @FXML
+    private Button residentManageButton;
+    @FXML
+    private Button feeManageButton;
+    @FXML
+    private Button homePageButton;
     private String passwordBeforeEdit;
+    private UserInformation userInformation;
+    private UserCredentials userCredentials;
 
     @FXML
     public void initialize() {
@@ -59,13 +78,68 @@ public class SettingController {
         saveButton.setVisible(false);
         cancelButton.setVisible(false);
         editPhotoButton.setVisible(false);
+        Switcher switcher = new Switcher();
 
         editProfileButton.setOnAction(e -> editProfile());
         saveButton.setOnAction(e -> saveChanges());
         cancelButton.setOnAction(e -> cancelEdit());
         editPhotoButton.setOnAction(e -> editPhoto());
+        LogManager logManager = new LogManager();
+        userInformation = logManager.readUserInfo();
+        userCredentials = logManager.readUserCredentials();
+        fillUserInfo();
+
+
+        //Cac nut switch
+        homePageButton.setOnAction(event -> {
+            try {
+                switcher.goHomePage(event, this);
+            } catch (IOException e) {
+            }
+        });
+        logOutButton.setOnAction(event ->
+        {
+            try {
+                switcher.goLogInPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        residentManageButton.setOnAction(event ->
+        {
+            try {
+                switcher.goListOfResidentsPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        settingButton.setOnAction(event ->
+        {
+            try {
+                switcher.goSettingPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        generalButton.setOnAction(event ->
+        {
+            try {
+                switcher.goListOfApartmentPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        feeManageButton.setOnAction(event ->
+        {
+            try {
+                switcher.goFeeManagementPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
-    private void fillUserInfo(UserInformation userInformation) {
+    private void fillUserInfo() {
         // Điền các trường thông tin cá nhân vào các TextField
         nameText.setText(userInformation.getTen());
         idText.setText(userInformation.getSoCMND());
@@ -83,15 +157,16 @@ public class SettingController {
 
         // Điền ngày sinh
         birthdayText.setValue(LocalDate.parse(userInformation.getNgaySinh().toLocaleString()));
-
-        // Điền thông tin ảnh hồ sơ nếu có (ví dụ: ảnh được lưu trữ dưới dạng URI)
-        // Giả sử bạn có trường photoProfile là Rectangle để hiển thị ảnh hồ sơ
-        String photoUrl = "src/main/resources/images/profile_" + userInformation.getSoCMND() + ".png";  // Ví dụ tên ảnh
-        File photoFile = new File(photoUrl);
-        if (photoFile.exists()) {
-            Image image = new Image(photoFile.toURI().toString());
-            photoProfile.setFill(new ImagePattern(image));
-        }
+        usernameText.setText(userCredentials.getUsername());
+        passwordField.setText(userCredentials.getPassword());
+//        // Điền thông tin ảnh hồ sơ nếu có (ví dụ: ảnh được lưu trữ dưới dạng URI)
+//        // Giả sử bạn có trường photoProfile là Rectangle để hiển thị ảnh hồ sơ
+//        String photoUrl = "src/main/resources/images/profile_" + userInformation.getSoCMND() + ".png";  // Ví dụ tên ảnh
+//        File photoFile = new File(photoUrl);
+//        if (photoFile.exists()) {
+//            Image image = new Image(photoFile.toURI().toString());
+//            photoProfile.setFill(new ImagePattern(image));
+//        }
     }
 
 
@@ -140,11 +215,78 @@ public class SettingController {
             photoProfile.setFill(new ImagePattern(image));
         }
     }
-
     @FXML
     private void saveChanges() {
+        // Lấy giá trị từ các trường
+        String name = nameText.getText().trim();
+        String id = idText.getText().trim();
+        String phone = phoneText.getText().trim();
+        String email = emailText.getText().trim();
+        String hometown = hometownText.getText().trim();
+        String address = addressText.getText().trim();
+        String username = usernameText.getText().trim();
+        String password = passwordText.getText().trim();
+        LocalDate birthday = birthdayText.getValue();
+
+        // Kiểm tra nếu có trường nào để trống
+        if (name.isEmpty() || id.isEmpty() || phone.isEmpty() || email.isEmpty() ||
+                hometown.isEmpty() || address.isEmpty() || username.isEmpty() ||
+                password.isEmpty() || birthday == null || (!maleButton.isSelected() && !femaleButton.isSelected())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Missing Information");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill in all the fields.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Kiểm tra định dạng email (nếu cần)
+        if (!email.matches("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid Email");
+            alert.setHeaderText(null);
+            alert.setContentText("Please enter a valid email address.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Đảm bảo trường mật khẩu không quá ngắn (ví dụ: ít nhất 6 ký tự)
+        if (password.length() < 6) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Weak Password");
+            alert.setHeaderText(null);
+            alert.setContentText("Password must be at least 6 characters long.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Lưu thông tin sau khi kiểm tra thành công
         passwordField.setText(passwordText.getText());
         setEditable(false);
+
+        new Thread(() -> {
+            LogManager logManager = new LogManager();
+            logManager.savePassword(username, password);
+            logManager.saveUserInfo(username);
+
+            userInformation.setTen(name);
+            userInformation.setSoCMND(id);
+            userInformation.setDienThoai(phone);
+            userInformation.setEmail(email);
+            userInformation.setQueQuan(hometown);
+            userInformation.setDiaChi(address);
+            userInformation.setNgaySinh(Date.valueOf(birthday.toString()));
+            userInformation.setGioiTinh(maleButton.isSelected() ? "Male" : "Female");
+
+            UserInformationDAO.updateUserInformation(userInformation, userCredentials);
+
+            // Hiển thị thông báo thành công
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Update Successful");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Your profile has been updated successfully!");
+            successAlert.showAndWait();
+        }).start();
 
         passwordField.setVisible(true);
         passwordText.setVisible(false);
@@ -153,7 +295,6 @@ public class SettingController {
         editPhotoButton.setVisible(false);
         cancelButton.setVisible(false);
         saveButton.setVisible(false);
-
     }
 
     @FXML
@@ -168,6 +309,6 @@ public class SettingController {
         editPhotoButton.setVisible(false);
         cancelButton.setVisible(false);
         saveButton.setVisible(false);
-
     }
+
 }

@@ -2,7 +2,7 @@ package myapp.model.manager;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import myapp.model.dao.select.UserInfoSelector;
+import myapp.dao.UserInformationDAO;
 import myapp.model.entities.entitiesdb.UserInformation;
 import myapp.model.entities.entitiessystem.UserCredentials;
 
@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class LogManager {
-    private String logFilePath;
     /**
      * Đọc thông tin username từ file JSON.
      *
@@ -38,14 +37,12 @@ public class LogManager {
      * @param username Tên đăng nhập của người dùng.
      * @return true nếu luu thành công false ngược lại
      */
-    public  static boolean saveUserInfo(String username) {
+    public boolean saveUserInfo(String username) {
         File file = new File("src/main/resources/logs/userinfo.json");
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode userNode = mapper.createObjectNode();
 
-        // Lấy thông tin người dùng từ UserInfoSelector
-        UserInfoSelector userInfoSelector = new UserInfoSelector();
-        UserInformation userInformation = userInfoSelector.select(username);
+        UserInformation userInformation = UserInformationDAO.selectByUsername(username);
 
         userNode.put("soCMND", userInformation.getSoCMND());
         userNode.put("Ten", userInformation.getTen());
@@ -74,9 +71,58 @@ public class LogManager {
         try {
             UserCredentials credentials = mapper.readValue(file, UserCredentials.class);
             return credentials;
-        } catch (IOException e) {
+        } catch (IOException e){
             e.printStackTrace();
             return null;
         }
     }
+
+    /**
+     * Lưu thông tin đăng nhập của người dùng (nếu được chọn) vào tệp JSON.
+     * Thông tin được lưu trữ trong tệp `savepassword.json`.
+     */
+    public boolean savePassword(String username, String password) {
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectNode userNode = mapper.createObjectNode();
+            userNode.put("username", username);
+            userNode.put("password", password);
+            try {
+                File file = new File("src/main/resources/logs/savepassword.json");
+                mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+             return false;
+            }
+        }
+    /**
+     * Đọc thông tin người dùng từ file JSON và trả về đối tượng UserInformation.
+     *
+     * @return Đối tượng UserInformation chứa thông tin người dùng từ file JSON.
+     */
+    public  UserInformation readUserInfo() {
+        File file = new File("src/main/resources/logs/userinfo.json");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(file, UserInformation.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Không thể đọc file userinfo.json.");
+        }
+
+        return null;
+    }
+    public  UserCredentials readUserCredentials() {
+        File file = new File("src/main/resources/logs/savepassword.json");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(file, UserCredentials.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Không thể đọc file savepassword.json.");
+        }
+
+        return null;
+    }
+
 }

@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class ResidentDataHandler {
 
-    // Phương thức lấy tên người dân theo SoCMND
     public static String getResidentNameByResidentID(String residentID) {
         String residentName = "";
         String query = "SELECT HoTen FROM cudan WHERE SoCMND = ?";

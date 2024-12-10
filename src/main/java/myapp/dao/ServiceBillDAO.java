@@ -1,4 +1,4 @@
-package myapp.model.dao.insert;
+package myapp.dao;
 
 import myapp.model.connectdb.SQLConnector;
 
@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 
-public class ServiceBillInsert {
-    public void insert(int maDichVu, String maHD, String maHoGiaDinh, double soTien, Date ngayHetHan, String thongTinBoSung) {
+public class ServiceBillDAO {
+    public static void insertServiceBill(int maDichVu, String maHD, String maHoGiaDinh, double soTien, Date ngayHetHan, String thongTinBoSung) {
 
         String query = "INSERT INTO hoadondichvu (MaDichVu, MaHD, MaHoGiaDinh, SoTien, NgayHetHan, ThongTinBoSung) VALUES (?, ?, ?, ?, ?, ?)";
 
