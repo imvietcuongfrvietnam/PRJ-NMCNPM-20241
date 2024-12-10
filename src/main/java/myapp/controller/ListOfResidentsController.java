@@ -46,6 +46,7 @@ public class ListOfResidentsController extends BaseController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        super.initialize();
         residentsList = ResidentDAO.getResidents();
         filteredList = FXCollections.observableArrayList(residentsList);
 

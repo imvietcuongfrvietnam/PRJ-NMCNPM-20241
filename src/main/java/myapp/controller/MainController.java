@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainController {
+public class MainController extends BaseController{
     @FXML
     private Label slideshowLabel, totalAmount1, totalAmount2, totalAmount3, totalAmount4;
     @FXML
@@ -64,9 +64,9 @@ public class MainController {
     private ImageView imageView;
     private List<String> textFieldValues = new ArrayList<>();
 
-    @FXML
+    @Override
     public void initialize() {
-
+        super.initialize();
         helloText.setText("Xin chào, "+ LogManager.getUserName());
         images.add(new Image(getClass().getResource("/image/Slideshow1.png").toExternalForm()));
         images.add(new Image(getClass().getResource("/image/Slideshow2.png").toExternalForm()));

@@ -56,8 +56,6 @@ public class SettingController extends BaseController{
     private Button cancelButton;
     @FXML
     private Button saveButton;
-    @FXML
-    private Button backButton;
     private String passwordBeforeEdit;
     private UserInformation userInformation;
     private UserCredentials userCredentials;
@@ -77,14 +75,6 @@ public class SettingController extends BaseController{
         userInformation = logManager.readUserInfo();
         userCredentials = logManager.readUserCredentials();
         fillUserInfo();
-        backButton.setOnAction(event -> {
-            Switcher switcher = new Switcher();
-            try {
-                switcher.goLogInPage(event, this);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
     private void fillUserInfo() {
         // Điền các trường thông tin cá nhân vào các TextField

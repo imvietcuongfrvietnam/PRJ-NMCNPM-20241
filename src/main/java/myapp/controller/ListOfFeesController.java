@@ -35,6 +35,7 @@ public class ListOfFeesController extends BaseController implements Initializabl
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        super.initialize();
         feesList = SQLConnector.getFees();
         filteredList = FXCollections.observableArrayList(feesList);
 

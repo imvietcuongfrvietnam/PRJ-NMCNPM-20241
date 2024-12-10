@@ -48,6 +48,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        super.initialize();
         apartmentsList = ApartmentDAO.getApartments();
 
         // Lựa chọn cho ChoiceBox status
