@@ -26,47 +26,47 @@
                 <Image url="@../image/Logo.png" />
             </image>
         </ImageView>
-        <Label layoutX="400.0" layoutY="45.0" prefHeight="60.0" text="Cài đặt chung" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="40.0" />
-            </font>
-        </Label>
-        <StackPane layoutX="1305.0" layoutY="60.0" prefHeight="50.0" prefWidth="500.0">
-            <children>
-                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
-                    <font>
-                        <Font size="20.0" />
-                    </font>
-                    <padding>
-                        <Insets left="60.0" />
-                    </padding>
-                </TextField>
-                <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-                    <image>
-                        <Image url="@../image/Search.png" />
-                    </image>
-                    <StackPane.margin>
-                        <Insets left="10.0" />
-                    </StackPane.margin>
-                </ImageView>
-            </children>
-        </StackPane>
-        <StackPane layoutX="1830.0" layoutY="60.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../image/Notification(1).png" />
-                    </image>
-                </ImageView>
-            </children>
-        </StackPane>
-        <Button alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thông tin cá nhân" textFill="#0070c0">
-            <font>
-                <Font name="System Bold" size="25.0" />
-            </font>
-        </Button>
-        <Line endX="250.0" layoutX="400.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
+      <Label layoutX="400.0" layoutY="45.0" prefHeight="60.0" text="Cài đặt chung" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <StackPane layoutX="1305.0" layoutY="60.0" prefHeight="50.0" prefWidth="500.0">
+         <children>
+            <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <padding>
+                  <Insets left="60.0" />
+               </padding>
+            </TextField>
+            <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
+               <image>
+                  <Image url="@../image/Search.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets left="10.0" />
+               </StackPane.margin>
+            </ImageView>
+         </children>
+      </StackPane>
+      <StackPane layoutX="1830.0" layoutY="60.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/Notification(1).png" />
+               </image>
+            </ImageView>
+         </children>
+      </StackPane>
+      <Button alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thông tin cá nhân" textFill="#0070c0">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Button>
+      <Line endX="250.0" layoutX="400.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
         <Line endX="1570.0" layoutX="350.0" layoutY="200.0" stroke="#7f7f7f" />
         <StackPane layoutX="25.0" layoutY="200.0">
             <children>
@@ -171,128 +171,128 @@
                 </ImageView>
             </children>
         </StackPane>
-        <Label layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" />
-        <Label layoutX="705.0" layoutY="300.0" prefHeight="60.0" text="Thông tin cá nhân" textFill="#002060">
-            <font>
-                <Font name="System Bold" size="40.0" />
-            </font>
-        </Label>
-        <Label layoutX="450.0" layoutY="400.0" text="Họ và tên:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="nameText" layoutX="450.0" layoutY="445.0" prefHeight="50.0" prefWidth="400.0" promptText="Họ và tên">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Label layoutX="900.0" layoutY="400.0" text="Giới tính:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <RadioButton fx:id="maleButton" layoutX="900.0" layoutY="455.0" mnemonicParsing="false" text="Nam">
-            <font>
-                <Font size="20.0" />
-            </font>
-            <toggleGroup>
-                <ToggleGroup fx:id="genderGroup" />
-            </toggleGroup>
-        </RadioButton>
-        <RadioButton fx:id="femaleButton" layoutX="1030.0" layoutY="455.0" mnemonicParsing="false" text="Nữ" toggleGroup="$genderGroup">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </RadioButton>
-        <Label layoutX="450.0" layoutY="510.0" text="Ngày sinh:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <DatePicker fx:id="birthdayText" layoutX="450.0" layoutY="555.0" prefHeight="50.0" prefWidth="400.0" promptText="DD/MM/YYYY" style="-fx-font-size: 20;" />
-        <Label layoutX="900.0" layoutY="510.0" text="Số CMND/CCCD:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="idText" layoutX="900.0" layoutY="555.0" prefHeight="50.0" prefWidth="400.0" promptText="CMND/CCCD">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Label layoutX="450.0" layoutY="620.0" text="Số điện thoại:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="phoneText" layoutX="450.0" layoutY="665.0" prefHeight="50.0" prefWidth="400.0" promptText="Số điện thoại">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Label layoutX="900.0" layoutY="620.0" text="Địa chỉ Email:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="emailText" layoutX="900.0" layoutY="665.0" prefHeight="50.0" prefWidth="400.0" promptText="Địa chỉ Email">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Label layoutX="450.0" layoutY="730.0" text="Quê quán:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="hometownText" layoutX="450.0" layoutY="775.0" prefHeight="50.0" prefWidth="850.0" promptText="Quê quán">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Label layoutX="450.0" layoutY="840.0" text="Địa chỉ thường trú:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="addressText" layoutX="450.0" layoutY="885.0" prefHeight="50.0" prefWidth="850.0" promptText="Địa chỉ">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Line endY="635.0" layoutX="1349.5" layoutY="300.0" stroke="#bfbfbf" />
-        <Circle fx:id="photoProfile" fill="DODGERBLUE" layoutX="1610.0" layoutY="425.0" radius="125.0" stroke="BLACK" strokeType="INSIDE" />
-        <Button fx:id="editPhotoButton" alignment="CENTER" layoutX="1535.0" layoutY="555.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Thay đổi ảnh" textFill="#002060" visible="false">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-        </Button>
-        <Label layoutX="1400.0" layoutY="620.0" text="Tên đăng nhập:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="usernameText" layoutX="1400.0" layoutY="665.0" prefHeight="50.0" prefWidth="420.0" promptText="Tên đăng nhập">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <Label layoutX="1400.0" layoutY="730.0" text="Mật khẩu:">
-            <font>
-                <Font size="25.0" />
-            </font>
-        </Label>
-        <TextField fx:id="passwordText" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0" promptText="Mật khẩu">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </TextField>
-        <PasswordField fx:id="passwordField" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0" promptText="Mật khẩu">
-            <font>
-                <Font size="20.0" />
-            </font>
-        </PasswordField>
+      <Label layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;" />
+      <Label layoutX="705.0" layoutY="300.0" prefHeight="60.0" text="Thông tin cá nhân" textFill="#002060">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="450.0" layoutY="400.0" text="Họ và tên:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameText" layoutX="450.0" layoutY="445.0" prefHeight="50.0" prefWidth="400.0" promptText="Họ và tên">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="900.0" layoutY="400.0" text="Giới tính:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <RadioButton fx:id="maleButton" layoutX="900.0" layoutY="455.0" mnemonicParsing="false" text="Nam">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <toggleGroup>
+            <ToggleGroup fx:id="genderGroup" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="femaleButton" layoutX="1030.0" layoutY="455.0" mnemonicParsing="false" text="Nữ" toggleGroup="$genderGroup">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </RadioButton>
+      <Label layoutX="450.0" layoutY="510.0" text="Ngày sinh:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="birthdayText" layoutX="450.0" layoutY="555.0" prefHeight="50.0" prefWidth="400.0" promptText="DD/MM/YYYY" style="-fx-font-size: 20;" />
+      <Label layoutX="900.0" layoutY="510.0" text="Số CMND/CCCD:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="idText" layoutX="900.0" layoutY="555.0" prefHeight="50.0" prefWidth="400.0" promptText="CMND/CCCD">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="450.0" layoutY="620.0" text="Số điện thoại:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phoneText" layoutX="450.0" layoutY="665.0" prefHeight="50.0" prefWidth="400.0" promptText="Số điện thoại">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="900.0" layoutY="620.0" text="Địa chỉ Email:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="emailText" layoutX="900.0" layoutY="665.0" prefHeight="50.0" prefWidth="400.0" promptText="Địa chỉ Email">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="450.0" layoutY="730.0" text="Quê quán:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="hometownText" layoutX="450.0" layoutY="775.0" prefHeight="50.0" prefWidth="850.0" promptText="Quê quán">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="450.0" layoutY="840.0" text="Địa chỉ thường trú:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="addressText" layoutX="450.0" layoutY="885.0" prefHeight="50.0" prefWidth="850.0" promptText="Địa chỉ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Line endY="635.0" layoutX="1349.5" layoutY="300.0" stroke="#bfbfbf" />
+      <Circle fx:id="photoProfile" fill="DODGERBLUE" layoutX="1610.0" layoutY="425.0" radius="125.0" stroke="BLACK" strokeType="INSIDE" />
+      <Button fx:id="editPhotoButton" alignment="CENTER" layoutX="1535.0" layoutY="555.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: transparent;" text="Thay đổi ảnh" textFill="#002060" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label layoutX="1400.0" layoutY="620.0" text="Tên đăng nhập:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="usernameText" layoutX="1400.0" layoutY="665.0" prefHeight="50.0" prefWidth="420.0" promptText="Tên đăng nhập">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Label layoutX="1400.0" layoutY="730.0" text="Mật khẩu:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="passwordText" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0" promptText="Mật khẩu">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <PasswordField fx:id="passwordField" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0" promptText="Mật khẩu">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
         <Button fx:id="editProfileButton" layoutX="1400.0" layoutY="885.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="420.0" style="-fx-background-color: #0070C0;" text="Chỉnh sửa hồ sơ" textFill="WHITE">
             <font>
                 <Font name="System Bold" size="20.0" />
@@ -304,30 +304,30 @@
                     </color>
                 </DropShadow>
             </effect>
-        </Button>
-        <Button fx:id="cancelButton" layoutX="1400.0" layoutY="885.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #F2F2F2;" text="Hủy" textFill="#0070c0" visible="false">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-            <effect>
-                <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                    <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                    </color>
-                </DropShadow>
-            </effect>
-        </Button>
-        <Button fx:id="saveButton" layoutX="1620.0" layoutY="885.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0;" text="Lưu thông tin" textFill="WHITE" visible="false">
-            <font>
-                <Font name="System Bold" size="20.0" />
-            </font>
-            <effect>
-                <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                    <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                    </color>
-                </DropShadow>
-            </effect>
-        </Button>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="1400.0" layoutY="885.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #F2F2F2;" text="Hủy" textFill="#0070c0" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="saveButton" layoutX="1620.0" layoutY="885.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0;" text="Lưu thông tin" textFill="WHITE" visible="false">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
     </children>
 </AnchorPane>
