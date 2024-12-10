@@ -12,12 +12,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 
 import java.net.URL;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 

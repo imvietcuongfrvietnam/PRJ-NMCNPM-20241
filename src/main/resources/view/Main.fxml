@@ -701,23 +701,6 @@
          </children>
       </StackPane>
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-      <StackPane layoutX="25.0" layoutY="525.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Thông báo" textFill="#002060">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../image/Notification.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="10.0" />
-               </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
       <StackPane layoutX="25.0" layoutY="860.0">
          <children>
             <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
