@@ -113,7 +113,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/List.png" />
+                        <Image url="@../image/ResidentManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -130,7 +130,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/Manage.png" />
+                        <Image url="@../image/FeeManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -140,14 +140,14 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="425.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/Manage.png" />
+                        <Image url="@../image/GeneralManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -166,23 +166,6 @@
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
                         <Image url="@../image/Notification.png" />
-                    </image>
-                    <StackPane.margin>
-                        <Insets left="10.0" />
-                    </StackPane.margin>
-                </ImageView>
-            </children>
-        </StackPane>
-        <StackPane layoutX="25.0" layoutY="600.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Tin nhắn" textFill="#002060">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-                    <image>
-                        <Image url="@../image/Message.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />

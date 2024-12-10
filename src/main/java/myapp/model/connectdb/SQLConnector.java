@@ -6,6 +6,7 @@ import myapp.model.entities.Fee;
 import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
+import myapp.model.entities.entitiesdb.Vehicle;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -152,6 +153,34 @@ public class SQLConnector {
             e.printStackTrace();
         }
         return feesList;
+    }
+
+    // Truy vấn danh sách phương tiện
+    public static ObservableList<Vehicle> getVehicles() {
+        ObservableList<Vehicle> vehiclesList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM quanlyphuongtien";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String startDate = formatDate(resultSet.getString("NgayBatDau"));
+                String endDate = formatDate(resultSet.getString("NgayKetThuc"));
+
+                vehiclesList.add(new Vehicle(
+                        resultSet.getString("MaHoGiaDinh"),
+                        resultSet.getString("LoaiPhuongTien"),
+                        resultSet.getString("BienSo"),
+                        startDate,
+                        endDate,
+                        resultSet.getString("GhiChu")
+
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vehiclesList;
     }
 
     // Định dạng ngày sinh từ yyyy-MM-dd sang dd/MM/yyyy
