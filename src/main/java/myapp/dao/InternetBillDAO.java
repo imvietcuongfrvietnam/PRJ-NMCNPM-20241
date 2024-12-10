@@ -24,7 +24,7 @@ public class InternetBillDAO {
         }
     }
 
-    public  static void deleteByMaHD(String maHD) {
+    public static void deleteByMaHD(String maHD) {
         String query = "DELETE FROM hoadoninternet WHERE MaHD = ?";
 
         try (Connection connection = SQLConnector.getConnection();

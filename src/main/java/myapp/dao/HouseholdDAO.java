@@ -2,14 +2,23 @@ package myapp.dao;
 
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseHold;
+import javafx.scene.control.Alert;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
+import java.sql.*;
 
-public class HouseholdDAO {
+/**
+ * Lớp này cung cấp các phương thức để thao tác với bảng "hogiadinh" trong cơ sở dữ liệu.
+ * Các phương thức bao gồm thêm, xóa, cập nhật và lấy thông tin hộ gia đình theo mã căn hộ.
+ *
+ * @author [Your Name]
+ */
+public class HouseholdDAO extends BaseDAO {
+
+    /**
+     * Xóa hộ gia đình theo mã hộ gia đình.
+     *
+     * @param maHoGiaDinh Mã hộ gia đình cần xóa.
+     */
     public static void delete(String maHoGiaDinh) {
         String query = "DELETE FROM hogiadinh WHERE MaHoGiaDinh = ?";
 
@@ -19,11 +28,16 @@ public class HouseholdDAO {
             preparedStatement.setString(1, maHoGiaDinh);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace();
+            showErrorAlert("Lỗi khi xóa hộ gia đình", "Không thể xóa hộ gia đình", e.getMessage());
         }
     }
 
-    // Phương thức lấy thông tin hộ gia đình theo MaCanHo
+    /**
+     * Lấy thông tin hộ gia đình theo mã căn hộ.
+     *
+     * @param apartmentID Mã căn hộ.
+     * @return Đối tượng HouseHold chứa thông tin hộ gia đình.
+     */
     public static HouseHold getHouseHoldByApartmentID(String apartmentID) {
         HouseHold houseHold = null;
         String query = "SELECT MaHoGiaDinh, NgayChuyenVao, NgayChuyenRa FROM hogiadinh WHERE MaCanHo = ?";
@@ -35,74 +49,67 @@ public class HouseholdDAO {
 
             if (resultSet.next()) {
                 String houseHoldID = resultSet.getString("MaHoGiaDinh");
-                String moveInDate = resultSet.getString("NgayChuyenVao");
-                String moveOutDate = resultSet.getString("NgayChuyenRa");
+                Date moveInDate = resultSet.getDate("NgayChuyenVao");
+                Date moveOutDate = resultSet.getDate("NgayChuyenRa");
 
                 // Tạo đối tượng houseHold và gán giá trị cho nó
                 houseHold = new HouseHold(houseHoldID, moveInDate, moveOutDate);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            showErrorAlert("Lỗi khi lấy thông tin hộ gia đình", "Không thể lấy thông tin hộ gia đình", e.getMessage());
         }
 
         return houseHold;
     }
 
-    public static void insertHousehold(String maHoGiaDinh, String maPhongThue, Date ngayChuyenVao, String soCMNDChuHo, String trangThai) throws SQLException {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
+    /**
+     * Thêm hộ gia đình vào cơ sở dữ liệu.
+     *
+     * @param maHoGiaDinh Mã hộ gia đình.
+     * @param maPhongThue Mã phòng thuê.
+     * @param ngayChuyenVao Ngày chuyển vào.
+     * @param soCMNDChuHo Số CMND của chủ hộ.
+     * @param trangThai Trạng thái hộ gia đình.
+     */
+    public static void insertHousehold(String maHoGiaDinh, String maPhongThue, Date ngayChuyenVao, String soCMNDChuHo, String trangThai) {
         String sql = "INSERT INTO hogiadinh (maHoGiaDinh, maPhongThue, ngayChuyenVao, soCMNDChuHo, trangThai) VALUES (?, ?, ?, ?, ?)";
 
-        try {
-            // Kết nối tới CSDL
-            connection = SQLConnector.getConnection();
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
 
-            // Tạo PreparedStatement từ câu lệnh SQL
-            preparedStatement = connection.prepareStatement(sql);
-
-            // Gán giá trị cho các tham số trong câu lệnh SQL
             preparedStatement.setString(1, maHoGiaDinh);
             preparedStatement.setString(2, maPhongThue);
-            preparedStatement.setDate(3, new java.sql.Date(ngayChuyenVao.getTime())); // Chuyển đổi Date sang java.sql.Date
+            preparedStatement.setDate(3, new java.sql.Date(ngayChuyenVao.getTime()));
             preparedStatement.setString(4, soCMNDChuHo);
             preparedStatement.setString(5, trangThai);
 
-            // Thực thi câu lệnh INSERT
-            int rowsAffected = preparedStatement.executeUpdate();
-
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            // Đóng PreparedStatement và kết nối
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                SQLConnector.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            showErrorAlert("Lỗi khi thêm hộ gia đình", "Không thể thêm hộ gia đình", e.getMessage());
         }
     }
 
+    /**
+     * Cập nhật thông tin hộ gia đình theo mã hộ gia đình.
+     *
+     * @param entity Đối tượng HouseHold chứa thông tin mới.
+     */
     public static void updateByMaHoGiaDinh(HouseHold entity) {
-                String query = "UPDATE hogiadinh SET MaCanHo = ?, NgayChuyenVao = ?, NgayChuyenRa = ?, SoCMNDChuHo = ?, TrangThai = ? WHERE MaHoGiaDinh = ?";
+        String query = "UPDATE hogiadinh SET MaCanHo = ?, NgayChuyenVao = ?, NgayChuyenRa = ?, SoCMNDChuHo = ?, TrangThai = ? WHERE MaHoGiaDinh = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            // Sử dụng các phương thức getter từ entity HoGiaDinh
-            preparedStatement.setString(1, entity.getApartmentID()); // Cập nhật MaCanHo
-            preparedStatement.setDate(2, java.sql.Date.valueOf(entity.getMoveInDate())); // Cập nhật NgayChuyenVao
-            preparedStatement.setDate(3, java.sql.Date.valueOf(entity.getMoveOutDate())); // Cập nhật NgayChuyenRa
-            preparedStatement.setString(4, entity.getResidentID()); // Cập nhật SoCMNDChuHo
-            preparedStatement.setString(5, entity.getStatus()); // Cập nhật TrangThai
-            preparedStatement.setString(6, entity.getHouseHoldID()); // Khóa chính để tìm bản ghi
+            preparedStatement.setString(1, entity.getApartmentID());
+            preparedStatement.setDate(2, entity.getMoveInDate());
+            preparedStatement.setDate(3, entity.getMoveOutDate());
+            preparedStatement.setString(4, entity.getResidentID());
+            preparedStatement.setString(5, entity.getStatus());
+            preparedStatement.setString(6, entity.getHouseHoldID());
 
             preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            showErrorAlert("Lỗi khi cập nhật thông tin hộ gia đình", "Không thể cập nhật thông tin hộ gia đình", e.getMessage());
         }
     }
 }

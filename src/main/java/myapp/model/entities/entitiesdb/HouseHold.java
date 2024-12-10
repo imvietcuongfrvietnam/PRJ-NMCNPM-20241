@@ -1,14 +1,29 @@
 package myapp.model.entities.entitiesdb;
 
+import java.sql.Date;
+
+/**
+ * Lớp HouseHold đại diện cho thông tin của một hộ gia đình.
+ */
 public class HouseHold {
     private String houseHoldID;
     private String apartmentID;
-    private String moveInDate;
-    private String moveOutDate;
+    private Date moveInDate;
+    private Date moveOutDate;
     private String residentID;
     private String status;
 
-    public HouseHold(String houseHoldID, String apartmentID, String moveInDate, String moveOutDate, String residentID, String status) {
+    /**
+     * Constructor đầy đủ để khởi tạo tất cả các thuộc tính.
+     *
+     * @param houseHoldID Mã hộ gia đình.
+     * @param apartmentID Mã căn hộ.
+     * @param moveInDate Ngày chuyển vào.
+     * @param moveOutDate Ngày chuyển ra.
+     * @param residentID Mã cư dân.
+     * @param status Trạng thái của hộ gia đình.
+     */
+    public HouseHold(String houseHoldID, String apartmentID, Date moveInDate, Date moveOutDate, String residentID, String status) {
         this.houseHoldID = houseHoldID;
         this.apartmentID = apartmentID;
         this.moveInDate = moveInDate;
@@ -17,18 +32,41 @@ public class HouseHold {
         this.status = status;
     }
 
+    /**
+     * Constructor mặc định.
+     */
     public HouseHold() {
     }
 
-    public HouseHold(String houseHoldID, String apartmentID, String address, String moveInDateValue, String moveOutDateValue, String statusValue, String residentID) {
-
+    /**
+     * Constructor để khởi tạo các thông tin cơ bản.
+     *
+     * @param houseHoldID Mã hộ gia đình.
+     * @param apartmentID Mã căn hộ.
+     * @param moveInDate Ngày chuyển vào.
+     * @param moveOutDate Ngày chuyển ra.
+     */
+    public HouseHold(String houseHoldID, String apartmentID, Date moveInDate, Date moveOutDate) {
+        this.houseHoldID = houseHoldID;
+        this.apartmentID = apartmentID;
+        this.moveInDate = moveInDate;
+        this.moveOutDate = moveOutDate;
     }
 
-    public HouseHold(String houseHoldID, String moveInDate, String moveOutDate) {
+    /**
+     * Constructor tối giản để sử dụng cho các truy vấn đơn giản.
+     *
+     * @param houseHoldID Mã hộ gia đình.
+     * @param moveInDate Ngày chuyển vào.
+     * @param moveOutDate Ngày chuyển ra.
+     */
+    public HouseHold(String houseHoldID, Date moveInDate, Date moveOutDate) {
         this.houseHoldID = houseHoldID;
         this.moveInDate = moveInDate;
         this.moveOutDate = moveOutDate;
     }
+
+    // Getters và Setters
 
     public String getHouseHoldID() {
         return houseHoldID;
@@ -46,19 +84,19 @@ public class HouseHold {
         this.apartmentID = apartmentID;
     }
 
-    public String getMoveInDate() {
+    public Date getMoveInDate() {
         return moveInDate;
     }
 
-    public void setMoveInDate(String moveInDate) {
+    public void setMoveInDate(Date moveInDate) {
         this.moveInDate = moveInDate;
     }
 
-    public String getMoveOutDate() {
+    public Date getMoveOutDate() {
         return moveOutDate;
     }
 
-    public void setMoveOutDate(String moveOutDate) {
+    public void setMoveOutDate(Date moveOutDate) {
         this.moveOutDate = moveOutDate;
     }
 

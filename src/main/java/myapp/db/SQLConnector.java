@@ -59,8 +59,8 @@ public class SQLConnector {
                 houseHoldsList.add(new HouseHold(
                         resultSet.getString("MaHoGiaDinh"),
                         resultSet.getString("MaCanHo"),
-                        resultSet.getString("NgayChuyenVao"),
-                        resultSet.getString("NgayChuyenRa"),
+                        resultSet.getDate("NgayChuyenVao"),
+                        resultSet.getDate("NgayChuyenRa"),
                         resultSet.getString("SoCMNDChuHo"),
                         resultSet.getString("TrangThai")
                 ));
