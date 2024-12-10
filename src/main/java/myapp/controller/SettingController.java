@@ -61,7 +61,7 @@ public class SettingController extends BaseController{
     @FXML
     private Button settingButton;
     @FXML
-    private Button generalButton;
+    private Button generalManageButton;
     @FXML
     private Button residentManageButton;
     @FXML
@@ -121,7 +121,7 @@ public class SettingController extends BaseController{
                 throw new RuntimeException(e);
             }
         });
-        generalButton.setOnAction(event ->
+        generalManageButton.setOnAction(event ->
         {
             try {
                 switcher.goListOfApartmentPage(event, this);
