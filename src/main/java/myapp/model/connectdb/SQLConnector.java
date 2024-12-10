@@ -128,7 +128,7 @@ public class SQLConnector {
         }
         return apartmentsList;
     }
-    // Truy vấn danh sách căn hộ
+    // Truy vấn danh sách khoản phí
     public static ObservableList<Fee> getFees() {
         ObservableList<Fee> feesList = FXCollections.observableArrayList();
         String query = "SELECT * FROM quanlykhoanphi";
