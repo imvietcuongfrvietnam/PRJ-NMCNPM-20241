@@ -12,9 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.dao.ApartmentDAO;
 import myapp.dao.HouseholdDAO;
 import myapp.dao.ResidentDAO;
-import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
@@ -48,7 +48,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        apartmentsList = SQLConnector.getApartments();
+        apartmentsList = ApartmentDAO.getApartments();
 
         // Lựa chọn cho ChoiceBox status
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sử dụng", "Chưa sử dụng");

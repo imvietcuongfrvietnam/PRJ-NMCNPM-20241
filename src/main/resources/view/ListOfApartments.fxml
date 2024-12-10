@@ -113,7 +113,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/List.png" />
+                        <Image url="@../image/ResidentManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -130,7 +130,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/Manage.png" />
+                        <Image url="@../image/FeeManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -147,7 +147,7 @@
                 </Button>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
                     <image>
-                        <Image url="@../image/Manage.png" />
+                        <Image url="@../image/GeneralManagement.png" />
                     </image>
                     <StackPane.margin>
                         <Insets left="10.0" />
@@ -156,40 +156,6 @@
             </children>
         </StackPane>
         <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-        <StackPane layoutX="25.0" layoutY="525.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Thông báo" textFill="#002060">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-                    <image>
-                        <Image url="@../image/Notification.png" />
-                    </image>
-                    <StackPane.margin>
-                        <Insets left="10.0" />
-                    </StackPane.margin>
-                </ImageView>
-            </children>
-        </StackPane>
-        <StackPane layoutX="25.0" layoutY="600.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Tin nhắn" textFill="#002060">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Button>
-                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-                    <image>
-                        <Image url="@../image/Message.png" />
-                    </image>
-                    <StackPane.margin>
-                        <Insets left="10.0" />
-                    </StackPane.margin>
-                </ImageView>
-            </children>
-        </StackPane>
         <StackPane layoutX="25.0" layoutY="860.0">
             <children>
                 <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
@@ -409,14 +375,14 @@
                         <Insets left="400.0" top="585.0" />
                     </StackPane.margin>
                 </Label>
-            <TextArea fx:id="noteText" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="730.0" StackPane.alignment="TOP_LEFT">
-               <StackPane.margin>
-                  <Insets left="400.0" top="615.0" />
-               </StackPane.margin>
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </TextArea>
+                <TextArea fx:id="noteText" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="730.0" StackPane.alignment="TOP_LEFT">
+                    <StackPane.margin>
+                        <Insets left="400.0" top="615.0" />
+                    </StackPane.margin>
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                </TextArea>
                 <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="45.0" prefWidth="340.0" style="-fx-background-color: #F2F2F2;" text="Thoát" textFill="#002060" StackPane.alignment="TOP_LEFT">
                     <font>
                         <Font size="20.0" />

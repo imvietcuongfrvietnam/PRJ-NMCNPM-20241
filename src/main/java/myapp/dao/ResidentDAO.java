@@ -158,4 +158,38 @@ public class ResidentDAO {
 
         return members;
     }
+
+    public static ObservableList<Resident> getResidents() {
+        ObservableList<Resident> residentsList = FXCollections.observableArrayList();
+        String query = "SELECT HoTen, GioiTinh, NgaySinh, SoCMND, QueQuan, SoDienThoai, " +
+                "NgheNghiep, DanToc, QuocTich, TrinhDoHocVan, TrangThai, ThongTinBoSung, MaHoGiaDinh " +
+                "FROM nguoithue";
+
+        try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Date birthday = resultSet.getDate("NgaySinh"); // NgaySinh là kiểu java.sql.Date
+
+                residentsList.add(new Resident(
+                        resultSet.getString("HoTen"),
+                        resultSet.getString("GioiTinh"),
+                        resultSet.getDate("NgaySinh"), // Chuyển thành String nếu cần định dạng
+                        resultSet.getString("SoCMND"),
+                        resultSet.getString("QueQuan"),
+                        resultSet.getString("SoDienThoai"),
+                        resultSet.getString("NgheNghiep"),
+                        resultSet.getString("DanToc"),
+                        resultSet.getString("QuocTich"),
+                        resultSet.getString("TrinhDoHocVan"),
+                        resultSet.getString("TrangThai"),
+                        resultSet.getString("ThongTinBoSung"),
+                        resultSet.getString("MaHoGiaDinh")
+                ));
+            }
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi khi lấy thông tin cư dân", "Có lỗi xảy ra", "Truy vấn cơ sở dữ liệu thất bại.");
+        }
+        return residentsList;
+    }
 }

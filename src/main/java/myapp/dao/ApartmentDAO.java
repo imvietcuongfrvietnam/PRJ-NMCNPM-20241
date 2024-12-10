@@ -1,10 +1,13 @@
 package myapp.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.Apartment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -68,5 +71,29 @@ public class ApartmentDAO extends BaseDAO {
         } catch (Exception e) {
             showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
         }
+    }
+
+    // Truy vấn danh sách căn hộ
+    public static ObservableList<Apartment> getApartments() {
+        ObservableList<Apartment> apartmentsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM phong";
+
+        try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                apartmentsList.add(new Apartment(
+                        resultSet.getString("MaCanHo"),
+                        resultSet.getInt("Tang"),
+                        resultSet.getInt("DienTich"),
+                        resultSet.getString("TinhTrang"),
+                        resultSet.getString("ThongTinBoSung")
+
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return apartmentsList;
     }
 }

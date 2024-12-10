@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import myapp.db.SQLConnector;
+import myapp.dao.ResidentDAO;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
 
@@ -46,7 +46,7 @@ public class ListOfResidentsController extends BaseController implements Initial
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        residentsList = SQLConnector.getResidents();
+        residentsList = ResidentDAO.getResidents();
         filteredList = FXCollections.observableArrayList(residentsList);
 
         // Cập nhật số thứ tự trong bảng Resident
