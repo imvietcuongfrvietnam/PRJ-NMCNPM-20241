@@ -1,6 +1,6 @@
 package myapp.dao;
 
-import myapp.model.connectdb.SQLConnector;
+import myapp.db.SQLConnector;
 
 import java.sql.Connection;
 import java.sql.Date;

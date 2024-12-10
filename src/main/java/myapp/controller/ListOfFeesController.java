@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import myapp.model.connectdb.SQLConnector;
+import myapp.db.SQLConnector;
 import myapp.model.entities.Fee;
 import myapp.model.manager.Switcher;
 

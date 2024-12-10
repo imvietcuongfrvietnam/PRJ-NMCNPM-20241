@@ -1,4 +1,4 @@
-package myapp.model.connectdb;
+package myapp.db;
 
 import java.sql.Connection;
 import java.sql.SQLException;

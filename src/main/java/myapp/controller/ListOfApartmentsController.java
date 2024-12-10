@@ -12,7 +12,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import myapp.model.connectdb.SQLConnector;
+import myapp.dao.HouseholdDAO;
+import myapp.dao.ResidentDAO;
+import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
@@ -23,7 +25,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
 public class ListOfApartmentsController extends BaseController implements Initializable {
@@ -67,7 +68,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
         areaColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getArea()));
         houseHoldIDColumn.setCellValueFactory(cellData -> {
             String apartmentID = cellData.getValue().getApartmentID();
-            HouseHold houseHold = DataHandler.getHouseHoldByApartmentID(apartmentID);
+            HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartmentID);
             if (houseHold != null) {
                 return new SimpleStringProperty(houseHold.getHouseHoldID());
             } else {
@@ -142,7 +143,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
         floorText.setText(String.valueOf(apartment.getFloor()));
         areaText.setText(String.valueOf(apartment.getArea()));
 
-        HouseHold houseHold = DataHandler.getHouseHoldByApartmentID(apartment.getApartmentID());
+        HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
             // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
             if (houseHold.getMoveInDate() != null && !houseHold.getMoveInDate().isEmpty()) {
@@ -154,7 +155,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
-        Resident resident = DataHandler.getResidentByApartmentID(apartment.getApartmentID());
+        Resident resident = ResidentDAO.getResidentByApartmentID(apartment.getApartmentID());
         if (resident != null) {
             residentNameText.setText(resident.getName());
             residentIDText.setText(resident.getIDcard());
@@ -183,7 +184,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
         floorText.setText(String.valueOf(apartment.getFloor()));
         areaText.setText(String.valueOf(apartment.getArea()));
 
-        HouseHold houseHold = DataHandler.getHouseHoldByApartmentID(apartment.getApartmentID());
+        HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
             // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
             if (houseHold.getMoveInDate() != null && !houseHold.getMoveInDate().isEmpty()) {
@@ -195,7 +196,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
-        Resident resident = DataHandler.getResidentByApartmentID(apartment.getApartmentID());
+        Resident resident = ResidentDAO.getResidentByApartmentID(apartment.getApartmentID());
         if (resident != null) {
             residentNameText.setText(resident.getName());
             residentIDText.setText(resident.getIDcard());

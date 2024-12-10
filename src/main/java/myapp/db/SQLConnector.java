@@ -1,4 +1,4 @@
-package myapp.model.connectdb;
+package myapp.db;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

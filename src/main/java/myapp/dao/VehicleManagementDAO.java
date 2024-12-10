@@ -1,6 +1,6 @@
 package myapp.dao;
 
-import myapp.model.connectdb.SQLConnector;
+import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.VehicleManagement;
 
 import java.sql.Connection;
@@ -34,6 +34,19 @@ public class VehicleManagementDAO {
             preparedStatement.setDate(3, java.sql.Date.valueOf(entity.getNgayKetThuc()));
             preparedStatement.setString(4, entity.getBienSo());
 
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteVehicle(String bienSo) {
+        String query = "DELETE FROM quanlyxe WHERE BienSo = ?";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, bienSo);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

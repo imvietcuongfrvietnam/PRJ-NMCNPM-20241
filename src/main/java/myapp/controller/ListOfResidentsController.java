@@ -13,7 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import myapp.model.connectdb.SQLConnector;
+import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
 

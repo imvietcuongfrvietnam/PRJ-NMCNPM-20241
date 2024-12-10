@@ -12,7 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import myapp.model.connectdb.SQLConnector;
+import myapp.dao.ResidentDAO;
+import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
@@ -132,8 +133,8 @@ public class ListOfHouseHoldsController extends BaseController implements Initia
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-        String residentName = DataHandler.getResidentNameByResidentID(houseHold.getResidentID());
-        String residentPhone = DataHandler.getResidentPhoneByResidentID(houseHold.getResidentID());
+        String residentName = ResidentDAO.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentPhone = ResidentDAO.getResidentPhoneByResidentID(houseHold.getResidentID());
         residentNameText.setText(residentName);
         residentIDText.setText(houseHold.getResidentID());
         residentPhoneText.setText(residentPhone);
@@ -165,8 +166,8 @@ public class ListOfHouseHoldsController extends BaseController implements Initia
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-        String residentName = DataHandler.getResidentNameByResidentID(houseHold.getResidentID());
-        String residentPhone = DataHandler.getResidentPhoneByResidentID(houseHold.getResidentID());
+        String residentName = ResidentDAO.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentPhone = ResidentDAO.getResidentPhoneByResidentID(houseHold.getResidentID());
         residentNameText.setText(residentName);
         residentIDText.setText(houseHold.getResidentID());
         residentPhoneText.setText(residentPhone);
@@ -259,7 +260,7 @@ public class ListOfHouseHoldsController extends BaseController implements Initia
     }
 
     private void updateMemberTable(String houseHoldID) {
-        ObservableList<Resident> members = DataHandler.getMembersByHouseHoldID(houseHoldID);
+        ObservableList<Resident> members = ResidentDAO.getMembersByHouseHoldID(houseHoldID);
 
         // Cập nhật cột chỉ số (index) của thành viên trong gia đình
         memberIndexColumn.setCellValueFactory(cellData -> {

@@ -1,6 +1,6 @@
 package myapp.dao;
 
-import myapp.model.connectdb.SQLConnector;
+import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.UserAccount;
 
 import java.sql.*;

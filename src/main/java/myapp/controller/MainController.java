@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import myapp.dao.ContributionFundDAO;
-import myapp.model.dao.insert.ContributionFundInsert;
 import myapp.model.entities.entitiesdb.ContributionFund;
 import myapp.model.manager.LogManager;
 
@@ -255,8 +254,7 @@ public class MainController {
 
         ContributionFund newFund = new ContributionFund(fundName, fundID, amount, periodOfTime);
         contributionFundList.add(newFund);
-        ContributionFundInsert contributionFundInsert = new ContributionFundInsert();
-        contributionFundInsert.insert(Integer.parseInt(fundID), fundName, "");
+        ContributionFundDAO.insertContributionFund(Integer.parseInt(fundID), fundName, "");
         clearInputFields();
     }
 
