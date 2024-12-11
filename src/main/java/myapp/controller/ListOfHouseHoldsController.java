@@ -19,7 +19,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class ListOfHouseHoldController extends ManagementController<HouseHold> {
+public class ListOfHouseHoldsController extends ManagementController<HouseHold> {
     @FXML
     private StackPane stackPaneInsertUpdate;
     @FXML
@@ -69,6 +69,11 @@ public class ListOfHouseHoldController extends ManagementController<HouseHold> {
         saveButton.setOnAction(actionEvent -> save());
     }
 
+    @Override
+    protected void filterEntities() {
+
+    }
+
     private String formatDate(Date date) {
         return date != null ? date.toLocalDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "31/12/9999";
     }
@@ -108,7 +113,7 @@ public class ListOfHouseHoldController extends ManagementController<HouseHold> {
         moveOutDate.setValue(houseHold.getMoveOutDate() != null ? houseHold.getMoveOutDate().toLocalDate() : null);
         residentIDText.setText(houseHold.getResidentID());
         status.setValue(houseHold.getStatus());
-        updateMemberTable(houseHold.getHouseHoldID());
+        //updateMemberTable(houseHold.getHouseHoldID());
         stackPaneInsertUpdate.setVisible(true);
     }
 

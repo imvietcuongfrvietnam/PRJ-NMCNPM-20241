@@ -14,7 +14,7 @@ import myapp.model.manager.Switcher;
  *
  * @param <T> Kiểu dữ liệu của các đối tượng sẽ được hiển thị trong bảng (TableView).
  */
-public abstract class ManagementController<T> extends NavigableController {
+abstract class ManagementController<T> extends NavigableController {
 
     /** Số lượng hàng hiển thị trên mỗi trang. */
     protected static final int ROWS_PER_PAGE = 10;

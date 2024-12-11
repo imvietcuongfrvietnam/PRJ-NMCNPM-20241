@@ -72,6 +72,31 @@ public class ListOfFeesController extends ManagementController<Fee> {
 
     }
 
+    @Override
+    protected void filterEntities() {
+
+    }
+
+    @Override
+    protected void clearFields() {
+
+    }
+
+    @Override
+    protected void save() {
+
+    }
+
+    @Override
+    protected void cancel() {
+
+    }
+
+    @Override
+    protected void add() {
+
+    }
+
     // Phương thức kết hợp tìm kiếm và lọc dữ liệu
     private void filterFees() {
         String searchKeyword = searchText.getText().toLowerCase();

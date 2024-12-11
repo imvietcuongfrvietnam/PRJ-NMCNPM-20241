@@ -24,7 +24,7 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
     private TableColumn<Vehicle, Date> startDateColumn, endDateColumn;
     @FXML
     private Button listOfResidentsButton;
-
+    @Override
     public void initialize() {
         super.initialize();
         listOfResidentsButton.setOnAction(
@@ -49,6 +49,11 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         noteColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("note"));
         operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createDeleteButtons(param)));
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterVehicles());
+    }
+
+    @Override
+    protected void filterEntities() {
+
     }
 
     @Override
