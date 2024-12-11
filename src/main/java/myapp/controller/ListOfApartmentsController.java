@@ -23,23 +23,36 @@ import javafx.event.Event;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
-public class ListOfApartmentsController extends BaseController implements Initializable {
-    @FXML private StackPane stackPaneInsertUpdate;
-    @FXML private Button addButton, cancelButton, saveButton, listOfResidentsButton;
-    @FXML private TableView<Apartment> apartmentTableView;
-    @FXML private TableColumn<Apartment, Integer> indexColumn, floorColumn, areaColumn;
-    @FXML private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
-    @FXML private TableColumn<Apartment, String> houseHoldIDColumn;
-    @FXML private TableColumn<Apartment, HBox> operationsColumn;
-    @FXML private Pagination pagination;
-    @FXML private TextField apartmentIDText, floorText, areaText, residentNameText, residentIDText, houseHoldIDText;
-    @FXML private TextArea noteText;
-    @FXML private DatePicker moveInDate, moveOutDate;
-    @FXML private ChoiceBox<String> status;
+public class ListOfApartmentsController extends BaseController {
+    @FXML
+    private StackPane stackPaneInsertUpdate;
+    @FXML
+    private Button addButton, cancelButton, saveButton, listOfResidentsButton;
+    @FXML
+    private TableView<Apartment> apartmentTableView;
+    @FXML
+    private TableColumn<Apartment, Integer> indexColumn, floorColumn, areaColumn;
+    @FXML
+    private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
+    @FXML
+    private TableColumn<Apartment, String> houseHoldIDColumn;
+    @FXML
+    private TableColumn<Apartment, HBox> operationsColumn;
+    @FXML
+    private Pagination pagination;
+    @FXML
+    private TextField apartmentIDText, floorText, areaText, residentNameText, residentIDText, houseHoldIDText;
+    @FXML
+    private TextArea noteText;
+    @FXML
+    private DatePicker moveInDate, moveOutDate;
+    @FXML
+    private ChoiceBox<String> status;
 
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<Apartment> apartmentsList;
@@ -47,7 +60,7 @@ public class ListOfApartmentsController extends BaseController implements Initia
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
         super.initialize();
         apartmentsList = ApartmentDAO.getApartments();
 
@@ -94,10 +107,17 @@ public class ListOfApartmentsController extends BaseController implements Initia
         pagination.setPageCount(5);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-font-size: 25;");
 
+        //Dat su kien cho cac nut
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
-        listOfResidentsButton.setOnAction(event -> switchToListOfResidents(event));
+        listOfResidentsButton.setOnAction(event -> {
+            try {
+                switcher.goListOfResidentsPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Apartment, HBox> param) {
@@ -146,13 +166,15 @@ public class ListOfApartmentsController extends BaseController implements Initia
 
         HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
-            // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
-            if (houseHold.getMoveInDate() != null && !houseHold.getMoveInDate().isEmpty()) {
-                moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            if (houseHold.getMoveInDate() != null) {
+                LocalDate moveInLocalDate = houseHold.getMoveInDate().toLocalDate();
+                moveInDate.setValue(moveInLocalDate);
             }
-            if (houseHold.getMoveOutDate() != null && !houseHold.getMoveOutDate().isEmpty()) {
-                moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            if (houseHold.getMoveOutDate() != null) {
+                LocalDate moveOutLocalDate = houseHold.getMoveOutDate().toLocalDate();
+                moveOutDate.setValue(moveOutLocalDate);
             }
+
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
@@ -188,12 +210,15 @@ public class ListOfApartmentsController extends BaseController implements Initia
         HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
             // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
-            if (houseHold.getMoveInDate() != null && !houseHold.getMoveInDate().isEmpty()) {
-                moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            if (houseHold.getMoveInDate() != null) {
+                LocalDate moveInLocalDate = houseHold.getMoveInDate().toLocalDate();
+                moveInDate.setValue(moveInLocalDate);
             }
-            if (houseHold.getMoveOutDate() != null && !houseHold.getMoveOutDate().isEmpty()) {
-                moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            if (houseHold.getMoveOutDate() != null) {
+                LocalDate moveOutLocalDate = houseHold.getMoveOutDate().toLocalDate();
+                moveOutDate.setValue(moveOutLocalDate);
             }
+
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
@@ -262,8 +287,8 @@ public class ListOfApartmentsController extends BaseController implements Initia
         String apartmentID = apartmentIDText.getText();
         Integer floor = Integer.valueOf(floorText.getText());
         Integer area = Integer.valueOf(areaText.getText());
-        String moveInDateValue = moveInDate.getValue() != null ? moveInDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
-        String moveOutDateValue = moveOutDate.getValue() != null ? moveOutDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+        Date moveInDateValue = Date.valueOf(moveInDate.getValue());
+        Date moveOutDateValue = Date.valueOf(moveOutDate.getValue());
         String statusValue = status.getValue();
         String residentName = residentNameText.getText();
         String residentID = residentIDText.getText();
@@ -296,13 +321,4 @@ public class ListOfApartmentsController extends BaseController implements Initia
         residentIDText.clear();
         houseHoldIDText.clear();
     }
-
-    private void switchToListOfResidents(Event event) {
-        try {
-            switcher.goListOfResidentsPage(event, this); // Gọi phương thức chuyển cảnh
-        } catch (IOException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-
 }

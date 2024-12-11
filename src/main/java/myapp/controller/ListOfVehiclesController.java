@@ -3,7 +3,6 @@ package myapp.controller;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -16,9 +15,7 @@ import myapp.model.entities.entitiesdb.Vehicle;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-import java.net.URL;
 import java.sql.Date;
-import java.util.ResourceBundle;
 
 public class ListOfVehiclesController extends BaseController{
     @FXML

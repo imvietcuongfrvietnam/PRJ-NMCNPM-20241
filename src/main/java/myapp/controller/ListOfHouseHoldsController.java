@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.dao.HouseholdDAO;
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
@@ -21,7 +22,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class ListOfHouseHoldController implements Initializable {
+public class ListOfHouseHoldController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
     @FXML private Button addButton, cancelButton, saveButton;
     @FXML private TableView<HouseHold> houseHoldTableView;
@@ -39,10 +40,9 @@ public class ListOfHouseHoldController implements Initializable {
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<HouseHold> houseHoldsList;
     private HouseHold editingHouseHold;
-
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        houseHoldsList = SQLConnector.getHouseHolds();
+    public void initialize() {
+        houseHoldsList = HouseholdDAO.getHouseholds();
 
         // Lựa chọn cho ChoiceBox status
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sinh sống", "Đã rời đi");

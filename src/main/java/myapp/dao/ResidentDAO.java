@@ -31,7 +31,7 @@ public class ResidentDAO {
 
             preparedStatement.setString(1, entity.getName());
             preparedStatement.setString(2, entity.getGender());
-            preparedStatement.setDate(3, java.sql.Date.valueOf(entity.getBirthday()));
+            preparedStatement.setDate(3, entity.getBirthday());
             preparedStatement.setString(4, entity.getHometown());
             preparedStatement.setString(5, entity.getOccupation());
             preparedStatement.setString(6, entity.getStatus());
@@ -145,7 +145,7 @@ public class ResidentDAO {
             while (resultSet.next()) {
                 String name = resultSet.getString("HoTen");
                 String gender = resultSet.getString("GioiTinh");
-                String birthday = resultSet.getString("NgaySinh");
+                Date birthday = resultSet.getDate("NgaySinh");
                 String IDcard = resultSet.getString("SoCMND");
 
                 // Tạo đối tượng Resident và thêm vào danh sách

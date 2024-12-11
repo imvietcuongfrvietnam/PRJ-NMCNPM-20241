@@ -12,14 +12,16 @@ import javafx.util.Duration;
 import myapp.dao.UserAccountDAO;
 import myapp.dao.UserInformationDAO;
 import myapp.model.manager.SendCodeToEmailManager;
+import myapp.model.manager.Switcher;
 
+import java.io.IOException;
 import java.util.Random;
 /**
  * Bộ điều khiển quản lý quy trình quên mật khẩu trong ứng dụng.
  * Bao gồm các bước gửi mã xác minh, xác minh mã, và đặt lại mật khẩu.
  */
 
-public class ForgotPasswordController {
+public class ForgotPasswordController extends BaseController{
     /**
      * Khởi tạo các thành phần giao diện và cài đặt các sự kiện cần thiết.
      */
@@ -83,7 +85,14 @@ public class ForgotPasswordController {
         });
         sendButton.setOnAction(e -> sendVerificationCode());
 
-        backButton.setOnAction(e -> showEmailPane());
+        backButton.setOnAction(event ->{
+            Switcher switcher = new Switcher();
+            try {
+                switcher.goLogInPage(event, this);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         verifyButton.setOnAction(e -> verifyCode());
 

@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,13 +17,12 @@ import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-import java.net.URL;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ResourceBundle;
 
-public class ListOfResidentsController extends BaseController implements Initializable {
+public class ListOfResidentsController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
     @FXML private Button addButton, cancelButton, saveButton, listOfHouseHoldButton;
     @FXML private TableView<Resident> residentTableView;
@@ -45,7 +43,7 @@ public class ListOfResidentsController extends BaseController implements Initial
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
         super.initialize();
         residentsList = ResidentDAO.getResidents();
         filteredList = FXCollections.observableArrayList(residentsList);
@@ -254,7 +252,7 @@ public class ListOfResidentsController extends BaseController implements Initial
             if (resident.getGender().toLowerCase().contains(searchKeyword)) {
                 return true;
             }
-            String formattedDate = formatBirthday(resident.getBirthday());
+           Date formattedDate = formatBirthday(resident.getBirthday());
             if (formattedDate.toLowerCase().contains(searchKeyword)) {
                 return true;
             }

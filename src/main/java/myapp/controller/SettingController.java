@@ -91,8 +91,6 @@ public class SettingController extends BaseController{
         } else if ("Female".equals(userInformation.getGioiTinh())) {
             femaleButton.setSelected(true);
         }
-
-        // Điền ngày sinh
         birthdayText.setValue(LocalDate.parse(userInformation.getNgaySinh().toLocaleString()));
         usernameText.setText(userCredentials.getUsername());
         passwordField.setText(userCredentials.getPassword());
