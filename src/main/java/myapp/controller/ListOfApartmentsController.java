@@ -10,25 +10,20 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import myapp.dao.ApartmentDAO;
 import myapp.dao.HouseholdDAO;
 import myapp.dao.ResidentDAO;
 import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
-import myapp.model.manager.Switcher;
 
 import java.io.IOException;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class ListOfApartmentsController extends ManagementController<Apartment> {
-    @FXML
-    private StackPane stackPaneInsertUpdate;
-    @FXML
-    private Button addButton, cancelButton, saveButton, listOfResidentsButton;
     @FXML
     private TableColumn<Apartment, Integer> floorColumn, areaColumn;
     @FXML
@@ -44,7 +39,8 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
     @FXML
     private ChoiceBox<String> status;
     private Apartment editingApartment;
-    private final Switcher switcher = new Switcher();
+    @FXML
+    private Button listOfResidentsButton;
 
     @Override
     public void initialize() {
@@ -56,12 +52,6 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         status.setItems(statusOptions);
         status.setValue("Đang sử dụng");
 
-        // Cập nhật số thứ tự trong bảng HouseHold
-        indexColumn.setCellValueFactory(cellData -> {
-            int currentPageIndex = pagination.getCurrentPageIndex();
-            int rowIndex = tableView.getItems().indexOf(cellData.getValue());
-            return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
-        });
 
         // Thiết lập các cột trong bảng HouseHold
         apartmentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApartmentID()));
@@ -86,18 +76,6 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
             HBox hbox = createViewEditDeleteButtons(param);
             return new SimpleObjectProperty<>(hbox);
         });
-
-        // Cập nhật bảng Apartment
-        tableView.setItems(entityList);
-        tableView.setStyle("-fx-font-size: 20px;");
-        pagination.setPageFactory(this::createPage);
-        pagination.setPageCount(5);
-        pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-font-size: 25;");
-
-        //Dat su kien cho cac nut
-        addButton.setOnAction(actionEvent -> add());
-        cancelButton.setOnAction(actionEvent -> cancel());
-        saveButton.setOnAction(actionEvent -> save());
         listOfResidentsButton.setOnAction(event -> {
             try {
                 switcher.goListOfResidentsPage(event, this);
@@ -105,6 +83,11 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    @Override
+    protected void filterEntities() {
+
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Apartment, HBox> param) {
@@ -132,14 +115,14 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         editButton.setOnAction(event -> editHouseHold(param.getValue()));
 
         // Thêm nút xóa
-        ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Delete.png")));
+        ImageView deleteImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/Delete.png"))));
         deleteImageView.setFitWidth(40);
         deleteImageView.setFitHeight(40);
         deleteImageView.setPreserveRatio(false);
         Button deleteButton = new Button();
         deleteButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #FF0000; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         deleteButton.setGraphic(deleteImageView);
-        deleteButton.setOnAction(event -> deleteHouseHold(param.getValue()));
+        deleteButton.setOnAction(event -> deleteEntities(param.getValue()));
 
         hbox.getChildren().addAll(viewButton, editButton, deleteButton);
         return hbox;
@@ -174,7 +157,6 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         noteText.setText(apartment.getNote());
 
 
-        // Tắt khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ xem
         moveInDate.setMouseTransparent(true);
         moveOutDate.setMouseTransparent(true);
         status.setMouseTransparent(true);
@@ -232,34 +214,23 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
 
         stackPaneInsertUpdate.setVisible(true);
     }
-
-    private void deleteHouseHold(Apartment apartment) {
-       entityList.remove(apartment);
-       this.refresh();
-        updatePagination();
-    }
-    @Override
-    protected TableView<Apartment> createPage(int pageIndex) {
-       return super.createPage(pageIndex);
-    }
-
     private void updatePagination() {
         pagination.setPageFactory(this::createPage);
         pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-        apartmentTableView.refresh();
+        tableView.refresh();
     }
-
+    @Override
     public void add() {
         editingApartment = null;
         clearFields();
         stackPaneInsertUpdate.setVisible(true);
     }
-
+    @Override
     public void cancel() {
         clearFields();
         stackPaneInsertUpdate.setVisible(false);
     }
-
+    @Override
     public void save() {
         String apartmentID = apartmentIDText.getText();
         Integer floor = Integer.valueOf(floorText.getText());
@@ -286,8 +257,8 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         stackPaneInsertUpdate.setVisible(false);
         updatePagination();
     }
-
-    private void clearFields() {
+    @Override
+    protected void clearFields() {
         apartmentIDText.clear();
         floorText.clear();
         areaText.clear();

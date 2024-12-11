@@ -18,22 +18,12 @@ import java.io.IOException;
 import java.sql.Date;
 
 public class ListOfVehiclesController extends ManagementController<Vehicle>{
-
-    @FXML
-    private TableColumn<Vehicle, Integer> indexColumn;
     @FXML
     private TableColumn<Vehicle, String> houseHoldIDColumn, vehicleTypeColumn, licensePlateColumn, noteColumn;
     @FXML
     private TableColumn<Vehicle, Date> startDateColumn, endDateColumn;
     @FXML
-    private TableColumn<Vehicle, HBox> operationsColumn;
-    @FXML
-    private Pagination pagination;
-    @FXML
-    private TextField searchText;
-    @FXML
     private Button listOfResidentsButton;
-    private ObservableList<Vehicle> entityList;
 
     public void initialize() {
         super.initialize();
@@ -49,13 +39,6 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         );
         entityList = VehicleManagementDAO.getVehicles();
         filteredList = FXCollections.observableArrayList(entityList);
-
-        indexColumn.setCellValueFactory(cellData -> {
-            int currentPageIndex = pagination.getCurrentPageIndex();
-            int rowIndex = tableView.getItems().indexOf(cellData.getValue());
-            return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
-        });
-
         houseHoldIDColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("houseHoldID"));
         vehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("vehicleType"));
         licensePlateColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("licensePlate"));
@@ -65,15 +48,27 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
 
         noteColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("note"));
         operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createDeleteButtons(param)));
-
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterVehicles());
+    }
 
-        // Cập nhật bảng Vehicle
-        tableView.setItems(entityList);
-        tableView.setStyle("-fx-font-size: 20px;");
-        pagination.setPageFactory(this::createPage);
-        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-        pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
+    @Override
+    protected void clearFields() {
+
+    }
+
+    @Override
+    protected void save() {
+
+    }
+
+    @Override
+    protected void cancel() {
+
+    }
+
+    @Override
+    protected void add() {
+
     }
 
     private HBox createDeleteButtons(TableColumn.CellDataFeatures<Vehicle, HBox> param) {

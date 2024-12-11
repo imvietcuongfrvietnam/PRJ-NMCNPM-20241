@@ -89,7 +89,7 @@ public class Switcher {
     /**
      * Chuyển đến danh sách cư dân.
      */
-    public void goListOfResidentsPage(Event event, BaseController baseController) throws IOException {
+    public void goListOfResidentsPage(Object event, BaseController baseController) throws IOException {
         this.switchToPage(event, "ListOfResidents.fxml", baseController);
     }
 
