@@ -36,9 +36,9 @@ public class SQLConnector {
 
     public static ObservableList<Fee> getFees() {
         ObservableList<Fee> feesList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM quanlykhoanphi";
+        String query = "SELECT * FROM hoadondichvu";
 
-        try (PreparedStatement statement = getConnection().prepareStatement(query);
+        try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -47,7 +47,7 @@ public class SQLConnector {
                         resultSet.getString("TenKhoanPhi"),
                         resultSet.getString("MaHoGiaDinh"),
                         resultSet.getString("SoTien"),
-                        resultSet.getDate("NgayHetHan"), // Sử dụng getDate()
+                        resultSet.getDate("NgayHetHan"),
                         resultSet.getString("TinhTrang"),
                         resultSet.getString("GhiChu")
                 ));

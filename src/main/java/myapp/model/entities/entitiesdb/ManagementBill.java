@@ -1,40 +1,41 @@
 package myapp.model.entities.entitiesdb;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
- * Represents a service bill in the system, mapping to the "phidichvu" database table.
+ * Represents a management bill in the system, mapping to the "phiquanly" database table.
  */
-public class ServiceBill {
+public class ManagementBill {
     private int id;
     private String maHoGiaDinh;
-    private BigDecimal soTienTrenM2;
-    private LocalDate ngayHetHan;
+    private BigDecimal soTienTrenThang;
+    private Date ngayHetHan;
     private String trangThai;
     private String ghiChu;
 
     /**
-     * Constructs a new ServiceBill instance.
+     * Constructs a new ManagementBill instance.
      *
-     * @param id            the unique identifier of the service bill
+     * @param id            the unique identifier of the management bill
      * @param maHoGiaDinh   the household ID associated with the bill
-     * @param soTienTrenM2  the cost per square meter
+     * @param soTienTrenThang  the cost per month
      * @param ngayHetHan    the expiration date of the bill
      * @param trangThai     the status of the bill (e.g., "Đã thanh toán", "Chưa thanh toán")
      * @param ghiChu        additional notes about the bill
      */
-    public ServiceBill(int id, String maHoGiaDinh, BigDecimal soTienTrenM2, LocalDate ngayHetHan, String trangThai, String ghiChu) {
+    public ManagementBill(int id, String maHoGiaDinh, BigDecimal soTienTrenThang, Date ngayHetHan, String trangThai, String ghiChu) {
         this.id = id;
         this.maHoGiaDinh = maHoGiaDinh;
-        this.soTienTrenM2 = soTienTrenM2;
+        this.soTienTrenThang = soTienTrenThang;
         this.ngayHetHan = ngayHetHan;
         this.trangThai = trangThai;
         this.ghiChu = ghiChu;
     }
 
     /**
-     * Gets the ID of the service bill.
+     * Gets the ID of the management bill.
      *
      * @return the ID
      */
@@ -43,7 +44,7 @@ public class ServiceBill {
     }
 
     /**
-     * Sets the ID of the service bill.
+     * Sets the ID of the management bill.
      *
      * @param id the new ID
      */
@@ -70,21 +71,21 @@ public class ServiceBill {
     }
 
     /**
-     * Gets the cost per square meter.
+     * Gets the cost per month.
      *
-     * @return the cost per square meter
+     * @return the cost per month
      */
-    public BigDecimal getSoTienTrenM2() {
-        return soTienTrenM2;
+    public BigDecimal getSoTienTrenThang() {
+        return soTienTrenThang;
     }
 
     /**
-     * Sets the cost per square meter.
+     * Sets the cost per month.
      *
-     * @param soTienTrenM2 the new cost per square meter
+     * @param soTienTrenThang the new cost per month
      */
-    public void setSoTienTrenM2(BigDecimal soTienTrenM2) {
-        this.soTienTrenM2 = soTienTrenM2;
+    public void setSoTienTrenThang(BigDecimal soTienTrenThang) {
+        this.soTienTrenThang = soTienTrenThang;
     }
 
     /**
@@ -92,7 +93,7 @@ public class ServiceBill {
      *
      * @return the expiration date
      */
-    public LocalDate getNgayHetHan() {
+    public Date getNgayHetHan() {
         return ngayHetHan;
     }
 
@@ -101,7 +102,7 @@ public class ServiceBill {
      *
      * @param ngayHetHan the new expiration date
      */
-    public void setNgayHetHan(LocalDate ngayHetHan) {
+    public void setNgayHetHan(Date ngayHetHan) {
         this.ngayHetHan = ngayHetHan;
     }
 

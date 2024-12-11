@@ -15,26 +15,31 @@ import myapp.model.manager.Switcher;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+import java.sql.Date;
 import java.util.ResourceBundle;
 
-public class ListOfFeesController extends BaseController implements Initializable {
-    @FXML private TableView<Fee> feeTableView;
-    @FXML private TableColumn<Fee, Integer> indexColumn;
-    @FXML private TableColumn<Fee, String> houseHoldIDColumn, feeNameColumn, feeIDColumn, amountColumn, expDateColumn, statusColumn, noteColumn;
-    @FXML private Pagination pagination;
-    @FXML private TextField searchText;
-    @FXML private ChoiceBox<String> feeNameChoiceBox, statusChoiceBox;
+public class ListOfFeesController extends BaseController {
+    @FXML
+    private TableView<Fee> feeTableView;
+    @FXML
+    private TableColumn<Fee, Integer> indexColumn;
+    @FXML
+    private TableColumn<Fee, String> houseHoldIDColumn, feeNameColumn, feeIDColumn, amountColumn, statusColumn, noteColumn;
+    @FXML
+    private TableColumn<Fee, Date> expDateColumn;
+    @FXML
+    private Pagination pagination;
+    @FXML
+    private TextField searchText;
+    @FXML
+    private ChoiceBox<String> feeNameChoiceBox, statusChoiceBox;
 
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<Fee> feesList;
     private ObservableList<Fee> filteredList;
-    private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
         super.initialize();
         feesList = SQLConnector.getFees();
         filteredList = FXCollections.observableArrayList(feesList);
@@ -52,11 +57,7 @@ public class ListOfFeesController extends BaseController implements Initializabl
         feeIDColumn.setCellValueFactory(new PropertyValueFactory<Fee, String>("feeID"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<Fee, String>("amount"));
 
-        expDateColumn.setCellValueFactory(cellData -> {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String formattedDate = LocalDate.parse(cellData.getValue().getExpDate(), formatter).format(formatter);
-            return new SimpleObjectProperty<>(formattedDate);
-        });
+        expDateColumn.setCellValueFactory(new PropertyValueFactory<Fee, Date>("expDate"));
 
         // Cập nhật cột trạng thái
         statusColumn.setCellFactory(param -> new TableCell<Fee, String>() {
@@ -116,7 +117,7 @@ public class ListOfFeesController extends BaseController implements Initializabl
                     fee.getFeeName().toLowerCase().contains(searchKeyword) ||
                     fee.getFeeID().toLowerCase().contains(searchKeyword) ||
                     fee.getAmount().toLowerCase().contains(searchKeyword) ||
-                    formatDate(fee.getExpDate()).toLowerCase().contains(searchKeyword) ||
+                    fee.getExpDate().toString().toLowerCase().contains(searchKeyword) ||
                     fee.getStatus().toLowerCase().contains(searchKeyword) ||
                     (fee.getNote() != null && fee.getNote().toLowerCase().contains(searchKeyword));
 
@@ -156,24 +157,5 @@ public class ListOfFeesController extends BaseController implements Initializabl
             return feeTableView;
         });
         pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-    }
-
-    // Chuyển đổi ngày thành định dạng dd/MM/yyyy
-    private String formatDate(String date) {
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(date, inputFormatter).format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            return date;  // Nếu không chuyển đổi được thì trả về ngày gốc
-        }
-    }
-
-    private void switchToListOfHouseHold(Event event) {
-        try {
-            switcher.goListOfHouseholdPage(event,this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
