@@ -136,6 +136,9 @@ public class HouseholdDAO extends BaseDAO {
         } catch (SQLException e) {
             showErrorAlert("Lỗi khi lấy thông tin hộ gia đình", "Có lỗi xảy ra", "Truy vấn cơ sở dữ lệu lấy thông tin bị loi");
         }
+        catch (Exception e) {
+            showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
+        }
         return houseHoldsList;
     }
 }

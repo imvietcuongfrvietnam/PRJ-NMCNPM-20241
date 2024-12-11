@@ -91,8 +91,11 @@ public class ApartmentDAO extends BaseDAO {
 
                 ));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }  catch (SQLException e) {
+            // Gọi phương thức trong lớp cha để hiển thị thông báo lỗi
+            showErrorAlert("Lỗi lấy dữ liệu căn hộ ", "Lấy dữ liệu căn hộ thất bại", "Có lỗi xảy ra khi lấy danh sách căn hộ: " + e.getMessage());
+        } catch (Exception e) {
+            showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
         }
         return apartmentsList;
     }

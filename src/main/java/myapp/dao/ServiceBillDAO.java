@@ -5,6 +5,7 @@ import myapp.db.SQLConnector;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class ServiceBillDAO {
     public static void insertServiceBill(int maHD, String maHoGiaDinh, double soTien, Date ngayHetHan, String trangThai, String thongTinBoSung) {
@@ -21,9 +22,12 @@ public class ServiceBillDAO {
             preparedStatement.setString(5, trangThai);
             preparedStatement.setString(6, thongTinBoSung);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Thêm Phí Gửi Xe", "Không thể thêm phí gửi xe", "Lỗi SQL: " + e.getMessage());
         } catch (Exception e) {
-            BaseDAO.showErrorAlert("Lỗi thêm vao csdl", "Xay ra loi", "Truy van den CSDL khong thanh cong");
+            BaseDAO.showErrorAlert("Lỗi Thêm Phí Gửi Xe", "Không thể thêm phí gửi xe", "Có lỗi xảy ra: " + e.getMessage());
         }
+
     }
 
 }

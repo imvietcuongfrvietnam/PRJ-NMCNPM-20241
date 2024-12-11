@@ -6,7 +6,17 @@ import myapp.model.entities.entitiesdb.UserAccount;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * Lớp UserAccountDAO cung cấp các phương thức để thực hiện các thao tác CRUD (Create, Read, Update, Delete)
+ * đối với bảng `taikhoannguoidung` trong cơ sở dữ liệu.
+ */
 public class UserAccountDAO {
+
+    /**
+     * Xóa tài khoản người dùng dựa trên tên đăng nhập.
+     *
+     * @param tenDangNhap tên đăng nhập của tài khoản cần xóa.
+     */
     public static void deleteByTenDangNhap(String tenDangNhap) {
         String sql = "DELETE FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
@@ -18,10 +28,9 @@ public class UserAccountDAO {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, tenDangNhap);
 
-            int rowsAffected = preparedStatement.executeUpdate();
-
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            BaseDAO.showErrorAlert("Lỗi Xóa Tài Khoản", "Không thể xóa tài khoản người dùng", "Lỗi SQL: " + e.getMessage());
         } finally {
             try {
                 if (preparedStatement != null) {
@@ -31,11 +40,16 @@ public class UserAccountDAO {
                     SQLConnector.closeConnection();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                BaseDAO.showErrorAlert("Lỗi Đóng Kết Nối", "Không thể đóng kết nối cơ sở dữ liệu", "Lỗi SQL: " + e.getMessage());
             }
         }
     }
 
+    /**
+     * Xóa tài khoản người dùng dựa trên mã tài khoản.
+     *
+     * @param maTaiKhoan mã tài khoản cần xóa.
+     */
     public static void deleteByID(int maTaiKhoan) {
         String query = "DELETE FROM taikhoannguoidung WHERE MaTaiKhoan = ?";
 
@@ -44,19 +58,25 @@ public class UserAccountDAO {
 
             preparedStatement.setInt(1, maTaiKhoan);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Xóa Tài Khoản", "Không thể xóa tài khoản người dùng", "Lỗi SQL: " + e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            BaseDAO.showErrorAlert("Lỗi Xóa Tài Khoản", "Có lỗi xảy ra khi xóa tài khoản", "Lỗi: " + e.getMessage());
         }
     }
 
-    // Lấy mã tài khoản cao nhất
+    /**
+     * Lấy mã tài khoản cao nhất từ bảng `taikhoannguoidung`.
+     *
+     * @return mã tài khoản cao nhất.
+     */
     public static int selectMaTaiKhoan() {
         String sql = "SELECT MAX(MaTaiKhoan) FROM taikhoannguoidung";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        int maxMaTaiKhoan = 0; // Thay đổi biến này thành maxMaTaiKhoan
+        int maxMaTaiKhoan = 0;
 
         try {
             connection = SQLConnector.getConnection();
@@ -64,10 +84,10 @@ public class UserAccountDAO {
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                maxMaTaiKhoan = resultSet.getInt(1); // Lấy giá trị MAX(MaTaiKhoan)
+                maxMaTaiKhoan = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            BaseDAO.showErrorAlert("Lỗi Lấy Mã Tài Khoản", "Không thể lấy mã tài khoản cao nhất", "Lỗi SQL: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -80,13 +100,18 @@ public class UserAccountDAO {
                     SQLConnector.closeConnection();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                BaseDAO.showErrorAlert("Lỗi Đóng Kết Nối", "Không thể đóng kết nối cơ sở dữ liệu", "Lỗi SQL: " + e.getMessage());
             }
         }
-        return maxMaTaiKhoan; // Trả về giá trị MAX(MaTaiKhoan)
+        return maxMaTaiKhoan;
     }
 
-    // Kiểm tra xem tên tài khoản đã tồn tại chưa
+    /**
+     * Kiểm tra xem tên tài khoản người dùng đã tồn tại trong cơ sở dữ liệu hay chưa.
+     *
+     * @param userName tên đăng nhập cần kiểm tra.
+     * @return true nếu tài khoản đã tồn tại, false nếu chưa tồn tại.
+     */
     public static boolean isUserNameExist(String userName) {
         String sql = "SELECT COUNT(*) FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
@@ -100,12 +125,13 @@ public class UserAccountDAO {
             preparedStatement.setString(1, userName);
             resultSet = preparedStatement.executeQuery();
 
-            // Nếu kết quả COUNT(*) > 0 thì tài khoản đã tồn tại
             if (resultSet.next()) {
-                return resultSet.getInt(1) > 0; // Trả về true nếu tên tài khoản tồn tại
+                return resultSet.getInt(1) > 0;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            BaseDAO.showErrorAlert("Lỗi Kiểm Tra Tài Khoản", "Không thể kiểm tra tài khoản người dùng", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi Kiểm Tra Tài Khoản", "Có lỗi xảy ra khi kiểm tra tài khoản", "Lỗi: " + e.getMessage());
         } finally {
             try {
                 if (resultSet != null) {
@@ -118,12 +144,20 @@ public class UserAccountDAO {
                     SQLConnector.closeConnection();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                BaseDAO.showErrorAlert("Lỗi Đóng Kết Nối", "Không thể đóng kết nối cơ sở dữ liệu", "Lỗi SQL: " + e.getMessage());
             }
         }
-        return false; // Trả về false nếu tài khoản không tồn tại
+        return false;
     }
 
+    /**
+     * Thêm một tài khoản người dùng mới vào cơ sở dữ liệu.
+     *
+     * @param VaiTro vai trò của người dùng.
+     * @param TenDangNhap tên đăng nhập của người dùng.
+     * @param MatKhau mật khẩu của người dùng.
+     * @param NgayTaoTaiKhoan thời gian tạo tài khoản.
+     */
     public static void insertUserAccount(String VaiTro, String TenDangNhap, String MatKhau, LocalDateTime NgayTaoTaiKhoan) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -132,7 +166,6 @@ public class UserAccountDAO {
 
         try {
             connection = SQLConnector.getConnection();
-
             preparedStatement = connection.prepareStatement(sql);
 
             preparedStatement.setString(1, VaiTro);
@@ -147,19 +180,18 @@ public class UserAccountDAO {
             System.out.println("Số bản ghi đã thêm: " + rowsAffected);
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                SQLConnector.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            BaseDAO.showErrorAlert("Lỗi Thêm Tài Khoản", "Không thể thêm tài khoản người dùng", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi Thêm Tài Khoản", "Có lỗi xảy ra khi thêm tài khoản", "Lỗi: " + e.getMessage());
         }
     }
 
+    /**
+     * Lấy mật khẩu của người dùng dựa trên tên đăng nhập.
+     *
+     * @param userName tên đăng nhập của người dùng.
+     * @return mật khẩu của người dùng, nếu không tìm thấy trả về null.
+     */
     public static String selectByUsername(String userName) {
         String sql = "SELECT MatKhau FROM taikhoannguoidung WHERE TenDangNhap = ?";
 
@@ -179,25 +211,19 @@ public class UserAccountDAO {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) {
-                    resultSet.close();
-                }
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                if (connection != null) {
-                    SQLConnector.closeConnection();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            BaseDAO.showErrorAlert("Lỗi Lấy Mật Khẩu", "Không thể lấy mật khẩu của tài khoản", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi Lấy Mật Khẩu", "Có lỗi xảy ra khi lấy mật khẩu", "Lỗi: " + e.getMessage());
         }
+
         return password;
     }
 
+    /**
+     * Cập nhật thông tin tài khoản người dùng.
+     *
+     * @param entity đối tượng UserAccount chứa thông tin tài khoản người dùng cần cập nhật.
+     */
     public static void updateUserAccount(UserAccount entity) {
         String query = "UPDATE taikhoannguoidung SET VaiTro = ?, TenDangNhap = ?, MatKhau = ? WHERE MaTaiKhoan = ?";
 
@@ -210,14 +236,22 @@ public class UserAccountDAO {
             preparedStatement.setInt(4, entity.getMaTaiKhoan());
 
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật Tài Khoản", "Không thể cập nhật tài khoản người dùng", "Lỗi SQL: " + e.getMessage());
         } catch (Exception e) {
-            BaseDAO.showErrorAlert("Error Updating User Account", "An error occurred while updating the user account.", e.getMessage());
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật Tài Khoản", "Có lỗi xảy ra khi cập nhật tài khoản", "Lỗi: " + e.getMessage());
         }
     }
 
+    /**
+     * Cập nhật mật khẩu người dùng dựa trên email.
+     *
+     * @param email email của người dùng.
+     * @param password mật khẩu mới.
+     */
     public static void updatePasswordByEmail(String email, String password) {
         String query = "UPDATE taikhoannguoidung SET MatKhau = ? WHERE MaTaiKhoan = (" +
-                "SELECT MaTaiKhoan FROM thongtinnguoidung WHERE Email = ?)";
+                "SELECT MaTaiKhoan FROM thongtinnguoidung WHERE Email = ?)" ;
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -225,14 +259,21 @@ public class UserAccountDAO {
             preparedStatement.setString(1, password);
             preparedStatement.setString(2, email);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật Mật Khẩu", "Không thể cập nhật mật khẩu của người dùng", "Lỗi SQL: " + e.getMessage());
         } catch (Exception e) {
-            BaseDAO.showErrorAlert("Error Updating Password", "An error occurred while updating the password.", e.getMessage());
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật Mật Khẩu", "Có lỗi xảy ra khi cập nhật mật khẩu", "Lỗi: " + e.getMessage());
         }
     }
 
+    /**
+     * Cập nhật mật khẩu người dùng dựa trên tên đăng nhập.
+     *
+     * @param username tên đăng nhập của người dùng.
+     * @param password mật khẩu mới.
+     */
     public static void updatePasswordByUsername(String username, String password) {
         String query = "UPDATE taikhoannguoidung SET MatKhau = ? WHERE TenDangNhap = ?";
-
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -240,8 +281,10 @@ public class UserAccountDAO {
             preparedStatement.setString(1, password);
             preparedStatement.setString(2, username);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật Mật Khẩu", "Không thể cập nhật mật khẩu của người dùng", "Lỗi SQL: " + e.getMessage());
         } catch (Exception e) {
-            BaseDAO.showErrorAlert("Error Updating Password", "An error occurred while updating the password.", e.getMessage());
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật Mật Khẩu", "Có lỗi xảy ra khi cập nhật mật khẩu", "Lỗi: " + e.getMessage());
         }
     }
 }
