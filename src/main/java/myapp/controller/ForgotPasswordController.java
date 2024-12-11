@@ -21,7 +21,7 @@ import java.util.Random;
  * Bao gồm các bước gửi mã xác minh, xác minh mã, và đặt lại mật khẩu.
  */
 
-public class ForgotPasswordController extends NavigableController {
+public class ForgotPasswordController extends BaseController {
     /**
      * Khởi tạo các thành phần giao diện và cài đặt các sự kiện cần thiết.
      */
