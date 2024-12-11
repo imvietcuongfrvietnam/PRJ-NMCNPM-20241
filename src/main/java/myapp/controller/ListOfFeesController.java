@@ -18,23 +18,13 @@ import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
 
-public class ListOfFeesController extends BaseController {
-    @FXML
-    private TableView<Fee> feeTableView;
-    @FXML
-    private TableColumn<Fee, Integer> indexColumn;
+public class ListOfFeesController extends ManagementController<Fee> {
     @FXML
     private TableColumn<Fee, String> houseHoldIDColumn, feeNameColumn, feeIDColumn, amountColumn, statusColumn, noteColumn;
     @FXML
     private TableColumn<Fee, Date> expDateColumn;
     @FXML
-    private Pagination pagination;
-    @FXML
-    private TextField searchText;
-    @FXML
     private ChoiceBox<String> feeNameChoiceBox, statusChoiceBox;
-
-    private static final int ROWS_PER_PAGE = 10;
     private ObservableList<Fee> feesList;
     private ObservableList<Fee> filteredList;
 
@@ -47,7 +37,7 @@ public class ListOfFeesController extends BaseController {
         // Cập nhật số thứ tự trong bảng Fee
         indexColumn.setCellValueFactory(cellData -> {
             int currentPageIndex = pagination.getCurrentPageIndex();
-            int rowIndex = feeTableView.getItems().indexOf(cellData.getValue());
+            int rowIndex = tableView.getItems().indexOf(cellData.getValue());
             return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
         });
 
@@ -97,8 +87,8 @@ public class ListOfFeesController extends BaseController {
         statusChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> filterFees());
 
         // Cập nhật bảng Fee
-        feeTableView.setItems(feesList);
-        feeTableView.setStyle("-fx-font-size: 20px;");
+        tableView.setItems(feesList);
+        tableView.setStyle("-fx-font-size: 20px;");
         pagination.setPageFactory(this::createPage);
         pagination.setPageCount((feesList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
@@ -128,34 +118,8 @@ public class ListOfFeesController extends BaseController {
             return matchesSearch && matchesFeeName && matchesStatus;
         });
 
-        feeTableView.setItems(filtered);
+        tableView.setItems(filtered);
         updatePagination(filtered); // Cập nhật phân trang sau khi lọc
     }
 
-    // Phương thức tạo trang mới cho bảng Fee
-    private TableView<Fee> createPage(int pageIndex) {
-        int fromIndex = pageIndex * ROWS_PER_PAGE;
-        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
-        ObservableList<Fee> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
-        feeTableView.setItems(pageData);
-
-        indexColumn.setCellValueFactory(cellData -> {
-            int rowIndex = pageData.indexOf(cellData.getValue());
-            return new SimpleObjectProperty<>((pageIndex * ROWS_PER_PAGE) + rowIndex + 1);
-        });
-
-        return feeTableView;
-    }
-
-    // Cập nhật phân trang cho danh sách đã lọc
-    private void updatePagination(ObservableList<Fee> filteredList) {
-        pagination.setPageFactory(pageIndex -> {
-            int fromIndex = pageIndex * ROWS_PER_PAGE;
-            int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
-            ObservableList<Fee> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
-            feeTableView.setItems(pageData);
-            return feeTableView;
-        });
-        pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-    }
 }

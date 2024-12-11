@@ -22,7 +22,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class ListOfResidentsController extends BaseController {
+public class ListOfResidentsController extends ManagementController<Resident> {
     @FXML private StackPane stackPaneInsertUpdate;
     @FXML private Button addButton, cancelButton, saveButton, listOfHouseHoldButton;
     @FXML private TableView<Resident> residentTableView;

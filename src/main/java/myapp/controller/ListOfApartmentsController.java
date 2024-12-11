@@ -5,7 +5,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -19,32 +18,23 @@ import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
-import javafx.event.Event;
 
 import java.io.IOException;
-import java.net.URL;
+
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ResourceBundle;
 
-public class ListOfApartmentsController extends BaseController {
+public class ListOfApartmentsController extends ManagementController<Apartment> {
     @FXML
     private StackPane stackPaneInsertUpdate;
     @FXML
     private Button addButton, cancelButton, saveButton, listOfResidentsButton;
     @FXML
-    private TableView<Apartment> apartmentTableView;
-    @FXML
-    private TableColumn<Apartment, Integer> indexColumn, floorColumn, areaColumn;
+    private TableColumn<Apartment, Integer> floorColumn, areaColumn;
     @FXML
     private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
     @FXML
     private TableColumn<Apartment, String> houseHoldIDColumn;
-    @FXML
-    private TableColumn<Apartment, HBox> operationsColumn;
-    @FXML
-    private Pagination pagination;
     @FXML
     private TextField apartmentIDText, floorText, areaText, residentNameText, residentIDText, houseHoldIDText;
     @FXML
@@ -53,16 +43,13 @@ public class ListOfApartmentsController extends BaseController {
     private DatePicker moveInDate, moveOutDate;
     @FXML
     private ChoiceBox<String> status;
-
-    private static final int ROWS_PER_PAGE = 10;
-    private ObservableList<Apartment> apartmentsList;
     private Apartment editingApartment;
     private final Switcher switcher = new Switcher();
 
     @Override
     public void initialize() {
         super.initialize();
-        apartmentsList = ApartmentDAO.getApartments();
+        entityList = ApartmentDAO.getApartments();
 
         // Lựa chọn cho ChoiceBox status
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sử dụng", "Chưa sử dụng");
@@ -72,7 +59,7 @@ public class ListOfApartmentsController extends BaseController {
         // Cập nhật số thứ tự trong bảng HouseHold
         indexColumn.setCellValueFactory(cellData -> {
             int currentPageIndex = pagination.getCurrentPageIndex();
-            int rowIndex = apartmentTableView.getItems().indexOf(cellData.getValue());
+            int rowIndex = tableView.getItems().indexOf(cellData.getValue());
             return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
         });
 
@@ -101,8 +88,8 @@ public class ListOfApartmentsController extends BaseController {
         });
 
         // Cập nhật bảng Apartment
-        apartmentTableView.setItems(apartmentsList);
-        apartmentTableView.setStyle("-fx-font-size: 20px;");
+        tableView.setItems(entityList);
+        tableView.setStyle("-fx-font-size: 20px;");
         pagination.setPageFactory(this::createPage);
         pagination.setPageCount(5);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-font-size: 25;");
@@ -247,28 +234,18 @@ public class ListOfApartmentsController extends BaseController {
     }
 
     private void deleteHouseHold(Apartment apartment) {
-        apartmentsList.remove(apartment);
-        apartmentTableView.refresh();
+       entityList.remove(apartment);
+       this.refresh();
         updatePagination();
     }
-
-    private TableView<Apartment> createPage(int pageIndex) {
-        int fromIndex = pageIndex * ROWS_PER_PAGE;
-        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, apartmentsList.size());
-        ObservableList<Apartment> pageData = FXCollections.observableArrayList(apartmentsList.subList(fromIndex, toIndex));
-        apartmentTableView.setItems(pageData);
-
-        indexColumn.setCellValueFactory(cellData -> {
-            int rowIndex = pageData.indexOf(cellData.getValue());
-            return new SimpleObjectProperty<>((pageIndex * ROWS_PER_PAGE) + rowIndex + 1);
-        });
-
-        return apartmentTableView;
+    @Override
+    protected TableView<Apartment> createPage(int pageIndex) {
+       return super.createPage(pageIndex);
     }
 
     private void updatePagination() {
         pagination.setPageFactory(this::createPage);
-        pagination.setPageCount((apartmentsList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         apartmentTableView.refresh();
     }
 
@@ -303,7 +280,7 @@ public class ListOfApartmentsController extends BaseController {
             editingApartment.setNote(note);
         } else {
             Apartment newApartment = new Apartment(apartmentID, floor, area, statusValue, note);
-            apartmentsList.add(newApartment);
+            entityList.add(newApartment);
         }
 
         stackPaneInsertUpdate.setVisible(false);

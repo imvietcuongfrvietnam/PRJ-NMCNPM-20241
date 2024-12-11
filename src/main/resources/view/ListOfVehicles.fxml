@@ -46,7 +46,7 @@
         </Button>
         <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="500.0">
             <children>
-                <TextField prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -191,7 +191,7 @@
         </StackPane>
         <StackPane layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0">
             <children>
-                <TableView fx:id="houseHoldTableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-border-radius: 10;" StackPane.alignment="TOP_CENTER">
+                <TableView fx:id="tableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-border-radius: 10;" StackPane.alignment="TOP_CENTER">
                     <columns>
                         <TableColumn fx:id="indexColumn" maxWidth="80.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="STT" />
                         <TableColumn fx:id="houseHoldIDColumn" maxWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hộ gia đình" />

@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainController extends BaseController{
+public class MainController extends NavigationableController{
     @FXML
     private Label slideshowLabel, totalAmount1, totalAmount2, totalAmount3, totalAmount4;
     @FXML
