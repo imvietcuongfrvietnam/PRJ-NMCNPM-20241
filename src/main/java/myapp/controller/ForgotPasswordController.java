@@ -150,24 +150,24 @@ public class ForgotPasswordController extends BaseController {
                 .append(codeField6.getText());
 
         if (inputCode.toString().equals(verificationCode)) {
-            codeField1.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField2.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField3.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField4.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField5.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField6.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
+            codeField1.setStyle("-fx-background-color: rgba(0, 255, 0, 0.25);");
+            codeField2.setStyle("-fx-background-color: rgba(0, 255, 0, 0.25);");
+            codeField3.setStyle("-fx-background-color: rgba(0, 255, 0, 0.25);");
+            codeField4.setStyle("-fx-background-color: rgba(0, 255, 0, 0.25);");
+            codeField5.setStyle("-fx-background-color: rgba(0, 255, 0, 0.25);");
+            codeField6.setStyle("-fx-background-color: rgba(0, 255, 0, 0.25);");
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(e -> showPasswordPane());
             delay.play();
             notifyLabel.setText("Code verified successfully.");
         } else {
             notifyLabel.setText("Invalid verification code. Please try again.");
-            codeField1.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField2.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField3.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField4.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField5.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField6.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
+            codeField1.setStyle("-fx-background-color: rgba(255, 0, 0, 0.25);");
+            codeField2.setStyle("-fx-background-color: rgba(255, 0, 0, 0.25);");
+            codeField3.setStyle("-fx-background-color: rgba(255, 0, 0, 0.25);");
+            codeField4.setStyle("-fx-background-color: rgba(255, 0, 0, 0.25);");
+            codeField5.setStyle("-fx-background-color: rgba(255, 0, 0, 0.25);");
+            codeField6.setStyle("-fx-background-color: rgba(255, 0, 0, 0.25);");
         }
     }
 

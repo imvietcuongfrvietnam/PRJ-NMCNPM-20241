@@ -102,7 +102,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         Button viewButton = new Button();
         viewButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #0070C0; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         viewButton.setGraphic(viewImageView);
-        viewButton.setOnAction(event -> viewApartment(param.getValue()));
+        viewButton.setOnAction(event -> viewEntities(param.getValue()));
 
         // Thêm nút sửa
         ImageView editImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Edit.png")));
@@ -112,7 +112,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         Button editButton = new Button();
         editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #00B050; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         editButton.setGraphic(editImageView);
-        editButton.setOnAction(event -> editHouseHold(param.getValue()));
+        editButton.setOnAction(event -> editEntities(param.getValue()));
 
         // Thêm nút xóa
         ImageView deleteImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/Delete.png"))));
@@ -128,7 +128,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         return hbox;
     }
 
-    private void viewApartment(Apartment apartment) {
+    private void viewEntities(Apartment apartment) {
         editingApartment = apartment;
         apartmentIDText.setText(apartment.getApartmentID());
         floorText.setText(String.valueOf(apartment.getFloor()));
@@ -170,7 +170,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
 
         stackPaneInsertUpdate.setVisible(true);
     }
-    private void editHouseHold(Apartment apartment) {
+    private void editEntities(Apartment apartment) {
         editingApartment = apartment;
         apartmentIDText.setText(apartment.getApartmentID());
         floorText.setText(String.valueOf(apartment.getFloor()));

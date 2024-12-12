@@ -217,12 +217,12 @@
                         <Insets left="350.0" top="150.0" />
                     </StackPane.margin>
                 </Rectangle>
-                <Label prefWidth="460.0" text="Thông tin hộ gia đình" textFill="#002060" StackPane.alignment="TOP_LEFT">
+                <Label alignment="CENTER" prefWidth="490.0" text="Thông tin phương tiện" textFill="#002060" StackPane.alignment="TOP_LEFT">
                     <font>
                         <Font name="System Bold" size="45.0" />
                     </font>
                     <StackPane.margin>
-                        <Insets left="730.0" top="200.0" />
+                        <Insets left="715.0" top="200.0" />
                     </StackPane.margin>
                 </Label>
                 <Label text="Mã hộ gia đình:" StackPane.alignment="TOP_LEFT">
@@ -366,7 +366,7 @@
                         <Insets left="1180.0" top="515.0" />
                     </StackPane.margin>
                 </TextField>
-                <Label text="Thành viên của hộ:" StackPane.alignment="TOP_LEFT">
+                <Label text="Danh sách phương tiện:" StackPane.alignment="TOP_LEFT">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -374,13 +374,13 @@
                         <Insets left="400.0" top="585.0" />
                     </StackPane.margin>
                 </Label>
-                <TableView fx:id="memberTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="730.0" StackPane.alignment="TOP_LEFT">
+                <TableView fx:id="vehicleTableView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="245.0" prefWidth="730.0" StackPane.alignment="TOP_LEFT">
                     <columns>
-                        <TableColumn fx:id="memberIndexColumn" prefWidth="60.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="STT" />
-                        <TableColumn fx:id="memberNameColumn" prefWidth="200.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="Họ và tên" />
-                        <TableColumn fx:id="memberGenderColumn" prefWidth="120.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="Giới tính" />
-                        <TableColumn fx:id="memberBirthdayColumn" prefWidth="150.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="Ngày sinh" />
-                        <TableColumn fx:id="memberIDColumn" prefWidth="200.0" style="-fx-font-size: 20; fx-text-color: #002060; -fx-alignment: center;" text="Số CCCD" />
+                        <TableColumn fx:id="VehicleIndexColumn" prefWidth="60.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="STT" />
+                        <TableColumn fx:id="VehicleTypeColumn" prefWidth="150.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="Phương tiện" />
+                        <TableColumn fx:id="LicensePlateColumn" prefWidth="150.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="Biển số" />
+                        <TableColumn fx:id="StartDateColumn" prefWidth="185.0" style="-fx-font-size: 20; -fx-text-color: #002060; -fx-alignment: center;" text="Ngày bắt đầu" />
+                        <TableColumn fx:id="EndDateColumn" prefWidth="185.0" style="-fx-font-size: 20; fx-text-color: #002060; -fx-alignment: center;" text="Ngày kết thúc" />
                     </columns>
                     <StackPane.margin>
                         <Insets left="400.0" top="615.0" />
