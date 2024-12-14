@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  * - Đăng ký tài khoản mới.
  * - Chuyển sang màn hình đăng nhập.
  */
-public class SignUpController extends BaseController {
+public class SignUpController implements BaseController {
     @FXML
     private TextField lastNameText;
     @FXML

@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Controller lớp để xử lý các tương tác giữa giao diện người dùng và hệ thống trong màn hình đăng nhập.
  */
-public class LogInController extends BaseController {
+public class LogInController implements BaseController {
     @FXML
     private Label alertLabel;
 

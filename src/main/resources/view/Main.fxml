@@ -34,7 +34,7 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
+      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="4000.0" prefWidth="1570.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3365.0" prefWidth="1570.0">
                <children>
@@ -96,7 +96,7 @@
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sumCostManager" layoutX="455.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="sumCostManagement" layoutX="455.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -273,7 +273,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit1" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeService" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -281,7 +281,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel1" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeService" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -289,7 +289,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save1" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeService" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -345,7 +345,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit2" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeManagement" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -353,7 +353,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel2" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeManagement" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -361,7 +361,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save2" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeManagement" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -417,7 +417,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit3" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeParkXM" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -425,7 +425,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel3" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeParkXM" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -433,7 +433,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save3" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeParkXM" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -489,7 +489,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit4" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeParkOT" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -497,7 +497,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel4" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeParkOT" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -505,7 +505,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save4" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeParkOT" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>

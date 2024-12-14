@@ -12,7 +12,7 @@ import java.io.IOException;
  * Lớp này cung cấp các phương thức cài đặt sự kiện để điều hướng đến các trang chính của ứng dụng
  * thông qua các nút bấm, sử dụng đối tượng {@link Switcher}.
  */
-abstract class NavigableController extends BaseController {
+abstract class NavigableController implements BaseController {
 
     /**
      * Phương thức khởi tạo, gán hành động điều hướng cho các nút bấm trong giao diện.

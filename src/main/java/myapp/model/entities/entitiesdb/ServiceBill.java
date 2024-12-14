@@ -1,6 +1,7 @@
 package myapp.model.entities.entitiesdb;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -10,7 +11,7 @@ public class ServiceBill {
     private int id;
     private String maHoGiaDinh;
     private BigDecimal soTienTrenM2;
-    private LocalDate ngayHetHan;
+    private Date ngayHetHan;
     private String trangThai;
     private String ghiChu;
 
@@ -24,7 +25,7 @@ public class ServiceBill {
      * @param trangThai     the status of the bill (e.g., "Đã thanh toán", "Chưa thanh toán")
      * @param ghiChu        additional notes about the bill
      */
-    public ServiceBill(int id, String maHoGiaDinh, BigDecimal soTienTrenM2, LocalDate ngayHetHan, String trangThai, String ghiChu) {
+    public ServiceBill(int id, String maHoGiaDinh, BigDecimal soTienTrenM2, Date ngayHetHan, String trangThai, String ghiChu) {
         this.id = id;
         this.maHoGiaDinh = maHoGiaDinh;
         this.soTienTrenM2 = soTienTrenM2;
@@ -92,7 +93,7 @@ public class ServiceBill {
      *
      * @return the expiration date
      */
-    public LocalDate getNgayHetHan() {
+    public Date getNgayHetHan() {
         return ngayHetHan;
     }
 
@@ -101,9 +102,6 @@ public class ServiceBill {
      *
      * @param ngayHetHan the new expiration date
      */
-    public void setNgayHetHan(LocalDate ngayHetHan) {
-        this.ngayHetHan = ngayHetHan;
-    }
 
     /**
      * Gets the status of the bill.

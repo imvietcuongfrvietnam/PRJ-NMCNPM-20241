@@ -17,148 +17,151 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import myapp.dao.ContributionFundDAO;
+import myapp.dao.PaymentHistoryDAO;
 import myapp.model.entities.entitiesdb.ContributionFund;
 import myapp.model.manager.LogManager;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MainController extends NavigableController {
-    @FXML
-    private Label slideshowLabel, totalAmount1, totalAmount2, totalAmount3, totalAmount4;
-    @FXML
-    private Button previousButton, nextButton;
-    @FXML
-    private BarChart<String, Number> barChart;
-    @FXML
-    private CategoryAxis xAxis;
-    @FXML
-    private NumberAxis yAxis;
-    @FXML
-    private ComboBox<String> quarterComboBox;
-    @FXML
-    private ComboBox<String> yearComboBox;
-    @FXML
-    private Button filterButton;
-    @FXML
-    private Button edit1, edit2, edit3, edit4, save1, save2, save3, save4, cancel1, cancel2, cancel3, cancel4, deleteFundButton, saveFundButton;
-    @FXML
-    private TextField textField1, textField2, textField3, textField4;
-    @FXML
-    private TableView<ContributionFund> contributionFundTableView;
-    @FXML
-    private TableColumn<ContributionFund, Integer> indexColumn;
-    @FXML
-    private TableColumn<ContributionFund, String> fundNameColumn, fundIDColumn, amountColumn, periodOfTimeColumn;
-    @FXML
-    private TextField fundNameText, fundIDText, amountText;
-    @FXML
-    private DatePicker startDatePicker, endDatePicker;
-    @FXML
-    private Label helloText;
+    @FXML private Label slideshowLabel, sumCostService, sumCostManagement, sumCostVehicle, sumCostContribute;
+    @FXML private Button previousButton, nextButton;
+    @FXML private BarChart<String, Number> barChart;
+    @FXML private CategoryAxis xAxis;
+    @FXML private NumberAxis yAxis;
+    @FXML private ComboBox<String> quarterComboBox;
+    @FXML private ComboBox<String> yearComboBox;
+    @FXML private Button filterButton;
+    @FXML private Button editFeeService, editFeeManagement, editFeeParkXM, editFeeParkOT, saveFeeService, saveFeeManagement, saveFeeParkXM, saveFeeParkOT, cancelFeeService, cancelFeeManagement, cancelFeeParkXM, cancelFeeParkOT, deleteFundButton, saveFundButton;
+    @FXML private TextField textField1, textField2, textField3, textField4;
+    @FXML private TableView<ContributionFund> contributionFundTableView;
+    @FXML private TableColumn<ContributionFund, Integer> indexColumn;
+    @FXML private TableColumn<ContributionFund, String> fundNameColumn, fundIDColumn, amountColumn, periodOfTimeColumn;
+    @FXML private TextField fundNameText, fundIDText, amountText;
+    @FXML private DatePicker startDatePicker, endDatePicker;
+    @FXML private Label helloText;
+
     private final ObservableList<ContributionFund> contributionFundList = FXCollections.observableArrayList();
     private List<Image> images = new ArrayList<>();
     private int currentImageIndex = 0;
     private ImageView imageView;
     private List<String> textFieldValues = new ArrayList<>();
 
+    /**
+     * Khởi tạo và thiết lập các thành phần trong giao diện người dùng.
+     */
     @Override
     public void initialize() {
         super.initialize();
         helloText.setText("Xin chào, "+ LogManager.getUserName());
-        images.add(new Image(getClass().getResource("/image/Slideshow1.png").toExternalForm()));
-        images.add(new Image(getClass().getResource("/image/Slideshow2.png").toExternalForm()));
-        images.add(new Image(getClass().getResource("/image/Slideshow3.png").toExternalForm()));
-        images.add(new Image(getClass().getResource("/image/Slideshow4.png").toExternalForm()));
-        images.add(new Image(getClass().getResource("/image/Slideshow5.png").toExternalForm()));
+        // Tải hình ảnh slideshow
+        for(int i = 1; i <= 5; i++) {
+            images.add(new Image(Objects.requireNonNull(getClass().getResource("/image/Slideshow" + i + ".png")).toExternalForm()));
+        }
 
+        // Cập nhật các tổng chi phí
+        sumCostService.setText(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ").toString());
+        sumCostManagement.setText(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý").toString());
+        sumCostVehicle.setText(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe").toString());
+        sumCostContribute.setText(PaymentHistoryDAO.getTotalFeeByType("Phí đóng góp").toString());
+
+        // Thiết lập hình ảnh slideshow ban đầu
         imageView = createImageView(images.get(currentImageIndex), 1470, 530, 30, 30);
         slideshowLabel.setGraphic(imageView);
 
+        // Thiết lập nút điều hướng cho slideshow
         setButtonGraphics(previousButton, "/image/Back.png");
         setButtonGraphics(nextButton, "/image/Next.png");
 
         previousButton.setOnAction(e -> showPreviousImage());
         nextButton.setOnAction(e -> showNextImage());
 
+        // Tự động chuyển đổi hình ảnh mỗi 3 giây
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> showNextImage()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // Thiết lập dữ liệu mặc định cho ComboBox
+        // Cài đặt các combo box cho quý và năm
         quarterComboBox.setItems(FXCollections.observableArrayList("1", "2", "3", "4"));
-        quarterComboBox.setStyle("-fx-font-size: 20px; -fx-text-fill: #002060; -fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;");
         yearComboBox.setItems(FXCollections.observableArrayList("2022", "2023", "2024", "2025"));
+        // Thiết lập kiểu cho combo box
+        quarterComboBox.setStyle("-fx-font-size: 20px; -fx-text-fill: #002060; -fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;");
         yearComboBox.setStyle("-fx-font-size: 20px; -fx-text-fill: #002060; -fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color: #BFBFBF; -fx-border-radius: 10;");
 
-        // Thiết lập trục biểu đồ
+        // Thiết lập biểu đồ
         xAxis.getCategories().addAll("Phí dịch vụ", "Phí quản lý", "Phí gửi xe", "Các khoản đóng góp");
         yAxis.setLabel("Chi phí (VNĐ)");
-        yAxis.setStyle("-fx-font-size: 20px; -fx-text-fill: #002060; ");
 
-        // Xác định quý hiện tại
+        // Cài đặt ngày hiện tại và quý hiện tại
         LocalDate today = LocalDate.now();
         int currentMonth = today.getMonthValue();
         int currentYear = today.getYear();
         int currentQuarter = (currentMonth - 1) / 3 + 1;
 
-        // Đặt giá trị mặc định cho ComboBox
         quarterComboBox.setValue(String.valueOf(currentQuarter));
         yearComboBox.setValue(String.valueOf(currentYear));
 
-        // Hiển thị dữ liệu cho quý hiện tại
         addDataForQuarter(currentQuarter, currentYear);
 
-        // Thêm sự kiện lọc dữ liệu khi nhấn nút
+        // Thiết lập sự kiện cho nút lọc
         filterButton.setOnAction(e -> filterData());
 
-        // Khởi tạo giá trị ban đầu cho TextField
+        // Lưu giá trị các trường nhập liệu
         textFieldValues.add(textField1.getText());
         textFieldValues.add(textField2.getText());
         textFieldValues.add(textField3.getText());
         textFieldValues.add(textField4.getText());
 
+        // Cài đặt các trường không chỉnh sửa
         textField1.setEditable(false);
         textField2.setEditable(false);
         textField3.setEditable(false);
         textField4.setEditable(false);
 
-        // Gắn hành động cho các nút Edit
-        edit1.setOnAction(e -> handleEditAction(edit1, save1, cancel1, textField1));
-        edit2.setOnAction(e -> handleEditAction(edit2, save2, cancel2, textField2));
-        edit3.setOnAction(e -> handleEditAction(edit3, save3, cancel3, textField3));
-        edit4.setOnAction(e -> handleEditAction(edit4, save4, cancel4, textField4));
+        // Xử lý các sự kiện cho các nút chỉnh sửa, lưu, hủy
+        editFeeService.setOnAction(e -> handleEditAction(editFeeService, saveFeeService, cancelFeeService, textField1));
+        editFeeManagement.setOnAction(e -> handleEditAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, textField2));
+        editFeeParkXM.setOnAction(e -> handleEditAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, textField3));
+        editFeeParkOT.setOnAction(e -> handleEditAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, textField4));
 
-        // Gắn hành động cho các nút Cancel
-        cancel1.setOnAction(e -> handleCancelAction(edit1, save1, cancel1, textField1, 0));
-        cancel2.setOnAction(e -> handleCancelAction(edit2, save2, cancel2, textField2, 1));
-        cancel3.setOnAction(e -> handleCancelAction(edit3, save3, cancel3, textField3, 2));
-        cancel4.setOnAction(e -> handleCancelAction(edit4, save4, cancel4, textField4, 3));
-        // Gắn hành động cho các nút Save
-        save1.setOnAction(e -> handleSaveAction(edit1, save1, cancel1, textField1, 0));
-        save2.setOnAction(e -> handleSaveAction(edit2, save2, cancel2, textField2, 1));
-        save3.setOnAction(e -> handleSaveAction(edit3, save3, cancel3, textField3, 2));
-        save4.setOnAction(e -> handleSaveAction(edit4, save4, cancel4, textField4, 3));
+        cancelFeeService.setOnAction(e -> handleCancelAction(editFeeService, saveFeeService, cancelFeeService, textField1, 0));
+        cancelFeeManagement.setOnAction(e -> handleCancelAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, textField2, 1));
+        cancelFeeParkXM.setOnAction(e -> handleCancelAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, textField3, 2));
+        cancelFeeParkOT.setOnAction(e -> handleCancelAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, textField4, 3));
 
+        saveFeeService.setOnAction(e -> handleSaveAction(editFeeService, saveFeeService, cancelFeeService, textField1, 0));
+        saveFeeManagement.setOnAction(e -> handleSaveAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, textField2, 1));
+        saveFeeParkXM.setOnAction(e -> handleSaveAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, textField3, 2));
+        saveFeeParkOT.setOnAction(e -> handleSaveAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, textField4, 3));
 
-        // Cập nhật thông tin trong bảng ContributionFund
+        // Cài đặt các cột cho bảng dữ liệu
         indexColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(contributionFundList.indexOf(cellData.getValue()) + 1));
         fundNameColumn.setCellValueFactory(new PropertyValueFactory<>("fundName"));
         fundIDColumn.setCellValueFactory(new PropertyValueFactory<>("fundID"));
         amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
         periodOfTimeColumn.setCellValueFactory(new PropertyValueFactory<>("periodOfTime"));
-        // Gắn danh sách vào TableView
         contributionFundTableView.setItems(contributionFundList);
 
-        // Xử lý sự kiện nút Save
+        // Thiết lập sự kiện cho các nút lưu và xóa quỹ đóng góp
         saveFundButton.setOnAction(event -> saveContributionFund());
-
-        // Xử lý sự kiện nút Delete
         deleteFundButton.setOnAction(event -> deleteSelectedFund());
     }
 
+    /**
+     * Tạo đối tượng {@link ImageView} với hình ảnh và kích thước được chỉ định.
+     *
+     * @param image     Hình ảnh cần hiển thị.
+     * @param width     Chiều rộng của hình ảnh.
+     * @param height    Chiều cao của hình ảnh.
+     * @param arcWidth  Bán kính bo góc theo chiều rộng.
+     * @param arcHeight Bán kính bo góc theo chiều cao.
+     * @return đối tượng {@link ImageView}.
+     */
     private ImageView createImageView(Image image, double width, double height, double arcWidth, double arcHeight) {
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height);
@@ -174,11 +177,22 @@ public class MainController extends NavigableController {
         return imageView;
     }
 
+    /**
+     * Thiết lập hình ảnh cho nhãn với chỉ số hình ảnh đã cho.
+     *
+     * @param imageIndex Chỉ số hình ảnh cần thiết lập.
+     */
     private void setImageForLabel(int imageIndex) {
         imageView.setImage(images.get(imageIndex));
         slideshowLabel.setGraphic(imageView);
     }
 
+    /**
+     * Thiết lập biểu tượng cho nút với hình ảnh từ đường dẫn chỉ định.
+     *
+     * @param button    Nút cần thiết lập biểu tượng.
+     * @param imagePath Đường dẫn đến hình ảnh biểu tượng.
+     */
     private void setButtonGraphics(Button button, String imagePath) {
         ImageView iconView = new ImageView(new Image(getClass().getResource(imagePath).toExternalForm()));
         iconView.setFitWidth(30);
@@ -186,91 +200,124 @@ public class MainController extends NavigableController {
         button.setGraphic(iconView);
     }
 
+    /**
+     * Hiển thị hình ảnh tiếp theo trong danh sách slideshow.
+     */
     @FXML
     private void showNextImage() {
         currentImageIndex = (currentImageIndex + 1) % images.size();
         setImageForLabel(currentImageIndex);
     }
 
+    /**
+     * Hiển thị hình ảnh trước trong danh sách slideshow.
+     */
     @FXML
     private void showPreviousImage() {
         currentImageIndex = (currentImageIndex - 1 + images.size()) % images.size();
         setImageForLabel(currentImageIndex);
     }
 
+    /**
+     * Thêm dữ liệu vào biểu đồ cho một quý và năm nhất định.
+     *
+     * @param quarter Quý cần thêm dữ liệu.
+     * @param year    Năm cần thêm dữ liệu.
+     */
+    @FXML
+    private void addDataForQuarter(int quarter, int year) {
+        ObservableList<XYChart.Series<String, Number>> barChartData = FXCollections.observableArrayList();
+        XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
+        dataSeries.setName("Chi phí cho quý " + quarter + " năm " + year);
+        dataSeries.getData().add(new XYChart.Data<>("Phí dịch vụ", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí dịch vụ", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Phí quản lý", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí quản lý", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Phí gửi xe", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí gửi xe", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Các khoản đóng góp", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí đóng góp", quarter, year)));
+        barChartData.add(dataSeries);
+        barChart.setData(barChartData);
+    }
+
+    /**
+     * Lọc dữ liệu theo quý và năm đã chọn.
+     */
     private void filterData() {
-        String selectedQuarter = quarterComboBox.getValue();
-        String selectedYear = yearComboBox.getValue();
-
-        if (selectedQuarter == null || selectedYear == null) {
-            System.out.println("Hãy chọn đầy đủ quý và năm!");
-            return;
-        }
-
-        int quarter = Integer.parseInt(selectedQuarter);
-        int year = Integer.parseInt(selectedYear);
-
-        barChart.getData().clear();
-
+        int quarter = Integer.parseInt(quarterComboBox.getValue());
+        int year = Integer.parseInt(yearComboBox.getValue());
         addDataForQuarter(quarter, year);
     }
 
-    private void addDataForQuarter(int quarter, int year) {
-        String[] categories = {"Phí dịch vụ", "Phí quản lý", "Phí gửi xe", "Các khoản đóng góp"};
-
-        String[] months = {
-                "Tháng " + ((quarter - 1) * 3 + 1),
-                "Tháng " + ((quarter - 1) * 3 + 2),
-                "Tháng " + ((quarter - 1) * 3 + 3)
-        };
-
-        for (int i = 0; i < months.length; i++) {
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(months[i]);
-
-            for (String category : categories) {
-                double randomValue = Math.random() * 1_000_000;
-                series.getData().add(new XYChart.Data<>(category, randomValue));
-            }
-
-            barChart.getData().add(series);
-        }
+    /**
+     * Xử lý hành động chỉnh sửa cho các khoản phí.
+     *
+     * @param editButton    Nút chỉnh sửa.
+     * @param saveButton    Nút lưu.
+     * @param cancelButton  Nút hủy.
+     * @param textField     Trường nhập liệu.
+     */
+    private void handleEditAction(Button editButton, Button saveButton, Button cancelButton, TextField textField) {
+        editButton.setDisable(true);
+        saveButton.setDisable(false);
+        cancelButton.setDisable(false);
+        textField.setEditable(true);
     }
 
+    /**
+     * Hủy thao tác chỉnh sửa cho các khoản phí.
+     *
+     * @param editButton    Nút chỉnh sửa.
+     * @param saveButton    Nút lưu.
+     * @param cancelButton  Nút hủy.
+     * @param textField     Trường nhập liệu.
+     * @param index         Chỉ số của trường cần hủy.
+     */
+    private void handleCancelAction(Button editButton, Button saveButton, Button cancelButton, TextField textField, int index) {
+        editButton.setDisable(false);
+        saveButton.setDisable(true);
+        cancelButton.setDisable(true);
+        textField.setEditable(false);
+        textField.setText(textFieldValues.get(index));
+    }
+
+    /**
+     * Lưu các thay đổi cho các khoản phí.
+     *
+     * @param editButton    Nút chỉnh sửa.
+     * @param saveButton    Nút lưu.
+     * @param cancelButton  Nút hủy.
+     * @param textField     Trường nhập liệu.
+     * @param index         Chỉ số của trường cần lưu.
+     */
+    private void handleSaveAction(Button editButton, Button saveButton, Button cancelButton, TextField textField, int index) {
+        editButton.setDisable(false);
+        saveButton.setDisable(true);
+        cancelButton.setDisable(true);
+        textField.setEditable(false);
+        textFieldValues.set(index, textField.getText());
+    }
+
+    /**
+     * Lưu thông tin quỹ đóng góp mới.
+     */
     private void saveContributionFund() {
-        // Lấy thông tin từ các trường input
-        String fundName = fundNameText.getText().trim();
-        String fundID = fundIDText.getText().trim();
-        String amount = amountText.getText().trim();
-        LocalDate startDate = startDatePicker.getValue();
-        LocalDate endDate = endDatePicker.getValue();
-
-        if (fundName.isEmpty() || fundID.isEmpty() || amount.isEmpty() || startDate == null || endDate == null) {
-            showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin!");
-            return;
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String periodOfTime = startDate.format(formatter) + " - " + endDate.format(formatter);
-
-        ContributionFund newFund = new ContributionFund(fundName, fundID, amount, periodOfTime);
-        contributionFundList.add(newFund);
-        ContributionFundDAO.insertContributionFund(Integer.parseInt(fundID), fundName, "");
-        clearInputFields();
+        ContributionFund contributionFund = new ContributionFund( fundNameText.getText(), Integer.parseInt(fundIDText.getText()), (amountText.getText()), Date.valueOf(startDatePicker.getValue()), Date.valueOf(endDatePicker.getValue()));
+        ContributionFundDAO.insertContributionFund(contributionFund);
+        contributionFundList.add(contributionFund);
     }
 
+    /**
+     * Xóa quỹ đóng góp đã chọn trong bảng.
+     */
     private void deleteSelectedFund() {
         ContributionFund selectedFund = contributionFundTableView.getSelectionModel().getSelectedItem();
-
-        if (selectedFund == null) {
-            showAlert(Alert.AlertType.WARNING, "Cảnh báo", "Vui lòng chọn một hàng để xóa!");
-            return;
+        if (selectedFund != null) {
+            ContributionFundDAO.deleteByID(selectedFund.getFundID());
+            contributionFundList.remove(selectedFund);
         }
-
-        contributionFundList.remove(selectedFund);
-        ContributionFundDAO.deleteByID(Integer.parseInt(selectedFund.getFundID()));
     }
 
+    /**
+     * Xóa các trường nhập liệu.
+     */
     private void clearInputFields() {
         fundNameText.clear();
         fundIDText.clear();
@@ -279,6 +326,12 @@ public class MainController extends NavigableController {
         endDatePicker.setValue(null);
     }
 
+    /**
+     * Hiển thị một hộp thoại cảnh báo hoặc thông báo.
+     * @param alertType Loại cảnh báo (Error, Warning, Information,...)
+     * @param title Tiêu đề của hộp thoại.
+     * @param message Nội dung cảnh báo hoặc thông báo.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
@@ -287,40 +340,6 @@ public class MainController extends NavigableController {
         alert.showAndWait();
     }
 
-    @FXML
-    private void handleEditAction(Button editButton, Button saveButton, Button cancelButton, TextField textField) {
-        textField.setEditable(true);
-        textField.setStyle("");
 
-        saveButton.setVisible(true);
-        cancelButton.setVisible(true);
 
-        editButton.setVisible(false);
-    }
-
-    @FXML
-    private void handleCancelAction(Button editButton, Button saveButton, Button cancelButton, TextField textField, int index) {
-        textField.setText(textFieldValues.get(index));
-        textField.setEditable(false);
-        textField.setStyle("-fx-background-color: transparent;");
-
-        saveButton.setVisible(false);
-        cancelButton.setVisible(false);
-
-        editButton.setVisible(true);
-    }
-    @FXML
-    private void handleSaveAction(Button editButton, Button saveButton, Button cancelButton, TextField textField, int index) {
-        String newValue = textField.getText();
-        textFieldValues.set(index, newValue);
-        //System.out.println("Updated value for TextField " + (index + 1) + ": " + newValue);
-
-        textField.setEditable(false);
-        textField.setStyle("-fx-background-color: transparent;");
-
-        saveButton.setVisible(false);
-        cancelButton.setVisible(false);
-
-        editButton.setVisible(true);
-    }
 }

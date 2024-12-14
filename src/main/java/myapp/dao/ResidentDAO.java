@@ -225,4 +225,30 @@ public class ResidentDAO {
 
         return members;
     }
+
+    public static ObservableList<Resident> getResidents() {
+        ObservableList<Resident> members = FXCollections.observableArrayList();
+        String query = "SELECT * FROM nguoithue";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("HoTen");
+                String gender = resultSet.getString("GioiTinh");
+                Date birthday = resultSet.getDate("NgaySinh");
+                String IDcard = resultSet.getString("SoCMND");
+
+                Resident resident = new Resident(name, gender, birthday, IDcard);
+                members.add(resident);
+            }
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi tìm người thuê", "Không thể tìm danh sách người thuê", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi tìm người thuê", "Không thể tìm danh sách người thuê", "Có lỗi xảy ra: " + e.getMessage());
+        }
+
+        return members;
+    }
 }

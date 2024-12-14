@@ -4,6 +4,7 @@ import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.ContributionFund;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -47,9 +48,9 @@ public class ContributionFundDAO extends BaseDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, entity.getFundName());
-            preparedStatement.setString(2, entity.getFundID());
+            preparedStatement.setInt(2, entity.getFundID());
             preparedStatement.setString(3, entity.getAmount());
-            preparedStatement.setString(4, entity.getPeriodOfTime());
+            preparedStatement.setDate(4, entity.getPeriodOfTime());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             // Gọi phương thức trong lớp cha để hiển thị thông báo lỗi
@@ -67,8 +68,8 @@ public class ContributionFundDAO extends BaseDAO {
      * @param tenQuy Tên của quỹ đóng góp.
      * @param moTa Mô tả của quỹ đóng góp.
      */
-    public static void insertContributionFund(int id, String tenQuy, String moTa) {
-        String query = "INSERT INTO bangquydonggop (ID, TenQuy, MoTa) VALUES (?, ?, ?)";
+    public static void insertContributionFund(int id, String tenQuy, String moTa, Date start, Date finish) {
+        String query = "INSERT INTO bangquydonggop (ID, TenQuy, MoTa, ) VALUES (?, ?, ?)";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
