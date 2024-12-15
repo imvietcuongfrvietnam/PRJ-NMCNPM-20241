@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import myapp.dao.ContributionFundDAO;
+import myapp.dao.ParkingFeeDAO;
 import myapp.dao.PaymentHistoryDAO;
 import myapp.model.entities.entitiesdb.ContributionFund;
 import myapp.model.manager.LogManager;
@@ -292,6 +293,9 @@ public class MainController extends NavigableController {
         saveButton.setDisable(true);
         cancelButton.setDisable(true);
         textField.setEditable(false);
+        if(index == 2) ParkingFeeDAO.updateParkingFee("Xe máy", Integer.parseInt(textField.getText()));
+        else if(index == 3) ParkingFeeDAO.updateParkingFee("Ô tô", Integer.parseInt(textField.getText()));
+        else if(index == 0)
         textFieldValues.set(index, textField.getText());
     }
 
@@ -300,7 +304,7 @@ public class MainController extends NavigableController {
      */
     private void saveContributionFund() {
         ContributionFund contributionFund = new ContributionFund( fundNameText.getText(), Integer.parseInt(fundIDText.getText()), (amountText.getText()), Date.valueOf(startDatePicker.getValue()), Date.valueOf(endDatePicker.getValue()));
-        ContributionFundDAO.insertContributionFund(contributionFund);
+        ContributionFundDAO.insertContributionFund( Integer.parseInt(fundIDText.getText()),fundNameText.getText(), (amountText.getText()), Date.valueOf(startDatePicker.getValue()), Date.valueOf(endDatePicker.getValue()));
         contributionFundList.add(contributionFund);
     }
 

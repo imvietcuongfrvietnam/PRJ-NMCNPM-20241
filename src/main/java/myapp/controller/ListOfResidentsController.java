@@ -193,7 +193,6 @@ public class ListOfResidentsController extends ManagementController<Resident>{
                 birthdayText.setValue(null); // Xử lý nếu ngày sinh là null
             }
         } catch (Exception e) {
-            e.printStackTrace();
             birthdayText.setValue(null);
         }
 
@@ -239,6 +238,7 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         entityList.remove(resident);
         tableView.refresh();
         updatePagination(entityList);
+        ResidentDAO.deleteResident(resident);
     }
     @Override
     public void filterEntities() {
@@ -344,15 +344,6 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         houseHoldIDText.clear();
         statusText.clear();
         additionalInfoText.clear();
-    }
-    private String formatBirthday(String birthday) {
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(birthday, inputFormatter).format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            return birthday;
-        }
     }
 
     private void switchToListOfHouseHold(Event event) {

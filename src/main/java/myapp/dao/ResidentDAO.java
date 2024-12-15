@@ -3,6 +3,7 @@ package myapp.dao;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import myapp.db.SQLConnector;
+import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 
 import java.sql.*;
@@ -251,4 +252,55 @@ public class ResidentDAO {
 
         return members;
     }
+    public static void deleteResident(Resident resident) {
+        String query = "DELETE FROM nguoithue WHERE SoCMND = ?";
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            // Gán giá trị cho tham số SoCMND
+            preparedStatement.setString(1, resident.getIDcard());
+
+            // Thực thi câu lệnh DELETE
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Kiểm tra kết quả
+            if (rowsAffected > 0) {
+                System.out.println("Xóa người thuê thành công!");
+            } else {
+                System.out.println("Không tìm thấy người thuê với CMND: " + resident.getIDcard());
+            }
+
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi xóa người thuê", "Không thể xóa người thuê", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi xóa người thuê", "Không thể xóa người thuê", "Có lỗi xảy ra: " + e.getMessage());
+        }
+    }
+    public static ObservableList<Resident> getResidentByHouseholdID(HouseHold houseHold) {
+        ObservableList<Resident> members = FXCollections.observableArrayList();
+        String query = "SELECT * FROM nguothue WHERE MaHoGiaDinh = ?";
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, houseHold.getHouseHoldID());
+
+            ResultSet resultSet = preparedStatement.executeQuery(query);
+            while (resultSet.next()) {
+                String name = resultSet.getString("HoTen");
+                String gender = resultSet.getString("GioiTinh");
+                Date birthday = resultSet.getDate("NgaySinh");
+                String IDcard = resultSet.getString("SoCMND");
+
+                Resident resident = new Resident(name, gender, birthday, IDcard);
+                members.add(resident);
+            }
+
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi tim nguoi thue", "Không thể tim nguoi thue trong can ho", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi xóa người thuê", "Không thể xóa người thuê", "Có lỗi xảy ra: " + e.getMessage());
+        }
+        return members;
+}
+
 }

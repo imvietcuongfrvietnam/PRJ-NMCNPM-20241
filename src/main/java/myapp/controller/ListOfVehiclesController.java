@@ -122,12 +122,13 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         hbox.getChildren().addAll(viewButton, editButton, deleteButton);
         return hbox;
     }
-    private void viewEntities(Vehicle vehicle) {
 
+    private void viewEntities(Vehicle value) {
     }
-    private void editEntities(Vehicle vehicle) {
 
+    private void editEntities(Vehicle value) {
     }
+
     private void deleteEntities(Vehicle vehicle) {
         entityList.remove(vehicle);
         tableView.refresh();

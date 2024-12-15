@@ -107,6 +107,25 @@ public class PaymentHistoryDAO {
     }
 
     public static Number getTotalFeeByTypeAndQuarter(String phíDịchVụ, int quarter, int year) {
+        String query = "SELECT COUNT(*) FROM lichsuthuphi WHERE LoaiPhiThanhToan = ? AND YEAR(NgayDong) = ? AND QUARTER(NgayDong) = ?";
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
+            // Gán giá trị cho các tham số truy vấn
+            statement.setString(1, phíDịchVụ);
+            statement.setInt(2, year);
+            statement.setInt(3, quarter);
+
+            // Thực thi truy vấn
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
     }
+
 }

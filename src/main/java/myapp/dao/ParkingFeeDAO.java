@@ -1,6 +1,7 @@
 package myapp.dao;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Slider;
 import myapp.db.SQLConnector;
 
 import java.sql.Connection;
@@ -42,7 +43,7 @@ public class ParkingFeeDAO {
      * @param giaGuiMotThang Giá gửi một tháng của xe.
      */
     public static void insertParkingFee(String loaiXe, int giaGuiMotThang) {
-        String query = "INSERT INTO phiguixe (LoaiXe, GiaGuiMotThang) VALUES (?, ?)";
+        String query = "INSERT INTO giadichvuguixe (LoaiXe, GiaGuiMotThang) VALUES (?, ?)";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -58,6 +59,28 @@ public class ParkingFeeDAO {
             BaseDAO.showErrorAlert("Lỗi Thêm Phí Gửi Xe", "Không thể thêm phí gửi xe", "Có lỗi xảy ra: " + e.getMessage());
         }
     }
+    public static void updateParkingFee(String loaiXe, int giaGui) {
+        String query = "UPDATE phidichvuguixe SET GiaGuiMotThang = ? WHERE LoaiXe = ?";
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
 
+            // Gán giá trị cho các tham số truy vấn
+            statement.setInt(1, giaGui);
+            statement.setString(2, loaiXe);
+
+            // Thực thi truy vấn
+            int rowsAffected = statement.executeUpdate();
+
+            // Kiểm tra xem có hàng nào bị cập nhật
+            if (rowsAffected > 0) {
+                System.out.println("Cập nhật phí gửi xe thành công!");
+            } else {
+                System.out.println("Không có loại xe nào được cập nhật.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Lỗi khi cập nhật phí gửi xe: " + e.getMessage(), e);
+        }
+    }
 
 }

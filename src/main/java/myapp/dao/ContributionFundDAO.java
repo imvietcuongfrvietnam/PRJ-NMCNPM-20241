@@ -69,7 +69,7 @@ public class ContributionFundDAO extends BaseDAO {
      * @param moTa Mô tả của quỹ đóng góp.
      */
     public static void insertContributionFund(int id, String tenQuy, String moTa, Date start, Date finish) {
-        String query = "INSERT INTO bangquydonggop (ID, TenQuy, MoTa, ) VALUES (?, ?, ?)";
+        String query = "INSERT INTO bangquydonggop (ID, TenQuy, MoTa, NgayBatDau, NgayKetThuc) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -77,6 +77,8 @@ public class ContributionFundDAO extends BaseDAO {
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2, tenQuy);
             preparedStatement.setString(3, moTa);
+            preparedStatement.setDate(4, start);
+            preparedStatement.setDate(5, finish);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             // Gọi phương thức trong lớp cha để hiển thị thông báo lỗi

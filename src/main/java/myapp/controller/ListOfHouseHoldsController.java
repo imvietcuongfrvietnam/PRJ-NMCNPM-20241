@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import myapp.dao.HouseholdDAO;
+import myapp.dao.ResidentDAO;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 
@@ -120,6 +121,11 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
     private void deleteHouseHold(HouseHold houseHold) {
         entityList.remove(houseHold);
         updatePagination(filteredList);
+        ObservableList<Resident> members = ResidentDAO.getResidentByHouseholdID(houseHold);
+        for(Resident member : members){
+            ResidentDAO.deleteResident(member);
+        }
+        HouseholdDAO.delete(houseHold.getHouseHoldID());
     }
 
     public void add() {
