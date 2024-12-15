@@ -67,9 +67,15 @@ abstract class ManagementController<T> extends NavigableController {
     /**
      * Phương thức khởi tạo. Thiết lập các sự kiện và cài đặt mặc định cho các thành phần giao diện.
      */
+
     @Override
     public void initialize() {
         super.initialize();
+
+        // Khởi tạo entityList nếu nó chưa được khởi tạo
+        if (entityList == null) {
+            entityList = FXCollections.observableArrayList();  // Hoặc sử dụng ArrayList nếu không cần tính năng của JavaFX
+        }
 
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
@@ -88,6 +94,7 @@ abstract class ManagementController<T> extends NavigableController {
         pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
     }
+
 
     /**
      * Lọc danh sách các đối tượng dựa trên điều kiện tìm kiếm.

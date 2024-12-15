@@ -8,10 +8,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -177,7 +179,7 @@
         </StackPane>
         <StackPane layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0">
             <children>
-                <TableView fx:id="feeTableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20;" StackPane.alignment="TOP_CENTER">
+                <TableView fx:id="tableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20;" StackPane.alignment="TOP_CENTER">
                     <columns>
                         <TableColumn fx:id="indexColumn" maxWidth="80.0" minWidth="80.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="STT" />
                         <TableColumn fx:id="houseHoldIDColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hộ gia đình" />
@@ -195,5 +197,17 @@
                 <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
             </children>
         </StackPane>
+      <Button fx:id="addButton" alignment="CENTER" layoutX="1107.0" layoutY="123.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Thêm mới" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+               <color>
+                  <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
     </children>
 </AnchorPane>
