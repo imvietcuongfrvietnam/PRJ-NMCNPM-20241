@@ -34,7 +34,7 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="4000.0" prefWidth="1570.0">
+      <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3365.0" prefWidth="1570.0">
                <children>
@@ -222,24 +222,17 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" layoutX="625.0" layoutY="1775.0" prefHeight="60.0" prefWidth="320.0" text="Bảng giá dịch vụ" textFill="#ff914d">
+                  <Label alignment="CENTER" layoutX="461.0" layoutY="1775.0" prefHeight="60.0" text="Bảng giá các loại dịch vụ chung cư" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
                   <StackPane layoutX="100.0" layoutY="1870.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí dịch vụ chung cư" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -257,7 +250,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField1" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="16500" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeService" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="16500" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -301,17 +294,10 @@
                   </StackPane>
                   <StackPane layoutX="810.0" layoutY="1870.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí quản lý chung cư" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -329,7 +315,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField2" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="7000" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeManagement" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="7000" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -373,17 +359,10 @@
                   </StackPane>
                   <StackPane layoutX="100.0" layoutY="2195.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí gửi xe máy" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -401,7 +380,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField3" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="70000" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeXM" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="70000" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -445,17 +424,10 @@
                   </StackPane>
                   <StackPane layoutX="810.0" layoutY="2195.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí gửi xe ô tô" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -473,7 +445,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField4" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="1200000" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeOT" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="1200000" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -527,7 +499,7 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" layoutX="550.0" layoutY="2595.0" prefHeight="60.0" text="Các khoản quỹ đóng góp" textFill="#ff914d">
+                  <Label alignment="CENTER" layoutX="550.0" layoutY="2595.0" prefHeight="60.0" text="Các khoản quỹ đóng góp" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
@@ -607,6 +579,83 @@
                         </DropShadow>
                      </effect>
                   </Button>
+                  <Label layoutX="50.0" layoutY="3365.0" prefHeight="375.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="570.0" layoutY="3390.0" prefHeight="60.0" prefWidth="430.0" text="Bảng thông tin cư dân" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="3490.0" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label layoutX="310.0" layoutY="3515.0" text="Tổng số cư dân" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="125.0" layoutY="3515.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Residents.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="countResident" alignment="CENTER" layoutX="325.0" layoutY="3575.0" prefWidth="150.0" text="1000" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="572.5" layoutY="3490.0" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label layoutX="826.0" layoutY="3515.0" text="Tạm trú" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="597.5" layoutY="3515.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/temporaryResidence.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="countTamTru" alignment="CENTER" layoutX="797.5" layoutY="3575.0" prefWidth="150.0" text="1000" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="1045.0" layoutY="3490.0" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label layoutX="1287.0" layoutY="3515.0" text="Tạm vắng" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1070.0" layoutY="3515.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/temporaryAbsence.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="countTamVang" alignment="CENTER" layoutX="1270.0" layoutY="3575.0" prefWidth="150.0" text="1000" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
          </content>

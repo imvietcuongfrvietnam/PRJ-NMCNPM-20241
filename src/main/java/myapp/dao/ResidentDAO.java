@@ -302,5 +302,27 @@ public class ResidentDAO {
         }
         return members;
 }
+    public static int countByType(String type) {
+        String query = "SELECT * FROM nguoithue WHERE TrangThai = ?";
+        int count = 0; // Biến để đếm số lượng kết quả
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, type);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                // Chỉ đếm số lượng người thuê, không cần lấy thông tin chi tiết
+                count++;
+            }
+
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi tìm người thuê", "Không thể tìm người thuê trong căn hộ", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi tìm người thuê", "Có lỗi xảy ra khi tìm người thuê", "Có lỗi xảy ra: " + e.getMessage());
+        }
+        return count; // Trả về số lượng người thuê theo loại
+    }
+
 
 }

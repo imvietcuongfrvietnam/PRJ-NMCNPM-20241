@@ -67,7 +67,8 @@ public class PaymentHistoryDAO {
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getBigDecimal("TotalFee");
+                    BigDecimal totalFee = resultSet.getBigDecimal("TotalFee");
+                    return totalFee != null ? totalFee : BigDecimal.ZERO; // Kiểm tra null ở đây
                 }
             }
         } catch (SQLException e) {
@@ -76,6 +77,7 @@ public class PaymentHistoryDAO {
         }
         return BigDecimal.ZERO;
     }
+
 
     /**
      * Lấy danh sách tất cả các hồ sơ thanh toán từ cơ sở dữ liệu.
@@ -106,26 +108,28 @@ public class PaymentHistoryDAO {
         return paymentHistories;
     }
 
-    public static Number getTotalFeeByTypeAndQuarter(String phíDịchVụ, int quarter, int year) {
-        String query = "SELECT COUNT(*) FROM lichsuthuphi WHERE LoaiPhiThanhToan = ? AND YEAR(NgayDong) = ? AND QUARTER(NgayDong) = ?";
+    public static Number getTotalFeeByTypeAndQuarter(String phiDichVu, int quarter, int year) {
+        // Sử dụng DATEPART để tính toán quý thay vì QUARTER
+        String query = "SELECT COUNT(*) FROM lichsuthuphi WHERE LoaiPhiThanhToan = ? AND YEAR(NgayDong) = ? AND DATEPART(QUARTER, NgayDong) = ?";
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             // Gán giá trị cho các tham số truy vấn
-            statement.setString(1, phíDịchVụ);
+            statement.setString(1, phiDichVu);
             statement.setInt(2, year);
             statement.setInt(3, quarter);
 
             // Thực thi truy vấn
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    return resultSet.getInt(1);
+                    return resultSet.getInt(1); // Trả về số lượng kết quả
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return 0;
+        return 0; // Trả về 0 nếu không có kết quả
     }
+
 
 }

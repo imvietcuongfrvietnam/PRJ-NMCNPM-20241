@@ -16,15 +16,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import myapp.dao.ContributionFundDAO;
-import myapp.dao.ParkingFeeDAO;
-import myapp.dao.PaymentHistoryDAO;
+import myapp.dao.*;
 import myapp.model.entities.entitiesdb.ContributionFund;
 import myapp.model.manager.LogManager;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -39,14 +37,14 @@ public class MainController extends NavigableController {
     @FXML private ComboBox<String> yearComboBox;
     @FXML private Button filterButton;
     @FXML private Button editFeeService, editFeeManagement, editFeeParkXM, editFeeParkOT, saveFeeService, saveFeeManagement, saveFeeParkXM, saveFeeParkOT, cancelFeeService, cancelFeeManagement, cancelFeeParkXM, cancelFeeParkOT, deleteFundButton, saveFundButton;
-    @FXML private TextField textField1, textField2, textField3, textField4;
+    @FXML private TextField feeService, feeManagement, feeXM, feeOT;
     @FXML private TableView<ContributionFund> contributionFundTableView;
     @FXML private TableColumn<ContributionFund, Integer> indexColumn;
     @FXML private TableColumn<ContributionFund, String> fundNameColumn, fundIDColumn, amountColumn, periodOfTimeColumn;
     @FXML private TextField fundNameText, fundIDText, amountText;
     @FXML private DatePicker startDatePicker, endDatePicker;
     @FXML private Label helloText;
-
+    @FXML private Label countTamVang, countTamTru, countResident;
     private final ObservableList<ContributionFund> contributionFundList = FXCollections.observableArrayList();
     private List<Image> images = new ArrayList<>();
     private int currentImageIndex = 0;
@@ -65,11 +63,22 @@ public class MainController extends NavigableController {
             images.add(new Image(Objects.requireNonNull(getClass().getResource("/image/Slideshow" + i + ".png")).toExternalForm()));
         }
 
-        // Cập nhật các tổng chi phí
-        sumCostService.setText(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ").toString());
-        sumCostManagement.setText(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý").toString());
-        sumCostVehicle.setText(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe").toString());
-        sumCostContribute.setText(PaymentHistoryDAO.getTotalFeeByType("Phí đóng góp").toString());
+        sumCostService.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
+        sumCostManagement.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
+        sumCostVehicle.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
+        sumCostContribute.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí đóng góp")));
+
+        countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm trú")));
+
+        countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm vắng")));
+        countResident.setText(String.valueOf(ResidentDAO.getResidents().size()));
+
+
+
+        feeService.setText(safeToString(UnitPriceDAO.getByType("Dịch vụ")));
+        feeManagement.setText(safeToString(UnitPriceDAO.getByType("Quản lý")));
+        feeXM.setText(safeToString(ParkingFeeDAO.getFeeByType("Xe máy")));
+        feeOT.setText(safeToString(ParkingFeeDAO.getFeeByType("Ô tô")));
 
         // Thiết lập hình ảnh slideshow ban đầu
         imageView = createImageView(images.get(currentImageIndex), 1470, 530, 30, 30);
@@ -113,32 +122,32 @@ public class MainController extends NavigableController {
         filterButton.setOnAction(e -> filterData());
 
         // Lưu giá trị các trường nhập liệu
-        textFieldValues.add(textField1.getText());
-        textFieldValues.add(textField2.getText());
-        textFieldValues.add(textField3.getText());
-        textFieldValues.add(textField4.getText());
+        textFieldValues.add(feeService.getText());
+        textFieldValues.add(feeManagement.getText());
+        textFieldValues.add(feeXM.getText());
+        textFieldValues.add(feeOT.getText());
 
         // Cài đặt các trường không chỉnh sửa
-        textField1.setEditable(false);
-        textField2.setEditable(false);
-        textField3.setEditable(false);
-        textField4.setEditable(false);
+        feeService.setEditable(false);
+        feeManagement.setEditable(false);
+        feeXM.setEditable(false);
+        feeOT.setEditable(false);
 
         // Xử lý các sự kiện cho các nút chỉnh sửa, lưu, hủy
-        editFeeService.setOnAction(e -> handleEditAction(editFeeService, saveFeeService, cancelFeeService, textField1));
-        editFeeManagement.setOnAction(e -> handleEditAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, textField2));
-        editFeeParkXM.setOnAction(e -> handleEditAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, textField3));
-        editFeeParkOT.setOnAction(e -> handleEditAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, textField4));
+        editFeeService.setOnAction(e -> handleEditAction(editFeeService, saveFeeService, cancelFeeService, feeService));
+        editFeeManagement.setOnAction(e -> handleEditAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, feeManagement));
+        editFeeParkXM.setOnAction(e -> handleEditAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, feeXM));
+        editFeeParkOT.setOnAction(e -> handleEditAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, feeOT));
 
-        cancelFeeService.setOnAction(e -> handleCancelAction(editFeeService, saveFeeService, cancelFeeService, textField1, 0));
-        cancelFeeManagement.setOnAction(e -> handleCancelAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, textField2, 1));
-        cancelFeeParkXM.setOnAction(e -> handleCancelAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, textField3, 2));
-        cancelFeeParkOT.setOnAction(e -> handleCancelAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, textField4, 3));
+        cancelFeeService.setOnAction(e -> handleCancelAction(editFeeService, saveFeeService, cancelFeeService, feeService, 0));
+        cancelFeeManagement.setOnAction(e -> handleCancelAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, feeManagement, 1));
+        cancelFeeParkXM.setOnAction(e -> handleCancelAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, feeXM, 2));
+        cancelFeeParkOT.setOnAction(e -> handleCancelAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, feeOT, 3));
 
-        saveFeeService.setOnAction(e -> handleSaveAction(editFeeService, saveFeeService, cancelFeeService, textField1, 0));
-        saveFeeManagement.setOnAction(e -> handleSaveAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, textField2, 1));
-        saveFeeParkXM.setOnAction(e -> handleSaveAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, textField3, 2));
-        saveFeeParkOT.setOnAction(e -> handleSaveAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, textField4, 3));
+        saveFeeService.setOnAction(e -> handleSaveAction(editFeeService, saveFeeService, cancelFeeService, feeService, 0));
+        saveFeeManagement.setOnAction(e -> handleSaveAction(editFeeManagement, saveFeeManagement, cancelFeeManagement, feeManagement, 1));
+        saveFeeParkXM.setOnAction(e -> handleSaveAction(editFeeParkXM, saveFeeParkXM, cancelFeeParkXM, feeXM, 2));
+        saveFeeParkOT.setOnAction(e -> handleSaveAction(editFeeParkOT, saveFeeParkOT, cancelFeeParkOT, feeOT, 3));
 
         // Cài đặt các cột cho bảng dữ liệu
         indexColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(contributionFundList.indexOf(cellData.getValue()) + 1));
@@ -343,7 +352,9 @@ public class MainController extends NavigableController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
+    private String safeToString(BigDecimal value) {
+        return (value != null) ? value.toString() : "0";
+    }
 
 
 }
