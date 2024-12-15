@@ -1,23 +1,28 @@
 package myapp.model.entities.entitiesdb;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+
 public class ContributionFund {
     private String fundName;
-    private String fundID;
+    private int fundID;
     private String amount;
-    private String periodOfTime;
+    private Date periodOfTime;
+    private Date endTime;
 
-    public ContributionFund(String fundName, String fundID, String amount, String periodOfTime) {
+    public ContributionFund(String fundName, int fundID, String amount, Date periodOfTime, Date endTime) {
         this.fundName = fundName;
         this.fundID = fundID;
         this.amount = amount;
         this.periodOfTime = periodOfTime;
+        this.endTime = endTime;
     }
 
     public String getFundName() {
         return fundName;
     }
 
-    public String getFundID() {
+    public int getFundID() {
         return fundID;
     }
 
@@ -25,7 +30,7 @@ public class ContributionFund {
         return amount;
     }
 
-    public String getPeriodOfTime() {
+    public Date getPeriodOfTime() {
         return periodOfTime;
     }
 }

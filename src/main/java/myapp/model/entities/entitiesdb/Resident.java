@@ -1,12 +1,11 @@
 package myapp.model.entities.entitiesdb;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.sql.Date;
 
 public class Resident {
     private String name;
     private String gender;
-    private String birthday;
+    private Date birthday; // Sử dụng java.sql.Date
     private String IDcard;
     private String hometown;
     private String phone;
@@ -18,8 +17,10 @@ public class Resident {
     private String additionalInfo;
     private String houseHoldID;
 
-
-    public Resident(String name, String gender, String birthday, String IDcard, String hometown, String phone, String occupation, String ethnicity, String nationality, String education, String status, String additionalInfo, String houseHoldID) {
+    // Constructor đầy đủ
+    public Resident(String name, String gender, Date birthday, String IDcard, String hometown,
+                    String phone, String occupation, String ethnicity, String nationality,
+                    String education, String status, String additionalInfo, String houseHoldID) {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
@@ -35,10 +36,8 @@ public class Resident {
         this.houseHoldID = houseHoldID;
     }
 
-    public Resident() {
-    }
-
-    public Resident(String name, String gender, String birthday, String IDcard) {
+    // Constructor đơn giản hơn
+    public Resident(String name, String gender, Date birthday, String IDcard) {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
@@ -50,6 +49,7 @@ public class Resident {
         this.IDcard = IDcard;
     }
 
+    // Getter và Setter
     public String getName() {
         return name;
     }
@@ -66,11 +66,11 @@ public class Resident {
         this.gender = gender;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -152,9 +152,5 @@ public class Resident {
 
     public void setHouseHoldID(String houseHoldID) {
         this.houseHoldID = houseHoldID;
-    }
-
-    public LocalTime getBirthDate() {
-        return null;
     }
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 
-public class SettingController extends BaseController{
+public class SettingController extends NavigableController{
     @FXML
     private Button editProfileButton;
     @FXML
@@ -56,7 +56,6 @@ public class SettingController extends BaseController{
     private Button cancelButton;
     @FXML
     private Button saveButton;
-
     private String passwordBeforeEdit;
     private UserInformation userInformation;
     private UserCredentials userCredentials;
@@ -68,8 +67,6 @@ public class SettingController extends BaseController{
         saveButton.setVisible(false);
         cancelButton.setVisible(false);
         editPhotoButton.setVisible(false);
-        Switcher switcher = new Switcher();
-
         editProfileButton.setOnAction(e -> editProfile());
         saveButton.setOnAction(e -> saveChanges());
         cancelButton.setOnAction(e -> cancelEdit());
@@ -94,8 +91,6 @@ public class SettingController extends BaseController{
         } else if ("Female".equals(userInformation.getGioiTinh())) {
             femaleButton.setSelected(true);
         }
-
-        // Điền ngày sinh
         birthdayText.setValue(LocalDate.parse(userInformation.getNgaySinh().toLocaleString()));
         usernameText.setText(userCredentials.getUsername());
         passwordField.setText(userCredentials.getPassword());

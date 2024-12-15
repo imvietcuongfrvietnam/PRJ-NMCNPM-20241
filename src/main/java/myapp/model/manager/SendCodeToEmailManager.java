@@ -10,7 +10,7 @@ public class SendCodeToEmailManager {
     public static void sendCode(String destination, String code) {
         String source = "vietcuong2k182@gmail.com";
         String username = "vietcuong2k182@gmail.com";
-        String password = "inrpm pneok lnryl pdryn"; // Mật khẩu App cần xác thực
+        String password = "inpm pnok lnyl pdyn"; // Mật khẩu App cần xác thực
         String host = "smtp.gmail.com";
         Properties pros = new Properties();
 

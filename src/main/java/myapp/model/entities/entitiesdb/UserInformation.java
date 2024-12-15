@@ -71,4 +71,7 @@ public class UserInformation {
     public String getQueQuan() { return queQuan; }
     public String getDienThoai() { return dienThoai; }
     public java.util.Date getNgaySinh(){ return ngaySinh;}
+
+    public UserInformation() {
+    }
 }

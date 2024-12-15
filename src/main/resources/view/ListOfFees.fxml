@@ -74,7 +74,7 @@
         <Line endX="1570.0" layoutX="350.0" layoutY="200.0" stroke="#7f7f7f" />
         <StackPane layoutX="25.0" layoutY="200.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
+                <Button fx:id="homePageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>

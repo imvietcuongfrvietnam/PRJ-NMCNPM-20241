@@ -1,27 +1,32 @@
 package myapp.model.entities;
 
+import java.sql.Date;
+
 public class Fee {
     private String feeID;
     private String feeName;
     private String houseHoldID;
     private String amount;
-    private String expDate;
+    private Date expDate; // Thay đổi từ String thành java.sql.Date
     private String status;
     private String note;
 
-    public Fee(String feeID, String feeName, String houseHoldID, String amount, String expDate, String status, String note) {
+    // Constructor đầy đủ
+    public Fee(String feeID, String feeName, String houseHoldID, String amount, Date expDate, String status, String note) {
         this.feeID = feeID;
         this.feeName = feeName;
         this.houseHoldID = houseHoldID;
         this.amount = amount;
-        this.expDate = expDate;
+        this.expDate = expDate; // Sử dụng kiểu Date
         this.status = status;
         this.note = note;
     }
 
+    // Constructor mặc định
     public Fee() {
     }
 
+    // Getter và Setter
     public String getFeeID() {
         return feeID;
     }
@@ -54,11 +59,11 @@ public class Fee {
         this.amount = amount;
     }
 
-    public String getExpDate() {
+    public Date getExpDate() {
         return expDate;
     }
 
-    public void setExpDate(String expDate) {
+    public void setExpDate(Date expDate) {
         this.expDate = expDate;
     }
 

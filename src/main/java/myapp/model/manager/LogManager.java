@@ -45,8 +45,8 @@ public class LogManager {
         UserInformation userInformation = UserInformationDAO.selectByUsername(username);
 
         userNode.put("soCMND", userInformation.getSoCMND());
-        userNode.put("Ten", userInformation.getTen());
-        userNode.put("sdt", userInformation.getDienThoai());
+        userNode.put("ten", userInformation.getTen());
+        userNode.put("dienThoai", userInformation.getDienThoai());
         userNode.put("email", userInformation.getEmail());
         userNode.put("queQuan", userInformation.getQueQuan());
         userNode.put("diaChi", userInformation.getDiaChi());

@@ -26,10 +26,6 @@ public class Switcher {
     private void switchScene(Event event, String fxmlPath, BaseController controller) throws IOException {
         // Tải tệp FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/" + fxmlPath));
-        if (controller != null) {
-            loader.setController(controller);
-        }
-
         // Tải root từ tệp FXML
         Parent root = loader.load();
 
@@ -89,8 +85,8 @@ public class Switcher {
     /**
      * Chuyển đến danh sách cư dân.
      */
-    public void goListOfResidentsPage(Event event, BaseController baseController) throws IOException {
-        this.switchToPage(event, "ListOfResidents.fxml", baseController);
+    public void goListOfResidentsPage(Object event, BaseController baseController) throws IOException {
+        this.switchToPage((Event) event, "ListOfResidents.fxml", baseController);
     }
 
     /**

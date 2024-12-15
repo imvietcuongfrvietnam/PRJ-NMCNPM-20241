@@ -87,7 +87,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="275.0">
             <children>
-                <Button fx:id="residentManageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Danh sách cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+                <Button fx:id="residentManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Danh sách cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -104,7 +104,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="350.0">
             <children>
-                <Button fx:id="feeManageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+                <Button fx:id="feeManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -121,7 +121,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="425.0">
             <children>
-                <Button fx:id="generalManageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
+                <Button fx:id="generalManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>

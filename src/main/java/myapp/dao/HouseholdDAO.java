@@ -1,5 +1,7 @@
 package myapp.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseHold;
 import javafx.scene.control.Alert;
@@ -111,5 +113,32 @@ public class HouseholdDAO extends BaseDAO {
         } catch (SQLException e) {
             showErrorAlert("Lỗi khi cập nhật thông tin hộ gia đình", "Không thể cập nhật thông tin hộ gia đình", e.getMessage());
         }
+    }
+
+    // Truy vấn danh sách hộ gia đình
+    public static ObservableList<HouseHold> getHouseholds() {
+        ObservableList<HouseHold> houseHoldsList = FXCollections.observableArrayList();
+        String query = "SELECT MaHoGiaDinh, MaCanHo, NgayChuyenVao, NgayChuyenRa, SoCMNDChuHo, TrangThai FROM hogiadinh";
+
+        try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                houseHoldsList.add(new HouseHold(
+                        resultSet.getString("MaHoGiaDinh"),
+                        resultSet.getString("MaCanHo"),
+                        resultSet.getDate("NgayChuyenVao"), // java.sql.Date
+                        resultSet.getDate("NgayChuyenRa"),  // java.sql.Date
+                        resultSet.getString("SoCMNDChuHo"),
+                        resultSet.getString("TrangThai")
+                ));
+            }
+        } catch (SQLException e) {
+            showErrorAlert("Lỗi khi lấy thông tin hộ gia đình", "Có lỗi xảy ra", "Truy vấn cơ sở dữ lệu lấy thông tin bị loi");
+        }
+        catch (Exception e) {
+            showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
+        }
+        return houseHoldsList;
     }
 }
