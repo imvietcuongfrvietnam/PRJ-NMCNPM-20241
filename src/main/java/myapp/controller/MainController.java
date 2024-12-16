@@ -265,10 +265,10 @@ public class MainController extends NavigableController {
      * @param textField     Trường nhập liệu.
      */
     private void handleEditAction(Button editButton, Button saveButton, Button cancelButton, TextField textField) {
-        editButton.setDisable(true);
-        saveButton.setDisable(false);
-        cancelButton.setDisable(false);
-        textField.setEditable(true);
+        textField.setEditable(true); // Cho phép chỉnh sửa
+        editButton.setDisable(true); // Vô hiệu hóa nút chỉnh sửa
+        saveButton.setDisable(false); // Kích hoạt nút lưu
+        cancelButton.setDisable(false); // Kích hoạt nút hủy
     }
 
     /**
