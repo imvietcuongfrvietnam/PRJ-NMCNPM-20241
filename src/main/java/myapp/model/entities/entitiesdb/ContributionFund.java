@@ -5,12 +5,12 @@ import java.sql.Date;
 
 public class ContributionFund {
     private String fundName;
-    private int fundID;
-    private String amount;
+    private String fundID;
+    private BigDecimal amount;
     private Date periodOfTime;
     private Date endTime;
 
-    public ContributionFund(String fundName, int fundID, String amount, Date periodOfTime, Date endTime) {
+    public ContributionFund(String fundName, String fundID, BigDecimal amount, Date periodOfTime, Date endTime) {
         this.fundName = fundName;
         this.fundID = fundID;
         this.amount = amount;
@@ -22,11 +22,11 @@ public class ContributionFund {
         return fundName;
     }
 
-    public int getFundID() {
+    public String getFundID() {
         return fundID;
     }
 
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 

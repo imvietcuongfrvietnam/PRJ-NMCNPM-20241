@@ -63,6 +63,7 @@ public class MainController extends NavigableController {
             images.add(new Image(Objects.requireNonNull(getClass().getResource("/image/Slideshow" + i + ".png")).toExternalForm()));
         }
 
+
         sumCostService.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
         sumCostManagement.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
         sumCostVehicle.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
@@ -312,10 +313,49 @@ public class MainController extends NavigableController {
      * Lưu thông tin quỹ đóng góp mới.
      */
     private void saveContributionFund() {
-        ContributionFund contributionFund = new ContributionFund( fundNameText.getText(), Integer.parseInt(fundIDText.getText()), (amountText.getText()), Date.valueOf(startDatePicker.getValue()), Date.valueOf(endDatePicker.getValue()));
-        ContributionFundDAO.insertContributionFund( Integer.parseInt(fundIDText.getText()),fundNameText.getText(), (amountText.getText()), Date.valueOf(startDatePicker.getValue()), Date.valueOf(endDatePicker.getValue()));
-        contributionFundList.add(contributionFund);
+        try {
+            // Kiểm tra các trường nhập liệu
+            if (fundNameText.getText().isEmpty() || fundIDText.getText().isEmpty() ||
+                    amountText.getText().isEmpty() || startDatePicker.getValue() == null ||
+                    endDatePicker.getValue() == null) {
+                showAlert(Alert.AlertType.WARNING, "Lỗi", "Vui lòng điền đầy đủ thông tin!");
+                return;
+            }
+
+            // Tạo đối tượng ContributionFund
+            String fundID = fundIDText.getText();
+            String fundName = fundNameText.getText();
+            BigDecimal amount = new BigDecimal(amountText.getText());
+            Date startDate = Date.valueOf(startDatePicker.getValue());
+            Date endDate = Date.valueOf(endDatePicker.getValue());
+
+            ContributionFund contributionFund = new ContributionFund(fundName, fundID, amount, startDate, endDate);
+
+            // Lưu vào cơ sở dữ liệu
+            ContributionFundDAO.insertContributionFund(fundID,fundName,"", startDate, endDate, amount);
+
+            // Thêm vào danh sách và cập nhật TableView
+            contributionFundList.add(contributionFund);
+            contributionFundTableView.setItems(contributionFundList);
+
+            // Hiển thị thông báo thành công
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Quỹ đóng góp đã được lưu thành công!");
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi định dạng", "ID hoặc số tiền phải là số hợp lệ.");
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Có lỗi xảy ra: " + e.getMessage());
+        }
     }
+
+    // Phương thức hiển thị Alert
+    private void showAlert(Alert.AlertType alertType, String title, String message) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     /**
      * Xóa quỹ đóng góp đã chọn trong bảng.
@@ -339,19 +379,6 @@ public class MainController extends NavigableController {
         endDatePicker.setValue(null);
     }
 
-    /**
-     * Hiển thị một hộp thoại cảnh báo hoặc thông báo.
-     * @param alertType Loại cảnh báo (Error, Warning, Information,...)
-     * @param title Tiêu đề của hộp thoại.
-     * @param message Nội dung cảnh báo hoặc thông báo.
-     */
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
     private String safeToString(BigDecimal value) {
         return (value != null) ? value.toString() : "0";
     }
