@@ -268,9 +268,9 @@ public class MainController extends NavigableController{
      */
     private void handleEditAction(Button editButton, Button saveButton, Button cancelButton, TextField textField) {
         textField.setEditable(true); // Cho phép chỉnh sửa
-        editButton.setDisable(true); // Vô hiệu hóa nút chỉnh sửa
-        saveButton.setDisable(false); // Kích hoạt nút lưu
-        cancelButton.setDisable(false); // Kích hoạt nút hủy
+        editButton.setVisible(false); // Vô hiệu hóa nút chỉnh sửa
+        saveButton.setVisible(true); // Kích hoạt nút lưu
+        cancelButton.setVisible(true); // Kích hoạt nút hủy
     }
 
     /**
@@ -300,13 +300,12 @@ public class MainController extends NavigableController{
      * @param index         Chỉ số của trường cần lưu.
      */
     private void handleSaveAction(Button editButton, Button saveButton, Button cancelButton, TextField textField, int index) {
-        editButton.setDisable(false);
-        saveButton.setDisable(true);
-        cancelButton.setDisable(true);
+        editButton.setVisible(true);
+        saveButton.setVisible(false);
+        cancelButton.setVisible(false);
         textField.setEditable(false);
         if(index == 2) ParkingFeeDAO.updateParkingFee("Xe máy", Integer.parseInt(textField.getText()));
         else if(index == 3) ParkingFeeDAO.updateParkingFee("Ô tô", Integer.parseInt(textField.getText()));
-        else if(index == 0)
         textFieldValues.set(index, textField.getText());
     }
 
@@ -346,6 +345,7 @@ public class MainController extends NavigableController{
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Có lỗi xảy ra: " + e.getMessage());
         }
+        clearInputFields();
     }
 
     // Phương thức hiển thị Alert

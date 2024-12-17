@@ -50,9 +50,11 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         genderColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("gender"));
         birthdayColumn.setCellValueFactory(cellData -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String formattedDate = LocalDate.parse((CharSequence) cellData.getValue().getBirthday(), formatter).format(formatter);
+            LocalDate birthday = LocalDate.parse(cellData.getValue().getBirthday().toString());  // Assuming birthday is a LocalDate
+            String formattedDate = birthday.format(formatter);
             return new SimpleObjectProperty<>(formattedDate);
         });
+
         IDcardColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("IDcard"));
         hometownColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("hometown"));
         houseHoldIDColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("houseHoldID"));

@@ -1,5 +1,6 @@
 package myapp.controller;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -184,8 +185,9 @@ public class SettingController extends NavigableController {
 
             logManager.savePassword(username, password);
             UserInformationDAO.updateUserInformation(userInformation, userCredentials);
-
-            showAlert(Alert.AlertType.INFORMATION, "Update Successful", "Your profile has been updated successfully!");
+            Platform.runLater(() -> {
+                showAlert(Alert.AlertType.INFORMATION, "Update Successful", "Your profile has been updated successfully!");
+            });
         }).start();
     }
 
