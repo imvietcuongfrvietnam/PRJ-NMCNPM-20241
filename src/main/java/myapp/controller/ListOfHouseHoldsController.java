@@ -26,8 +26,6 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
     @FXML
     private TableColumn<HouseHold, String> houseHoldIDColumn, apartmentIDColumn, moveInDateColumn, moveOutDateColumn, residentIDColumn, statusColumn;
     @FXML
-    private TableColumn<HouseHold, HBox> editColumn;
-    @FXML
     private TextField houseHoldIDText, apartmentIDText, addressText, residentNameText, residentIDText, residentPhoneText;
     @FXML
     private DatePicker moveInDate, moveOutDate;
@@ -54,7 +52,7 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
         residentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getResidentID()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 
-        editColumn.setCellValueFactory(param -> {
+        operationsColumn.setCellValueFactory(param -> {
             HBox hbox = createEditDeleteButtons(param);
             return new SimpleObjectProperty<>(hbox);
         });
@@ -66,7 +64,6 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
 
     @Override
     protected void filterEntities() {
-
     }
 
     private String formatDate(Date date) {

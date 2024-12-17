@@ -62,6 +62,10 @@ public class ListOfResidentsController extends ManagementController<Resident>{
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterEntities());
         listOfHouseHoldButton.setOnAction(this::switchToListOfHouseHold);
+
+        saveButton.setOnAction(event -> {
+            save();
+        });
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Resident, HBox> param) {
@@ -307,7 +311,8 @@ public class ListOfResidentsController extends ManagementController<Resident>{
     public void save() {
         String name = nameText.getText();
         String gender = ((RadioButton) genderGroup.getSelectedToggle()).getText();
-        Date birthday = Date.valueOf(birthdayText.getValue() != null ? birthdayText.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "");
+        LocalDate localDate = birthdayText.getValue();
+        java.sql.Date birthday = (localDate != null) ? java.sql.Date.valueOf(localDate) : null;
         String idcard = IDcardText.getText();
         String hometown = hometownText.getText();
         String phone = phoneText.getText();
@@ -329,6 +334,7 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         } else {
             Resident newResident = new Resident(name, gender, birthday, idcard, hometown, phone, occupation, ethnicity, nationality, education, status, additionalInfo, houseHoldID);
             entityList.add(newResident);
+            ResidentDAO.updateBySoCMND(newResident);
         }
             stackPaneInsertUpdate.setVisible(false);
             clearFields();

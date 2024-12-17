@@ -40,7 +40,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
     private ChoiceBox<String> status;
     private Apartment editingApartment;
     @FXML
-    private Button listOfResidentsButton;
+    private Button listOfVehiclesButton;
 
     @Override
     public void initialize() {
@@ -76,9 +76,9 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
             HBox hbox = createViewEditDeleteButtons(param);
             return new SimpleObjectProperty<>(hbox);
         });
-        listOfResidentsButton.setOnAction(event -> {
+        listOfVehiclesButton.setOnAction(event -> {
             try {
-                switcher.goListOfResidentsPage(event, this);
+                switcher.goListOfVehiclePage(event, this);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

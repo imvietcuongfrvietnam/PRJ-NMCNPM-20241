@@ -74,7 +74,7 @@
                 </ImageView>
             </children>
         </StackPane>
-        <Button fx:id="listOfResidentsButton" alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Danh sách căn hộ" textFill="#7f7f7f">
+        <Button fx:id="listOfApartmentsButton" alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Danh sách căn hộ" textFill="#7f7f7f">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>

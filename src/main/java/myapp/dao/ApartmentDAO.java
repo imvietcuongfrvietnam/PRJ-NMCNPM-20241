@@ -76,14 +76,14 @@ public class ApartmentDAO extends BaseDAO {
     // Truy vấn danh sách căn hộ
     public static ObservableList<Apartment> getApartments() {
         ObservableList<Apartment> apartmentsList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM phong";
+        String query = "SELECT * FROM canho";
 
         try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 apartmentsList.add(new Apartment(
-                        resultSet.getString("MaCanHo"),
+                        resultSet.getString("ID"),
                         resultSet.getInt("Tang"),
                         resultSet.getInt("DienTich"),
                         resultSet.getString("TinhTrang"),

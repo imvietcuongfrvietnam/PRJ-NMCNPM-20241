@@ -63,7 +63,6 @@ abstract class ManagementController<T> extends NavigableController {
     /** Thành phần giao diện cho chức năng chèn hoặc cập nhật dữ liệu. */
     @FXML
     protected StackPane stackPaneInsertUpdate;
-
     /**
      * Phương thức khởi tạo. Thiết lập các sự kiện và cài đặt mặc định cho các thành phần giao diện.
      */
@@ -76,11 +75,12 @@ abstract class ManagementController<T> extends NavigableController {
         if (entityList == null) {
             entityList = FXCollections.observableArrayList();  // Hoặc sử dụng ArrayList nếu không cần tính năng của JavaFX
         }
-
+        if(filteredList == null){
+            filteredList=entityList;
+        }
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
-
         indexColumn.setCellValueFactory(cellData -> {
             int currentPageIndex = pagination.getCurrentPageIndex();
             int rowIndex = tableView.getItems().indexOf(cellData.getValue());

@@ -422,14 +422,6 @@
                   <Insets left="750.0" top="785.0" />
                </StackPane.margin>
             </Label>
-            <TextField fx:id="statusText" layoutX="760.0" layoutY="725.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <StackPane.margin>
-                  <Insets left="750.0" top="815.0" />
-               </StackPane.margin>
-            </TextField>
             <ImageView fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
                <image>
                   <Image url="@../image/Avatar.png" />
@@ -484,6 +476,14 @@
                   </DropShadow>
                </effect>
             </Button>
+            <TextField fx:id="statusText" layoutX="760.0" layoutY="725.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets left="750.0" top="815.0" />
+               </StackPane.margin>
+            </TextField>
          </children>
       </StackPane>
 

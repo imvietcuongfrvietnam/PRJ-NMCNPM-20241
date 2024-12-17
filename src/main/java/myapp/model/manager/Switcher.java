@@ -123,4 +123,7 @@ public class Switcher {
     public void goListOfApartmentPage(Event event, BaseController baseController) throws IOException {
         this.switchToPage(event, "ListOfApartments.fxml", baseController);
     }
+    public void goListOfVehiclePage(Event event, BaseController mainController) throws IOException {
+        this.switchToPage(event, "ListOfVehicles.fxml", mainController);
+    }
 }

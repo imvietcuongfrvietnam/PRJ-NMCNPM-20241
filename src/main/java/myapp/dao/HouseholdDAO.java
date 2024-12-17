@@ -42,7 +42,7 @@ public class HouseholdDAO extends BaseDAO {
      */
     public static HouseHold getHouseHoldByApartmentID(String apartmentID) {
         HouseHold houseHold = null;
-        String query = "SELECT MaHoGiaDinh, NgayChuyenVao, NgayChuyenRa FROM hogiadinh WHERE MaCanHo = ?";
+        String query = "SELECT MaHoGiaDinh, NgayChuyenVao, NgayChuyenRa FROM hogiadinh WHERE MaPhongThue = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -74,7 +74,7 @@ public class HouseholdDAO extends BaseDAO {
      * @param trangThai Trạng thái hộ gia đình.
      */
     public static void insertHousehold(String maHoGiaDinh, String maPhongThue, Date ngayChuyenVao, String soCMNDChuHo, String trangThai) {
-        String sql = "INSERT INTO hogiadinh (maHoGiaDinh, maPhongThue, ngayChuyenVao, soCMNDChuHo, trangThai) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO hogiadinh (MaHoGiaDinh, MaPhongThue, NgayChuyenVao, SoCMNDChuHo, TrangThai) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -97,7 +97,7 @@ public class HouseholdDAO extends BaseDAO {
      * @param entity Đối tượng HouseHold chứa thông tin mới.
      */
     public static void updateByMaHoGiaDinh(HouseHold entity) {
-        String query = "UPDATE hogiadinh SET MaCanHo = ?, NgayChuyenVao = ?, NgayChuyenRa = ?, SoCMNDChuHo = ?, TrangThai = ? WHERE MaHoGiaDinh = ?";
+        String query = "UPDATE hogiadinh SET MaPhongThue = ?, NgayChuyenVao = ?, NgayChuyenRa = ?, SoCMNDChuHo = ?, TrangThai = ? WHERE MaHoGiaDinh = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -117,8 +117,9 @@ public class HouseholdDAO extends BaseDAO {
 
     // Truy vấn danh sách hộ gia đình
     public static ObservableList<HouseHold> getHouseholds() {
+        int count = 0;
         ObservableList<HouseHold> houseHoldsList = FXCollections.observableArrayList();
-        String query = "SELECT MaHoGiaDinh, MaCanHo, NgayChuyenVao, NgayChuyenRa, SoCMNDChuHo, TrangThai FROM hogiadinh";
+        String query = "SELECT MaHoGiaDinh, MaPhongThue, NgayChuyenVao, NgayChuyenRa, SoCMNDChuHo, TrangThai FROM hogiadinh";
 
         try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
@@ -126,19 +127,23 @@ public class HouseholdDAO extends BaseDAO {
             while (resultSet.next()) {
                 houseHoldsList.add(new HouseHold(
                         resultSet.getString("MaHoGiaDinh"),
-                        resultSet.getString("MaCanHo"),
+                        resultSet.getString("MaPhongThue"),
                         resultSet.getDate("NgayChuyenVao"), // java.sql.Date
                         resultSet.getDate("NgayChuyenRa"),  // java.sql.Date
                         resultSet.getString("SoCMNDChuHo"),
                         resultSet.getString("TrangThai")
                 ));
+                System.out.println(count+"\n");
+                count++;
             }
         } catch (SQLException e) {
-            showErrorAlert("Lỗi khi lấy thông tin hộ gia đình", "Có lỗi xảy ra", "Truy vấn cơ sở dữ lệu lấy thông tin bị loi");
+            showErrorAlert("Lỗi khi lấy thông tin hộ gia đình", "Có lỗi xảy ra", "Truy vấn cơ sở dữ lệu lấy thông tin bị lỗi");
+            e.printStackTrace();
         }
         catch (Exception e) {
             showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
         }
         return houseHoldsList;
     }
+
 }

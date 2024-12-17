@@ -32,15 +32,15 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
     @FXML
     private  TableColumn<Vehicle, HBox> operationsColumn;
     @FXML
-    private Button listOfResidentsButton;
+    private Button listOfApartmentsButton;
     @Override
     public void initialize() {
         super.initialize();
-        listOfResidentsButton.setOnAction(
+        listOfApartmentsButton.setOnAction(
                 event -> {
                     Switcher switcher = new Switcher();
                     try {
-                        switcher.goListOfResidentsPage(event, this);
+                        switcher.goListOfApartmentPage(event, this);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
