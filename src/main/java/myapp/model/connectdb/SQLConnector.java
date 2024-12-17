@@ -3,10 +3,7 @@ package myapp.model.connectdb;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import myapp.model.entities.Fee;
-import myapp.model.entities.entitiesdb.Apartment;
-import myapp.model.entities.entitiesdb.HouseHold;
-import myapp.model.entities.entitiesdb.Resident;
-import myapp.model.entities.entitiesdb.Vehicle;
+import myapp.model.entities.entitiesdb.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -155,6 +152,32 @@ public class SQLConnector {
         return feesList;
     }
 
+    // Truy vấn danh sách hóa đơn
+    public static ObservableList<Bill> getBills() {
+        ObservableList<Bill> billsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM quanlyhoadon";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String expDate = formatDate(resultSet.getString("NgayHetHan"));
+                billsList.add(new Bill(
+                        resultSet.getString("MaHoaDon"),
+                        resultSet.getString("TenHoaDon"),
+                        resultSet.getString("MaHoGiaDinh"),
+                        resultSet.getString("TenNhaCungCap"),
+                        resultSet.getString("SoTien"),
+                        expDate,
+                        resultSet.getString("TinhTrang"),
+                        resultSet.getString("GhiChu")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return billsList;
+    }
     // Truy vấn danh sách phương tiện
     public static ObservableList<Vehicle> getVehicles() {
         ObservableList<Vehicle> vehiclesList = FXCollections.observableArrayList();
