@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MainController extends NavigableController {
+public class MainController extends NavigableController{
     @FXML private Label slideshowLabel, sumCostService, sumCostManagement, sumCostVehicle, sumCostContribute;
     @FXML private Button previousButton, nextButton;
     @FXML private BarChart<String, Number> barChart;
@@ -45,7 +45,7 @@ public class MainController extends NavigableController {
     @FXML private DatePicker startDatePicker, endDatePicker;
     @FXML private Label helloText;
     @FXML private Label countTamVang, countTamTru, countResident;
-    private final ObservableList<ContributionFund> contributionFundList = FXCollections.observableArrayList();
+    private  ObservableList<ContributionFund> contributionFundList = FXCollections.observableArrayList();
     private List<Image> images = new ArrayList<>();
     private int currentImageIndex = 0;
     private ImageView imageView;
@@ -62,7 +62,8 @@ public class MainController extends NavigableController {
         for(int i = 1; i <= 5; i++) {
             images.add(new Image(Objects.requireNonNull(getClass().getResource("/image/Slideshow" + i + ".png")).toExternalForm()));
         }
-
+        contributionFundList = ContributionFundDAO.getContributionFund();
+        contributionFundTableView.setItems(contributionFundList);
 
         sumCostService.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
         sumCostManagement.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));

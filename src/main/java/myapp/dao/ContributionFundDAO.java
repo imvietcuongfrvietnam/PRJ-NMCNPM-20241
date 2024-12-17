@@ -1,13 +1,13 @@
 package myapp.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.ContributionFund;
+import myapp.model.entities.entitiesdb.Vehicle;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Lớp ContributionFundDAO cung cấp các phương thức để tương tác với cơ sở dữ liệu liên quan đến quỹ đóng góp.
@@ -89,6 +89,31 @@ public class ContributionFundDAO extends BaseDAO {
         } catch (Exception e) {
             showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
         }
+    }
+
+    public static ObservableList<ContributionFund> getContributionFund() {
+        ObservableList<ContributionFund> contributionFundsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM quydonggop";
+
+        try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                // Lấy dữ liệu từ ResultSet
+                String maQuy = resultSet.getString("MaQuy");
+                String tenQuy = resultSet.getString("TenQuy");
+                String moTa = resultSet.getString("MoTa");
+                BigDecimal soTien = resultSet.getBigDecimal("SoTien");
+                Date ngayBatDau = resultSet.getDate("NgayBatDau");
+                Date ngayKetThuc = resultSet.getDate("NgayKetThuc");
+
+                // Thêm vào danh sách ContributionFund
+                contributionFundsList.add(new ContributionFund(tenQuy, maQuy, soTien, ngayBatDau, ngayKetThuc));
+            }
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Không truy cập được danh sách quỹ", "Lỗi truy cập CSDL", "Không thể truy vấn CSDL lấy danh sách quỹ đóng góp");
+        }
+        return contributionFundsList;
     }
 
 }
