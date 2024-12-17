@@ -24,8 +24,6 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
     @FXML
     private StackPane stackPaneInsertUpdate;
     @FXML
-    private Button addButton, cancelButton, saveButton;
-    @FXML
     private TableColumn<HouseHold, String> houseHoldIDColumn, apartmentIDColumn, moveInDateColumn, moveOutDateColumn, residentIDColumn, statusColumn;
     @FXML
     private TableColumn<HouseHold, HBox> editColumn;
@@ -35,10 +33,6 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
     private DatePicker moveInDate, moveOutDate;
     @FXML
     private ChoiceBox<String> status;
-    @FXML
-    private TableView<Resident> memberTableView;
-    @FXML
-    private TableColumn<Resident, Integer> memberIndexColumn;
     @FXML
     private TableColumn<Resident, String> memberNameColumn, memberGenderColumn, memberBirthdayColumn, memberIDColumn;
     private HouseHold editingHouseHold;

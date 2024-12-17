@@ -57,16 +57,16 @@ public class MainController extends NavigableController {
     @Override
     public void initialize() {
         super.initialize();
-        helloText.setText("Xin chào, "+ LogManager.getUserName());
+        helloText.setText("Xin chào, " + LogManager.getUserName());
         // Tải hình ảnh slideshow
         for(int i = 1; i <= 5; i++) {
             images.add(new Image(Objects.requireNonNull(getClass().getResource("/image/Slideshow" + i + ".png")).toExternalForm()));
         }
 
-        sumCostService.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
-        sumCostManagement.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
-        sumCostVehicle.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
-        sumCostContribute.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí đóng góp")));
+        sumCostService.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
+        sumCostManagement.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
+        sumCostVehicle.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
+        sumCostContribute.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí đóng góp")));
 
         countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm trú")));
 

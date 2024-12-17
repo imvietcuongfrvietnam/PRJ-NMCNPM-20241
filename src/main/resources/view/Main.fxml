@@ -36,7 +36,7 @@
       </Label>
       <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
          <content>
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3365.0" prefWidth="1570.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3790.0" prefWidth="1570.0">
                <children>
                   <Label fx:id="slideshowLabel" layoutX="50.0" layoutY="50.0" prefHeight="530.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
