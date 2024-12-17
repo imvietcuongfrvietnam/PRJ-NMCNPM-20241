@@ -273,7 +273,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameText" layoutX="1400.0" layoutY="665.0" prefHeight="50.0" prefWidth="420.0" promptText="Tên đăng nhập">
+      <TextField fx:id="usernameText" layoutX="1400.0" layoutY="665.0" prefHeight="50.0" prefWidth="420.0">
          <font>
             <Font size="20.0" />
          </font>
@@ -283,12 +283,12 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField fx:id="passwordText" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0" promptText="Mật khẩu">
+      <TextField fx:id="passwordText" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0">
          <font>
             <Font size="20.0" />
          </font>
       </TextField>
-      <PasswordField fx:id="passwordField" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0" promptText="Mật khẩu">
+      <PasswordField fx:id="passwordField" layoutX="1400.0" layoutY="775.0" prefHeight="50.0" prefWidth="420.0">
          <font>
             <Font size="20.0" />
          </font>
