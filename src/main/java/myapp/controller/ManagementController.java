@@ -88,7 +88,6 @@ abstract class ManagementController<T> extends NavigableController {
         });
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterEntities());
-        tableView.setItems(entityList);
         tableView.setStyle("-fx-font-size: 20px;");
         pagination.setPageFactory(this::createPage);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
@@ -128,17 +127,33 @@ abstract class ManagementController<T> extends NavigableController {
      */
     protected void updatePagination(ObservableList<T> filteredList) {
         this.filteredList = filteredList;
+
+        // Cập nhật số trang
+        int totalPages = (filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE;
+        pagination.setPageCount(totalPages);
+
+        // Cấu hình phân trang
         pagination.setPageFactory(pageIndex -> {
+            if (filteredList.isEmpty() || pageIndex >= totalPages || pageIndex < 0) {
+                // Xử lý trường hợp danh sách trống hoặc chỉ số trang không hợp lệ
+                tableView.setItems(FXCollections.emptyObservableList());
+                return tableView;
+            }
+
             int fromIndex = pageIndex * ROWS_PER_PAGE;
             int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
-            ObservableList<T> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
 
-            tableView.setItems(pageData);
+            if (fromIndex >= filteredList.size()) {
+                // Xử lý khi fromIndex vượt quá kích thước danh sách
+                tableView.setItems(FXCollections.emptyObservableList());
+            } else {
+                ObservableList<T> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
+                tableView.setItems(pageData);
+            }
             return tableView;
         });
-
-        pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
+
 
     /**
      * Xóa các trường dữ liệu trong giao diện nhập liệu.

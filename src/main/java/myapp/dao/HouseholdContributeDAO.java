@@ -3,10 +3,7 @@ package myapp.dao;
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.HouseholdsContribute;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class HouseholdContributeDAO extends BaseDAO {
 
@@ -69,4 +66,5 @@ public class HouseholdContributeDAO extends BaseDAO {
             showErrorAlert("Lỗi Không Xác Định", "Lỗi không xác định", "Có lỗi xảy ra: " + e.getMessage());
         }
     }
+
 }

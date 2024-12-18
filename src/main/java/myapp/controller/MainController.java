@@ -68,7 +68,7 @@ public class MainController extends NavigableController{
         sumCostService.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
         sumCostManagement.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
         sumCostVehicle.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
-        sumCostContribute.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí đóng góp")));
+        sumCostContribute.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Các khoản đóng góp")));
 
         countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm trú")));
 

@@ -70,11 +70,11 @@ public class VehicleManagementDAO {
                 Date endDate = resultSet.getDate("NgayKetThuc");
 
                 vehiclesList.add(new Vehicle(
-                        resultSet.getString("MaHoGiaDinh"),
+                        resultSet.getString("MaHo"),
                         resultSet.getString("LoaiPhuongTien"),
                         resultSet.getString("BienSo"),
                        startDate, endDate,
-                        resultSet.getString("GhiChu")
+                        resultSet.getString("ThongTinBoSung")
                 ));
             }
         } catch (SQLException e) {
