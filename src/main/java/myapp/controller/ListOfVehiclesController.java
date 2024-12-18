@@ -12,20 +12,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import myapp.dao.ApartmentDAO;
-import myapp.dao.HouseholdDAO;
-import myapp.dao.ResidentDAO;
-import myapp.dao.VehicleManagementDAO;
-import myapp.model.entities.entitiesdb.Apartment;
-import myapp.model.entities.entitiesdb.HouseHold;
-import myapp.model.entities.entitiesdb.Resident;
+import myapp.dao.VehicleDAO;
 import myapp.model.entities.entitiesdb.Vehicle;
 import myapp.model.manager.FormatDatePresent;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class ListOfVehiclesController extends ManagementController<Vehicle>{
@@ -52,7 +45,6 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
     @FXML
     private Button listOfApartmentsButton;
     private Vehicle editEntity;
-    private Vehicle edittingVehicle;
     @Override
     public void initialize() {
         super.initialize();
@@ -66,7 +58,7 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
                     }
                 }
         );
-        entityList = VehicleManagementDAO.getVehicles();
+        entityList = VehicleDAO.getVehicles();
         filteredList = FXCollections.observableArrayList(entityList);
         houseHoldIDColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("houseHoldID"));
         vehicleTypeColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("vehicleType"));
@@ -80,6 +72,8 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterVehicles());
         pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         tableView.setItems(entityList);
+        pagination.setPageFactory(this::createPage);
+
 
     }
 
@@ -90,17 +84,48 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
 
     @Override
     protected void clearFields() {
-
+        houseHoldIDText.clear();
+        vehicleTypeText.clear();
+        licensePlateText.clear();
+        apartmentIDText.clear();
+        endDate.setValue(null);
+        startDate.setValue(null);
+        vehicleTableView.setItems(null);
     }
 
     @Override
     protected void save() {
+        editEntity = null;
+        // Lấy thông tin từ các trường nhập liệu
+        String idHousehold = houseHoldIDText.getText();
+        String vehicleType = vehicleTypeText.getText();
+        Date start = Date.valueOf(startDate.getValue());
+        Date end = Date.valueOf(endDate.getValue());
+        String bienSo = licensePlateText.getText();
+        String note = noteText.getText();  // Ghi chú được lưu vào ThongTinBoSung
 
+        // Kiểm tra tất cả các trường không rỗng
+        if (idHousehold != null && !idHousehold.isEmpty() &&
+                vehicleType != null && !vehicleType.isEmpty() &&
+                bienSo != null && !bienSo.isEmpty() &&
+                start != null && end != null) {
+
+            // Tạo đối tượng Vehicle với các giá trị đã nhập
+            Vehicle vehicle = new Vehicle(idHousehold, vehicleType, bienSo, start, end, note);
+
+            // Lưu thông tin xe vào cơ sở dữ liệu
+            VehicleDAO.insertVehicleManagement(vehicle);
+        } else {
+           Alert alert = new Alert(Alert.AlertType.WARNING);
+           alert.setContentText("Chưa điền đủ thông tin!");
+        }
     }
+
 
     @Override
     protected void cancel() {
-
+        clearFields();
+        stackPaneInsertUpdate.setVisible(false);
     }
 
     @Override
@@ -150,12 +175,39 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         return hbox;
     }
 
-    private void viewEntities(Vehicle value) {
+    private void viewEntities(Vehicle vehicle) {
+        // Set information for viewing
+        houseHoldIDText.setText(vehicle.getHouseHoldID());
+        String apartmentID = ApartmentDAO.getApartmentIDHouseholdID(vehicle.getHouseHoldID());
+        apartmentIDText.setText(apartmentID);
+        addressText.setText("Chung cư BlueMoon"); // You can modify this if needed
+        vehicleTypeText.setText(vehicle.getVehicleType());
+        licensePlateText.setText(vehicle.getLicensePlate());
+        noteText.setText(vehicle.getNote());
+        startDate.setValue(vehicle.getStartDate().toLocalDate());
+        endDate.setValue(vehicle.getEndDate().toLocalDate());
+
+        // Make all fields non-editable
+        stackPaneInsertUpdate.setVisible(false); // Hide the insert/update stack pane
+        houseHoldIDText.setEditable(false);
+        apartmentIDText.setEditable(false);
+        vehicleTypeText.setEditable(false);
+        licensePlateText.setEditable(false);
+        noteText.setEditable(false);
+        startDate.setMouseTransparent(true); // Disable date editing
+        endDate.setMouseTransparent(true); // Disable date editing
+        saveButton.setVisible(false); // Hide save button
+        cancelButton.setStyle("-fx-background-color: #F2F2F2; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal;");
+
+        // If you want to update the table or perform other actions for viewing, you can add them here
+        updateVehicleTable(vehicle); // Show the table with vehicle data, if needed
     }
 
+
     private void editEntities(Vehicle vehicle) {
-        edittingVehicle = vehicle;
-        //Set information
+        editEntity = vehicle;
+
+        // Set information
         houseHoldIDText.setText(vehicle.getHouseHoldID());
         String apartmentID = ApartmentDAO.getApartmentIDHouseholdID(vehicle.getHouseHoldID());
         apartmentIDText.setText(apartmentID);
@@ -166,25 +218,51 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         startDate.setValue(vehicle.getStartDate().toLocalDate());
         endDate.setValue(vehicle.getEndDate().toLocalDate());
 
-        //Editable vehicles
+        // Make fields editable
         stackPaneInsertUpdate.setVisible(true);
-        houseHoldIDText.setEditable(false);
-        apartmentIDText.setEditable(false);
-        vehicleTypeText.setEditable(true);
-        licensePlateText.setEditable(true);
-        noteText.setEditable(true);
-        startDate.setMouseTransparent(false);
-        endDate.setMouseTransparent(false);
-        saveButton.setVisible(true);
+        houseHoldIDText.setEditable(false); // ID fields should not be editable
+        apartmentIDText.setEditable(false); // Apartment ID should not be editable
+        vehicleTypeText.setEditable(true); // Make vehicle type editable
+        licensePlateText.setEditable(true); // Make license plate editable
+        noteText.setEditable(true); // Make note editable
+        startDate.setMouseTransparent(false); // Enable date picker
+        endDate.setMouseTransparent(false); // Enable date picker
+        saveButton.setVisible(true); // Show save button
         cancelButton.setStyle("-fx-background-color: #F2F2F2; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal;");
 
-        updateVehicleTable(vehicle);
-        //Show table view about vehicles owned by that household
+        // Get updated input values from the UI
+        String vehicleType = vehicleTypeText.getText();
+        String licensePlate = licensePlateText.getText();
+        String note = noteText.getText();  // Note is used for ThongTinBoSung
+        Date start = Date.valueOf(startDate.getValue());
+        Date end = Date.valueOf(endDate.getValue());
 
+        // Validate fields before updating
+        if (vehicleType != null && !vehicleType.isEmpty() &&
+                licensePlate != null && !licensePlate.isEmpty() &&
+                start != null && end != null) {
+
+            // Update the vehicle object with the new values
+            vehicle.setVehicleType(vehicleType);
+            vehicle.setLicensePlate(licensePlate);
+            vehicle.setNote(note);
+            vehicle.setStartDate(start);
+            vehicle.setEndDate(end);
+
+            // Update the vehicle in the database
+            VehicleDAO.updateVehicleManagement(vehicle);
+            updateVehicleTable(vehicle); // Refresh the table to show updated data
+        } else {
+            // Show alert if any required fields are empty
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Chưa điền đủ thông tin!");
+            alert.show(); // Make sure to show the alert
+        }
     }
+
     private void updateVehicleTable(Vehicle vehicle) {
         // Lấy danh sách Vehicle từ DAO
-        ObservableList<Vehicle> members = VehicleManagementDAO.getVehiclesByHouseholdID(vehicle.getHouseHoldID());
+        ObservableList<Vehicle> members = VehicleDAO.getVehiclesByHouseholdID(vehicle.getHouseHoldID());
 
         // Cập nhật cột chỉ số (index) của thành viên trong gia đình
         IndexColumn.setCellValueFactory(cellData -> {
@@ -232,7 +310,7 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         entityList.remove(vehicle);
         tableView.refresh();
         updatePagination(entityList);
-        VehicleManagementDAO.deleteVehicle(vehicle.getLicensePlate());
+        VehicleDAO.deleteVehicle(vehicle.getLicensePlate());
     }
 
     // Phương thức kết hợp tìm kiếm và lọc dữ liệu

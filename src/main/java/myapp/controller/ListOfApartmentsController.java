@@ -10,48 +10,51 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import myapp.dao.ApartmentDAO;
 import myapp.dao.HouseholdDAO;
 import myapp.dao.ResidentDAO;
 import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
+import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.Objects;
+import java.time.format.DateTimeFormatter;
 
 public class ListOfApartmentsController extends ManagementController<Apartment> {
-    @FXML
-    private TableColumn<Apartment, Integer> floorColumn, areaColumn;
-    @FXML
-    private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
-    @FXML
-    private TableColumn<Apartment, String> houseHoldIDColumn;
-    @FXML
-    private TextField apartmentIDText, floorText, areaText, residentNameText, residentIDText, houseHoldIDText;
-    @FXML
-    private TextArea noteText;
-    @FXML
-    private DatePicker moveInDate, moveOutDate;
-    @FXML
-    private ChoiceBox<String> status;
+    @FXML private StackPane stackPaneInsertUpdate;
+    @FXML private Button addButton, cancelButton, saveButton, listOfVehiclesButton;
+    @FXML private TableView<Apartment> tableView;
+    @FXML private TableColumn<Apartment, Integer>  floorColumn, areaColumn;
+    @FXML private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
+    @FXML private TableColumn<Apartment, String> houseHoldIDColumn;
+    @FXML private TableColumn<Apartment, HBox> operationsColumn;
+    @FXML private Pagination pagination;
+    @FXML private TextField apartmentIDText, floorText, areaText, residentNameText, residentIDText, houseHoldIDText;
+    @FXML private TextArea noteText;
+    @FXML private DatePicker moveInDate, moveOutDate;
+    @FXML private ChoiceBox<String> status;
+
+    private ObservableList<Apartment> apartmentsList;
     private Apartment editingApartment;
-    @FXML
-    private Button listOfVehiclesButton;
+    private final Switcher switcher = new Switcher();
 
     @Override
     public void initialize() {
-        super.initialize();
-        entityList = ApartmentDAO.getApartments();
+        apartmentsList = ApartmentDAO.getApartments();
 
         // Lựa chọn cho ChoiceBox status
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sử dụng", "Chưa sử dụng");
         status.setItems(statusOptions);
         status.setValue("Đang sử dụng");
 
+        // Cập nhật số thứ tự trong bảng HouseHold
+        indexColumn.setCellValueFactory(cellData -> {
+            int currentPageIndex = pagination.getCurrentPageIndex();
+            int rowIndex = tableView.getItems().indexOf(cellData.getValue());
+            return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
+        });
 
         // Thiết lập các cột trong bảng HouseHold
         apartmentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApartmentID()));
@@ -76,6 +79,17 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
             HBox hbox = createViewEditDeleteButtons(param);
             return new SimpleObjectProperty<>(hbox);
         });
+
+        // Cập nhật bảng Apartment
+        tableView.setItems(apartmentsList);
+        tableView.setStyle("-fx-font-size: 20px;");
+        pagination.setPageFactory(this::createPage);
+        pagination.setPageCount(5);
+        pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-font-size: 25;");
+
+        addButton.setOnAction(actionEvent -> add());
+        cancelButton.setOnAction(actionEvent -> cancel());
+        saveButton.setOnAction(actionEvent -> save());
         listOfVehiclesButton.setOnAction(event -> {
             try {
                 switcher.goListOfVehiclePage(event, this);
@@ -83,8 +97,6 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
                 throw new RuntimeException(e);
             }
         });
-        tableView.setItems(entityList);
-        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     @Override
@@ -104,7 +116,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         Button viewButton = new Button();
         viewButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #0070C0; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         viewButton.setGraphic(viewImageView);
-        viewButton.setOnAction(event -> viewEntities(param.getValue()));
+        viewButton.setOnAction(event -> viewApartment(param.getValue()));
 
         // Thêm nút sửa
         ImageView editImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Edit.png")));
@@ -114,23 +126,23 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         Button editButton = new Button();
         editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #00B050; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         editButton.setGraphic(editImageView);
-        editButton.setOnAction(event -> editEntities(param.getValue()));
+        editButton.setOnAction(event -> editHouseHold(param.getValue()));
 
         // Thêm nút xóa
-        ImageView deleteImageView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/image/Delete.png"))));
+        ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Delete.png")));
         deleteImageView.setFitWidth(40);
         deleteImageView.setFitHeight(40);
         deleteImageView.setPreserveRatio(false);
         Button deleteButton = new Button();
         deleteButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #FF0000; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         deleteButton.setGraphic(deleteImageView);
-        deleteButton.setOnAction(event -> deleteEntities(param.getValue()));
+        deleteButton.setOnAction(event -> deleteHouseHold(param.getValue()));
 
         hbox.getChildren().addAll(viewButton, editButton, deleteButton);
         return hbox;
     }
 
-    private void viewEntities(Apartment apartment) {
+    private void viewApartment(Apartment apartment) {
         editingApartment = apartment;
         apartmentIDText.setText(apartment.getApartmentID());
         floorText.setText(String.valueOf(apartment.getFloor()));
@@ -138,15 +150,13 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
 
         HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
+            // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
             if (houseHold.getMoveInDate() != null) {
-                LocalDate moveInLocalDate = houseHold.getMoveInDate().toLocalDate();
-                moveInDate.setValue(moveInLocalDate);
+                moveInDate.setValue(houseHold.getMoveInDate().toLocalDate());
             }
             if (houseHold.getMoveOutDate() != null) {
-                LocalDate moveOutLocalDate = houseHold.getMoveOutDate().toLocalDate();
-                moveOutDate.setValue(moveOutLocalDate);
+                moveOutDate.setValue(houseHold.getMoveOutDate().toLocalDate());
             }
-
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
@@ -159,6 +169,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         noteText.setText(apartment.getNote());
 
 
+        // Tắt khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ xem
         moveInDate.setMouseTransparent(true);
         moveOutDate.setMouseTransparent(true);
         status.setMouseTransparent(true);
@@ -172,7 +183,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
 
         stackPaneInsertUpdate.setVisible(true);
     }
-    private void editEntities(Apartment apartment) {
+    private void editHouseHold(Apartment apartment) {
         editingApartment = apartment;
         apartmentIDText.setText(apartment.getApartmentID());
         floorText.setText(String.valueOf(apartment.getFloor()));
@@ -180,14 +191,11 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
 
         HouseHold houseHold = HouseholdDAO.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
-            // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
             if (houseHold.getMoveInDate() != null) {
-                LocalDate moveInLocalDate = houseHold.getMoveInDate().toLocalDate();
-                moveInDate.setValue(moveInLocalDate);
+                moveInDate.setValue(houseHold.getMoveInDate().toLocalDate());
             }
             if (houseHold.getMoveOutDate() != null) {
-                LocalDate moveOutLocalDate = houseHold.getMoveOutDate().toLocalDate();
-                moveOutDate.setValue(moveOutLocalDate);
+                moveOutDate.setValue(houseHold.getMoveOutDate().toLocalDate());
             }
 
             houseHoldIDText.setText(houseHold.getHouseHoldID());
@@ -216,29 +224,50 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
 
         stackPaneInsertUpdate.setVisible(true);
     }
-    private void updatePagination() {
-        pagination.setPageFactory(this::createPage);
-        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
+
+    private void deleteHouseHold(Apartment apartment) {
+        apartmentsList.remove(apartment);
         tableView.refresh();
+        updatePagination();
     }
     @Override
+    public TableView<Apartment> createPage(int pageIndex) {
+        int fromIndex = pageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, apartmentsList.size());
+        ObservableList<Apartment> pageData = FXCollections.observableArrayList(apartmentsList.subList(fromIndex, toIndex));
+        tableView.setItems(pageData);
+
+        indexColumn.setCellValueFactory(cellData -> {
+            int rowIndex = pageData.indexOf(cellData.getValue());
+            return new SimpleObjectProperty<>((pageIndex * ROWS_PER_PAGE) + rowIndex + 1);
+        });
+
+        return tableView;
+    }
+
+    private void updatePagination() {
+        pagination.setPageFactory(this::createPage);
+        pagination.setPageCount((apartmentsList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
+        tableView.refresh();
+    }
+
     public void add() {
         editingApartment = null;
         clearFields();
         stackPaneInsertUpdate.setVisible(true);
     }
-    @Override
+
     public void cancel() {
         clearFields();
         stackPaneInsertUpdate.setVisible(false);
     }
-    @Override
+
     public void save() {
         String apartmentID = apartmentIDText.getText();
         Integer floor = Integer.valueOf(floorText.getText());
         Integer area = Integer.valueOf(areaText.getText());
-        Date moveInDateValue = Date.valueOf(moveInDate.getValue());
-        Date moveOutDateValue = Date.valueOf(moveOutDate.getValue());
+        String moveInDateValue = moveInDate.getValue() != null ? moveInDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+        String moveOutDateValue = moveOutDate.getValue() != null ? moveOutDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
         String statusValue = status.getValue();
         String residentName = residentNameText.getText();
         String residentID = residentIDText.getText();
@@ -253,14 +282,14 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
             editingApartment.setNote(note);
         } else {
             Apartment newApartment = new Apartment(apartmentID, floor, area, statusValue, note);
-            entityList.add(newApartment);
+            apartmentsList.add(newApartment);
         }
 
         stackPaneInsertUpdate.setVisible(false);
         updatePagination();
     }
     @Override
-    protected void clearFields() {
+    public void clearFields() {
         apartmentIDText.clear();
         floorText.clear();
         areaText.clear();
@@ -271,4 +300,6 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         residentIDText.clear();
         houseHoldIDText.clear();
     }
+
+
 }

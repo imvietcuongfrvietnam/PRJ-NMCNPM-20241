@@ -52,112 +52,64 @@
                   </Label>
                   <Button fx:id="previousButton" layoutX="62.5" layoutY="290.0" mnemonicParsing="false" onAction="#showPreviousImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 25; -fx-background-color: rgba(255, 255, 255, 0.25); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-radius: 25; -fx-border-width: 2.5;" />
                   <Button fx:id="nextButton" layoutX="1457.5" layoutY="290.0" mnemonicParsing="false" onAction="#showNextImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 25; -fx-background-color: rgba(255, 255, 255, 0.25); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-radius: 25; -fx-border-width: 2.5;" />
-                  <Label layoutX="50.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="50.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="150.0" layoutY="655.0" text="Phí dịch vụ" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sumCostService" layoutX="75.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="sumCostService" alignment="CENTER" layoutX="65.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
-                  <Label layoutX="75.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="430.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="430.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="529.0" layoutY="655.0" text="Phí quản lý" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sumCostManagement" layoutX="455.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="sumCostManagement" alignment="CENTER" layoutX="445.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
-                  <Label layoutX="455.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="810.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="810.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="916.0" layoutY="655.0" text="Phí gửi xe" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sumCostVehicle" layoutX="835.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="sumCostVehicle" alignment="CENTER" layoutX="825.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
-                  <Label layoutX="835.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="1190.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="1190.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="1233.5" layoutY="655.0" text="Các khoản đóng góp" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label fx:id="sumCostContribute" layoutX="1215.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="sumCostContribute" alignment="CENTER" layoutX="1205.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="1215.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
                   <Label layoutX="50.0" layoutY="880.0" prefHeight="820.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
@@ -654,6 +606,26 @@
                   <Label fx:id="countTamVang" alignment="CENTER" layoutX="1270.0" layoutY="3575.0" prefWidth="150.0" text="1000" textFill="#ff914d">
                      <font>
                         <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="65.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="445.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="825.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="1205.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
                      </font>
                   </Label>
                </children>

@@ -65,14 +65,14 @@ public class MainController extends NavigableController{
         contributionFundList = ContributionFundDAO.getContributionFund();
         contributionFundTableView.setItems(contributionFundList);
 
-        sumCostService.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
-        sumCostManagement.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
-        sumCostVehicle.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
-        sumCostContribute.setText("Số tiền: " + safeToString(PaymentHistoryDAO.getTotalFeeByType("Các khoản đóng góp")));
+        sumCostService.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí dịch vụ")));
+        sumCostManagement.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí quản lý")));
+        sumCostVehicle.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Phí gửi xe")));
+        sumCostContribute.setText(safeToString(PaymentHistoryDAO.getTotalFeeByType("Các khoản đóng góp")));
 
         countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm trú")));
 
-        countTamVang.setText(String.valueOf(ResidentDAO.countByType("T?m v?ng")));
+        countTamVang.setText(String.valueOf(ResidentDAO.countByType("Tạm vắng")));
         countResident.setText(String.valueOf(ResidentDAO.getResidents().size()));
 
 

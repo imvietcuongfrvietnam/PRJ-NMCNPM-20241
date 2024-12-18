@@ -89,7 +89,6 @@ abstract class ManagementController<T> extends NavigableController {
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterEntities());
         tableView.setStyle("-fx-font-size: 20px;");
-        pagination.setPageFactory(this::createPage);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
     }
 

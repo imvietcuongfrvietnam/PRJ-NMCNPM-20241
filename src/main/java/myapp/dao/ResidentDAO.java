@@ -177,7 +177,7 @@ public class ResidentDAO {
                 + "nt.NgheNghiep, nt.DanToc, nt.QuocTich, nt.TrinhDoHocVan, nt.TrangThai, nt.ThongTinBoSung, nt.MaHoGiaDinh "
                 + "FROM nguoithue nt "
                 + "JOIN hogiadinh hgd ON nt.MaHoGiaDinh = hgd.MaHoGiaDinh "
-                + "WHERE hgd.MaCanHo = ?";
+                + "WHERE hgd.MaPhongThue = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -323,28 +323,7 @@ public class ResidentDAO {
     }
 
     public static void deleteResident(Resident resident) {
-        String query = "DELETE FROM nguoithue WHERE SoCMND = ?";
-        try (Connection connection = SQLConnector.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            // Gán giá trị cho tham số SoCMND
-            preparedStatement.setString(1, resident.getIDcard());
-
-            // Thực thi câu lệnh DELETE
-            int rowsAffected = preparedStatement.executeUpdate();
-
-            // Kiểm tra kết quả
-            if (rowsAffected > 0) {
-                System.out.println("Xóa người thuê thành công!");
-            } else {
-                System.out.println("Không tìm thấy người thuê với CMND: " + resident.getIDcard());
-            }
-
-        } catch (SQLException e) {
-            BaseDAO.showErrorAlert("Lỗi xóa người thuê", "Không thể xóa người thuê", "Lỗi SQL: " + e.getMessage());
-        } catch (Exception e) {
-            BaseDAO.showErrorAlert("Lỗi xóa người thuê", "Không thể xóa người thuê", "Có lỗi xảy ra: " + e.getMessage());
-        }
+       ResidentDAO.deleteBySoCMND(resident.getIDcard());
     }
     public static ObservableList<Resident> getResidentByHouseholdID(HouseHold houseHold) {
         ObservableList<Resident> residentsList = FXCollections.observableArrayList();

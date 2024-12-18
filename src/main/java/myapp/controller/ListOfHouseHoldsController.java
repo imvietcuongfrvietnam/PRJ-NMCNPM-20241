@@ -53,13 +53,29 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sinh sống", "Đã rời đi");
         status.setItems(statusOptions);
         status.setValue("Đang sinh sống");
-
+        if(filteredList == null) filteredList = entityList;
 
         // Thiết lập các cột
         houseHoldIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getHouseHoldID()));
         apartmentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApartmentID()));
-        moveInDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(formatDate(cellData.getValue().getMoveInDate())));
-        moveOutDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(formatDate(cellData.getValue().getMoveOutDate())));
+        moveInDateColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() == null || cellData.getValue().getMoveInDate() == null) {
+                // Trả về ngày xa nhất (ngày cuối của java.sql.Date)
+                return new SimpleStringProperty("9999-12-31");
+            } else {
+                return new SimpleStringProperty(cellData.getValue().getMoveInDate().toString());
+            }
+        });
+
+        moveOutDateColumn.setCellValueFactory(cellData -> {
+            if (cellData.getValue() == null || cellData.getValue().getMoveOutDate() == null) {
+                // Trả về ngày xa nhất (ngày cuối của java.sql.Date)
+                return new SimpleStringProperty("9999-12-31");
+            } else {
+                return new SimpleStringProperty(cellData.getValue().getMoveInDate().toString());
+            }
+        });
+
         residentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getResidentID()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
 
@@ -80,6 +96,8 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
                 throw new RuntimeException(e);
             }
         });
+        pagination.setPageFactory(this::createPage);
+
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<HouseHold, HBox> param) {
@@ -123,10 +141,6 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
     protected void filterEntities() {
     }
 
-    private String formatDate(Date date) {
-        return date != null ? date.toLocalDate().format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "31/12/9999";
-    }
-
     private Date parseDate(LocalDate localDate) {
         return localDate != null ? Date.valueOf(localDate) : null;
     }
@@ -137,8 +151,10 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
         houseHoldIDText.setText(houseHold.getHouseHoldID());
         apartmentIDText.setText(houseHold.getApartmentID());
         addressText.setText("Chung cư BlueMoon");
-        moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate().toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate().toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+
+        // Kiểm tra nếu moveInDate hoặc moveOutDate là null, thì sử dụng LocalDate.MAX
+        moveInDate.setValue(houseHold.getMoveInDate() != null ? houseHold.getMoveInDate().toLocalDate() : null);
+        moveOutDate.setValue(houseHold.getMoveOutDate() != null ? houseHold.getMoveOutDate().toLocalDate() : null);
 
         String residentName = ResidentDAO.getResidentNameByResidentID(houseHold.getResidentID());
         String residentPhone = ResidentDAO.getResidentPhoneByResidentID(houseHold.getResidentID());
@@ -165,13 +181,14 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
 
         stackPaneInsertUpdate.setVisible(true);
     }
+
     private void editHouseHold(HouseHold houseHold) {
         editingHouseHold = houseHold;
         houseHoldIDText.setText(houseHold.getHouseHoldID());
         apartmentIDText.setText(houseHold.getApartmentID());
         addressText.setText("Chung cư BlueMoon");
-        moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate().toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-        moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate().toString(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        moveInDate.setValue(houseHold.getMoveInDate() != null ? houseHold.getMoveInDate().toLocalDate() : null);
+        moveOutDate.setValue(houseHold.getMoveOutDate() != null ? houseHold.getMoveOutDate().toLocalDate() : null);
 
         String residentName = ResidentDAO.getResidentNameByResidentID(houseHold.getResidentID());
         String residentPhone = ResidentDAO.getResidentPhoneByResidentID(houseHold.getResidentID());

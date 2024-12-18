@@ -66,6 +66,7 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         saveButton.setOnAction(event -> {
             save();
         });
+        pagination.setPageFactory(this::createPage);
         pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         tableView.setItems(entityList);
     }
@@ -357,6 +358,20 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         additionalInfoText.clear();
     }
 
+    @Override
+    protected TableView<Resident> createPage(int pageIndex) {
+        int fromIndex = pageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
+        ObservableList<Resident> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
+        tableView.setItems(pageData);
+
+        indexColumn.setCellValueFactory(cellData -> {
+            int rowIndex = pageData.indexOf(cellData.getValue());
+            return new SimpleObjectProperty<>((pageIndex * ROWS_PER_PAGE) + rowIndex + 1);
+        });
+
+        return tableView;
+    }
     private void switchToListOfHouseHold(Event event) {
         try {
             switcher.goListOfHouseholdPage(event,this); // Gọi phương thức chuyển cảnh
