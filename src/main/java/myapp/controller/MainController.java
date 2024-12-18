@@ -80,7 +80,7 @@ public class MainController extends NavigableController{
         feeService.setText(safeToString(UnitPriceDAO.getByType("Dịch vụ")));
         feeManagement.setText(safeToString(UnitPriceDAO.getByType("Quản lý")));
         feeXM.setText(safeToString(ParkingFeeDAO.getFeeByType("Xe máy")));
-        feeOT.setText(safeToString(ParkingFeeDAO.getFeeByType("Ô tô")));
+        feeOT.setText(safeToString(ParkingFeeDAO.getFeeByType("Xe ô tô")));
 
         // Thiết lập hình ảnh slideshow ban đầu
         imageView = createImageView(images.get(currentImageIndex), 1470, 530, 30, 30);

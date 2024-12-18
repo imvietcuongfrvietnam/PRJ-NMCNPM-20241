@@ -92,12 +92,12 @@ public class LogInController implements BaseController {
         visibilityButton.setOnAction(event -> passwordVisibility());
         saveSignInButton.setOnAction(event -> {
             if (saveSignInButton.isSelected()){
-               if (logManager.savePassword(usernameText.getText(), passwordField.getText())){
+                if (logManager.savePassword(usernameText.getText(), passwordField.getText())){
                     alertLabel.setText("Saved log in information!.");
                 }
                 else{
-                   alertLabel.setText("Something have wrong.");
-               }
+                    alertLabel.setText("Something have wrong.");
+                }
             }
         });
         forgotPasswordButton.setOnAction(event -> {
@@ -107,7 +107,7 @@ public class LogInController implements BaseController {
                         throw new RuntimeException(e);
                     }
                 }
-                );
+        );
     }
 
     /**

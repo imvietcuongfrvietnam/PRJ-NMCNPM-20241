@@ -99,4 +99,30 @@ public class ApartmentDAO extends BaseDAO {
         }
         return apartmentsList;
     }
+    public static String getApartmentIDHouseholdID(String householdID) {
+        String apartmentID = null; // Giá trị mặc định nếu không tìm thấy
+        String query = "SELECT MaPhongThue FROM hogiadinh WHERE MaHoGiaDinh = ?";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            if (connection == null) {
+                throw new SQLException("Không thể kết nối tới cơ sở dữ liệu");
+            }
+
+            statement.setString(1, householdID);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) { // Nếu tìm thấy bản ghi
+                    apartmentID = resultSet.getString("MaPhongThue");
+                }
+            }
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Không thể lấy mã phòng thuê", "Lỗi truy vấn CSDL", e.getMessage());
+            e.printStackTrace();
+        }
+
+        return apartmentID;
+    }
+
+
 }

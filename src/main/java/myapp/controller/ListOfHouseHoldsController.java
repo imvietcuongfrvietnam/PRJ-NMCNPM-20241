@@ -152,6 +152,7 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
 
         stackPaneInsertUpdate.setVisible(false);
         updatePagination(filteredList);
+
     }
     @Override
     protected void clearFields() {

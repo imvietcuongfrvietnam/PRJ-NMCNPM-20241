@@ -82,19 +82,19 @@ public class LogManager {
      * Thông tin được lưu trữ trong tệp `savepassword.json`.
      */
     public boolean savePassword(String username, String password) {
-            ObjectMapper mapper = new ObjectMapper();
-            ObjectNode userNode = mapper.createObjectNode();
-            userNode.put("username", username);
-            userNode.put("password", password);
-            try {
-                File file = new File("src/main/resources/logs/savepassword.json");
-                mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
-                return true;
-            } catch (IOException e) {
-                e.printStackTrace();
-             return false;
-            }
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode userNode = mapper.createObjectNode();
+        userNode.put("username", username);
+        userNode.put("password", password);
+        try {
+            File file = new File("src/main/resources/logs/savepassword.json");
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, userNode);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
         }
+    }
     /**
      * Đọc thông tin người dùng từ file JSON và trả về đối tượng UserInformation.
      *

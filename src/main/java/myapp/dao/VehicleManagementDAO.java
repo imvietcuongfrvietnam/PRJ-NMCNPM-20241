@@ -83,4 +83,37 @@ public class VehicleManagementDAO {
         return vehiclesList;
     }
 
+    public static ObservableList<Vehicle> getVehiclesByHouseholdID(String householdID) {
+        ObservableList<Vehicle> vehiclesList = FXCollections.observableArrayList();
+        String query = "SELECT qlx.LoaiPhuongTien, qlx.BienSo, qlx.NgayBatDau, qlx.NgayKetThuc, hgd.MaHoGiaDinh, qlx.GhiChu " +
+                "FROM quanlyxe qlx JOIN hogiadinh hgd ON qlx.MaHo = hgd.MaHoGiaDinh " +
+                "WHERE qlx.MaHo = ?";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            if (connection == null) {
+                throw new SQLException("Không thể kết nối tới cơ sở dữ liệu");
+            }
+            statement.setString(1, householdID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Date startDate = resultSet.getDate("NgayBatDau");
+                    Date endDate = resultSet.getDate("NgayKetThuc");
+
+                    vehiclesList.add(new Vehicle(
+                            resultSet.getString("MaHoGiaDinh"),
+                            resultSet.getString("LoaiPhuongTien"),
+                            resultSet.getString("BienSo"),
+                            startDate, endDate,
+                            resultSet.getString("GhiChu")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Không truy cập được danh sách xe", "Lỗi truy cập CSDL", e.getMessage());
+            e.printStackTrace();
+        }
+        return vehiclesList;
+    }
+
 }
