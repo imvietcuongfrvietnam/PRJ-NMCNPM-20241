@@ -45,11 +45,10 @@ public class Main extends Application {
                 // Nếu luồng JavaFX kết thúc
                 Platform.runLater(() -> {
                     System.out.println("JavaFX thread has stopped.");
-                    UserAccountDAO.logoutSuccessfully(new LogManager().readUserCredentials().getUsername());
                 });
 
             } catch (InterruptedException e) {
-
+                UserAccountDAO.logoutSuccessfully(new LogManager().readUserCredentials().getUsername());
             }
         });
 

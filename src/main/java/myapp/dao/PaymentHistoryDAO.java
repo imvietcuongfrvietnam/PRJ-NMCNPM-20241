@@ -110,7 +110,7 @@ public class PaymentHistoryDAO {
 
     public static Number getTotalFeeByTypeAndQuarter(String phiDichVu, int quarter, int year) {
         // Sử dụng DATEPART để tính toán quý thay vì QUARTER
-        String query = "SELECT COUNT(*) FROM lichsuthuphi WHERE LoaiPhiThanhToan = ? AND YEAR(NgayDong) = ? AND DATEPART(QUARTER, NgayDong) = ?";
+        String query = "SELECT SUM(SoTienDaDong) FROM lichsuthuphi WHERE LoaiPhiThanhToan = ? AND YEAR(NgayDong) = ? AND DATEPART(QUARTER, NgayDong) = ?";
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
