@@ -2,6 +2,8 @@ package myapp.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import myapp.dao.UserAccountDAO;
+import myapp.model.manager.LogManager;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
@@ -25,7 +27,14 @@ abstract class NavigableController implements BaseController {
         homePageButton.setOnAction(event -> navigateSafely(() -> switcher.goHomePage(event, this)));
 
         // Gán hành động điều hướng đến trang đăng nhập
-        logOutButton.setOnAction(event -> navigateSafely(() -> switcher.goLogInPage(event, this)));
+        logOutButton.setOnAction(event -> {
+            // Gọi phương thức logoutSuccessfully
+            UserAccountDAO.logoutSuccessfully(new LogManager().readUserCredentials().getUsername());
+
+            // Sau đó chuyển trang
+            navigateSafely(() -> switcher.goLogInPage(event, this));
+        });
+
 
         // Gán hành động điều hướng đến trang quản lý cư dân
         residentManagementButton.setOnAction(event -> navigateSafely(() -> switcher.goListOfResidentsPage(event, this)));

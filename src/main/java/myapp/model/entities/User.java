@@ -11,7 +11,6 @@ public class User {
         this.password = password;
     }
 
-    // Getter và Setter
     public String getUserId() {
         return userId;
     }

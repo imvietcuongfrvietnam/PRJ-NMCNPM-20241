@@ -7,6 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import myapp.dao.UserAccountDAO;
+import myapp.model.manager.LogManager;
 
 public class Main extends Application {
 
@@ -43,6 +45,7 @@ public class Main extends Application {
                 // Nếu luồng JavaFX kết thúc
                 Platform.runLater(() -> {
                     System.out.println("JavaFX thread has stopped.");
+                    UserAccountDAO.logoutSuccessfully(new LogManager().readUserCredentials().getUsername());
                 });
 
             } catch (InterruptedException e) {

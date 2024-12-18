@@ -2,6 +2,7 @@ package myapp.dao;
 
 import myapp.db.SQLConnector;
 import myapp.model.entities.entitiesdb.UserAccount;
+import myapp.model.entities.entitiessystem.UserCredentials;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -287,4 +288,55 @@ public class UserAccountDAO {
             BaseDAO.showErrorAlert("Lỗi Cập Nhật Mật Khẩu", "Có lỗi xảy ra khi cập nhật mật khẩu", "Lỗi: " + e.getMessage());
         }
     }
+    public static void loginSuccessfully(String username){
+        String query = "UPDATE taikhoannguoidung SET TinhTrang = 1 WHERE TenDangNhap = ?";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật trạng thái", "Không thể cập nhật trạng thái", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật trạng thái", "Có lỗi xảy ra khi cập nhật trạng thái", "Lỗi: " + e.getMessage());
+        }
+    }
+    public static void logoutSuccessfully(String username){
+        String query = "UPDATE taikhoannguoidung SET TinhTrang = 0 WHERE TenDangNhap = ?";
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật trạng thái", "Không thể cập nhật trạng thái", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật trạng thái", "Có lỗi xảy ra khi cập nhật trạng thái", "Lỗi: " + e.getMessage());
+        }
+    }
+    public static int checkTinhTrang(String username) {
+        String query = "SELECT TinhTrang FROM taikhoannguoidung WHERE TenDangNhap = ?";
+        int tinhTrang = -1; // Giá trị mặc định nếu không tìm thấy TinhTrang
+
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                // Kiểm tra xem có kết quả trả về không
+                if (resultSet.next()) {
+                    tinhTrang = resultSet.getInt("TinhTrang"); // Lấy giá trị của cột TinhTrang
+                }
+            }
+        } catch (SQLException e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật trạng thái", "Không thể cập nhật trạng thái", "Lỗi SQL: " + e.getMessage());
+        } catch (Exception e) {
+            BaseDAO.showErrorAlert("Lỗi Cập Nhật trạng thái", "Có lỗi xảy ra khi cập nhật trạng thái", "Lỗi: " + e.getMessage());
+        }
+
+        return tinhTrang; // Trả về giá trị TinhTrang hoặc -1 nếu không tìm thấy
+    }
+
 }

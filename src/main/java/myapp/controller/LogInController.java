@@ -72,7 +72,16 @@ public class LogInController implements BaseController {
                     else {
                         alertLabel.setText("Something went wrong.");
                     }
-                    new Switcher().goHomePage(event, this);
+                    if(UserAccountDAO.checkTinhTrang(username) == -1){
+                        alertLabel.setText("No account FOUND in database.");
+                    }
+                    else if(UserAccountDAO.checkTinhTrang(username) == 1){
+                        alertLabel.setText("Your account has been log in.");
+                    }
+                    else {
+                        new Switcher().goHomePage(event, this);
+                        UserAccountDAO.loginSuccessfully(username);
+                    }
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -133,7 +142,11 @@ public class LogInController implements BaseController {
      * @return True nếu thông tin khớp với cơ sở dữ liệu, ngược lại trả về False.
      */
     private boolean validateCredentials(String username, String password) {
-        return UserAccountDAO.selectByUsername(username).equals(password);
+        String storedPassword = UserAccountDAO.selectByUsername(username);
+        if (storedPassword == null) {
+            return false; // Không tìm thấy người dùng hoặc mật khẩu
+        }
+        return storedPassword.equals(password);
     }
 
 
