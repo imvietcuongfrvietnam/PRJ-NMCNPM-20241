@@ -98,7 +98,15 @@ public class ForgotPasswordController implements BaseController {
 
         sendBackButton.setOnAction(e -> sendVerificationCode());
 
-        saveButton.setOnAction(e -> saveNewPassword());
+        saveButton.setOnAction(e -> {
+            saveNewPassword();
+                    try {
+                        new Switcher().goLogInPage(e, this);
+                    } catch (IOException ex) {
+                        new Alert(Alert.AlertType.INFORMATION).setContentText("Lỗi chuyển giao diện từ ForgotPassword về Log In");
+                    }
+                }
+        );
 
         setupAutoFocusForCodeFields();
     }
