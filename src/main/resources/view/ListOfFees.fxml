@@ -60,7 +60,7 @@
                 </ImageView>
             </children>
         </StackPane>
-        <Button fx:id="feeButton" alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí dịch vụ" textFill="#0070c0">
+        <Button alignment="CENTER" layoutX="400.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="175.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí dịch vụ" textFill="#0070c0">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
@@ -198,7 +198,7 @@
                 <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
             </children>
         </StackPane>
-      <Button fx:id="addButton" alignment="CENTER" layoutX="1107.0" layoutY="123.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Thêm mới" textFill="WHITE">
+      <Button fx:id="addButton" alignment="CENTER" layoutX="1115.0" layoutY="50.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Thêm mới" textFill="WHITE">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>

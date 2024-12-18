@@ -9,7 +9,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import myapp.db.SQLConnector;
 import myapp.model.entities.Fee;
+import myapp.model.manager.Switcher;
 
+import java.io.IOException;
 import java.sql.Date;
 
 public class ListOfFeesController extends ManagementController<Fee> {
@@ -19,6 +21,8 @@ public class ListOfFeesController extends ManagementController<Fee> {
     private TableColumn<Fee, Date> expDateColumn;
     @FXML
     private ChoiceBox<String> feeNameChoiceBox, statusChoiceBox;
+    @FXML
+    private Button billButton;
 
     @Override
     public void initialize() {
@@ -70,6 +74,16 @@ public class ListOfFeesController extends ManagementController<Fee> {
         statusChoiceBox.setValue("Trạng thái");
         statusChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> filterFees());
 
+        billButton.setOnAction(
+                event -> {
+                    Switcher switcher = new Switcher();
+                    try {
+                        switcher.goBillManagementPage(event, this);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
     }
 
     @Override

@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import myapp.dao.BillDAO;
 import myapp.model.entities.entitiesdb.Bill;
+import myapp.model.manager.Switcher;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -19,24 +20,21 @@ import java.time.format.DateTimeParseException;
 
 public class ListOfBillsController extends ManagementController<Bill> {
 
-    @FXML private TableColumn<Bill, String> houseHoldIDColumn, billNameColumn, billIDColumn, amountColumn, statusColumn, noteColumn;
-    @FXML private TableColumn<Bill, Date> expDateColumn;
-
-    @FXML private ChoiceBox<String> billNameChoiceBox, statusChoiceBox;
+    @FXML
+    private TableColumn<Bill, String> houseHoldIDColumn, billNameColumn, billIDColumn, amountColumn, statusColumn, noteColumn;
+    @FXML
+    private TableColumn<Bill, Date> expDateColumn;
+    @FXML
+    private ChoiceBox<String> billNameChoiceBox, statusChoiceBox;
+    @FXML
+    private  Button feeButton;
     @Override
     public void initialize() {
         super.initialize();
         entityList = BillDAO.getBills();
         filteredList = FXCollections.observableArrayList(entityList);
 
-        // Cập nhật số thứ tự trong bảng Fee
-        indexColumn.setCellValueFactory(cellData -> {
-            int currentPageIndex = pagination.getCurrentPageIndex();
-            int rowIndex = tableView.getItems().indexOf(cellData.getValue());
-            return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
-        });
-
-        // Thiết lập các cột trong bảng Fee
+        // Thiết lập các cột trong bảng Bill
         houseHoldIDColumn.setCellValueFactory(new PropertyValueFactory<Bill, String>("houseHoldID"));
         billNameColumn.setCellValueFactory(new PropertyValueFactory<Bill, String>("billName"));
         billIDColumn.setCellValueFactory(new PropertyValueFactory<Bill, String>("billID"));
@@ -80,6 +78,17 @@ public class ListOfBillsController extends ManagementController<Bill> {
         statusChoiceBox.setItems(FXCollections.observableArrayList("Trạng thái", "Đã thanh toán", "Chưa thanh toán"));
         statusChoiceBox.setValue("Trạng thái");
         statusChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> filterBills());
+
+        feeButton.setOnAction(
+                event -> {
+                    Switcher switcher = new Switcher();
+                    try {
+                        switcher.goFeeManagementPage(event, this);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+        );
     }
 
     private void filterBills() {

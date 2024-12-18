@@ -58,7 +58,7 @@ abstract class NavigableController implements BaseController {
      * Functional interface đại diện cho một hành động điều hướng có thể ném ngoại lệ.
      */
     @FunctionalInterface
-    private interface NavigationAction {
+    protected interface NavigationAction {
         void execute() throws IOException;
     }
 

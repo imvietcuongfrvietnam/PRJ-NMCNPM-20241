@@ -57,5 +57,4 @@ public class SQLConnector {
         }
         return feesList;
     }
-
 }

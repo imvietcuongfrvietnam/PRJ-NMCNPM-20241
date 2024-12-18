@@ -8,10 +8,12 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -64,7 +66,7 @@
             </font>
         </Button>
         <Line endX="180.0" layoutX="600.0" layoutY="200.0" stroke="#0070c0" strokeWidth="2.5" />
-        <Button fx:id="billButton" alignment="CENTER" layoutX="600.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí hóa đơn" textFill="#0070c0">
+        <Button alignment="CENTER" layoutX="600.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="180.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Phí hóa đơn" textFill="#0070c0">
             <font>
                 <Font name="System Bold" size="25.0" />
             </font>
@@ -74,7 +76,7 @@
         <Line endX="1570.0" layoutX="350.0" layoutY="200.0" stroke="#7f7f7f" />
         <StackPane layoutX="25.0" layoutY="200.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
+                <Button fx:id="homePageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -91,7 +93,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="275.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Danh sách cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+                <Button fx:id="residentManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý dân cư" textFill="#002060" StackPane.alignment="CENTER_LEFT">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -108,7 +110,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="350.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+                <Button fx:id="feeManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -125,7 +127,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="425.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
+                <Button fx:id="generalManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -143,7 +145,7 @@
         <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
         <StackPane layoutX="25.0" layoutY="860.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
+                <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -160,7 +162,7 @@
         </StackPane>
         <StackPane layoutX="25.0" layoutY="935.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
+                <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
@@ -196,5 +198,27 @@
                 <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
             </children>
         </StackPane>
+        <Button fx:id="addButton" alignment="CENTER" layoutX="1115.0" layoutY="50.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Thêm mới" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="25.0" />
+            </font>
+            <effect>
+                <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                    <color>
+                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                    </color>
+                </DropShadow>
+            </effect>
+        </Button>
+        <Button fx:id="cancelButton" layoutX="25.0" layoutY="525.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="137.5" text="cancel" visible="false">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Button>
+        <Button fx:id="saveButton" layoutX="187.5" layoutY="525.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="137.5" text="save" visible="false">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Button>
     </children>
 </AnchorPane>
