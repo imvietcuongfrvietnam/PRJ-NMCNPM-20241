@@ -78,6 +78,9 @@ public class ListOfVehiclesController extends ManagementController<Vehicle>{
         noteColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("note"));
         operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createViewEditDeleteButtons(param)));
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterVehicles());
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
+        tableView.setItems(entityList);
+
     }
 
     @Override

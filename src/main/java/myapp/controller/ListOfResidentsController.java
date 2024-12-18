@@ -66,6 +66,7 @@ public class ListOfResidentsController extends ManagementController<Resident>{
         saveButton.setOnAction(event -> {
             save();
         });
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Resident, HBox> param) {

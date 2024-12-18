@@ -89,6 +89,8 @@ public class ListOfBillsController extends ManagementController<Bill> {
                     }
                 }
         );
+        tableView.setItems(entityList);
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     private void filterBills() {

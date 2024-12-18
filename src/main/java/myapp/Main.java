@@ -48,7 +48,6 @@ public class Main extends Application {
                 });
 
             } catch (InterruptedException e) {
-                UserAccountDAO.logoutSuccessfully(new LogManager().readUserCredentials().getUsername());
             }
         });
 

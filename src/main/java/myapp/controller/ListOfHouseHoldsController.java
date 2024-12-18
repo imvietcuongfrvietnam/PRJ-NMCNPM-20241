@@ -62,6 +62,7 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
         tableView.setItems(entityList);
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     @Override

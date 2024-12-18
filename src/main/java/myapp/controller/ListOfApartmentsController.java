@@ -83,6 +83,8 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
                 throw new RuntimeException(e);
             }
         });
+        tableView.setItems(entityList);
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     @Override

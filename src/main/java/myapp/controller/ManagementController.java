@@ -91,7 +91,6 @@ abstract class ManagementController<T> extends NavigableController {
         tableView.setItems(entityList);
         tableView.setStyle("-fx-font-size: 20px;");
         pagination.setPageFactory(this::createPage);
-        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
     }
 

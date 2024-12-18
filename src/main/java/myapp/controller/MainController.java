@@ -241,10 +241,10 @@ public class MainController extends NavigableController{
         ObservableList<XYChart.Series<String, Number>> barChartData = FXCollections.observableArrayList();
         XYChart.Series<String, Number> dataSeries = new XYChart.Series<>();
         dataSeries.setName("Chi phí cho quý " + quarter + " năm " + year);
-        dataSeries.getData().add(new XYChart.Data<>("Phí dịch vụ", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí d?ch v?", quarter, year)));
-        dataSeries.getData().add(new XYChart.Data<>("Phí quản lý", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí qu?n lý", quarter, year)));
-        dataSeries.getData().add(new XYChart.Data<>("Phí gửi xe", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí g?i xe", quarter, year)));
-        dataSeries.getData().add(new XYChart.Data<>("Các khoản đóng góp", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Các kho?n dóng góp", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Phí dịch vụ", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí dịch vụ", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Phí quản lý", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí quản lý", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Phí gửi xe", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Phí gửi xe", quarter, year)));
+        dataSeries.getData().add(new XYChart.Data<>("Các khoản đóng góp", PaymentHistoryDAO.getTotalFeeByTypeAndQuarter("Các khoản đóng góp", quarter, year)));
         barChartData.add(dataSeries);
         barChart.setData(barChartData);
     }

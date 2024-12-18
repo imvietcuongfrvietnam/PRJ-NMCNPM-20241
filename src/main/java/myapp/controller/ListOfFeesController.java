@@ -84,6 +84,9 @@ public class ListOfFeesController extends ManagementController<Fee> {
                     }
                 }
         );
+        tableView.setItems(entityList);
+
+        pagination.setPageCount((entityList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     @Override
