@@ -37,6 +37,7 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
     @Override
     public void initialize() {
         entityList = HouseholdDAO.getHouseholds();
+        System.out.println("Fetched households: " + entityList.size());
 
         // Lựa chọn cho ChoiceBox status
         ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sinh sống", "Đã rời đi");
@@ -60,6 +61,7 @@ public class ListOfHouseHoldsController extends ManagementController<HouseHold> 
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
+        tableView.setItems(entityList);
     }
 
     @Override

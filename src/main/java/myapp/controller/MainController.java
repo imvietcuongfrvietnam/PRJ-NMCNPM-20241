@@ -72,7 +72,7 @@ public class MainController extends NavigableController{
 
         countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm trú")));
 
-        countTamTru.setText(String.valueOf(ResidentDAO.countByType("Tạm vắng")));
+        countTamVang.setText(String.valueOf(ResidentDAO.countByType("T?m v?ng")));
         countResident.setText(String.valueOf(ResidentDAO.getResidents().size()));
 
 
