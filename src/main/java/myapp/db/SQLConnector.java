@@ -36,7 +36,7 @@ public class SQLConnector {
 
     public static ObservableList<Fee> getFees() {
         ObservableList<Fee> feesList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM hoadondichvu";
+        String query = "SELECT * FROM quanlykhoanphi";
 
         try (PreparedStatement statement = SQLConnector.getConnection().prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
