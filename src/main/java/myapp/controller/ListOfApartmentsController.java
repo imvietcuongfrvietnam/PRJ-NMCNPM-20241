@@ -229,6 +229,7 @@ public class ListOfApartmentsController extends ManagementController<Apartment> 
         apartmentsList.remove(apartment);
         tableView.refresh();
         updatePagination();
+
     }
     @Override
     public TableView<Apartment> createPage(int pageIndex) {

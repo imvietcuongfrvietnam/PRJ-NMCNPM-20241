@@ -244,11 +244,11 @@ public class ListOfResidentsController extends ManagementController<Resident>{
     }
 
 
-    private void deleteResident(Resident resident) {
+    private void deleteResident(Resident resident)  {
         entityList.remove(resident);
         tableView.refresh();
-        updatePagination(entityList);
         ResidentDAO.deleteResident(resident);
+        updatePagination(entityList);
     }
     @Override
     public void filterEntities() {
@@ -335,12 +335,35 @@ public class ListOfResidentsController extends ManagementController<Resident>{
             stackPaneInsertUpdate.setVisible(false);
             clearFields();
         } else {
+            // Xóa đối tượng Resident cũ dựa trên số CMND
+            ResidentDAO.deleteBySoCMND(idcard);
+
+// Tạo đối tượng Resident mới
             Resident newResident = new Resident(name, gender, birthday, idcard, hometown, phone, occupation, ethnicity, nationality, education, status, additionalInfo, houseHoldID);
+
+// Thêm Resident vào danh sách
             entityList.add(newResident);
-            ResidentDAO.updateBySoCMND(newResident);
+
+// Chèn thông tin Resident vào cơ sở dữ liệu
+            ResidentDAO.insertResident(
+                    idcard,
+                    gender,
+                    birthday,
+                    hometown,
+                    name,
+                    occupation,  // Nghề nghiệp
+                    status,      // Trạng thái
+                    ethnicity,   // Dân tộc
+                    nationality, // Quốc tịch
+                    education,   // Trình độ học vấn
+                    additionalInfo, // Thông tin bổ sung
+                    houseHoldID // Mã hộ gia đình
+            );
+
         }
             stackPaneInsertUpdate.setVisible(false);
             clearFields();
+        updatePagination(entityList);
         }
     @Override
     protected void clearFields() {

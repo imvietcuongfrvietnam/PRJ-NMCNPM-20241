@@ -53,7 +53,7 @@ public class ListOfFeesController extends ManagementController<Fee> {
                         statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(0, 255, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
                     } else if ("Chưa thanh toán".equals(status)) {
                         statusLabel.setText("Chưa thanh toán");
-                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Bold; -fx-alignment: center;");
+                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
                     }
                     statusLabel.setPadding(new Insets(5));
                     setGraphic(statusLabel);
@@ -67,7 +67,7 @@ public class ListOfFeesController extends ManagementController<Fee> {
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterFees());
 
-        feeNameChoiceBox.setItems(FXCollections.observableArrayList("Tên khoản phí", "Phí dịch vụ chung cư", "Phí gửi xe máy", "Phí gửi ô tô", "Phí quản lý chung cư"));
+        feeNameChoiceBox.setItems(FXCollections.observableArrayList("Tên khoản phí", "Phí dịch vụ", "Phí gửi xe", "Phí quản lý"));
         feeNameChoiceBox.setValue("Tên khoản phí");
         feeNameChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> filterFees());
         statusChoiceBox.setItems(FXCollections.observableArrayList("Trạng thái", "Đã thanh toán", "Chưa thanh toán"));

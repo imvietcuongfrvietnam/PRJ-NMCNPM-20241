@@ -97,13 +97,13 @@ public class SettingController extends NavigableController {
         hometownText.setEditable(isEditable);
         addressText.setEditable(isEditable);
         usernameText.setEditable(isEditable);
-        birthdayText.setDisable(!isEditable);
+        birthdayText.setMouseTransparent(!isEditable);
 
         passwordField.setDisable(!isEditable);
         passwordText.setEditable(isEditable);
 
-        maleButton.setDisable(!isEditable);
-        femaleButton.setDisable(!isEditable);
+        maleButton.setMouseTransparent(!isEditable);
+        femaleButton.setMouseTransparent(!isEditable);
         editPhotoButton.setDisable(!isEditable);
     }
 

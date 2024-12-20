@@ -192,7 +192,7 @@
         </StackPane>
         <StackPane layoutX="400.0" layoutY="250.0" prefHeight="735.0" prefWidth="1470.0">
             <children>
-                <TableView fx:id="tableView" editable="true" fixedCellSize="60.75" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-border-radius: 10;" StackPane.alignment="TOP_CENTER">
+                <TableView fx:id="tableView" editable="true" fixedCellSize="60.5" maxHeight="-Infinity" prefHeight="660.0" prefWidth="1470.0" style="-fx-font-size: 20; -fx-background-radius: 10; -fx-border-radius: 10;" StackPane.alignment="TOP_CENTER">
                     <columns>
                         <TableColumn fx:id="indexColumn" maxWidth="80.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="STT" />
                         <TableColumn fx:id="apartmentIDColumn" maxWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã căn hộ" />

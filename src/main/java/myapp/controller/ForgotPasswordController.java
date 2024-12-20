@@ -2,10 +2,7 @@ package myapp.controller;
 
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
@@ -99,7 +96,7 @@ public class ForgotPasswordController implements BaseController {
         sendBackButton.setOnAction(e -> sendVerificationCode());
 
         saveButton.setOnAction(e -> {
-            saveNewPassword();
+            saveNewPassword(email, newPasswordText, reenterPasswordText);
                     try {
                         new Switcher().goLogInPage(e, this);
                     } catch (IOException ex) {
@@ -193,7 +190,7 @@ public class ForgotPasswordController implements BaseController {
      * Lưu mật khẩu mới nếu hợp lệ, sau khi kiểm tra các tiêu chí và xác minh sự khớp nhau của mật khẩu.
      * Cập nhật mật khẩu trong cơ sở dữ liệu qua DAO.
      */
-    private void saveNewPassword() {
+    private void saveNewPassword(String email, TextField newPasswordText, TextField reenterPasswordText) {
         String newPassword = newPasswordText.getText();
         String reenteredPassword = reenterPasswordText.getText();
         if (!isStrongPassword(newPassword)) {

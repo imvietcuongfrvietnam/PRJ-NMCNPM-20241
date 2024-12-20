@@ -2,9 +2,11 @@ package myapp.controller;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -57,11 +59,14 @@ public class MainController extends NavigableController{
     @Override
     public void initialize() {
         super.initialize();
-        helloText.setText("Xin chào, " + LogManager.getUserName());
+
         // Tải hình ảnh slideshow
-        for(int i = 1; i <= 5; i++) {
-            images.add(new Image(Objects.requireNonNull(getClass().getResource("/image/Slideshow" + i + ".png")).toExternalForm()));
-        }
+        new Thread(() -> {
+            String userName = Objects.requireNonNull(LogManager.getUserName(), "Tên người dùng không được null");
+            // Cập nhật giao diện từ luồng JavaFX
+            Platform.runLater(() -> helloText.setText("Xin chào, " + userName));
+        }).start();
+       loadImagesInBackground();
         contributionFundList = ContributionFundDAO.getContributionFund();
         contributionFundTableView.setItems(contributionFundList);
 
@@ -82,16 +87,7 @@ public class MainController extends NavigableController{
         feeXM.setText(safeToString(ParkingFeeDAO.getFeeByType("Xe máy")));
         feeOT.setText(safeToString(ParkingFeeDAO.getFeeByType("Xe ô tô")));
 
-        // Thiết lập hình ảnh slideshow ban đầu
-        imageView = createImageView(images.get(currentImageIndex), 1470, 530, 30, 30);
-        slideshowLabel.setGraphic(imageView);
 
-        // Thiết lập nút điều hướng cho slideshow
-        setButtonGraphics(previousButton, "/image/Back.png");
-        setButtonGraphics(nextButton, "/image/Next.png");
-
-        previousButton.setOnAction(e -> showPreviousImage());
-        nextButton.setOnAction(e -> showNextImage());
 
         // Tự động chuyển đổi hình ảnh mỗi 3 giây
         Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> showNextImage()));
@@ -384,5 +380,51 @@ public class MainController extends NavigableController{
         return (value != null) ? value.toString() : "0";
     }
 
+    public void loadImagesInBackground() {
+        Task<Void> loadImagesTask = new Task<>() {
+            @Override
+            protected Void call() {
+                try {
+                    // Tạo danh sách ảnh
+                    List<Image> loadedImages = new ArrayList<>();
+
+                    // Tải ảnh vào danh sách trong background thread
+                    for (int i = 1; i <= 5; i++) {
+                        Image image = new Image(Objects.requireNonNull(getClass()
+                                .getResource("/image/Slideshow" + i + ".png")).toExternalForm());
+                        loadedImages.add(image);
+
+                        // Mô phỏng độ trễ (nếu cần)
+                        Thread.sleep(100);
+                    }
+
+                    // Khi tất cả ảnh đã được tải, cập nhật giao diện
+                    Platform.runLater(() -> {
+                        images.addAll(loadedImages);  // Cập nhật danh sách ảnh
+
+                        // Hiển thị ảnh đầu tiên
+                        imageView = createImageView(images.get(currentImageIndex), 1470, 530, 30, 30);
+                        slideshowLabel.setGraphic(imageView);
+
+                        // Thiết lập nút điều hướng cho slideshow
+                        setButtonGraphics(previousButton, "/image/Back.png");
+                        setButtonGraphics(nextButton, "/image/Next.png");
+
+                        // Thiết lập hành động cho các nút
+                        previousButton.setOnAction(e -> showPreviousImage());
+                        nextButton.setOnAction(e -> showNextImage());
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+
+        // Chạy task trên một luồng riêng biệt
+        Thread thread = new Thread(loadImagesTask);
+        thread.setDaemon(true); // Để chương trình không bị chặn khi thoát
+        thread.start();
+    }
 
 }
