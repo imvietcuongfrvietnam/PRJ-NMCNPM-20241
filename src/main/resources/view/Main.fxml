@@ -29,14 +29,14 @@
             <Image url="@../image/Logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="400.0" layoutY="45.0" prefHeight="60.0" text="Xin chào, username" textFill="#002060">
+      <Label fx:id="usernameLabel" layoutX="400.0" layoutY="45.0" prefHeight="60.0" text="Xin chào, username" textFill="#002060">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
       <ScrollPane layoutX="350.0" layoutY="150.0" prefHeight="860.0" prefWidth="1570.0">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3365.0" prefWidth="1570.0">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="3790.0" prefWidth="1570.0">
                <children>
                   <Label fx:id="slideshowLabel" layoutX="50.0" layoutY="50.0" prefHeight="530.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
@@ -52,112 +52,64 @@
                   </Label>
                   <Button fx:id="previousButton" layoutX="62.5" layoutY="290.0" mnemonicParsing="false" onAction="#showPreviousImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 25; -fx-background-color: rgba(255, 255, 255, 0.25); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-radius: 25; -fx-border-width: 2.5;" />
                   <Button fx:id="nextButton" layoutX="1457.5" layoutY="290.0" mnemonicParsing="false" onAction="#showNextImage" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 25; -fx-background-color: rgba(255, 255, 255, 0.25); -fx-border-color: rgba(255, 255, 255, 0.5); -fx-border-radius: 25; -fx-border-width: 2.5;" />
-                  <Label layoutX="50.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="50.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="150.0" layoutY="655.0" text="Phí dịch vụ" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="75.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="totalServiceFee" alignment="CENTER" layoutX="65.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
-                  <Label layoutX="75.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="430.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="430.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="529.0" layoutY="655.0" text="Phí quản lý" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="455.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="totalManagementFee" alignment="CENTER" layoutX="445.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
-                  <Label layoutX="455.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="810.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="810.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="916.0" layoutY="655.0" text="Phí gửi xe" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="835.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="totalParkingFee" alignment="CENTER" layoutX="825.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
-                  <Label layoutX="835.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="1190.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                  <Label layoutX="1190.0" layoutY="630.0" prefHeight="200.0" prefWidth="330.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                           <color>
-                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                           </color>
-                        </DropShadow>
-                     </effect>
                   </Label>
                   <Label layoutX="1233.5" layoutY="655.0" text="Các khoản đóng góp" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="25.0" />
                      </font>
                   </Label>
-                  <Label layoutX="1215.0" layoutY="715.0" prefWidth="280.0" text="Tổng số tiền: " textFill="#002060">
+                  <Label fx:id="totalContributionFund" alignment="CENTER" layoutX="1205.0" layoutY="705.0" prefWidth="300.0" text="100000000" textFill="#ff914d">
                      <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="1215.0" layoutY="770.0" prefWidth="280.0" text="Trạng thái:" textFill="#002060">
-                     <font>
-                        <Font size="20.0" />
+                        <Font name="System Bold" size="50.0" />
                      </font>
                   </Label>
                   <Label layoutX="50.0" layoutY="880.0" prefHeight="820.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
@@ -195,20 +147,20 @@
                      </font>
                   </Button>
                   <BarChart fx:id="barChart" layoutX="100.0" layoutY="1050.0" prefHeight="600.0" prefWidth="1370.0">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" tickLabelFill="#002060" fx:id="xAxis">
+                     <xAxis>
+                        <CategoryAxis side="BOTTOM" tickLabelFill="#002060" fx:id="xAxis">
                            <tickLabelFont>
                               <Font name="System Bold" size="20.0" />
                            </tickLabelFont>
                         </CategoryAxis>
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="#002060" tickLabelGap="5.0" upperBound="1.0E8">
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis fx:id="yAxis" side="LEFT" tickLabelFill="#002060" tickLabelGap="5.0" upperBound="1.0E8">
                            <tickLabelFont>
                               <Font size="20.0" />
                            </tickLabelFont>
                         </NumberAxis>
-                    </yAxis>
+                     </yAxis>
                   </BarChart>
                   <Label layoutX="50.0" layoutY="1750.0" prefHeight="770.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
                      <opaqueInsets>
@@ -222,24 +174,17 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" layoutX="625.0" layoutY="1775.0" prefHeight="60.0" prefWidth="320.0" text="Bảng giá dịch vụ" textFill="#ff914d">
+                  <Label alignment="CENTER" layoutX="461.0" layoutY="1775.0" prefHeight="60.0" text="Bảng giá các loại dịch vụ chung cư" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
                   <StackPane layoutX="100.0" layoutY="1870.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí dịch vụ chung cư" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -257,7 +202,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField1" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="16500" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeServiceText" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="16500" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -273,7 +218,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit1" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeService" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -281,7 +226,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel1" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeService" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -289,7 +234,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save1" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeService" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -301,17 +246,10 @@
                   </StackPane>
                   <StackPane layoutX="810.0" layoutY="1870.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí quản lý chung cư" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -329,7 +267,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField2" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="7000" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeManagementText" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="7000" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -345,7 +283,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit2" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeManagement" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -353,7 +291,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel2" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeManagement" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -361,7 +299,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save2" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeManagement" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -373,17 +311,10 @@
                   </StackPane>
                   <StackPane layoutX="100.0" layoutY="2195.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí gửi xe máy" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -401,7 +332,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField3" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="70000" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeMotorbikeText" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="70000" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -417,7 +348,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit3" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeParkXM" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -425,7 +356,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel3" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeParkXM" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -433,7 +364,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save3" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeParkXM" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -445,17 +376,10 @@
                   </StackPane>
                   <StackPane layoutX="810.0" layoutY="2195.0">
                      <children>
-                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                        <Label prefHeight="275.0" prefWidth="660.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
-                           <effect>
-                              <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                                 <color>
-                                    <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                                 </color>
-                              </DropShadow>
-                           </effect>
                         </Label>
                         <Label text="Phí gửi xe ô tô" textFill="#002060" StackPane.alignment="TOP_LEFT">
                            <font>
@@ -473,7 +397,7 @@
                               <Insets left="25.0" top="102.5" />
                            </StackPane.margin>
                         </Label>
-                        <TextField fx:id="textField4" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="1200000" StackPane.alignment="TOP_LEFT">
+                        <TextField fx:id="feeCarText" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="50.0" prefWidth="505.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="1200000" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -489,7 +413,7 @@
                               <Insets left="25.0" top="150.0" />
                            </StackPane.margin>
                         </Label>
-                        <Button fx:id="edit4" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="editFeeParkOT" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Chỉnh sửa" textFill="WHITE" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -497,7 +421,7 @@
                               <Insets left="485.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="cancel4" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="cancelFeeParkOT" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="105.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Thoát" textFill="#0070c0" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font size="25.0" />
                            </font>
@@ -505,7 +429,7 @@
                               <Insets left="305.0" top="200.0" />
                            </StackPane.margin>
                         </Button>
-                        <Button fx:id="save4" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
+                        <Button fx:id="saveFeeParkOT" alignment="CENTER" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Lưu thông tin" textFill="WHITE" visible="false" StackPane.alignment="TOP_LEFT">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -527,19 +451,20 @@
                         </DropShadow>
                      </effect>
                   </Label>
-                  <Label alignment="CENTER" layoutX="550.0" layoutY="2595.0" prefHeight="60.0" text="Các khoản quỹ đóng góp" textFill="#ff914d">
+                  <Label alignment="CENTER" layoutX="550.0" layoutY="2595.0" prefHeight="60.0" text="Các khoản quỹ đóng góp" textFill="#002060">
                      <font>
                         <Font name="System Bold" size="40.0" />
                      </font>
                   </Label>
                   <TableView fx:id="contributionFundTableView" editable="true" layoutX="100.0" layoutY="2680.0" maxHeight="-Infinity" prefHeight="585.0" prefWidth="825.0">
-                    <columns>
-                      <TableColumn fx:id="indexColumn" prefWidth="75.0" style="-fx-alignment: center; -fx-font-size: 20;" text="STT" />
-                      <TableColumn fx:id="fundNameColumn" prefWidth="200.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Tên quỹ" />
-                        <TableColumn fx:id="fundIDColumn" prefWidth="150.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Mã quỹ" />
-                        <TableColumn fx:id="amountColumn" prefWidth="150.0" style="-fx-font-size: 20; -fx-alignment: center;" text="Số tiền" />
-                        <TableColumn fx:id="periodOfTimeColumn" prefWidth="250.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Đợt thu phí" />
-                    </columns>
+                     <columns>
+                        <TableColumn fx:id="indexColumn" prefWidth="50.0" style="-fx-alignment: center; -fx-font-size: 20;" text="STT" />
+                        <TableColumn fx:id="fundNameColumn" prefWidth="225.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Tên quỹ" />
+                        <TableColumn fx:id="fundIDColumn" prefWidth="125.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Mã quỹ" />
+                        <TableColumn fx:id="amountColumn" prefWidth="125.0" style="-fx-font-size: 20; -fx-alignment: center;" text="Số tiền" />
+                        <TableColumn fx:id="startDateColumn" prefWidth="150.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Ngày bắt đầu" />
+                        <TableColumn fx:id="endDateColumn" prefWidth="150.0" style="-fx-alignment: center; -fx-font-size: 20;" text="Ngày kết thúc" />
+                     </columns>
                   </TableView>
                   <Label layoutX="975.0" layoutY="2680.0" text="Tên quỹ:">
                      <font>
@@ -607,9 +532,106 @@
                         </DropShadow>
                      </effect>
                   </Button>
+                  <Label layoutX="50.0" layoutY="3365.0" prefHeight="375.0" prefWidth="1470.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 15;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
+                           <color>
+                              <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
+                           </color>
+                        </DropShadow>
+                     </effect>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="570.0" layoutY="3390.0" prefHeight="60.0" prefWidth="430.0" text="Bảng thông tin cư dân" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="3490.0" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label layoutX="310.0" layoutY="3515.0" text="Tổng số cư dân" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="125.0" layoutY="3515.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/Residents.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="totalResidents" alignment="CENTER" layoutX="325.0" layoutY="3575.0" prefWidth="150.0" text="1000" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="572.5" layoutY="3490.0" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label layoutX="826.0" layoutY="3515.0" text="Tạm trú" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="597.5" layoutY="3515.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/temporaryResidence.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="temporaryResidents" alignment="CENTER" layoutX="797.5" layoutY="3575.0" prefWidth="150.0" text="1000" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="1045.0" layoutY="3490.0" prefHeight="200.0" prefWidth="425.0" style="-fx-background-color: rgba(0, 112, 192, 0.1); -fx-background-radius: 15; -fx-border-color: #0070C0; -fx-border-radius: 15; -fx-border-width: 2.5;">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </Label>
+                  <Label layoutX="1287.0" layoutY="3515.0" text="Tạm vắng" textFill="#002060">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="150.0" fitWidth="150.0" layoutX="1070.0" layoutY="3515.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/temporaryAbsence.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="absentResidents" alignment="CENTER" layoutX="1270.0" layoutY="3575.0" prefWidth="150.0" text="0" textFill="#ff914d">
+                     <font>
+                        <Font name="System Bold" size="50.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="65.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="445.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="825.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="1205.0" layoutY="780.0" prefWidth="300.0" text="Đơn vị: VND" textFill="#002060">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                </children>
             </AnchorPane>
-        </content>
+         </content>
       </ScrollPane>
       <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="500.0">
          <children>
@@ -634,7 +656,7 @@
       <Line endX="1570.0" layoutX="350.0" layoutY="150.0" stroke="#7f7f7f" />
       <StackPane layoutX="25.0" layoutY="200.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
+            <Button fx:id="homePageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -651,7 +673,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="275.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+            <Button fx:id="residentManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -668,7 +690,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="350.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+            <Button fx:id="feeManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -685,7 +707,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="425.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
+            <Button fx:id="generalManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -701,26 +723,9 @@
          </children>
       </StackPane>
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-      <StackPane layoutX="25.0" layoutY="525.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Thông báo" textFill="#002060">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../image/Notification.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="10.0" />
-               </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
       <StackPane layoutX="25.0" layoutY="860.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt" textFill="#002060">
+            <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -737,7 +742,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="935.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
+            <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

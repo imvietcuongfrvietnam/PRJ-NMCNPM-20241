@@ -9,7 +9,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import myapp.model.communicatedb.update.UserAccountUpdate;
+import myapp.model.manager.Switcher;
 
+import java.io.IOException;
 import java.util.Random;
 
 public class ForgotPasswordController {
@@ -56,6 +59,7 @@ public class ForgotPasswordController {
     private Button saveButton;
 
     private String verificationCode;
+    private final Switcher switcher = new Switcher();
 
     @FXML
     public void initialize() {
@@ -86,14 +90,35 @@ public class ForgotPasswordController {
         saveButton.setOnAction(e -> {
             String newPassword = newPasswordText.getText();
             String reenteredPassword = reenterPasswordText.getText();
+
             if (newPassword.equals(reenteredPassword)) {
-                // Thêm phương thức để lưu mật khẩu mới
+                // Giả sử bạn đã có email từ bước 1 và mật khẩu mới từ giao diện người dùng
+                String email = emailText.getText(); // email người dùng nhập vào
+
+                // Tạo đối tượng UserAccountUpdate và gọi phương thức updatePasswordByEmail
+                UserAccountUpdate userAccountUpdate = new UserAccountUpdate();
+                userAccountUpdate.updatePasswordByEmail(email, newPassword); // Cập nhật mật khẩu mới
+
+                // Hiển thị thông báo thành công
                 notifyLabel.setText("Password has been reset successfully.");
+
+                // Tạo độ trễ 2 giây
+                PauseTransition delay = new PauseTransition(Duration.seconds(2));
+                delay.setOnFinished(event1 -> {
+                    try {
+                        // Sau khi độ trễ, chuyển hướng đến trang đăng nhập
+                        switcher.goLogInPage(e);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                delay.play(); // Bắt đầu độ trễ
             } else {
-                // Thêm phương thức để nhập lại mật khẩu mới
+                // Hiển thị thông báo lỗi nếu mật khẩu không khớp
                 notifyLabel.setText("Passwords do not match. Try again.");
             }
         });
+
 
         setupAutoFocusForCodeFields();
     }
@@ -114,22 +139,22 @@ public class ForgotPasswordController {
                 .append(codeField6.getText());
 
         if (inputCode.toString().equals(verificationCode)) {
-            codeField1.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField2.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField3.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField4.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField5.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
-            codeField6.setStyle("-fx-background-color: rgba(0, 255, 0, 0.75);");
+            codeField1.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
+            codeField2.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
+            codeField3.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
+            codeField4.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
+            codeField5.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
+            codeField6.setStyle("-fx-background-color: rgba(0, 255, 0, 0.5);");
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(e -> showPasswordPane());
             delay.play();
         } else {
-            codeField1.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField2.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField3.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField4.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField5.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
-            codeField6.setStyle("-fx-background-color: rgba(255, 0, 0, 0.75);");
+            codeField1.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+            codeField2.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+            codeField3.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+            codeField4.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+            codeField5.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
+            codeField6.setStyle("-fx-background-color: rgba(255, 0, 0, 0.5);");
         }
     }
 

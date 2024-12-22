@@ -5,23 +5,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import myapp.model.connectdb.SQLConnector;
-import myapp.model.entities.Fee;
 import myapp.model.entities.entitiesdb.Bill;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ResourceBundle;
 
-public class ListOfBillsController implements Initializable {
+public class ListOfBillsController extends BaseController {
+    @FXML private Button addButton, cancelButton, saveButton, listOfFeesButton;
     @FXML private TableView<Bill> billTableView;
     @FXML private TableColumn<Bill, Integer> indexColumn;
     @FXML private TableColumn<Bill, String> houseHoldIDColumn, billNameColumn, billIDColumn, amountColumn, expDateColumn, statusColumn, noteColumn;
@@ -35,10 +32,10 @@ public class ListOfBillsController implements Initializable {
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        super.initialize();
         billsList = SQLConnector.getBills();
         filteredList = FXCollections.observableArrayList(billsList);
-
         // Cập nhật số thứ tự trong bảng Fee
         indexColumn.setCellValueFactory(cellData -> {
             int currentPageIndex = pagination.getCurrentPageIndex();
@@ -101,6 +98,14 @@ public class ListOfBillsController implements Initializable {
         pagination.setPageFactory(this::createPage);
         pagination.setPageCount((billsList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
+
+        listOfFeesButton.setOnAction(event -> {
+            try {
+                switcher.goFeeManagementPage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // Phương thức kết hợp tìm kiếm và lọc dữ liệu

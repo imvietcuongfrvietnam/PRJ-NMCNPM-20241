@@ -12,7 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import myapp.model.connectdb.SQLConnector;
+import myapp.model.entities.entitiesdb.HouseHold;
+import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.entities.entitiesdb.Vehicle;
 import myapp.model.manager.Switcher;
 
@@ -23,21 +26,25 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
-public class ListOfVehiclesController implements Initializable {
+public class ListOfVehiclesController extends BaseController {
+    @FXML private StackPane stackPaneInsertUpdate;
+    @FXML private Button addButton, cancelButton, saveButton, listOfApartmentsButton;
     @FXML private TableView<Vehicle> vehicleTableView;
     @FXML private TableColumn<Vehicle, Integer> indexColumn;
     @FXML private TableColumn<Vehicle, String> houseHoldIDColumn, vehicleTypeColumn, licensePlateColumn, startDateColumn, endDateColumn, noteColumn;
-    @FXML private TableColumn<Vehicle, HBox> deleteVehicleColumn;
+    @FXML private TableColumn<Vehicle, HBox> operationsColumn;
     @FXML private Pagination pagination;
     @FXML private TextField searchText;
 
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<Vehicle> vehiclesList;
     private ObservableList<Vehicle> filteredList;
+    private Vehicle editingVehicle;
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        super.initialize();
         vehiclesList = SQLConnector.getVehicles();
         filteredList = FXCollections.observableArrayList(vehiclesList);
 
@@ -63,7 +70,7 @@ public class ListOfVehiclesController implements Initializable {
             return new SimpleObjectProperty<>(formattedDate);
         });
         noteColumn.setCellValueFactory(new PropertyValueFactory<Vehicle, String>("note"));
-        deleteVehicleColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createDeleteButtons(param)));
+        operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createViewEditDeleteButtons(param)));
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterVehicles());
 
@@ -73,11 +80,43 @@ public class ListOfVehiclesController implements Initializable {
         pagination.setPageFactory(this::createPage);
         pagination.setPageCount((vehiclesList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
+
+        addButton.setOnAction(actionEvent -> add());
+        cancelButton.setOnAction(actionEvent -> cancel());
+        saveButton.setOnAction(actionEvent -> save());
+        listOfApartmentsButton.setOnAction(event -> {
+            try {
+                switcher.goListOfApartmentPage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
-    private HBox createDeleteButtons(TableColumn.CellDataFeatures<Vehicle, HBox> param) {
+    private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Vehicle, HBox> param) {
         HBox hbox = new HBox(10);
         hbox.setAlignment(Pos.CENTER);
+
+        // Thêm nút xem
+        ImageView viewImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/View.png")));
+        viewImageView.setFitWidth(40);
+        viewImageView.setFitHeight(40);
+        viewImageView.setPreserveRatio(false);
+        Button viewButton = new Button();
+        viewButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #0070C0; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
+        viewButton.setGraphic(viewImageView);
+        viewButton.setOnAction(event -> viewVehicle(param.getValue()));
+
+        // Thêm nút sửa
+        ImageView editImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Edit.png")));
+        editImageView.setFitWidth(40);
+        editImageView.setFitHeight(40);
+        editImageView.setPreserveRatio(false);
+        Button editButton = new Button();
+        editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #00B050; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
+        editButton.setGraphic(editImageView);
+        editButton.setOnAction(event -> editVehicle(param.getValue()));
+
         // Thêm nút xóa
         ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Delete.png")));
         deleteImageView.setFitWidth(40);
@@ -88,9 +127,18 @@ public class ListOfVehiclesController implements Initializable {
         deleteButton.setGraphic(deleteImageView);
         deleteButton.setOnAction(event -> deleteVehicle(param.getValue()));
 
-        hbox.getChildren().addAll(deleteButton);
+        hbox.getChildren().addAll(viewButton, editButton, deleteButton);
         return hbox;
     }
+    private void viewVehicle(Vehicle vehicle) {
+        stackPaneInsertUpdate.setVisible(true);
+
+
+    }
+    private void editVehicle(Vehicle vehicle) {
+        stackPaneInsertUpdate.setVisible(true);
+    }
+
     private void deleteVehicle(Vehicle vehicle) {
         vehiclesList.remove(vehicle);
         vehicleTableView.refresh();
@@ -142,7 +190,24 @@ public class ListOfVehiclesController implements Initializable {
         });
         pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
+    public void add() {
+        editingVehicle = null;
+        clearFields();
+        stackPaneInsertUpdate.setVisible(true);
+    }
 
+    public void cancel() {
+        clearFields();
+        stackPaneInsertUpdate.setVisible(false);
+    }
+
+    public void save() {
+        stackPaneInsertUpdate.setVisible(false);
+        updatePagination(vehiclesList);
+    }
+    private void clearFields() {
+
+    }
     // Chuyển đổi ngày thành định dạng dd/MM/yyyy
     private String formatDate(String date) {
         try {
@@ -151,14 +216,6 @@ public class ListOfVehiclesController implements Initializable {
             return LocalDate.parse(date, inputFormatter).format(outputFormatter);
         } catch (DateTimeParseException e) {
             return date;  // Nếu không chuyển đổi được thì trả về ngày gốc
-        }
-    }
-
-    private void switchToListOfHouseHold(Event event) {
-        try {
-            switcher.goListOfHouseholdPage(event);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

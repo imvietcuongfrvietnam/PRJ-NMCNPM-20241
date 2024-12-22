@@ -1,23 +1,26 @@
 package myapp.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import myapp.model.communicatedb.update.UserAccountUpdate;
+import myapp.model.entities.entitiesdb.UserAccount;
+import myapp.model.manager.LogManager;
 
 import java.io.File;
+import java.io.IOException;
+import java.time.LocalDate;
 
-public class SettingController {
+public class SettingController extends BaseController {
     @FXML
-    private Button editProfileButton;
+    private Button cancelButton, saveButton,editPhotoButton, editProfileButton;
     @FXML
-    private TextField nameText;
+    private TextField userIDText, roleText, nameText, idText, phoneText, emailText, hometownText, addressText, usernameText, passwordText;
     @FXML
     private ToggleGroup genderGroup;
     @FXML
@@ -27,46 +30,52 @@ public class SettingController {
     @FXML
     private DatePicker birthdayText;
     @FXML
-    private TextField idText;
-    @FXML
-    private TextField phoneText;
-    @FXML
-    private TextField emailText;
-    @FXML
-    private TextField hometownText;
-    @FXML
-    private TextField addressText;
-    @FXML
     private Circle photoProfile;
     @FXML
-    private Button editPhotoButton;
-    @FXML
-    private TextField usernameText;
-    @FXML
-    private TextField passwordText;
-    @FXML
     private PasswordField passwordField;
-    @FXML
-    private Button cancelButton;
-    @FXML
-    private Button saveButton;
 
     private String passwordBeforeEdit;
     private Image profileImageBeforeEdit;
 
-    @FXML
+    @Override
     public void initialize() {
+        super.initialize();
+
+        userIDText.setText(String.valueOf(LogManager.getUser().getUserID()));
+        roleText.setText(LogManager.getUser().getRole());
+        usernameText.setText(LogManager.getUser().getUsername());
+        passwordText.setText(LogManager.getUser().getPassword());
+        passwordField.setText(LogManager.getUser().getPassword());
+        nameText.setText(LogManager.getUser().getName());
+        for (Toggle toggle : genderGroup.getToggles()) {
+            if (toggle instanceof RadioButton) {
+                RadioButton radioButton = (RadioButton) toggle;
+                if (radioButton.getText().equalsIgnoreCase(LogManager.getUser().getGender())) {
+                    genderGroup.selectToggle(radioButton);
+                    break;
+                }
+            }
+        }
+        birthdayText.setValue(LocalDate.parse(LogManager.getUser().getDateOfBirth()));
+        idText.setText(LogManager.getUser().getIDcard());
+        phoneText.setText(LogManager.getUser().getPhone());
+        emailText.setText(LogManager.getUser().getEmail());
+        hometownText.setText(LogManager.getUser().getHometown());
+        addressText.setText(LogManager.getUser().getAddress());
+
+        userIDText.setEditable(false);
+        roleText.setEditable(false);
+        usernameText.setEditable(false);
+        passwordText.setEditable(false);
         nameText.setEditable(false);
+        maleButton.setMouseTransparent(true);
+        femaleButton.setMouseTransparent(true);
+        birthdayText.setMouseTransparent(true);
         idText.setEditable(false);
         phoneText.setEditable(false);
         emailText.setEditable(false);
         hometownText.setEditable(false);
         addressText.setEditable(false);
-        usernameText.setEditable(false);
-        passwordText.setEditable(false);
-        birthdayText.setMouseTransparent(true);
-        maleButton.setMouseTransparent(true);
-        femaleButton.setMouseTransparent(true);
 
         editProfileButton.setOnAction(e -> editProfile());
         saveButton.setOnAction(e -> saveChanges());
@@ -76,24 +85,22 @@ public class SettingController {
 
     private void editProfile() {
         passwordBeforeEdit = passwordField.getText();
-
-        // Đặt các trường sang chế độ chỉnh sửa
+        userIDText.setEditable(false);
+        roleText.setEditable(true);
+        usernameText.setEditable(true);
+        passwordText.setVisible(true);
+        passwordText.setText(passwordField.getText());
+        passwordText.setEditable(true);
+        passwordField.setVisible(false);
         nameText.setEditable(true);
+        maleButton.setMouseTransparent(false);
+        femaleButton.setMouseTransparent(false);
+        birthdayText.setMouseTransparent(false);
         idText.setEditable(true);
         phoneText.setEditable(true);
         emailText.setEditable(true);
         hometownText.setEditable(true);
         addressText.setEditable(true);
-        usernameText.setEditable(true);
-        passwordField.setEditable(true);
-        passwordText.setEditable(true);
-        birthdayText.setMouseTransparent(false);
-        maleButton.setMouseTransparent(false);
-        femaleButton.setMouseTransparent(false);
-
-        passwordField.setVisible(false);
-        passwordText.setVisible(true);
-        passwordText.setText(passwordField.getText());
 
         saveButton.setVisible(true);
         cancelButton.setVisible(true);
@@ -138,39 +145,65 @@ public class SettingController {
 
     @FXML
     private void saveChanges() {
-        // Đặt các trường không thể chỉnh sửa
+        userIDText.setEditable(false);
+        roleText.setEditable(false);
+        usernameText.setEditable(false);
+        passwordField.setEditable(false);
+        passwordField.setText(passwordText.getText());
+        passwordField.setVisible(true);
+        passwordText.setVisible(false);
         nameText.setEditable(false);
+        maleButton.setMouseTransparent(true);
+        femaleButton.setMouseTransparent(true);
+        birthdayText.setMouseTransparent(true);
         idText.setEditable(false);
         phoneText.setEditable(false);
         emailText.setEditable(false);
         hometownText.setEditable(false);
         addressText.setEditable(false);
-        usernameText.setEditable(false);
-        passwordField.setEditable(false);
-        passwordText.setEditable(false);
-        birthdayText.setMouseTransparent(true);
-        maleButton.setMouseTransparent(true);
-        femaleButton.setMouseTransparent(true);
 
-        // Hiển thị mật khẩu bằng dạng Field
-        passwordField.setText(passwordText.getText());
-        passwordField.setVisible(true);
-        passwordText.setVisible(false);
-
-        // Cập nhật trạng thái các nút
         editProfileButton.setVisible(true);
         editPhotoButton.setVisible(false);
         cancelButton.setVisible(false);
         saveButton.setVisible(false);
 
-        // Kiểm tra các trường dữ liệu
-        if (nameText.getText().isEmpty() || idText.getText().isEmpty() || phoneText.getText().isEmpty() ||
-                emailText.getText().isEmpty() || hometownText.getText().isEmpty() || addressText.getText().isEmpty() ||
-                usernameText.getText().isEmpty() || passwordText.getText().isEmpty() ||
-                birthdayText.getValue() == null || (!maleButton.isSelected() && !femaleButton.isSelected())) {
-
+        if (userIDText.getText().isEmpty() || roleText.getText().isEmpty() || usernameText.getText().isEmpty() || passwordText.getText().isEmpty() ||
+                nameText.getText().isEmpty() || (!maleButton.isSelected() && !femaleButton.isSelected()) || birthdayText.getValue() == null ||
+                idText.getText().isEmpty() ||  phoneText.getText().isEmpty() || emailText.getText().isEmpty() || hometownText.getText().isEmpty() ||
+                addressText.getText().isEmpty() ) {
             showAlert(Alert.AlertType.ERROR, "Lỗi", "Vui lòng nhập đầy đủ thông tin vào các trường thông tin!");
             return;
+        }
+
+        int userID = Integer.parseInt(userIDText.getText());
+        String role = roleText.getText();
+        String name = nameText.getText();
+        String gender = maleButton.isSelected() ? "Nam" : "Nữ";
+        String dateOfBirth = birthdayText.getValue().toString();
+        String IDcard = idText.getText();
+        String phone = phoneText.getText();
+        String email = emailText.getText();
+        String hometown = hometownText.getText();
+        String address = addressText.getText();
+        String username = usernameText.getText();
+        String password = passwordField.getText();
+
+        UserAccount updatedUser = new UserAccount(userID, role,username, password, name, gender, dateOfBirth, IDcard, phone, email, hometown, address);
+        try {
+            UserAccountUpdate.updateUser(updatedUser);
+            showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thông tin tài khoản đã được cập nhật!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể cập nhật thông tin vào cơ sở dữ liệu!");
+        }
+
+        File file = new File("src/main/resources/logs/userInformation.json");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(file, updatedUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert(Alert.AlertType.ERROR, "Lỗi", "Không thể lưu thông tin vào file JSON!");
         }
     }
 

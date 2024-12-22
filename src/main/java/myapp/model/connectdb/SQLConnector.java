@@ -2,7 +2,7 @@ package myapp.model.connectdb;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import myapp.model.entities.Fee;
+import myapp.model.entities.entitiesdb.Fee;
 import myapp.model.entities.entitiesdb.*;
 
 import java.sql.*;
@@ -41,7 +41,38 @@ public class SQLConnector {
             e.printStackTrace();
         }
     }
+    // Truy vấn danh sách cư dân
+    public static ObservableList<Resident> getResidents() {
+        ObservableList<Resident> residentsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM cudan";
 
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String birthday = formatDate(resultSet.getString("NgaySinh"));
+
+                residentsList.add(new Resident(
+                        resultSet.getString("HoTen"),
+                        resultSet.getString("GioiTinh"),
+                        birthday,
+                        resultSet.getString("CCCD"),
+                        resultSet.getString("QueQuan"),
+                        resultSet.getString("SoDienThoai"),
+                        resultSet.getString("NgheNghiep"),
+                        resultSet.getString("DanToc"),
+                        resultSet.getString("QuocTich"),
+                        resultSet.getString("TrinhDoHocVan"),
+                        resultSet.getString("TrangThai"),
+                        resultSet.getString("ThongTinBoSung"),
+                        resultSet.getString("MaHoGiaDinh")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return residentsList;
+    }
     // Truy vấn danh sách hộ gia đình
     public static ObservableList<HouseHold> getHouseHolds() {
         ObservableList<HouseHold> houseHoldsList = FXCollections.observableArrayList();
@@ -67,63 +98,6 @@ public class SQLConnector {
             e.printStackTrace();
         }
         return houseHoldsList;
-    }
-
-    // Truy vấn danh sách cư dân
-    public static ObservableList<Resident> getResidents() {
-        ObservableList<Resident> residentsList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM cudan";
-
-        try (PreparedStatement statement = getConnection().prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                String birthday = formatDate(resultSet.getString("NgaySinh"));
-
-                residentsList.add(new Resident(
-                        resultSet.getString("HoTen"),
-                        resultSet.getString("GioiTinh"),
-                        birthday,
-                        resultSet.getString("SoCMND"),
-                        resultSet.getString("QueQuan"),
-                        resultSet.getString("SoDienThoai"),
-                        resultSet.getString("NgheNghiep"),
-                        resultSet.getString("DanToc"),
-                        resultSet.getString("QuocTich"),
-                        resultSet.getString("TrinhDoHocVan"),
-                        resultSet.getString("TrangThai"),
-                        resultSet.getString("ThongTinBoSung"),
-                        resultSet.getString("MaHoGiaDinh")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return residentsList;
-    }
-
-    // Truy vấn danh sách căn hộ
-    public static ObservableList<Apartment> getApartments() {
-        ObservableList<Apartment> apartmentsList = FXCollections.observableArrayList();
-        String query = "SELECT * FROM canho";
-
-        try (PreparedStatement statement = getConnection().prepareStatement(query);
-             ResultSet resultSet = statement.executeQuery()) {
-
-            while (resultSet.next()) {
-                apartmentsList.add(new Apartment(
-                        resultSet.getString("MaCanHo"),
-                        resultSet.getInt("Tang"),
-                        resultSet.getInt("DienTich"),
-                        resultSet.getString("TinhTrang"),
-                        resultSet.getString("ThongTinBoSung")
-
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return apartmentsList;
     }
     // Truy vấn danh sách khoản phí
     public static ObservableList<Fee> getFees() {
@@ -178,6 +152,53 @@ public class SQLConnector {
         }
         return billsList;
     }
+    // Truy vấn danh sách quỹ đóng góp
+    public static ObservableList<ContributionFund> getContributionFunds() {
+        ObservableList<ContributionFund> contributionFundsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM bangquydonggop";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+
+                String formattedStartDate = formatDate(resultSet.getString("NgayBatDau"));
+                String formattedEndDate = formatDate(resultSet.getString("NgayKetThuc"));
+                contributionFundsList.add(new ContributionFund(
+                        resultSet.getString("TenQuy"),
+                        resultSet.getString("MaQuy"),
+                        resultSet.getString("SoTien"),
+                        formattedStartDate,
+                        formattedEndDate
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contributionFundsList;
+    }
+    // Truy vấn danh sách căn hộ
+    public static ObservableList<Apartment> getApartments() {
+        ObservableList<Apartment> apartmentsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM canho";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                apartmentsList.add(new Apartment(
+                        resultSet.getString("MaCanHo"),
+                        resultSet.getInt("Tang"),
+                        resultSet.getInt("DienTich"),
+                        resultSet.getString("TinhTrang"),
+                        resultSet.getString("ThongTinBoSung")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return apartmentsList;
+    }
     // Truy vấn danh sách phương tiện
     public static ObservableList<Vehicle> getVehicles() {
         ObservableList<Vehicle> vehiclesList = FXCollections.observableArrayList();
@@ -205,7 +226,38 @@ public class SQLConnector {
         }
         return vehiclesList;
     }
+    // Truy vấn danh sách tài khoản người dùng
+    public static ObservableList<UserAccount> getUsers() {
+        ObservableList<UserAccount> userAccountsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM taikhoannguoidung";
 
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String dateOfBirth = formatDate(resultSet.getString("NgaySinh"));
+
+                userAccountsList.add(new UserAccount(
+                        resultSet.getInt("MaTaiKhoan"),
+                        resultSet.getString("VaiTro"),
+                        resultSet.getString("TenDangNhap"),
+                        resultSet.getString("MatKhau"),
+                        resultSet.getString("HoTen"),
+                        resultSet.getString("GioiTinh"),
+                        dateOfBirth,
+                        resultSet.getString("CMND"),
+                        resultSet.getString("SoDienThoai"),
+                        resultSet.getString("Email"),
+                        resultSet.getString("QueQuan"),
+                        resultSet.getString("DiaChi")
+
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userAccountsList;
+    }
     // Định dạng ngày sinh từ yyyy-MM-dd sang dd/MM/yyyy
     private static String formatDate(String formatDate) {
         try {

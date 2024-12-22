@@ -6,13 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.model.communicatedb.select.HouseHoldSelect;
+import myapp.model.communicatedb.select.ResidentSelect;
 import myapp.model.connectdb.SQLConnector;
+import myapp.model.entities.entitiesdb.Apartment;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
@@ -25,7 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 
-public class ListOfHouseHoldsController implements Initializable {
+public class ListOfHouseHoldsController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
     @FXML private Button addButton, cancelButton, saveButton, listOfResidentsButton;
     @FXML private TableView<HouseHold> houseHoldTableView;
@@ -48,7 +52,8 @@ public class ListOfHouseHoldsController implements Initializable {
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        super.initialize();
         houseHoldsList = SQLConnector.getHouseHolds();
         filteredList = FXCollections.observableArrayList(houseHoldsList);
 
@@ -70,7 +75,29 @@ public class ListOfHouseHoldsController implements Initializable {
         moveInDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMoveInDate()));
         moveOutDateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMoveOutDate()));
         residentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getResidentID()));
-        statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+        statusColumn.setCellFactory(param -> new TableCell<HouseHold, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    HouseHold houseHold = getTableRow().getItem();
+                    String status = houseHold != null ? houseHold.getStatus() : "";
+
+                    Label statusLabel = new Label();
+                    if ("Đang sinh sống".equals(status)) {
+                        statusLabel.setText("Đang sinh sống");
+                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(0, 255, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
+                    } else if ("Đã chuyển đi".equals(status)) {
+                        statusLabel.setText("Đã chuyển đi");
+                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Bold; -fx-alignment: center;");
+                    }
+                    statusLabel.setPadding(new Insets(5));
+                    setGraphic(statusLabel);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        });
         operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createViewEditDeleteButtons(param)));
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterResidents());
         // Cập nhật bảng HouseHold
@@ -83,7 +110,13 @@ public class ListOfHouseHoldsController implements Initializable {
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
-        listOfResidentsButton.setOnAction(event -> switchToListOfResidents(event));
+        listOfResidentsButton.setOnAction(event -> {
+            try {
+                switcher.goListOfResidentsPage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<HouseHold, HBox> param) {
@@ -132,8 +165,8 @@ public class ListOfHouseHoldsController implements Initializable {
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-        String residentName = DataHandler.getResidentNameByResidentID(houseHold.getResidentID());
-        String residentPhone = DataHandler.getResidentPhoneByResidentID(houseHold.getResidentID());
+        String residentName = ResidentSelect.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentPhone = ResidentSelect.getResidentPhoneByResidentID(houseHold.getResidentID());
         residentNameText.setText(residentName);
         residentIDText.setText(houseHold.getResidentID());
         residentPhoneText.setText(residentPhone);
@@ -165,8 +198,8 @@ public class ListOfHouseHoldsController implements Initializable {
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-        String residentName = DataHandler.getResidentNameByResidentID(houseHold.getResidentID());
-        String residentPhone = DataHandler.getResidentPhoneByResidentID(houseHold.getResidentID());
+        String residentName = ResidentSelect.getResidentNameByResidentID(houseHold.getResidentID());
+        String residentPhone = ResidentSelect.getResidentPhoneByResidentID(houseHold.getResidentID());
         residentNameText.setText(residentName);
         residentIDText.setText(houseHold.getResidentID());
         residentPhoneText.setText(residentPhone);
@@ -259,7 +292,7 @@ public class ListOfHouseHoldsController implements Initializable {
     }
 
     private void updateMemberTable(String houseHoldID) {
-        ObservableList<Resident> members = DataHandler.getMembersByHouseHoldID(houseHoldID);
+        ObservableList<Resident> members = HouseHoldSelect.getMembersByHouseHoldID(houseHoldID);
 
         // Cập nhật cột chỉ số (index) của thành viên trong gia đình
         memberIndexColumn.setCellValueFactory(cellData -> {
@@ -346,13 +379,4 @@ public class ListOfHouseHoldsController implements Initializable {
             return formattedDate;
         }
     }
-
-    private void switchToListOfResidents(Event event) {
-        try {
-            switcher.goListOfResidentsPage(event); // Gọi phương thức chuyển cảnh
-        } catch (IOException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-
 }

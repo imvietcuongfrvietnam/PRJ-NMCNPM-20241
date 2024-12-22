@@ -88,7 +88,7 @@
       <Line endX="1570.0" layoutX="350.0" layoutY="200.0" stroke="#7f7f7f" />
       <StackPane layoutX="25.0" layoutY="200.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
+            <Button fx:id="homePageButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Trang chủ" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -105,7 +105,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="275.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
+            <Button fx:id="residentManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý cư dân" textFill="#002060" StackPane.alignment="CENTER_LEFT">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -122,7 +122,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="350.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
+            <Button fx:id="feeManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý thu phí" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -139,7 +139,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="425.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
+            <Button fx:id="generalManagementButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Quản lý chung" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -155,26 +155,9 @@
          </children>
       </StackPane>
       <Line endX="325.0" layoutY="500.0" startX="25.0" stroke="WHITE" />
-      <StackPane layoutX="25.0" layoutY="525.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Thông báo" textFill="#002060">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </Button>
-            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER_LEFT">
-               <image>
-                  <Image url="@../image/Notification.png" />
-               </image>
-               <StackPane.margin>
-                  <Insets left="10.0" />
-               </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
       <StackPane layoutX="25.0" layoutY="860.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
+            <Button fx:id="settingButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: #FFFFFF;" text="Cài đặt chung" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
@@ -191,7 +174,7 @@
       </StackPane>
       <StackPane layoutX="25.0" layoutY="935.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
+            <Button fx:id="logOutButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #fad961 0.0%, #ff914d 100.0%);" text="Đăng xuất" textFill="#002060">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

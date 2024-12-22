@@ -5,22 +5,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import myapp.model.connectdb.SQLConnector;
-import myapp.model.entities.Fee;
+import myapp.model.entities.entitiesdb.Fee;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ResourceBundle;
 
-public class ListOfFeesController implements Initializable {
+public class ListOfFeesController extends BaseController {
+    @FXML private Button addButton, cancelButton, saveButton, listOfBillsButton;
     @FXML private TableView<Fee> feeTableView;
     @FXML private TableColumn<Fee, Integer> indexColumn;
     @FXML private TableColumn<Fee, String> houseHoldIDColumn, feeNameColumn, feeIDColumn, amountColumn, expDateColumn, statusColumn, noteColumn;
@@ -34,7 +32,8 @@ public class ListOfFeesController implements Initializable {
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        super.initialize();
         feesList = SQLConnector.getFees();
         filteredList = FXCollections.observableArrayList(feesList);
 
@@ -62,7 +61,6 @@ public class ListOfFeesController implements Initializable {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
                 if (!empty) {
                     Fee fee = getTableRow().getItem();  // Lấy đối tượng Fee từ hàng hiện tại
                     String status = fee != null ? fee.getStatus() : "";  // Lấy giá trị trạng thái từ đối tượng Fee
@@ -100,6 +98,14 @@ public class ListOfFeesController implements Initializable {
         pagination.setPageFactory(this::createPage);
         pagination.setPageCount((feesList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-backround-color: #FFFFFF; -fx-border-radius: 10; -fx-background-radius: 10; -fx-text-fill: #002060; -fx-font-size: 25;");
+
+        listOfBillsButton.setOnAction(event -> {
+            try {
+                switcher.goBillManagementPage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     // Phương thức kết hợp tìm kiếm và lọc dữ liệu
@@ -165,14 +171,6 @@ public class ListOfFeesController implements Initializable {
             return LocalDate.parse(date, inputFormatter).format(outputFormatter);
         } catch (DateTimeParseException e) {
             return date;  // Nếu không chuyển đổi được thì trả về ngày gốc
-        }
-    }
-
-    private void switchToListOfHouseHold(Event event) {
-        try {
-            switcher.goListOfHouseholdPage(event);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }

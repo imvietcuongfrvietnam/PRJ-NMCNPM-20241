@@ -5,86 +5,107 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.model.communicatedb.select.HouseHoldSelect;
+import myapp.model.communicatedb.select.ResidentSelect;
 import myapp.model.connectdb.SQLConnector;
 import myapp.model.entities.entitiesdb.Apartment;
+import myapp.model.entities.entitiesdb.Fee;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
-import javafx.event.Event;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ResourceBundle;
 
-public class ListOfApartmentsController implements Initializable {
+public class ListOfApartmentsController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
-    @FXML private Button addButton, cancelButton, saveButton, listOfResidentsButton;
+    @FXML private Button addButton, cancelButton, saveButton, listOfVehiclesButton;
     @FXML private TableView<Apartment> apartmentTableView;
     @FXML private TableColumn<Apartment, Integer> indexColumn, floorColumn, areaColumn;
     @FXML private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
     @FXML private TableColumn<Apartment, String> houseHoldIDColumn;
     @FXML private TableColumn<Apartment, HBox> operationsColumn;
     @FXML private Pagination pagination;
+    @FXML private TextField searchText;
     @FXML private TextField apartmentIDText, floorText, areaText, residentNameText, residentIDText, houseHoldIDText;
     @FXML private TextArea noteText;
     @FXML private DatePicker moveInDate, moveOutDate;
-    @FXML private ChoiceBox<String> status;
+    @FXML private ChoiceBox<String> floorChoiceBox, statusChoiceBox, status;
 
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<Apartment> apartmentsList;
+    private ObservableList<Apartment> filteredList;
     private Apartment editingApartment;
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        super.initialize();
         apartmentsList = SQLConnector.getApartments();
-
-        // Lựa chọn cho ChoiceBox status
-        ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sử dụng", "Chưa sử dụng");
-        status.setItems(statusOptions);
-        status.setValue("Đang sử dụng");
-
+        filteredList = FXCollections.observableArrayList(apartmentsList);
         // Cập nhật số thứ tự trong bảng HouseHold
         indexColumn.setCellValueFactory(cellData -> {
             int currentPageIndex = pagination.getCurrentPageIndex();
             int rowIndex = apartmentTableView.getItems().indexOf(cellData.getValue());
             return new SimpleObjectProperty<>((currentPageIndex * ROWS_PER_PAGE) + rowIndex + 1);
         });
-
         // Thiết lập các cột trong bảng HouseHold
         apartmentIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getApartmentID()));
         floorColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFloor()));
         areaColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getArea()));
         houseHoldIDColumn.setCellValueFactory(cellData -> {
             String apartmentID = cellData.getValue().getApartmentID();
-            HouseHold houseHold = DataHandler.getHouseHoldByApartmentID(apartmentID);
+            HouseHold houseHold = HouseHoldSelect.getHouseHoldByApartmentID(apartmentID);
             if (houseHold != null) {
                 return new SimpleStringProperty(houseHold.getHouseHoldID());
             } else {
                 return new SimpleStringProperty("N/A"); // Hoặc giá trị mặc định
             }
         });
+        statusColumn.setCellFactory(param -> new TableCell<Apartment, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (!empty) {
+                    Apartment apartment = getTableRow().getItem();
+                    String status = apartment != null ? apartment.getStatus() : "";
 
-
-        statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStatus()));
+                    Label statusLabel = new Label();
+                    if ("Đang sử dụng".equals(status)) {
+                        statusLabel.setText("Đang sử dụng");
+                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(0, 255, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
+                    } else if ("Chưa sử dụng".equals(status)) {
+                        statusLabel.setText("Chưa sử dụng");
+                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Bold; -fx-alignment: center;");
+                    }
+                    statusLabel.setPadding(new Insets(5));
+                    setGraphic(statusLabel);
+                } else {
+                    setGraphic(null);
+                }
+            }
+        });
         noteColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNote()));
-
         // Cột Edit và Delete trong bảng HouseHold
         operationsColumn.setCellValueFactory(param -> {
             HBox hbox = createViewEditDeleteButtons(param);
             return new SimpleObjectProperty<>(hbox);
         });
-
+        searchText.textProperty().addListener((observable, oldValue, newValue) -> filterApartments());
+        floorChoiceBox.setItems(FXCollections.observableArrayList("Tầng", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"));
+        floorChoiceBox.setValue("Tầng");
+        floorChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> filterApartments());
+        statusChoiceBox.setItems(FXCollections.observableArrayList("Tình trạng", "Đang sử dụng", "Chưa sử dụng"));
+        statusChoiceBox.setValue("Tình trạng");
+        statusChoiceBox.valueProperty().addListener((observable, oldValue, newValue) -> filterApartments());
         // Cập nhật bảng Apartment
         apartmentTableView.setItems(apartmentsList);
         apartmentTableView.setStyle("-fx-font-size: 20px;");
@@ -92,10 +113,43 @@ public class ListOfApartmentsController implements Initializable {
         pagination.setPageCount(5);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-font-size: 25;");
 
-        addButton.setOnAction(actionEvent -> add());
-        cancelButton.setOnAction(actionEvent -> cancel());
-        saveButton.setOnAction(actionEvent -> save());
-        listOfResidentsButton.setOnAction(event -> switchToListOfResidents(event));
+        listOfVehiclesButton.setOnAction(event -> {
+            try {
+                switcher.goListOfVehiclePage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        // Lựa chọn cho ChoiceBox status
+        ObservableList<String> statusOptions = FXCollections.observableArrayList("Đang sử dụng", "Chưa sử dụng");
+        status.setItems(statusOptions);
+        status.setValue("Đang sử dụng");
+    }
+    // Phương thức kết hợp tìm kiếm và lọc dữ liệu
+    private void filterApartments() {
+        String searchKeyword = searchText.getText().toLowerCase();
+        String floorFilter = floorChoiceBox.getValue();
+        String statusFilter = statusChoiceBox.getValue();
+
+        ObservableList<Apartment> filtered = apartmentsList.filtered(apartment -> {
+            // Kiểm tra từ khóa tìm kiếm chỉ nếu có nhập vào
+            boolean matchesSearch = searchKeyword.isEmpty() ||
+                    apartment.getApartmentID().toLowerCase().contains(searchKeyword) ||
+                    String.valueOf(apartment.getFloor()).toLowerCase().contains(searchKeyword) ||
+                    String.valueOf(apartment.getArea()).toLowerCase().contains(searchKeyword) ||
+                    HouseHoldSelect.getHouseHoldByApartmentID(apartment.getApartmentID()).getHouseHoldID().toLowerCase().contains(searchKeyword) ||
+                    apartment.getStatus().toLowerCase().contains(searchKeyword) ||
+                    (apartment.getNote() != null && apartment.getNote().toLowerCase().contains(searchKeyword));
+
+            boolean matchesFloor = floorFilter.equals("Tầng") || String.valueOf(apartment.getFloor()).equals(floorFilter);
+
+            boolean matchesStatus = statusFilter.equals("Tình trạng") || apartment.getStatus().equals(statusFilter);
+
+            return matchesSearch && matchesFloor && matchesStatus;
+        });
+
+        apartmentTableView.setItems(filtered);
+        updatePagination(filtered); // Cập nhật phân trang sau khi lọc
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Apartment, HBox> param) {
@@ -142,7 +196,7 @@ public class ListOfApartmentsController implements Initializable {
         floorText.setText(String.valueOf(apartment.getFloor()));
         areaText.setText(String.valueOf(apartment.getArea()));
 
-        HouseHold houseHold = DataHandler.getHouseHoldByApartmentID(apartment.getApartmentID());
+        HouseHold houseHold = HouseHoldSelect.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
             // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
             if (houseHold.getMoveInDate() != null && !houseHold.getMoveInDate().isEmpty()) {
@@ -154,7 +208,7 @@ public class ListOfApartmentsController implements Initializable {
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
-        Resident resident = DataHandler.getResidentByApartmentID(apartment.getApartmentID());
+        Resident resident = ResidentSelect.getResidentByApartmentID(apartment.getApartmentID());
         if (resident != null) {
             residentNameText.setText(resident.getName());
             residentIDText.setText(resident.getIDcard());
@@ -183,7 +237,7 @@ public class ListOfApartmentsController implements Initializable {
         floorText.setText(String.valueOf(apartment.getFloor()));
         areaText.setText(String.valueOf(apartment.getArea()));
 
-        HouseHold houseHold = DataHandler.getHouseHoldByApartmentID(apartment.getApartmentID());
+        HouseHold houseHold = HouseHoldSelect.getHouseHoldByApartmentID(apartment.getApartmentID());
         if (houseHold != null) {
             // Kiểm tra nếu thông tin ngày tháng không bị null hoặc rỗng
             if (houseHold.getMoveInDate() != null && !houseHold.getMoveInDate().isEmpty()) {
@@ -195,7 +249,7 @@ public class ListOfApartmentsController implements Initializable {
             houseHoldIDText.setText(houseHold.getHouseHoldID());
         }
 
-        Resident resident = DataHandler.getResidentByApartmentID(apartment.getApartmentID());
+        Resident resident = ResidentSelect.getResidentByApartmentID(apartment.getApartmentID());
         if (resident != null) {
             residentNameText.setText(resident.getName());
             residentIDText.setText(resident.getIDcard());
@@ -222,7 +276,7 @@ public class ListOfApartmentsController implements Initializable {
     private void deleteHouseHold(Apartment apartment) {
         apartmentsList.remove(apartment);
         apartmentTableView.refresh();
-        updatePagination();
+        updatePagination(filteredList);
     }
 
     private TableView<Apartment> createPage(int pageIndex) {
@@ -239,10 +293,15 @@ public class ListOfApartmentsController implements Initializable {
         return apartmentTableView;
     }
 
-    private void updatePagination() {
-        pagination.setPageFactory(this::createPage);
-        pagination.setPageCount((apartmentsList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-        apartmentTableView.refresh();
+    private void updatePagination(ObservableList<Apartment> filteredList) {
+        pagination.setPageFactory(pageIndex -> {
+            int fromIndex = pageIndex * ROWS_PER_PAGE;
+            int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, filteredList.size());
+            ObservableList<Apartment> pageData = FXCollections.observableArrayList(filteredList.subList(fromIndex, toIndex));
+            apartmentTableView.setItems(pageData);
+            return apartmentTableView;
+        });
+        pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
     public void add() {
@@ -280,7 +339,7 @@ public class ListOfApartmentsController implements Initializable {
         }
 
         stackPaneInsertUpdate.setVisible(false);
-        updatePagination();
+        updatePagination(filteredList);
     }
 
     private void clearFields() {
@@ -294,13 +353,4 @@ public class ListOfApartmentsController implements Initializable {
         residentIDText.clear();
         houseHoldIDText.clear();
     }
-
-    private void switchToListOfResidents(Event event) {
-        try {
-            switcher.goListOfResidentsPage(event); // Gọi phương thức chuyển cảnh
-        } catch (IOException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-
 }

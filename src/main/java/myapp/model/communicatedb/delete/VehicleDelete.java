@@ -5,14 +5,14 @@ import myapp.model.connectdb.SQLConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
-public class ParkingFeeDelete {
-    public void delete(String loaiXe) {
-        String query = "DELETE FROM giadichvuguixe WHERE LoaiXe = ?";
+public class VehicleDelete {
+    public void delete(String bienSo) {
+        String query = "DELETE FROM quanlyphuongtien WHERE BienSo = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, loaiXe);
+            preparedStatement.setString(1, bienSo);
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

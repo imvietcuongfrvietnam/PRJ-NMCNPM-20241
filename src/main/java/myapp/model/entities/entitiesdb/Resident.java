@@ -1,6 +1,5 @@
 package myapp.model.entities.entitiesdb;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Resident {
@@ -15,11 +14,11 @@ public class Resident {
     private String nationality;
     private String education;
     private String status;
-    private String additionalInfo;
+    private String note;
     private String houseHoldID;
 
 
-    public Resident(String name, String gender, String birthday, String IDcard, String hometown, String phone, String occupation, String ethnicity, String nationality, String education, String status, String additionalInfo, String houseHoldID) {
+    public Resident(String name, String gender, String birthday, String IDcard, String hometown, String phone, String occupation, String ethnicity, String nationality, String education, String status, String note, String houseHoldID) {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
@@ -31,7 +30,7 @@ public class Resident {
         this.nationality = nationality;
         this.education = education;
         this.status = status;
-        this.additionalInfo = additionalInfo;
+        this.note = note;
         this.houseHoldID = houseHoldID;
     }
 
@@ -138,12 +137,12 @@ public class Resident {
         this.status = status;
     }
 
-    public String getAdditionalInfo() {
-        return additionalInfo;
+    public String getNote() {
+        return note;
     }
 
-    public void setAdditionalInfo(String additionalInfo) {
-        this.additionalInfo = additionalInfo;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public String getHouseHoldID() {

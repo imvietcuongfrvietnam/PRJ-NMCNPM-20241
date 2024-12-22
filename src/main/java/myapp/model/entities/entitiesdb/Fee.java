@@ -1,4 +1,4 @@
-package myapp.model.entities;
+package myapp.model.entities.entitiesdb;
 
 public class Fee {
     private String feeID;

@@ -4,7 +4,6 @@ public class Apartment {
     private String apartmentID; // Mã căn hộ
     private int floor; // Tầng
     private int area; // Diện tích
-    private String houseHoldID;
     private String status; // Tình trạng
     private String note; // Thông tin bổ sung
 

@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,13 +17,11 @@ import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ResourceBundle;
 
-public class ListOfResidentsController implements Initializable {
+public class ListOfResidentsController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
     @FXML private Button addButton, cancelButton, saveButton, listOfHouseHoldButton;
     @FXML private TableView<Resident> residentTableView;
@@ -45,7 +42,8 @@ public class ListOfResidentsController implements Initializable {
     private final Switcher switcher = new Switcher();
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize() {
+        super.initialize();
         residentsList = SQLConnector.getResidents();
         filteredList = FXCollections.observableArrayList(residentsList);
 
@@ -67,9 +65,7 @@ public class ListOfResidentsController implements Initializable {
         hometownColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("hometown"));
         houseHoldIDColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("houseHoldID"));
         operationsColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(createViewEditDeleteButtons(param)));
-
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterResidents());
-
         // Cập nhật bảng Resident
         residentTableView.setItems(residentsList);
         residentTableView.setStyle("-fx-font-size: 20px;");
@@ -81,7 +77,13 @@ public class ListOfResidentsController implements Initializable {
         addButton.setOnAction(actionEvent -> add());
         cancelButton.setOnAction(actionEvent -> cancel());
         saveButton.setOnAction(actionEvent -> save());
-        listOfHouseHoldButton.setOnAction(event -> switchToListOfHouseHold(event));
+        listOfHouseHoldButton.setOnAction(event -> {
+            try {
+                switcher.goListOfHouseholdPage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Resident, HBox> param) {
@@ -148,13 +150,15 @@ public class ListOfResidentsController implements Initializable {
         educationText.setText(editingResident.getEducation());
         houseHoldIDText.setText(editingResident.getHouseHoldID());
         statusText.setText(editingResident.getStatus());
-        additionalInfoText.setText(editingResident.getAdditionalInfo());
+        additionalInfoText.setText(editingResident.getNote());
 
         nameText.setEditable(false);
         for (Toggle toggle : genderGroup.getToggles()) {
             ((RadioButton) toggle).setDisable(true);
         }
         birthdayText.setMouseTransparent(true);
+        maleRadioButton.setMouseTransparent(true);
+        femaleRadioButton.setMouseTransparent(true);
         IDcardText.setEditable(false);
         hometownText.setEditable(false);
         phoneText.setEditable(false);
@@ -205,7 +209,7 @@ public class ListOfResidentsController implements Initializable {
         educationText.setText(editingResident.getEducation());
         houseHoldIDText.setText(editingResident.getHouseHoldID());
         statusText.setText(editingResident.getStatus());
-        additionalInfoText.setText(editingResident.getAdditionalInfo());
+        additionalInfoText.setText(editingResident.getNote());
 
         // Bật lại khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ sửa
         nameText.setEditable(true);
@@ -364,10 +368,6 @@ public class ListOfResidentsController implements Initializable {
     }
 
     private void switchToListOfHouseHold(Event event) {
-        try {
-            switcher.goListOfHouseholdPage(event); // Gọi phương thức chuyển cảnh
-        } catch (IOException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
+
     }
 }

@@ -34,20 +34,23 @@ public class Switcher {
     }
 
     // Phương thức chuyển đến trang chủ
-    public void goHomePage(LogInController mainController, Event event) throws IOException {
-        this.switchScene(event, "Main.fxml", mainController);
+    public void goHomePage(Event event) throws IOException {
+        this.switchScene(event, "Main.fxml", null);
     }
 
     // Phương thức chuyển đến trang đăng nhập
-    public void goLogInPage(BaseController baseController, Event event) throws IOException {
-        this.switchScene(event, "LogIn.fxml", baseController);
+    public void goLogInPage(Event event) throws IOException {
+        this.switchScene(event, "LogIn.fxml", null);
     }
 
     // Phương thức chuyển đến trang đăng ký
-    public void goSignUpPage(BaseController baseController, Event event) throws IOException {
-        this.switchScene(event, "SignUp.fxml", baseController);
+    public void goSignUpPage(Event event) throws IOException {
+        this.switchScene(event, "SignUp.fxml", null);
     }
-
+    // Phương thức chuyển đến trang quên tài khoản
+    public void goForgotPasswordPage(Event event) throws IOException {
+        this.switchScene(event, "ForgotPassword.fxml", null);
+    }
     // Phương thức chuyển đến danh sách cư dân
     public void goListOfResidentsPage(Event event) throws IOException {
         this.switchScene(event, "ListOfResidents.fxml", null); // Không có controller riêng
@@ -57,9 +60,25 @@ public class Switcher {
     public void goListOfHouseholdPage(Event event) throws IOException {
         this.switchScene(event, "ListOfHouseHolds.fxml", null); // Không có controller riêng
     }
-
-    // Phương thức chuyển đến quản lý phí
+    // Phương thức chuyển đến danh sách căn hộ
+    public void goListOfApartmentPage(Event event) throws IOException {
+        this.switchScene(event, "ListOfApartments.fxml", null);
+    }
+    // Phương thức chuyển đến danh sách phương tiện
+    public void goListOfVehiclePage(Event event) throws IOException {
+        this.switchScene(event, "ListOfVehicles.fxml", null);
+    }
+    // Phương thức chuyển đến quản lý khoản phí
     public void goFeeManagementPage(Event event) throws IOException {
         this.switchScene(event, "ListOfFees.fxml", null);
     }
+    // Phương thức chuyển đến quản lý hóa đơn
+    public void goBillManagementPage(Event event) throws IOException {
+        this.switchScene(event, "ListOfBills.fxml", null);
+    }
+    // Phương thức chuyển đến trang cài đặt
+    public void goSettingPage(Event event) throws IOException {
+        this.switchScene(event, "Setting.fxml", null);
+    }
+
 }
