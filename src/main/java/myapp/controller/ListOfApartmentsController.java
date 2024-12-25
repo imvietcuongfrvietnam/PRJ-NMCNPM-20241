@@ -14,9 +14,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import myapp.model.communicatedb.select.HouseHoldSelect;
 import myapp.model.communicatedb.select.ResidentSelect;
+import myapp.model.communicatedb.update.ApartmentUpdate;
 import myapp.model.connectdb.SQLConnector;
 import myapp.model.entities.entitiesdb.Apartment;
-import myapp.model.entities.entitiesdb.Fee;
 import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
@@ -27,7 +27,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ListOfApartmentsController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
-    @FXML private Button addButton, cancelButton, saveButton, listOfVehiclesButton;
+    @FXML private Button cancelButton, saveButton, listOfVehiclesButton;
     @FXML private TableView<Apartment> apartmentTableView;
     @FXML private TableColumn<Apartment, Integer> indexColumn, floorColumn, areaColumn;
     @FXML private TableColumn<Apartment, String> apartmentIDColumn, statusColumn, noteColumn;
@@ -84,7 +84,7 @@ public class ListOfApartmentsController extends BaseController {
                         statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(0, 255, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
                     } else if ("Chưa sử dụng".equals(status)) {
                         statusLabel.setText("Chưa sử dụng");
-                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Bold; -fx-alignment: center;");
+                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
                     }
                     statusLabel.setPadding(new Insets(5));
                     setGraphic(statusLabel);
@@ -113,6 +113,8 @@ public class ListOfApartmentsController extends BaseController {
         pagination.setPageCount(5);
         pagination.setStyle("-fx-page-information-visible: false; -fx-page-button-pref-height: 50px; -fx-font-size: 25;");
 
+        cancelButton.setOnAction(actionEvent -> cancel());
+        saveButton.setOnAction(actionEvent -> save());
         listOfVehiclesButton.setOnAction(event -> {
             try {
                 switcher.goListOfVehiclePage(event);
@@ -174,7 +176,7 @@ public class ListOfApartmentsController extends BaseController {
         Button editButton = new Button();
         editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #00B050; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         editButton.setGraphic(editImageView);
-        editButton.setOnAction(event -> editHouseHold(param.getValue()));
+        editButton.setOnAction(event -> editApartment(param.getValue()));
 
         // Thêm nút xóa
         ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Delete.png")));
@@ -184,7 +186,7 @@ public class ListOfApartmentsController extends BaseController {
         Button deleteButton = new Button();
         deleteButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #FF0000; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         deleteButton.setGraphic(deleteImageView);
-        deleteButton.setOnAction(event -> deleteHouseHold(param.getValue()));
+        deleteButton.setOnAction(event -> deleteApartment(param.getValue()));
 
         hbox.getChildren().addAll(viewButton, editButton, deleteButton);
         return hbox;
@@ -231,7 +233,7 @@ public class ListOfApartmentsController extends BaseController {
 
         stackPaneInsertUpdate.setVisible(true);
     }
-    private void editHouseHold(Apartment apartment) {
+    private void editApartment(Apartment apartment) {
         editingApartment = apartment;
         apartmentIDText.setText(apartment.getApartmentID());
         floorText.setText(String.valueOf(apartment.getFloor()));
@@ -273,7 +275,8 @@ public class ListOfApartmentsController extends BaseController {
         stackPaneInsertUpdate.setVisible(true);
     }
 
-    private void deleteHouseHold(Apartment apartment) {
+    private void deleteApartment(Apartment apartment) {
+        ApartmentUpdate.removeHouseholdFromApartment(apartment.getApartmentID());
         apartmentsList.remove(apartment);
         apartmentTableView.refresh();
         updatePagination(filteredList);
@@ -304,12 +307,6 @@ public class ListOfApartmentsController extends BaseController {
         pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
 
-    public void add() {
-        editingApartment = null;
-        clearFields();
-        stackPaneInsertUpdate.setVisible(true);
-    }
-
     public void cancel() {
         clearFields();
         stackPaneInsertUpdate.setVisible(false);
@@ -317,8 +314,8 @@ public class ListOfApartmentsController extends BaseController {
 
     public void save() {
         String apartmentID = apartmentIDText.getText();
-        Integer floor = Integer.valueOf(floorText.getText());
-        Integer area = Integer.valueOf(areaText.getText());
+        int floor = Integer.parseInt(floorText.getText());
+        int area = Integer.parseInt(areaText.getText());
         String moveInDateValue = moveInDate.getValue() != null ? moveInDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
         String moveOutDateValue = moveOutDate.getValue() != null ? moveOutDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
         String statusValue = status.getValue();
@@ -333,19 +330,27 @@ public class ListOfApartmentsController extends BaseController {
             editingApartment.setArea(area);
             editingApartment.setStatus(statusValue);
             editingApartment.setNote(note);
+            apartmentTableView.refresh();
+            editingApartment = null;
+            stackPaneInsertUpdate.setVisible(false);
+            clearFields();
         } else {
-            Apartment newApartment = new Apartment(apartmentID, floor, area, statusValue, note);
+            Apartment newApartment = new Apartment(apartmentID, floor, area, moveInDateValue, moveOutDateValue, statusValue, residentName, residentID, houseHoldID, note);
             apartmentsList.add(newApartment);
+            ApartmentUpdate apartmentUpdate = new ApartmentUpdate();
+            apartmentUpdate.update(apartmentID, floor, area, statusValue, note);
+
         }
 
         stackPaneInsertUpdate.setVisible(false);
         updatePagination(filteredList);
+        //clearFields();
     }
 
     private void clearFields() {
-        apartmentIDText.clear();
-        floorText.clear();
-        areaText.clear();
+        //apartmentIDText.clear();
+        //floorText.clear();
+        //areaText.clear();
         moveInDate.setValue(null);
         moveOutDate.setValue(null);
         status.setValue(null);

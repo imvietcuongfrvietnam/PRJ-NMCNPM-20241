@@ -56,6 +56,5 @@ public class UserAccountUpdate {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 }

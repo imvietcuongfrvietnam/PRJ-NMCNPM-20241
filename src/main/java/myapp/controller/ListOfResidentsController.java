@@ -12,11 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.model.communicatedb.delete.ResidentDelete;
+import myapp.model.communicatedb.insert.ResidentInsert;
 import myapp.model.connectdb.SQLConnector;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -58,7 +61,7 @@ public class ListOfResidentsController extends BaseController {
         genderColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("gender"));
         birthdayColumn.setCellValueFactory(cellData -> {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String formattedDate = LocalDate.parse(cellData.getValue().getBirthday(), formatter).format(formatter);
+            String formattedDate = LocalDate.parse(cellData.getValue().getBirthday().toString(), formatter).format(formatter);
             return new SimpleObjectProperty<>(formattedDate);
         });
         IDcardColumn.setCellValueFactory(new PropertyValueFactory<Resident, String>("IDcard"));
@@ -89,7 +92,6 @@ public class ListOfResidentsController extends BaseController {
     private HBox createViewEditDeleteButtons(TableColumn.CellDataFeatures<Resident, HBox> param) {
         HBox hbox = new HBox(10);
         hbox.setAlignment(Pos.CENTER);
-
         // Thêm nút xem
         ImageView viewImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/View.png")));
         viewImageView.setFitWidth(40);
@@ -99,7 +101,6 @@ public class ListOfResidentsController extends BaseController {
         viewButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #0070C0; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         viewButton.setGraphic(viewImageView);
         viewButton.setOnAction(event -> viewResident(param.getValue()));
-
         // Thêm nút sửa
         ImageView editImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Edit.png")));
         editImageView.setFitWidth(40);
@@ -109,7 +110,6 @@ public class ListOfResidentsController extends BaseController {
         editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #00B050; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
         editButton.setGraphic(editImageView);
         editButton.setOnAction(event -> editResident(param.getValue()));
-
         // Thêm nút xóa
         ImageView deleteImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Delete.png")));
         deleteImageView.setFitWidth(40);
@@ -133,7 +133,7 @@ public class ListOfResidentsController extends BaseController {
         }
         birthdayText.setStyle("-fx-font-size: 20px");
         try {
-            String birthdayStr = editingResident.getBirthday();
+            String birthdayStr = editingResident.getBirthday().toString();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate birthday = LocalDate.parse(birthdayStr, formatter);
             birthdayText.setValue(birthday);
@@ -153,12 +153,9 @@ public class ListOfResidentsController extends BaseController {
         additionalInfoText.setText(editingResident.getNote());
 
         nameText.setEditable(false);
-        for (Toggle toggle : genderGroup.getToggles()) {
-            ((RadioButton) toggle).setDisable(true);
-        }
-        birthdayText.setMouseTransparent(true);
         maleRadioButton.setMouseTransparent(true);
         femaleRadioButton.setMouseTransparent(true);
+        birthdayText.setMouseTransparent(true);
         IDcardText.setEditable(false);
         hometownText.setEditable(false);
         phoneText.setEditable(false);
@@ -178,7 +175,6 @@ public class ListOfResidentsController extends BaseController {
         saveButton.setVisible(false);
         saveButton.setDisable(true);
         cancelButton.setStyle("-fx-background-color: #0070C0; -fx-text-fill: #FFFFFF; -fx-font-size: 20; -fx-font-weight: Bold; -fx-pref-width: 420px; -fx-alignment: center;");
-
         stackPaneInsertUpdate.setVisible(true);
     }
 
@@ -192,7 +188,7 @@ public class ListOfResidentsController extends BaseController {
         }
         birthdayText.setStyle("-fx-font-size: 20px");
         try {
-            String birthdayStr = editingResident.getBirthday();
+            String birthdayStr = editingResident.getBirthday().toString();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate birthday = LocalDate.parse(birthdayStr, formatter);
             birthdayText.setValue(birthday);
@@ -213,9 +209,8 @@ public class ListOfResidentsController extends BaseController {
 
         // Bật lại khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ sửa
         nameText.setEditable(true);
-        for (Toggle toggle : genderGroup.getToggles()) {
-            ((RadioButton) toggle).setDisable(false);
-        }
+        maleRadioButton.setMouseTransparent(false);
+        femaleRadioButton.setMouseTransparent(false);
         birthdayText.setMouseTransparent(false);
         IDcardText.setEditable(true);
         hometownText.setEditable(true);
@@ -236,9 +231,10 @@ public class ListOfResidentsController extends BaseController {
     }
 
     private void deleteResident(Resident resident) {
+        ResidentDelete.delete(resident.getIDcard());
         residentsList.remove(resident);
-        residentTableView.refresh();
         updatePagination(residentsList);
+        residentTableView.refresh();
     }
 
     private void filterResidents() {
@@ -257,7 +253,7 @@ public class ListOfResidentsController extends BaseController {
             if (resident.getGender().toLowerCase().contains(searchKeyword)) {
                 return true;
             }
-            String formattedDate = formatBirthday(resident.getBirthday());
+            String formattedDate = formatDate(resident.getBirthday().toString());
             if (formattedDate.toLowerCase().contains(searchKeyword)) {
                 return true;
             }
@@ -329,7 +325,7 @@ public class ListOfResidentsController extends BaseController {
         String additionalInfo = additionalInfoText.getText();
         if (editingResident != null) {
             editingResident.setName(name);
-            editingResident.setBirthday(birthday);
+            editingResident.setBirthday(birthday.toString());
             editingResident.setHometown(hometown);
             residentTableView.refresh();
             editingResident = null;
@@ -338,10 +334,13 @@ public class ListOfResidentsController extends BaseController {
         } else {
             Resident newResident = new Resident(name, gender, birthday, idcard, hometown, phone, occupation, ethnicity, nationality, education, status, additionalInfo, houseHoldID);
             residentsList.add(newResident);
+            ResidentInsert residentInsert = new ResidentInsert();
+            residentInsert.insert(name, gender, birthday, idcard, hometown, phone, occupation, ethnicity, nationality, education, status, houseHoldID, additionalInfo);
         }
-            stackPaneInsertUpdate.setVisible(false);
-            clearFields();
-        }
+        stackPaneInsertUpdate.setVisible(false);
+        updatePagination(residentsList);
+        clearFields();
+    }
 
     private void clearFields() {
         nameText.clear();
@@ -356,18 +355,5 @@ public class ListOfResidentsController extends BaseController {
         houseHoldIDText.clear();
         statusText.clear();
         additionalInfoText.clear();
-    }
-    private String formatBirthday(String birthday) {
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(birthday, inputFormatter).format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            return birthday;
-        }
-    }
-
-    private void switchToListOfHouseHold(Event event) {
-
     }
 }

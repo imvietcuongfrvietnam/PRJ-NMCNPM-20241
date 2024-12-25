@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ResidentManager {
-    private static final String FILE_PATH = "..\\resources\\logs\\nguoithue.json";
+    private static final String FILE_PATH = "..\\resources\\logs\\resident.json";
     public void saveResidentToJson(List<Resident> residents){
         ObjectMapper mapper = new ObjectMapper();
         mapper.enable(SerializationFeature.INDENT_OUTPUT);

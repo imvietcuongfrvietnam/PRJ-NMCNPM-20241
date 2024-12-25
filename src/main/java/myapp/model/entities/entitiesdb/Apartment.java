@@ -4,7 +4,13 @@ public class Apartment {
     private String apartmentID; // Mã căn hộ
     private int floor; // Tầng
     private int area; // Diện tích
-    private String status; // Tình trạng
+    private String moveInDateValue;
+    private String moveOutDateValue;
+    private String status;
+    private String residentName;
+    private String residentID;
+    private String houseHoldID;
+    // Tình trạng
     private String note; // Thông tin bổ sung
 
     public Apartment(String apartmentID, int floor, int area, String status, String note) {
@@ -16,6 +22,22 @@ public class Apartment {
     }
 
     public Apartment() {
+    }
+
+    public Apartment(String apartmentID) {
+    }
+
+    public Apartment(String apartmentID, int floor, int area, String moveInDateValue, String moveOutDateValue, String statusValue, String residentName, String residentID, String houseHoldID, String note) {
+        this.apartmentID = apartmentID;
+        this.floor = floor;
+        this.area = area;
+        this.moveInDateValue = moveInDateValue;
+        this.moveOutDateValue = moveOutDateValue;
+        this.status = statusValue;
+        this.residentName = residentName;
+        this.residentID = residentID;
+        this.houseHoldID = houseHoldID;
+        this.note = note;
     }
 
     public String getApartmentID() {

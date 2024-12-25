@@ -1,5 +1,6 @@
 package myapp.model.entities.entitiesdb;
 
+import java.sql.Date;
 import java.time.LocalTime;
 
 public class Resident {

@@ -13,6 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.model.communicatedb.delete.HouseHoldDelete;
+import myapp.model.communicatedb.delete.ResidentDelete;
+import myapp.model.communicatedb.insert.HouseHoldInsert;
 import myapp.model.communicatedb.select.HouseHoldSelect;
 import myapp.model.communicatedb.select.ResidentSelect;
 import myapp.model.connectdb.SQLConnector;
@@ -164,12 +167,9 @@ public class ListOfHouseHoldsController extends BaseController {
         addressText.setText("Chung cư BlueMoon");
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
-        String residentName = ResidentSelect.getResidentNameByResidentID(houseHold.getResidentID());
-        String residentPhone = ResidentSelect.getResidentPhoneByResidentID(houseHold.getResidentID());
-        residentNameText.setText(residentName);
+        residentNameText.setText(ResidentSelect.getResidentNameByResidentID(houseHold.getResidentID()));
         residentIDText.setText(houseHold.getResidentID());
-        residentPhoneText.setText(residentPhone);
+        residentPhoneText.setText(ResidentSelect.getResidentPhoneByResidentID(houseHold.getResidentID()));
         status.setValue(houseHold.getStatus());
         updateMemberTable(houseHold.getHouseHoldID());
 
@@ -197,12 +197,9 @@ public class ListOfHouseHoldsController extends BaseController {
         addressText.setText("Chung cư BlueMoon");
         moveInDate.setValue(LocalDate.parse(houseHold.getMoveInDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         moveOutDate.setValue(LocalDate.parse(houseHold.getMoveOutDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-
-        String residentName = ResidentSelect.getResidentNameByResidentID(houseHold.getResidentID());
-        String residentPhone = ResidentSelect.getResidentPhoneByResidentID(houseHold.getResidentID());
-        residentNameText.setText(residentName);
+        residentNameText.setText(ResidentSelect.getResidentNameByResidentID(houseHold.getResidentID()));
         residentIDText.setText(houseHold.getResidentID());
-        residentPhoneText.setText(residentPhone);
+        residentPhoneText.setText(ResidentSelect.getResidentPhoneByResidentID(houseHold.getResidentID()));
         status.setValue(houseHold.getStatus());
 
         // Bật lại khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ sửa
@@ -219,14 +216,18 @@ public class ListOfHouseHoldsController extends BaseController {
 
         saveButton.setVisible(true);
         cancelButton.setStyle("-fx-background-color: #F2F2F2; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal;");
-
         stackPaneInsertUpdate.setVisible(true);
     }
 
     private void deleteHouseHold(HouseHold houseHold) {
+        HouseHoldDelete.delete(houseHold.getHouseHoldID());
+        ObservableList<Resident> members = HouseHoldSelect.getMembersByHouseHoldID(houseHold.getHouseHoldID());
+        for(Resident member : members){
+            ResidentDelete.deleteResident(member);
+        }
         houseHoldsList.remove(houseHold);
-        houseHoldTableView.refresh();
         updatePagination(houseHoldsList);
+        houseHoldTableView.refresh();
     }
 
     private void filterResidents() {
@@ -305,7 +306,7 @@ public class ListOfHouseHoldsController extends BaseController {
         memberGenderColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGender()));
         // Cập nhật cột ngày sinh của thành viên
         memberBirthdayColumn.setCellValueFactory(cellData -> {
-            String originalDate = cellData.getValue().getBirthday();
+            String originalDate = cellData.getValue().getBirthday().toString();
             if (originalDate != null && !originalDate.isEmpty()) {
                 try {
                     LocalDate date = LocalDate.parse(originalDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -354,10 +355,12 @@ public class ListOfHouseHoldsController extends BaseController {
         } else {
             HouseHold newHouseHold = new HouseHold(houseHoldID, apartmentID, address, moveInDateValue, moveOutDateValue, statusValue, residentID);
             houseHoldsList.add(newHouseHold);
+            HouseHoldInsert houseHoldInsert = new HouseHoldInsert();
+            houseHoldInsert.insert(houseHoldID, apartmentID, moveInDateValue, moveOutDateValue, residentID, statusValue);
         }
-
         stackPaneInsertUpdate.setVisible(false);
         updatePagination(houseHoldsList);
+        clearFields();
     }
 
     private void clearFields() {
@@ -369,14 +372,5 @@ public class ListOfHouseHoldsController extends BaseController {
         residentIDText.clear();
         residentPhoneText.clear();
         status.setValue(null);
-    }
-    private String formatDate(String formattedDate) {
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(formattedDate, inputFormatter).format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            return formattedDate;
-        }
     }
 }

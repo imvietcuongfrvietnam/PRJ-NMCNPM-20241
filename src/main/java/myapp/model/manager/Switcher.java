@@ -76,6 +76,10 @@ public class Switcher {
     public void goBillManagementPage(Event event) throws IOException {
         this.switchScene(event, "ListOfBills.fxml", null);
     }
+    // Phương thức chuyển đến quản lý quỹ đóng góp
+    public void goFundManagementPage(Event event) throws IOException {
+        this.switchScene(event, "ListOfFunds.fxml", null);
+    }
     // Phương thức chuyển đến trang cài đặt
     public void goSettingPage(Event event) throws IOException {
         this.switchScene(event, "Setting.fxml", null);

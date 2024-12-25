@@ -33,21 +33,9 @@
                 <Font name="System Bold" size="40.0" />
             </font>
         </Label>
-        <Button fx:id="addButton" alignment="CENTER" layoutX="1115.0" layoutY="50.0" minHeight="-Infinity" mnemonicParsing="false" prefHeight="50.0" prefWidth="155.0" style="-fx-background-color: #0070C0; -fx-background-radius: 10;" text="Thêm mới" textFill="WHITE">
-            <font>
-                <Font name="System Bold" size="25.0" />
-            </font>
-            <effect>
-                <DropShadow blurType="ONE_PASS_BOX" height="20.0" offsetX="2.5" offsetY="2.5" radius="9.5" width="20.0">
-                    <color>
-                        <Color red="0.49803921580314636" green="0.49803921580314636" blue="0.49803921580314636" />
-                    </color>
-                </DropShadow>
-            </effect>
-        </Button>
-        <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="500.0">
+        <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="575.0">
             <children>
-                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="575.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -62,16 +50,6 @@
                     <StackPane.margin>
                         <Insets left="10.0" />
                     </StackPane.margin>
-                </ImageView>
-            </children>
-        </StackPane>
-        <StackPane layoutX="1820.0" layoutY="50.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../image/Notification(1).png" />
-                    </image>
                 </ImageView>
             </children>
         </StackPane>

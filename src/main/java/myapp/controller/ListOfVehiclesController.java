@@ -1,11 +1,10 @@
 package myapp.controller;
 
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -13,18 +12,19 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import myapp.model.communicatedb.delete.VehicleDelete;
+import myapp.model.communicatedb.insert.ResidentInsert;
+import myapp.model.communicatedb.insert.VehicleInsert;
+import myapp.model.communicatedb.select.HouseHoldSelect;
 import myapp.model.connectdb.SQLConnector;
-import myapp.model.entities.entitiesdb.HouseHold;
 import myapp.model.entities.entitiesdb.Resident;
 import myapp.model.entities.entitiesdb.Vehicle;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ResourceBundle;
 
 public class ListOfVehiclesController extends BaseController {
     @FXML private StackPane stackPaneInsertUpdate;
@@ -33,13 +33,18 @@ public class ListOfVehiclesController extends BaseController {
     @FXML private TableColumn<Vehicle, Integer> indexColumn;
     @FXML private TableColumn<Vehicle, String> houseHoldIDColumn, vehicleTypeColumn, licensePlateColumn, startDateColumn, endDateColumn, noteColumn;
     @FXML private TableColumn<Vehicle, HBox> operationsColumn;
+    @FXML private TextField searchText, houseHoldIDText, apartmentIDText, addressText, licensePlateText, vehicleTypeText;
+    @FXML private TextArea noteText;
+    @FXML private DatePicker startDate, endDate;
+    @FXML private TableView<Vehicle> VehicleTableView;
+    @FXML private TableColumn<Vehicle, Integer> IndexColumn;
+    @FXML private TableColumn<Vehicle, String> VehicleTypeColumn, LicensePlateColumn, StartDateColumn, EndDateColumn;
     @FXML private Pagination pagination;
-    @FXML private TextField searchText;
 
     private static final int ROWS_PER_PAGE = 10;
     private ObservableList<Vehicle> vehiclesList;
     private ObservableList<Vehicle> filteredList;
-    private Vehicle editingVehicle;
+    private Vehicle edittingVehicle;
     private final Switcher switcher = new Switcher();
 
     @Override
@@ -131,15 +136,58 @@ public class ListOfVehiclesController extends BaseController {
         return hbox;
     }
     private void viewVehicle(Vehicle vehicle) {
+        edittingVehicle = vehicle;
+        houseHoldIDText.setText(edittingVehicle.getHouseHoldID());
+        apartmentIDText.setText(HouseHoldSelect.getApartmentIDByHouseHoldID(edittingVehicle.getHouseHoldID()));
+        vehicleTypeText.setText(edittingVehicle.getVehicleType());
+        licensePlateText.setText(edittingVehicle.getLicensePlate());
+        startDate.setValue(LocalDate.parse(edittingVehicle.getStartDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        endDate.setValue(LocalDate.parse(edittingVehicle.getEndDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        noteText.setText(edittingVehicle.getNote());
+        updateVehiclesTable(vehicle.getHouseHoldID());
+
+        // Tắt khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ xem
+        houseHoldIDText.setEditable(false);
+        apartmentIDText.setEditable(false);
+        addressText.setEditable(false);
+        vehicleTypeText.setEditable(false);
+        licensePlateText.setEditable(false);
+        startDate.setMouseTransparent(true);
+        endDate.setMouseTransparent(true);
+        noteText.setEditable(false);
+
+        saveButton.setVisible(false);
+        cancelButton.setStyle("-fx-background-color: #0070C0; -fx-font-size: 20; -fx-text-fill: #FFFFFF; -fx-font-weight: Bold;");
         stackPaneInsertUpdate.setVisible(true);
-
-
     }
     private void editVehicle(Vehicle vehicle) {
+        edittingVehicle = vehicle;
+        houseHoldIDText.setText(edittingVehicle.getHouseHoldID());
+        apartmentIDText.setText(HouseHoldSelect.getApartmentIDByHouseHoldID(edittingVehicle.getHouseHoldID()));
+        vehicleTypeText.setText(edittingVehicle.getVehicleType());
+        licensePlateText.setText(edittingVehicle.getLicensePlate());
+        startDate.setValue(LocalDate.parse(edittingVehicle.getStartDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        endDate.setValue(LocalDate.parse(edittingVehicle.getEndDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+        noteText.setText(edittingVehicle.getNote());
+        updateVehiclesTable(vehicle.getHouseHoldID());
+
+        // Bật khả năng chỉnh sửa cho các trường nhập liệu khi ở chế độ xem
+        houseHoldIDText.setEditable(true);
+        apartmentIDText.setEditable(true);
+        addressText.setEditable(true);
+        vehicleTypeText.setEditable(true);
+        licensePlateText.setEditable(true);
+        startDate.setMouseTransparent(false);
+        endDate.setMouseTransparent(false);
+        noteText.setEditable(true);
+
+        saveButton.setVisible(true);
+        cancelButton.setStyle("-fx-background-color: #F2F2F2; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal;");
         stackPaneInsertUpdate.setVisible(true);
     }
 
     private void deleteVehicle(Vehicle vehicle) {
+        VehicleDelete.delete(vehicle.getLicensePlate());
         vehiclesList.remove(vehicle);
         vehicleTableView.refresh();
         updatePagination(vehiclesList);
@@ -190,8 +238,52 @@ public class ListOfVehiclesController extends BaseController {
         });
         pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
     }
+
+    private void updateVehiclesTable(String houseHoldID) {
+        ObservableList<Vehicle> vehicles = HouseHoldSelect.getVehiclesByHouseHoldID(houseHoldID);
+        // Cập nhật cột chỉ số (index) của các phương tiện
+        IndexColumn.setCellValueFactory(cellData -> {
+            int rowIndex = vehicles.indexOf(cellData.getValue());
+            return new SimpleObjectProperty<>(rowIndex + 1);
+        });
+        // Cập nhật cột loại phương tiện
+        VehicleTypeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getVehicleType()));
+        // Cập nhật cột biển số
+        LicensePlateColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLicensePlate()));
+        // Cập nhật cột ngày bắt đầu và ngày kết thúc
+        StartDateColumn.setCellValueFactory(cellData -> {
+            String originalDate = cellData.getValue().getStartDate();
+            if (originalDate != null && !originalDate.isEmpty()) {
+                try {
+                    LocalDate date = LocalDate.parse(originalDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    return new SimpleStringProperty(formattedDate);
+                } catch (DateTimeParseException e) {
+                    return new SimpleStringProperty("31/12/9999"); // Hoặc xử lý khác nếu cần
+                }
+            } else {
+                return new SimpleStringProperty("31/12/9999");
+            }
+        });
+        EndDateColumn.setCellValueFactory(cellData -> {
+            String originalDate = cellData.getValue().getEndDate();
+            if (originalDate != null && !originalDate.isEmpty()) {
+                try {
+                    LocalDate date = LocalDate.parse(originalDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                    String formattedDate = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    return new SimpleStringProperty(formattedDate);
+                } catch (DateTimeParseException e) {
+                    return new SimpleStringProperty("31/12/9999"); // Hoặc xử lý khác nếu cần
+                }
+            } else {
+                return new SimpleStringProperty("31/12/9999");
+            }
+        });
+
+        VehicleTableView.setItems(vehicles);
+    }
     public void add() {
-        editingVehicle = null;
+        edittingVehicle = null;
         clearFields();
         stackPaneInsertUpdate.setVisible(true);
     }
@@ -202,20 +294,35 @@ public class ListOfVehiclesController extends BaseController {
     }
 
     public void save() {
+        String houseHoldID = houseHoldIDText.getText();
+        String vehicleType = vehicleTypeText.getText();
+        String licensePlate = licensePlateText.getText();
+        String startDateValue = startDate.getValue() != null ? startDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+        String endDateValue = endDate.getValue() != null ? endDate.getValue().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "";
+        String note = noteText.getText();
+
+        if (edittingVehicle != null) {
+            edittingVehicle.setHouseHoldID(houseHoldID);
+            edittingVehicle.setVehicleType(vehicleType);
+            edittingVehicle.setLicensePlate(licensePlate);
+            edittingVehicle.setStartDate(startDateValue.toString());
+            edittingVehicle.setEndDate(endDateValue.toString());
+            edittingVehicle.setNote(note);
+            vehicleTableView.refresh();
+            edittingVehicle = null;
+            stackPaneInsertUpdate.setVisible(false);
+            clearFields();
+        } else {
+            Vehicle newVehicle = new Vehicle(houseHoldID, vehicleType, licensePlate, startDateValue, endDateValue, note);
+            vehiclesList.add(newVehicle);
+            VehicleInsert vehicleInsert = new VehicleInsert();
+            vehicleInsert.insert(houseHoldID, vehicleType, licensePlate, startDateValue, endDateValue, note);
+        }
         stackPaneInsertUpdate.setVisible(false);
         updatePagination(vehiclesList);
+        clearFields();
     }
     private void clearFields() {
 
-    }
-    // Chuyển đổi ngày thành định dạng dd/MM/yyyy
-    private String formatDate(String date) {
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(date, inputFormatter).format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            return date;  // Nếu không chuyển đổi được thì trả về ngày gốc
-        }
     }
 }

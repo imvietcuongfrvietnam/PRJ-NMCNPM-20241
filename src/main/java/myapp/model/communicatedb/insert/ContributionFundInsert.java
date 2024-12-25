@@ -8,8 +8,7 @@ import java.sql.PreparedStatement;
 
 public class ContributionFundInsert {
     public void insert(String fundID, String fundName, String amount, Date startDate, Date endDate) {
-                String query = "INSERT INTO bangquydonggop (MaQuy, TenQuy, SoTien, NgayBatDau, NgayKetThuc) VALUES (?, ?, ?, ?, ?)";
-
+        String query = "INSERT INTO bangquydonggop (MaQuy, TenQuy, SoTien, NgayBatDau, NgayKetThuc) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

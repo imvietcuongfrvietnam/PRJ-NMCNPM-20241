@@ -6,6 +6,9 @@ import javafx.scene.control.Button;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public abstract class BaseController {
     @FXML
@@ -59,6 +62,16 @@ public abstract class BaseController {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public String formatDate(String date) {
+        try {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            return LocalDate.parse(date, inputFormatter).format(outputFormatter);
+        } catch (DateTimeParseException e) {
+            return date;
+        }
     }
 
 }

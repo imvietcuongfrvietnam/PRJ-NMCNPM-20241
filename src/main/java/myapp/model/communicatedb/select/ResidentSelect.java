@@ -12,7 +12,7 @@ public class ResidentSelect {
     // Phương thức lấy tên người dân theo SoCMND
     public static String getResidentNameByResidentID(String residentID) {
         String residentName = "";
-        String query = "SELECT HoTen FROM cudan WHERE SoCMND = ?";
+        String query = "SELECT HoTen FROM cudan WHERE CCCD = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -31,7 +31,7 @@ public class ResidentSelect {
     // Phương thức lấy số điện thoại người dân theo SoCMND
     public static String getResidentPhoneByResidentID(String residentID) {
         String residentPhone = null;
-        String query = "SELECT SoDienThoai FROM cudan WHERE SoCMND = ?";
+        String query = "SELECT SoDienThoai FROM cudan WHERE CCCD = ?";
 
         try (Connection connection = SQLConnector.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {

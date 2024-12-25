@@ -323,7 +323,6 @@ public class MainController extends BaseController {
         String newAmount = textField.getText();
         int index = getFeeIndex(feeID);
         textFieldValues.set(index, newAmount);
-        //System.out.println("Updated value for TextField " + (index + 1) + ": " + newAmount);
         new FeeUpdate().update(feeID, newAmount);
         textField.setEditable(false);
         textField.setStyle("-fx-background-color: transparent;");

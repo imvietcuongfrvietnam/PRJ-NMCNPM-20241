@@ -8,8 +8,11 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import myapp.model.connectdb.SQLConnector;
 import myapp.model.entities.entitiesdb.Bill;
+import myapp.model.entities.entitiesdb.Fee;
 import myapp.model.manager.Switcher;
 
 import java.io.IOException;
@@ -18,10 +21,11 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class ListOfBillsController extends BaseController {
-    @FXML private Button addButton, cancelButton, saveButton, listOfFeesButton;
+    @FXML private Button addButton, cancelButton, saveButton, listOfFeesButton, listOfFundsButton;
     @FXML private TableView<Bill> billTableView;
     @FXML private TableColumn<Bill, Integer> indexColumn;
     @FXML private TableColumn<Bill, String> houseHoldIDColumn, billNameColumn, billIDColumn, amountColumn, expDateColumn, statusColumn, noteColumn;
+    @FXML private TableColumn<Bill, Void> updateColumn;
     @FXML private Pagination pagination;
     @FXML private TextField searchText;
     @FXML private ChoiceBox<String> billNameChoiceBox, statusChoiceBox;
@@ -60,28 +64,58 @@ public class ListOfBillsController extends BaseController {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
-
                 if (!empty) {
-                    Bill bill = getTableRow().getItem();  // Lấy đối tượng Bill từ hàng hiện tại
-                    String status = bill != null ? bill.getStatus() : "";  // Lấy giá trị trạng thái từ đối tượng Bill
-
-                    Label statusLabel = new Label();
-                    if ("Đã thanh toán".equals(status)) {
-                        statusLabel.setText("Đã thanh toán");
-                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(0, 255, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
-                    } else if ("Chưa thanh toán".equals(status)) {
-                        statusLabel.setText("Chưa thanh toán");
-                        statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
+                    Bill bill = getTableRow().getItem();
+                    if (bill != null) {
+                        String status = bill.getStatus();
+                        Label statusLabel = new Label();
+                        if ("Đã thanh toán".equals(status)) {
+                            statusLabel.setText("Đã thanh toán");
+                            statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(0, 255, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
+                        } else if ("Chưa thanh toán".equals(status)) {
+                            statusLabel.setText("Chưa thanh toán");
+                            statusLabel.setStyle("-fx-pref-width: 180; -fx-pref-height: 40.75; -fx-background-color: rgba(255, 0, 0, 0.25); -fx-background-radius: 5; -fx-font-size: 20; -fx-text-fill: #002060; -fx-font-weight: Normal; -fx-alignment: center;");
+                        }
+                        statusLabel.setPadding(new Insets(5));
+                        setGraphic(statusLabel);
                     }
-                    statusLabel.setPadding(new Insets(5));
-                    setGraphic(statusLabel);
                 } else {
                     setGraphic(null);
                 }
             }
         });
-
         noteColumn.setCellValueFactory(new PropertyValueFactory<Bill, String>("note"));
+        updateColumn.setCellFactory(column -> new TableCell<>() {
+            private final Button updateButton = new Button();
+            {
+                ImageView updateImageView = new ImageView(new Image(getClass().getResourceAsStream("/image/Update.png")));
+                updateImageView.setFitWidth(40);
+                updateImageView.setFitHeight(40);
+                updateImageView.setPreserveRatio(false);
+                updateButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 10; -fx-border-color:  #FFC000; -fx-border-radius: 10; -fx-border-width: 2.5; -fx-pref-width: 50px; -fx-pref-height: 50px; -fx-padding: 0;");
+                updateButton.setGraphic(updateImageView);
+                updateButton.setOnAction(event -> {
+                    Bill bill = getTableView().getItems().get(getIndex()); // Lấy đối tượng Fee từ hàng hiện tại
+                    if (bill != null) {
+                        if ("Đã thanh toán".equals(bill.getStatus())) {
+                            bill.setStatus("Chưa thanh toán");
+                        } else {
+                            bill.setStatus("Đã thanh toán");
+                        }
+                        getTableView().refresh(); // Làm mới bảng để cập nhật giao diện
+                    }
+                });
+            }
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(updateButton);
+                }
+            }
+        });
 
         searchText.textProperty().addListener((observable, oldValue, newValue) -> filterBills());
 
@@ -102,6 +136,13 @@ public class ListOfBillsController extends BaseController {
         listOfFeesButton.setOnAction(event -> {
             try {
                 switcher.goFeeManagementPage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        listOfFundsButton.setOnAction(event -> {
+            try {
+                switcher.goFundManagementPage(event);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -161,24 +202,5 @@ public class ListOfBillsController extends BaseController {
             return billTableView;
         });
         pagination.setPageCount((filteredList.size() + ROWS_PER_PAGE - 1) / ROWS_PER_PAGE);
-    }
-
-    // Chuyển đổi ngày thành định dạng dd/MM/yyyy
-    private String formatDate(String date) {
-        try {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            return LocalDate.parse(date, inputFormatter).format(outputFormatter);
-        } catch (DateTimeParseException e) {
-            return date;  // Nếu không chuyển đổi được thì trả về ngày gốc
-        }
-    }
-
-    private void switchToListOfHouseHold(Event event) {
-        try {
-            switcher.goListOfHouseholdPage(event);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

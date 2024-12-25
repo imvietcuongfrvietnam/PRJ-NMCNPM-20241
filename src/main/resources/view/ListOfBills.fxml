@@ -28,9 +28,9 @@
                 <Font name="System Bold" size="40.0" />
             </font>
         </Label>
-        <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="500.0">
+        <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="575.0">
             <children>
-                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+                <TextField fx:id="searchText" prefHeight="50.0" prefWidth="575.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
                     <font>
                         <Font size="20.0" />
                     </font>
@@ -45,16 +45,6 @@
                     <StackPane.margin>
                         <Insets left="10.0" />
                     </StackPane.margin>
-                </ImageView>
-            </children>
-        </StackPane>
-        <StackPane layoutX="1820.0" layoutY="50.0">
-            <children>
-                <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../image/Notification(1).png" />
-                    </image>
                 </ImageView>
             </children>
         </StackPane>
@@ -183,11 +173,11 @@
                         <TableColumn fx:id="houseHoldIDColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hộ gia đình" />
                         <TableColumn fx:id="billNameColumn" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Tên hóa đơn" />
                         <TableColumn fx:id="billIDColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Mã hóa đơn" />
-                        <TableColumn fx:id="amountColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Số tiền" />
-                        <TableColumn fx:id="expDateColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ngày hết hạn" />
+                        <TableColumn fx:id="amountColumn" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Số tiền" />
+                        <TableColumn fx:id="expDateColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ngày hết hạn" />
                         <TableColumn fx:id="statusColumn" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Trạng thái" />
-                        <TableColumn fx:id="noteColumn" maxWidth="190.0" minWidth="190.0" prefWidth="190.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ghi chú" />
-                  <TableColumn fx:id="operationsColumn" maxWidth="180.0" prefWidth="180.0" style="-fx-alignment: center;" text="Thao tác" visible="false" />
+                        <TableColumn fx:id="noteColumn" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" style="-fx-alignment: center; -fx-text-fill: #002060;" text="Ghi chú" />
+                        <TableColumn fx:id="updateColumn" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" style="-fx-alignment: center; -fx-text-fill: #002060;" />
                     </columns>
                     <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -196,5 +186,10 @@
                 <Pagination fx:id="pagination" layoutX="400.0" layoutY="250.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="735.0" prefWidth="1470.0" StackPane.alignment="BOTTOM_CENTER" />
             </children>
         </StackPane>
+      <Button fx:id="listOfFundsButton" alignment="CENTER" layoutX="805.0" layoutY="145.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="205.0" style="-fx-background-color: rgba(255, 255, 255, 0);" text="Quỹ đóng góp" textFill="#7f7f7f">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Button>
     </children>
 </AnchorPane>

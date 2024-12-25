@@ -13,7 +13,6 @@ import javafx.scene.control.Alert.AlertType;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class SignUpController implements Initializable {
@@ -38,12 +37,15 @@ public class SignUpController implements Initializable {
     private String firstName;
     private String email;
     private String phone;
-    private String userName;
+    private String username;
     private String password;
-    private String defaultCMND = "";
-    private String defaultQueQuan = "";
-    private String defaultNgaySinh = "01/01/1970";
-    private String defaultRole = "admin";
+    private String defaultRole = "Quản trị viên";
+    private String defaultGender = "Nam";
+    private String defaultDateOfBirth = "01/01/1970";
+    private String defaultIDcard = "0123456789";
+    private String defaultHometown = "Hà Nội";
+    private String defaultAddress = "Chung cư BlueMoon";
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -57,14 +59,13 @@ public class SignUpController implements Initializable {
         });
 
         signUpButton.setOnAction(event -> {
-            // Lấy giá trị của từng trường
             lastName = lastNameText.getText();
             firstName = firstNameText.getText();
             email = emailText.getText();
             phone = phoneText.getText();
-            userName = usernameText.getText();
+            username = usernameText.getText();
             password = passwordText.getText();
-            if(lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || userName.isEmpty() || password.isEmpty()) {
+            if(lastName.isEmpty() || firstName.isEmpty() || email.isEmpty() || phone.isEmpty() || username.isEmpty() || password.isEmpty()) {
                 Alert alert = new Alert(AlertType.WARNING);
                 alert.setTitle("Thiếu thông tin");
                 alert.setHeaderText(null);
@@ -72,12 +73,9 @@ public class SignUpController implements Initializable {
                 alert.showAndWait();
             }
             else{
-                UserAccountInsert taiKhoanNguoiDungInsert = new UserAccountInsert();
-                LocalDateTime now = LocalDateTime.now();
-                taiKhoanNguoiDungInsert.insert(defaultRole, userName, password, now);
-                UserInformationInsert thongTinNguoiDungInsert = new UserInformationInsert();
-            thongTinNguoiDungInsert.insert(lastName + " " + firstName, defaultCMND, defaultNgaySinh, email, defaultQueQuan, phone, new UserAccountSelect().select());}
+                UserAccountInsert userAccountInsert = new UserAccountInsert();
+                userAccountInsert.insert(defaultRole, username, password, lastName + " " + firstName, defaultGender, defaultDateOfBirth, defaultIDcard, phone, email, defaultHometown, defaultAddress );
+            }
         });
     }
-
 }

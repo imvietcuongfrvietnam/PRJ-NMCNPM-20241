@@ -20,6 +20,13 @@ public class Vehicle {
 
     }
 
+    public Vehicle(String vehicleType, String licensePlate, String startDate, String endDate) {
+        this.vehicleType = vehicleType;
+        this.licensePlate = licensePlate;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     // Getter và Setter cho từng thuộc tính
     public String getHouseHoldID() {
         return houseHoldID;

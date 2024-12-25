@@ -3,46 +3,31 @@ package myapp.model.communicatedb.insert;
 import myapp.model.connectdb.SQLConnector;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 public class UserAccountInsert {
-    int defaultTinhTrang = 0;
-    public void insert(String VaiTro, String TenDangNhap, String MatKhau, LocalDateTime NgayTaoTaiKhoan) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
+    public void insert(String role, String username, String password, String name, String gender, String dateOfBirth, String IDcard, String phone, String email, String hometown, String address) {
+        String query = "INSERT INTO taikhoannguoidung (VaiTro, TenDangNhap, MatKhau, HoTen, GioiTinh, NgaySinh, CCCD, SoDienThoai, Email, QueQuan, DiaChi) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        String sql = "INSERT INTO taikhoannguoidung (VaiTro, TenDangNhap, MatKhau, NgayTaoTaiKhoan, TinhTrang) VALUES (?, ?, ?, ?, ?)";
-
-        try {
-            connection = SQLConnector.getConnection();
-
-            preparedStatement = connection.prepareStatement(sql);
-
-            preparedStatement.setString(1, VaiTro);
-            preparedStatement.setString(2, TenDangNhap);
-            preparedStatement.setString(3, MatKhau);
-
-            // Chuyển đổi LocalDateTime sang Timestamp
-            Timestamp timestamp = Timestamp.valueOf(NgayTaoTaiKhoan);
-            preparedStatement.setTimestamp(4, timestamp);
-            preparedStatement.setInt(5, defaultTinhTrang);
-            int rowsAffected = preparedStatement.executeUpdate();
-            System.out.println("Số bản ghi đã thêm: " + rowsAffected);
+        try (Connection connection = SQLConnector.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, role);
+            preparedStatement.setString(2, username);
+            preparedStatement.setString(3, password);
+            preparedStatement.setString(4, name);
+            preparedStatement.setString(5, gender);
+            preparedStatement.setDate(6, Date.valueOf(dateOfBirth));
+            preparedStatement.setString(7, IDcard);
+            preparedStatement.setString(8, phone);
+            preparedStatement.setString(9, email);
+            preparedStatement.setString(10, hometown);
+            preparedStatement.setString(11, address);
+            preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (preparedStatement != null) {
-                    preparedStatement.close();
-                }
-                SQLConnector.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

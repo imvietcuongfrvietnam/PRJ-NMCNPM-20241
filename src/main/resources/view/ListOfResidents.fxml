@@ -46,9 +46,9 @@
             </DropShadow>
          </effect>
       </Button>
-      <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="500.0">
+      <StackPane layoutX="1295.0" layoutY="50.0" prefHeight="50.0" prefWidth="575.0">
          <children>
-            <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+            <TextField fx:id="searchText" prefHeight="50.0" prefWidth="575.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
                <font>
                   <Font size="20.0" />
                </font>
@@ -63,16 +63,6 @@
                <StackPane.margin>
                   <Insets left="10.0" />
                </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
-      <StackPane layoutX="1820.0" layoutY="50.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/Notification(1).png" />
-               </image>
             </ImageView>
          </children>
       </StackPane>
@@ -219,7 +209,7 @@
                <StackPane.margin>
                   <Insets left="350.0" top="150.0" />
                </StackPane.margin></Rectangle>
-            <Label alignment="CENTER" prefWidth="390.0" text="Thông tin cá nhân" textFill="#002060" StackPane.alignment="TOP_LEFT">
+            <Label alignment="CENTER" prefWidth="390.0" text="Thông tin cư dân" textFill="#002060" StackPane.alignment="TOP_LEFT">
                <font>
                   <Font name="System Bold" size="45.0" />
                </font>
@@ -278,7 +268,7 @@
                   <Insets left="400.0" top="385.0" />
                </StackPane.margin>
             </Label>
-            <DatePicker fx:id="birthdayText" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="300.0" StackPane.alignment="TOP_LEFT">
+            <DatePicker fx:id="birthdayText" nodeOrientation="LEFT_TO_RIGHT" prefHeight="45.0" prefWidth="300.0" style="-fx-font-size: 20;" StackPane.alignment="TOP_LEFT">
                <opaqueInsets>
                   <Insets right="5.0" />
                </opaqueInsets>

@@ -31,9 +31,9 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <StackPane layoutX="1305.0" layoutY="60.0" prefHeight="50.0" prefWidth="500.0">
+      <StackPane layoutX="1305.0" layoutY="60.0" prefHeight="50.0" prefWidth="575.0">
          <children>
-            <TextField fx:id="searchText" prefHeight="50.0" prefWidth="500.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
+            <TextField fx:id="searchText" prefHeight="50.0" prefWidth="575.0" promptText="Tìm kiếm" style="-fx-background-radius: 25;">
                <font>
                   <Font size="20.0" />
                </font>
@@ -48,16 +48,6 @@
                <StackPane.margin>
                   <Insets left="10.0" />
                </StackPane.margin>
-            </ImageView>
-         </children>
-      </StackPane>
-      <StackPane layoutX="1830.0" layoutY="60.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-color: rgba(0, 0, 0, 0);" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/Notification(1).png" />
-               </image>
             </ImageView>
          </children>
       </StackPane>

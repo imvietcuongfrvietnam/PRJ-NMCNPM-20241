@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class VehicleDelete {
-    public void delete(String bienSo) {
+    public static void delete(String bienSo) {
         String query = "DELETE FROM quanlyphuongtien WHERE BienSo = ?";
 
         try (Connection connection = SQLConnector.getConnection();

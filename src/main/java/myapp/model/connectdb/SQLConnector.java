@@ -79,7 +79,7 @@ public class SQLConnector {
         String query = "SELECT MaHoGiaDinh, MaCanHo, " +
                 "FORMAT(NgayChuyenVao, 'dd/MM/yyyy') AS NgayChuyenVao, " +
                 "FORMAT(NgayChuyenRa, 'dd/MM/yyyy') AS NgayChuyenRa, " +
-                "SoCMNDChuHo, TrangThai FROM hogiadinh";
+                "CCCDChuHo, TrangThai FROM hogiadinh";
 
         try (PreparedStatement statement = getConnection().prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
@@ -90,7 +90,7 @@ public class SQLConnector {
                         resultSet.getString("MaCanHo"),
                         resultSet.getString("NgayChuyenVao"),
                         resultSet.getString("NgayChuyenRa"),
-                        resultSet.getString("SoCMNDChuHo"),
+                        resultSet.getString("CCCDChuHo"),
                         resultSet.getString("TrangThai")
                 ));
             }
@@ -153,6 +153,29 @@ public class SQLConnector {
         return billsList;
     }
     // Truy vấn danh sách quỹ đóng góp
+    public static ObservableList<ContributionFund> getFunds() {
+        ObservableList<ContributionFund> fundsList = FXCollections.observableArrayList();
+        String query = "SELECT * FROM quanlyquydonggop";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                fundsList.add(new ContributionFund(
+                        resultSet.getString("TenQuy"),
+                        resultSet.getString("MaQuy"),
+                        resultSet.getString("MaHoGiaDinh"),
+                        resultSet.getString("SoTienDongGop"),
+                        formatDate(resultSet.getString("NgayDongGop")),
+                        resultSet.getString("TrangThai"),
+                        resultSet.getString("GhiChu")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return fundsList;
+    }
+    // Truy vấn danh sách quỹ đóng góp
     public static ObservableList<ContributionFund> getContributionFunds() {
         ObservableList<ContributionFund> contributionFundsList = FXCollections.observableArrayList();
         String query = "SELECT * FROM bangquydonggop";
@@ -161,15 +184,12 @@ public class SQLConnector {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-
-                String formattedStartDate = formatDate(resultSet.getString("NgayBatDau"));
-                String formattedEndDate = formatDate(resultSet.getString("NgayKetThuc"));
                 contributionFundsList.add(new ContributionFund(
                         resultSet.getString("TenQuy"),
                         resultSet.getString("MaQuy"),
                         resultSet.getString("SoTien"),
-                        formattedStartDate,
-                        formattedEndDate
+                        formatDate(resultSet.getString("NgayBatDau")),
+                        formatDate(resultSet.getString("NgayKetThuc"))
                 ));
             }
         } catch (SQLException e) {
